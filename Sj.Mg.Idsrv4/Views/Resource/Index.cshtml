@@ -1,0 +1,204 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MedGrotto</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/medg/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/medg/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700" rel="stylesheet">
+    <link rel="icon" href="~/Content/medg/images/favi64x64.png">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="#" id="logo"><img src="~/Content/medg/images/logo.png"></a>
+            <ul>
+                <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
+                <li><a href="#" class="click" data-id="#requests-id" "><i class="fa fa-bell" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    </header>
+    <section class="main">
+        <div class="container">
+            <h2>Medgrotto/Resource</h2>
+            <div class="contSection">
+                <div class="logoRow" style="align-content:center;vertical-align:middle;">
+                    <img src="/Content/medg/images/relief_api.png"> <span style="font-size:xx-large;">(Resource Server)</span>
+                </div>
+                <br>
+                <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Resources</th>
+                            <th>Scope</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Get Patient Medications (api/meds)</td>
+                            <td>Shared with 2 users</td>
+                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Manage</button></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Post Patient Medications (api/postmed)</td>
+                            <td>Shared with 1 user</td>
+                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Manage</button></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Get Patient Observation (api/labs)</td>
+                            <td>Shared with 3 users</td>
+                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Manage</button></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="contSection">
+                <div class="logoRow">
+                    <img src="~/Content/medg/images/secLogo2.png">
+                </div>
+                <br>
+                <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Resources</th>
+                            <th>Scope</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Labs</td>
+                            <td>Shared with 0 users</td>
+                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Demographics</td>
+                            <td>Shared with 3 users</td>
+                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>H&amp;P Record</td>
+                            <td>Shared with 2 users</td>
+                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <div class="lightbox" id="share-id">
+        <div class="scrollSec">
+            <a href="#" class="closeIcon">X</a>
+            <h2>Share <span>Resource</span></h2>
+            <div class="resourceContSec1">
+                <div class="resourceContSec1Left">
+                    <div class="resourceRow">
+                        <img src="/Content/medg/images/resourceLogo1.png">
+                        <h3>Visit History</h3>
+                    </div>
+                    <div class="resourceSectionLogo"><img src="/Content/medg/images/secLogo1.png"></div>
+                </div>
+                <div class="resourceContSec1Right">
+                    <div class="resourceForm">
+                        <input type="text" name="" placeholder="Add Users">
+                        <div class="selectPermission">
+                            <div class="selectLabel">Select Permissions</div>
+                            <ul>
+                                <li>View</li>
+                                <li>Share</li>
+                                <li>Read</li>
+                                <li>Edit</li>
+                            </ul>
+                        </div>
+                        <div class="buttonsRow">
+                            <button class="btn-cancel">Cancel</button>
+                            <button class="btn-share"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll">
+                <table class="resourceTable" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>USER</th>
+                            <th>PERMISSION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Rumana@google.com</td>
+                            <td>View,Share</td>
+                        </tr>
+                        <tr>
+                            <td>Immanuel@within30.com</td>
+                            <td>View</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="lightbox" id="requests-id">
+        <div class="scrollSec">
+            <a href="#" class="closeIcon">X</a>
+            <h2 class="requests_title"><img src="/Content/medg/images/accessIcon.png">Access <span>Requests</span></h2>
+            <h4>Pending Requests</h4>
+            <div class="scroll">
+                <table class="requestsTable" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>USER</th>
+                            <th>RESOURCE</th>
+                            <th>REQUEST SENT</th>
+                            <th>PERMISSION</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Rumana@google.com</td>
+                            <td>View,Share</td>
+                            <td>View,Share</td>
+                            <td>View,Share</td>
+                            <td>
+                                <button class="btn-share requests-btn-share"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button>
+                                <button class="btn-cancel requests-btn-cancel">Deny</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rumana@google.com</td>
+                            <td>View,Share</td>
+                            <td>View,Share</td>
+                            <td>View,Share</td>
+                            <td>
+                                <button class="btn-share requests-btn-share"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button>
+                                <button class="btn-cancel requests-btn-cancel">Deny</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="popupShadow"></div>
+    <script type="text/javascript" src="~/Content/medg/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="~/Content/medg/js/friendlyLightBox.js"></script>
+    <script type="text/javascript" src="~/Content/medg/js/custom.js"></script>
+    <script type="text/javascript">
+
+    </script>
+</body>
+</html>

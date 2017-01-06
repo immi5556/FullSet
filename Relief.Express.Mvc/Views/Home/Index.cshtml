@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div style="width:100%;text-align:center;"><h3>Relief Express</h3></div>
+<br /><br />
+<div>
+    @ViewBag.Messg
+</div>
+<div style="width:100%;">
+    <table style="width:100%;">
+        <thead>
+            <tr style="background-color:coral;">
+                <td colspan="4" align="center" valign="middle"><h4>Patient List</h4></td>
+            </tr>
+            <tr style="background-color:grey;color:white;">
+                <td>Name</td>
+                <td>Age</td>
+                <td>Gender</td>
+                <td>Details (Secured)</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Name-1</td>
+                <td>21</td>
+                <td>M</td>
+                <td><a class="cls-order" style="cursor:pointer;text-decoration:none;">More Info....</a></td>
+            </tr>
+            <tr>
+                <td>Name-2</td>
+                <td>21</td>
+                <td>M</td>
+                <td><a style="cursor:pointer;text-decoration:none;" class="cls-order">More Info....</a></td>
+            </tr>
+        </tbody>
+    </table>   
+</div>
+@section scripts {
+    <script>
+        $(".cls-order").on("click", function () {
+            window.location = "Home/Secure";
+            //$('#detailsview').load("Home/GetData", { searchText: "Lord Jesus my Protector" });
+            //$.ajax("Home/GetData")
+            //  .done(function (data) {
+            //      alert(data);
+            //  })
+            //  .fail(function (err, err1, err2) {
+            //      alert("error");
+            //  })
+            //  .always(function (data) {
+            //      //alert("complete");
+            //  });
+        })
+    </script>
+}

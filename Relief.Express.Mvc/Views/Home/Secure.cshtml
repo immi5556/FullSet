@@ -1,0 +1,41 @@
+﻿<br /><br />
+<div style="text-align:center;"><h3>Secure Data</h3></div>
+<div style="text-align:center;">
+    <span>API Resources</span> <br />
+    <li><a class="med-dat" style="cursor:pointer;text-decoration:none;">Medication Data (oAuth2 Roles Scope)</a></li>  
+    <li><a class="lab-dat" style="cursor:pointer;text-decoration:none;">Observation Data Api(UMA)</a></li>
+</div>
+<br /><br />
+<div><h4>RS - Response Data</h4></div>
+<div id="detailsview"></div>
+@section scripts {
+    <script>
+        $(".med-dat").on("click", function () {
+            //$('#detailsview').load("/Home/GetData", { searchText: "Lord Jesus my Protector" });
+            $.ajax("/Home/GetData")
+              .done(function (data) {
+                  //alert(data);
+                  $('#detailsview').html(data);
+              })
+              .fail(function (err, err1, err2) {
+                  alert("error");
+              })
+              .always(function (data) {
+                  //alert("complete");
+              });
+        });
+        $(".lab-dat").on("click", function () {
+            $.ajax("/Home/GetLabData")
+              .done(function (data) {
+                  //alert(data);
+                  $('#detailsview').html(data);
+              })
+              .fail(function (err, err1, err2) {
+                  alert("error");
+              })
+              .always(function (data) {
+                  //alert("complete");
+              });
+        });
+    </script>
+}

@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MedGrotto</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/medg/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700" rel="stylesheet">
+</head>
+<body class="loginbg">
+    <div class="loginSection">
+        <a href="#" class="loginLogo" style="color: white;align-content:center;pointer-events: none;cursor: default;text-decoration: none;">
+            <img src="~/Content/medg/images/logoLogin.png">
+            <br /><br /><span style="padding-left:80px;font-size:x-large;pointer-events: none;cursor: default;">User Managed Access</span>
+        </a>
+        <div class="formBlock">
+            <input type="text" name="" id="txtun" placeholder="Username">
+            <input type="password" name="" id="txtpw" placeholder="Password">
+            <div class="formRow1">
+                <label for="remember"><input type="checkbox" name="" id="remember"> Remember me</label>
+                <a href="#">Forgot Password?</a>
+            </div>
+            <input type="submit" id="lgn" name="" value="Login">
+        </div>
+    </div>
+    <br /><br />
+    <div style="text-align:center;">
+        <a href="/uma/UmaWellKnownConfig" style="text-decoration:none;color: white;">UMA Discovery</a>
+    </div>
+    <script type="text/javascript" src="~/Content/medg/js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            $("#lgn").on("click", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/Access",
+                    data: { un: $("#txtun").val(), secret: $("#txtpw").val() },
+                    success: function (data) {
+                        window.location = "/Resource";
+                    },
+                    error : function(data){
+                        alert(data.responseText);
+                    },
+                    dataType: "json"
+                });
+            });
+        })
+    </script>
+</body>
+</html>
