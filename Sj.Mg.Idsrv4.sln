@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Relief.Express.Mvc", "Relie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuero.Express.Ajax", "Nuero.Express.Ajax\Nuero.Express.Ajax.csproj", "{7D3BD351-5677-4620-8D6F-F448C2C90EC5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestUI", "TestUI", "{F7A534E9-6C09-4C99-98CB-D84337C91B4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AzureWebSites|Android = AzureWebSites|Android
