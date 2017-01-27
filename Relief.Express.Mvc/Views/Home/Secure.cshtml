@@ -2,20 +2,23 @@
 <div style="text-align:center;"><h3>Secure Data</h3></div>
 <div style="text-align:center;">
     <span>API Resources</span> <br />
-    <li><a class="med-dat" style="cursor:pointer;text-decoration:none;">Medication Data (oAuth2 Roles Scope)</a></li>  
-    <li><a class="lab-dat" style="cursor:pointer;text-decoration:none;">Observation Data Api(UMA)</a></li>
+    <li style="display: none;"><a class="med-dat" style="cursor:pointer;text-decoration:none;">Medication Data (oAuth2 Roles Scope)</a></li>
+    <li style="display: none;"><a class="obs-dat" style="cursor:pointer;text-decoration:none;">Observation Data Api(UMA)</a></li>
 </div>
 <br /><br />
-<div><h4>RS - Response Data</h4></div>
-<div id="detailsview"></div>
+<div style="display: none;"><h4>RS - Response Data</h4></div>
+<div style="width: 100%;">
+    <div id="detailsview" style="width:50%;float: left;"></div>
+    <div id="detailsview1" style="width:50%;float: left;"></div>
+</div>
 @section scripts {
     <script>
-        $(".med-dat").on("click", function () {
+        $(".obs-dat").on("click", function () {
             //$('#detailsview').load("/Home/GetData", { searchText: "Lord Jesus my Protector" });
-            $.ajax("/Home/GetData")
+            $.ajax("/Home/GetObsData")
               .done(function (data) {
                   //alert(data);
-                  $('#detailsview').html(data);
+                  $('#detailsview').html("<h2>Obs Data </h2><pre>" + data + "</pre>");
               })
               .fail(function (err, err1, err2) {
                   alert("error");
@@ -24,11 +27,11 @@
                   //alert("complete");
               });
         });
-        $(".lab-dat").on("click", function () {
+        $(".med-dat").on("click", function () {
             $.ajax("/Home/GetLabData")
               .done(function (data) {
                   //alert(data);
-                  $('#detailsview').html(data);
+                  $('#detailsview1').html("<h2>Medication Data </h2><pre>" + data + "</pre>");
               })
               .fail(function (err, err1, err2) {
                   alert("error");
@@ -37,5 +40,7 @@
                   //alert("complete");
               });
         });
+        $(".med-dat").trigger("click");
+        $(".obs-dat").trigger("click");
     </script>
 }

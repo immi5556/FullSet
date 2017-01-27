@@ -61,14 +61,32 @@ namespace Sj.Mg.Idsrv4.Config
                 {
                     Name = "uma_protection",
                     DisplayName = "Uma protect",
-                    Description = "Uma Protection to enable PAT token to respurce server",
+                    Description = "Uma Protection to enable PAT token to resource server",
                     Type = ScopeType.Resource,
                     Claims = new List<ScopeClaim>()
                     {
                         new ScopeClaim("role", true)
                     }
+                },
+                new Scope()
+                {
+                    Name = "re-api",
+                Type = ScopeType.Identity,
+                Emphasize = true,
+                    Claims = new List<ScopeClaim>()
+                    {
+                        new ScopeClaim("name", true),
+                        new ScopeClaim("given_name", true),
+                        new ScopeClaim("family_name", true),
+                        new ScopeClaim("email", true),
+                        new ScopeClaim("role", true)
+                    }
                 }
             };
+        static Scopes()
+        {
+            AddFhirScopes();
+        }
         public static IEnumerable<Scope> Get()
         {
             return _lstscopes;
@@ -138,6 +156,98 @@ namespace Sj.Mg.Idsrv4.Config
         {
             if (_lstscopes.Find(t => t.Name == id) != null)
                 _lstscopes.Remove(_lstscopes.Find(t => t.Name == id));
+        }
+
+        public static void AddFhirScopes()
+        {
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/Patient.read",
+                    DisplayName = "patient/Patient.read",
+                    Description = "Read access to a single patient's demographic information.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/Patient.write",
+                    DisplayName = "patient/Patient.write",
+                    Description = "Read and write access to a single patient's demographic information.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/Patient.*",
+                    DisplayName = "patient/Patient.*",
+                    Description = "Full access to a single patient's demographic information.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/MedicationOrder.read",
+                    DisplayName = "patient/MedicationOrder.read",
+                    Description = "Read access to a single patient's orders for medications.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/MedicationOrder.write",
+                    DisplayName = "patient/MedicationOrder.write",
+                    Description = "Read and write access to a single patient's orders for medications.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/MedicationOrder.*",
+                    DisplayName = "patient/MedicationOrder.*",
+                    Description = "Full access to a single patient's orders for medications.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/MedicationDispense.read",
+                    DisplayName = "patient/MedicationDispense.read",
+                    Description = "Read access to supply of medications to a single patient.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/MedicationDispense.write",
+                    DisplayName = "patient/MedicationDispense.write",
+                    Description = "Read and write access to supply of medications to a single patient.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/MedicationDispense.*",
+                    DisplayName = "patient/MedicationDispense.*",
+                    Description = "Full access to supply of medications to a single patient.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/MedicationAdministration.read",
+                    DisplayName = "patient/MedicationAdministration.read",
+                    Description = "Read access to a single patient's medications consumption or other administration.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "patient/MedicationAdministration.write",
+                    DisplayName = "patient/MedicationAdministration.write",
+                    Description = "Read and write access to a single patient's medications consumption or other administration.",
+                    Type = ScopeType.Resource
+                });
         }
     }
 }

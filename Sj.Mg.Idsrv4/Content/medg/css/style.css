@@ -107,8 +107,20 @@ header ul li:first-child {
 	margin:0;
 }
 header ul li a {
+	position: relative;
 	color: #fff;
 	font-size: 20px;
+}
+.notification {
+	position: absolute;
+	right: -8px;
+    top: -14px;
+	padding: 3px 5px;
+	color: #fff;
+	font-size: 12px;
+	border-radius: 3px;
+	box-shadow: 0 0 3px #555;
+	background: #f4343f;
 }
 .main {
 	clear: both;
@@ -123,41 +135,102 @@ header ul li a {
 	padding: 15px 0 0 0;
 	font-weight: 400;
 }
-.contSection {
-	margin-top: 38px;
-	padding: 15px 10px;
-	border-radius: 5px;
-	background: #ffffff;
-}
-.contSection table {
-	min-width: 740px;
+.appSection {
 	clear: both;
-	font-size: 18px;
-	padding: 10px 0 0 0;
-	font-family: 'Droid Serif', serif;
 }
-.contSection table thead tr th:first-child,.contSection table tbody tr td:first-child {
+.appSection h3 {
+	position: relative;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Droid Serif', serif;
+    line-height: 22px;
+    padding: 12px 10px;
+    font-weight: 400;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    margin: 20px 0 0;
+    background: url(../images/collapse-bg.gif) repeat; 
+}
+.appSection h3::after {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	content: '';
+	width: 0;
+	height: 0;
+	border-left: 12px solid #fff;
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+}
+.appSection h3.active::after {
+	top: 18px;
+	border-top: 12px solid #fff;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;	
+}
+.tabContent.active {
+	display: block !important;
+}
+.tabContent {
+	border: 1px solid #ccc;
+    background: #fff;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.contSection {
+	position: relative;
+    margin: 0;
+    padding: 5px 0;
+}
+.logoRow {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 20px;
+	width: 200px;
+	text-align: center;
+}
+.tableCont {
+	box-sizing: border-box;
+    clear: both;
+    float: left;
+    padding: 0 15px 25px 215px;
+    position: relative;
+    width: 100%;
+}
+.appSection table {
+    width: 100%;
+    clear: both;
+    font-size: 15px;
+    padding: 10px 0 0;
+    font-family: 'Droid Serif', serif;
+}
+.appSection table thead tr th:first-child,.appSection table tbody tr td:first-child {
 	text-align: left;
 }
-.contSection table thead tr th {
+.appSection table thead tr th {
 	color: #0072c6;
 	font-weight: 700;
 	line-height: 20px;
-	padding: 5px 3px;
+	padding: 5px 3px 15px;
+	width: 33.333%;
+    text-align: left;
+    box-sizing: border-box;
 }
-.contSection table tbody tr td:first-child {
+.appSection table tbody tr td:first-child {
 	color: #585858;
 }
-.contSection table tbody tr td {
+.appSection table tbody tr td {
 	color: #a7a7a7;
-	text-align: center;
-	padding: 8px 0;
+	padding: 2px 0;
 	cursor: pointer;
+	width: 33.333%;
+	text-transform: capitalize;
 }
-.contSection table tbody tr td.visit {
+.appSection table tbody tr td.visit {
 	color: #0072c6;
 }
-.contSection table tbody tr td button {
+.appSection table tbody tr td button {
 	height: 32px;
 	line-height: 32px;
 	color: #fff;
@@ -171,7 +244,7 @@ header ul li a {
 	border-bottom: 3px solid #0b9c1f;
 	background: #0abe23;
 }
-.contSection table tbody tr td button i {
+.appSection table tbody tr td button i {
 	float: left;
 	line-height: 32px;
 }
@@ -203,6 +276,9 @@ header ul li a {
 	border:5px solid #585858;
 	font-family: 'Droid Serif', serif; 
 	background: #fff;
+}
+.lightbox-wid {
+	max-width: 860px;
 }
 .scrollSec {
 	padding: 10px 25px;
@@ -288,10 +364,11 @@ header ul li a {
 }
 .buttonsRow {
 	clear: both;
-	padding: 10px 0 0 0;
+	text-align: center;
 }
-.btn-cancel {
-	float: left;
+.buttonsRow button {
+	display: inline-block;
+	margin: 0 5px;
 	height: 32px;
 	line-height: 32px;
 	padding: 0 25px;
@@ -300,23 +377,15 @@ header ul li a {
 	font-family: 'Droid Serif', serif;
 	font-size: 15px;
 	color: #fff;
-	border:1px solid #bfbfbf;
+	min-width: 100px;
+}
+.btn-cancel {
+	border:0;
+	border-bottom: 3px solid #a6a6a6;
 	background: #a6a6a6;
 }
 .btn-share {
-	float: right;
-	height: 32px;
-	line-height: 32px;
-	color: #fff;
-	width: 165px;
-	box-sizing: border-box;
-	padding: 0 10px;
-	border-radius: 4px;
 	border:0;
-	font-family: 'Droid Serif', serif;
-	font-size: 15px;
-	cursor: pointer;
-	font-weight: 400; 
 	border-bottom: 3px solid #0b9c1f;
 	background: #0abe23;
 }
@@ -331,6 +400,7 @@ header ul li a {
 	color: #585858;
 	padding: 40px 0 0;
 	border:0;
+	border-bottom: 1px solid #e7e6e6;
 }
 .requestsTable th,.requestsTable td {
 	border-left: 1px solid #e7e6e6;
@@ -344,15 +414,20 @@ header ul li a {
 	width: 50%;
 	padding: 5px 8px;
 }
+
 .resourceTable th:first-child,.resourceTable td:first-child,.requestsTable th:first-child,.requestsTable td:first-child {
 	border-left: none;
 }
-
+.requestsTable td:first-child,.resourceTable td:first-child {
+	width: 150px;
+	word-break: break-word;
+}
 .resourceTable td,.requestsTable td {
 	border-top: 1px solid #e7e6e6;
 }
 .requests_title.requests_title {
 	line-height: 50px;
+	margin-top: -10px;
 }
 .requests_title img {
 	width: 50px;
@@ -364,13 +439,24 @@ header ul li a {
 	font-family: 'Droid Serif', serif;
 	color: #585858;
 	font-size: 18px;
-	padding: 40px 0 20px;
+	padding: 15px 0 0;
+}
+.requestsTable {
+	padding-top: 20px;
 }
 .requests-btn-cancel,.requests-btn-share {
 	width: 120px;
 	float: none;
 	display: block;
 	margin: 5px auto 5px;
+	height: 32px;
+	line-height: 32px;
+	padding: 0 25px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-family: 'Droid Serif', serif;
+	font-size: 15px;
+	color: #fff;
 }
 .scroll {
 	clear: both;
@@ -378,12 +464,13 @@ header ul li a {
 }
 .selectPermission {
 	position: relative;
+    z-index: 9;
 }
 .selectLabel {
 	position: relative;
 	width: 100%;
 	height: 35px;
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 	line-height: 35px;
 	padding: 0 10px;
 	box-sizing: border-box;
@@ -408,7 +495,6 @@ header ul li a {
 	border-right: 5px solid transparent;
 	border-top: 10px solid #585858;
 }
-
 .selectPermission ul {
 	position: absolute;
 	left: 0;
@@ -437,36 +523,105 @@ header ul li a {
 	transform: rotateX(0deg);
 	-webkit-transform: rotateX(0deg);
 	-ms-transform: rotateX(0deg);
-
 }
 .selectPermission ul li {
 	position: relative;
 	list-style: none;
-	padding: 5px 10px;
-	cursor: pointer;
+	cursor: pointer; 
 	border-top:1px solid #afabab;
 }
-.selectPermission ul li:hover::before,.selectPermission ul li.active::before {
-	position: absolute;
-	right: 10px;
-	top: 10px;
+.selectPermission ul li label{
+    display: block;
+    padding: 5px 10px;
+    line-height: 23px;
+}
+.selectPermission ul li label input {
+    display: none;
+}
+.selectPermission ul li label span {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 6px;
+    border: 2px solid #1a7f5f;
+    transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    background: #fff;
+}
+.selectPermission ul li label span::before {
+    position: absolute;
+	left: 4px;
+	top: 6px;
 	content: '';
 	width: 10px;
 	height: 3px;
+	transform: rotate(45deg);
+    transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+}
+.selectPermission ul li label input:checked + span {
+    background: #1a7f5f;
+}
+.selectPermission ul li label input:checked + span::before {
 	transform: rotate(-45deg);
-	border: 2px solid #00b050;
+	border: 2px solid #fff;
 	border-top: none;
 	border-right: none;
+    transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
 }
 .selectPermission ul li.active {
 	color: #00b050;
 	font-weight: 700;
 	box-shadow: inset 0 0 5px rgba(0,176,80,0.34);
 }
-
 .selectPermission ul li:first-child {
 	border:none;
 }
+.Listpermission ul {
+    margin-top: -25px;
+    margin-bottom: 20px;
+    line-height: 35px;
+    padding: 13px 5px 4px;
+    box-sizing: border-box;
+    outline: none;
+    color: #585858;
+    font-size: 15px;
+    border-radius: 0 0 8px 8px;
+    font-family: 'Droid Serif', serif;
+    border: 1px solid #afabab;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.6);
+}
+.Listpermission li,.scopeData li {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #afabab;
+    border-radius: 26px;
+    padding: 4px 20px 4px 8px;
+    cursor: pointer;
+    line-height: 18px;
+    list-style: none;
+    margin: 2px;
+    font-size: 14px;
+    background: #eee;
+}
+.Listpermission li::after,.scopeData li::after {
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    display: block;
+    content: 'x';
+    margin: -8px 0 0 0;
+    border-radius: 40px;
+    width: 15px;
+    height: 15px;
+    font-size: 11px;
+    text-align: center;
+    background: #ccc;
+    line-height: 15px;
+}
+
 
 @media (max-width: 1200px){
 	.container {
@@ -475,9 +630,11 @@ header ul li a {
 }
 
 @media (max-width: 760px){
-.contSection table {
-	min-width: 100px;
-	width: 100%;
+.appSection table {
+	width: 400px;
+}
+.requestsTable td:first-child {
+	width: auto;
 }
 .container {
 	padding: 0 15px;

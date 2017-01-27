@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using IdentityModel.Client;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
@@ -31,6 +32,7 @@ namespace Relief.Express.Mvc
                 PostLogoutRedirectUri = AppConstants.Constants.ReClientMvc,
                 Notifications = new OpenIdConnectAuthenticationNotifications()
                 {
+
                     SecurityTokenValidated = async n =>
                     {
                         Helper.TokenHelper.DecodeAndWrite(n.ProtocolMessage.IdToken);
@@ -48,9 +50,9 @@ namespace Relief.Express.Mvc
                         var roleClaim = n.AuthenticationTicket
                             .Identity.FindFirst(IdentityModel.JwtClaimTypes.Role);
 
-                        // create a new claims, issuer + sub as unique identifier
-                        var nameClaim = new Claim(IdentityModel.JwtClaimTypes.Name,
-                                    AppConstants.Constants.IssuerUri + subClaim.Value);
+                        //create a new claims, issuer + sub as unique identifier
+                       var nameClaim = new Claim(IdentityModel.JwtClaimTypes.Name,
+                                   AppConstants.Constants.IssuerUri + subClaim.Value);
 
                         var newClaimsIdentity = new ClaimsIdentity(
                            n.AuthenticationTicket.Identity.AuthenticationType,
@@ -81,7 +83,7 @@ namespace Relief.Express.Mvc
 
                         newClaimsIdentity.AddClaim(new Claim("id_token", n.ProtocolMessage.IdToken));
 
-                        // create a new authentication ticket, overwriting the old one.
+                        //     create a new authentication ticket, overwriting the old one.
                         n.AuthenticationTicket = new AuthenticationTicket(
                                                  newClaimsIdentity,
                                                  n.AuthenticationTicket.Properties);

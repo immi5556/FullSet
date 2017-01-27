@@ -4,7 +4,8 @@
       triggerElem : '.click',
       lightCont :'.lightbox',
       shadow:'shadow',
-      closei:'close'
+      closei:'close',
+      saveData:"#saveData"
     },
     set = $.extend({},defaults,opt);
 
@@ -14,33 +15,36 @@
       lightContbox = $this.find(set.lightCont),
       closeIcon = $('<a/>').addClass(set.closei),
       shadowbx = $('<div/>').addClass(set.shadow),
-      Ww = $(window).width(),
-      Wh = $(window).height(),
+      Ww = $(window).outerWidth(),
+      Wh = $(window).outerHeight(),
       //contentHh = Wh - ($(set.lightCont).outerHeight()),
       //lightContboxHh = $(set.lightCont).outerHeight(),
       getVal;
 
-      var oldElement = null;
-      
-
+      //var oldElement = null;
+      var currentElement = null;
+      var curElemWid = null;
+      var curElemHih = null;
 
       init();
 
       function init(){
         $(set.triggerElem).on('click',function(){
-          oldElement = $(this).attr('data-id');
+          //oldElement = $(this).attr('data-id');
+          currentElement = $(this).attr('data-id');
+          curElemWid = $(currentElement).outerWidth();
+          curElemHih = $(currentElement).outerHeight();
+          console.log($(curElemHih))
           openLightbox(this);
           responsive();
           $(shadowbx).fadeIn();
         });
-
-
         $(closeIcon).on('click',function(){
           closeLightbox();
         });
 
         $(lightContbox).on('click',function(ev){
-          ev.stopPropagation();
+          //ev.stopPropagation();
         });
 
 
@@ -67,17 +71,23 @@
       //openLightbox close here
 
       function responsive(){
-        Ww = $(window).width();
-        Wh = $(window).height();
-        var roundVal = Math.round($(oldElement).height());
-        contentHh = Wh - roundVal;		
+        Ww = $(window).outerWidth();
+        Wh = $(window).outerHeight();
+        curElemWid = $(currentElement).outerWidth();
+        curElemHih = $(currentElement).outerHeight();
+        //var roundVal = Math.round($(oldElement).height());
+        contentHh = Wh - curElemHih;		
 
+        //console.log(roundVal)
+        if(contentHh <0){
+           contentHh = 40;
+          }
         $(set.lightCont).css({
               top: contentHh / 2,
-			  left: (Ww - $(set.lightCont).outerWidth())/2
+			  left: (Ww - curElemWid)/2
           });
 
-        if($(roundVal) > Wh){
+        if($(curElemHih) > Wh){
           $(set.lightCont).css({
             maxHeight:Wh-20,
 			      height:"100%"
@@ -91,30 +101,58 @@
 
       }
 
-      //responsive close here
+      $(set.saveData).on('click',function(){
+        responsive();
+      })
 
+      //responsive close here
       function closeLightbox(){
         $(shadowbx).fadeOut();
         $(lightContbox).fadeOut();
-
       }
 
       //closeLightbox close here
 
       $(window).on('resize',function(eve) {
          openLightbox();
+         Ww = $(window).outerWidth();
+        Wh = $(window).outerHeight();
+        curElemWid = $(currentElement).outerWidth();
+        curElemHih = $(currentElement).outerHeight();
+        //var roundVal = Math.round($(oldElement).height());
+        contentHh = Wh - curElemHih;    
+
+        //console.log(roundVal)
+        if(contentHh <0){
+           contentHh = 40;
+          }
+        $(set.lightCont).css({
+              top: contentHh / 2,
+        left: (Ww - curElemWid)/2
+          });
+
+        if($(curElemHih) > Wh){
+          $(set.lightCont).css({
+            maxHeight:Wh-20,
+            height:"100%"
+          });
+        }else{
+          $(set.lightCont).css({
+              maxHeight:Wh-20,
+              height:"auto",               
+          }); 
+    }
          responsive();
        });
+
+      
+
 
        //resize close here
 
       // Elements append here
-
       lightContbox.append(closeIcon);
       $this.append(shadowbx);
-
-
     })
-
   }
 }(jQuery))

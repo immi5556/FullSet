@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
+//using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.Mvc;
 
@@ -37,7 +37,7 @@ namespace Sj.Mg.Idsrv4.Controllers
                 {
                     "authorization_code"
                 },
-                dynamic_client_endpoint = "TBD",
+                dynamic_client_endpoint = AppConstants.Constants.UmaDynClientEndPoint,
                 rpt_endpoint = "TBD",
                 permission_registration_endpoint = AppConstants.Constants.UmaResourceSetEndPoint,
                 resource_set_registration_endpoint = AppConstants.Constants.UmaResourceSetEndPoint,
@@ -46,6 +46,17 @@ namespace Sj.Mg.Idsrv4.Controllers
                 authorization_endpoint = AppConstants.Constants.StsAuthorizationEndpoint,
                 token_endpoint = AppConstants.Constants.StsTokenEndpoint
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        public JsonResult ClientRegister()
+        {
+            var nv = Request.Url.ParseQueryString();
+            var cll = (nv["client_id"] ?? "");
+            var cli = Config.Clients.Get().ToList().Find(t => t.ClientId == cll);
+            if (cli == null)
+                return Json(Config.Clients.RegisterClients(nv), JsonRequestBehavior.AllowGet);
+            return Json(cli, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -45,8 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Model\AllModels.cs" />
+    <Compile Include="Model\PatToken.cs" />
     <Compile Include="Model\Permission.cs" />
     <Compile Include="Model\ResourceSet.cs" />
+    <Compile Include="Model\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenHelper.cs" />
     <Compile Include="UmaWellKnownConfig.cs" />

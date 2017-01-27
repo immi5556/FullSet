@@ -59,7 +59,8 @@ namespace IdentityServer3.Core
                 new Claim(Constants.ClaimTypes.Name, displayName),
                 new Claim(Constants.ClaimTypes.AuthenticationMethod, authenticationMethod),
                 new Claim(Constants.ClaimTypes.IdentityProvider, idp),
-                new Claim(Constants.ClaimTypes.AuthenticationTime, authenticationTime.ToString(), ClaimValueTypes.Integer)
+                new Claim(Constants.ClaimTypes.AuthenticationTime, authenticationTime.ToString(), ClaimValueTypes.Integer),
+                new Claim(Constants.ClaimTypes.JwtId, Guid.NewGuid().ToString()),
             };
 
             var id = new ClaimsIdentity(claims, authenticationType, Constants.ClaimTypes.Name, Constants.ClaimTypes.Role);

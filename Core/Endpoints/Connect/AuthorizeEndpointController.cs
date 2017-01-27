@@ -100,9 +100,7 @@ namespace IdentityServer3.Core.Endpoints
         public async Task<IHttpActionResult> Get(HttpRequestMessage request)
         {
             Logger.Info("Start authorize request");
-
             var response = await ProcessRequestAsync(request.RequestUri.ParseQueryString());
-
             Logger.Info("End authorize request");
             return response;
         }

@@ -1,6 +1,8 @@
-﻿@{ 
+﻿@{
     Layout = null;
+    var mod = Model as Constants.Model.UserDetails;
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,91 +15,173 @@
 <body>
     <header>
         <div class="container">
-            <a href="#" id="logo"><img src="~/Content/medg/images/logo.png"></a>
+            <a href="/" id="logo"><img src="~/Content/medg/images/logo.png"></a>
             <ul>
                 <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
-                <li><a href="#" class="click" data-id="#requests-id" "><i class="fa fa-bell" aria-hidden="true"></i></a></li>
+                <li><a href="#" class="click" data-id="#requests-id"><i class="fa fa-bell" aria-hidden="true"></i><span class="notification">2</span></a></li>
                 <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
             </ul>
         </div>
     </header>
     <section class="main">
         <div class="container">
-            <h2>Medgrotto/Resource</h2>
-            <div class="contSection">
-                <div class="logoRow" style="align-content:center;vertical-align:middle;">
-                    <img src="/Content/medg/images/relief_api.png"> <span style="font-size:xx-large;">(Resource Server)</span>
+            <h2>[<span>Logged in: </span>@mod.UserName]</h2>
+            <div class="appSection">
+                <h3 class="accordian" style="display: @(mod.Clients.Contains("ReliefExpress") ? "" : "none")">Providers</h3>
+                <div class="tabContent" style="display: @(mod.Clients.Contains("ReliefExpress") ? "" : "none")">
+                    <div class="tableCont">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Resources</th>
+                                    <th>Scope</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="contSection">
+                        <div class="tableCont">
+                            <div class="logoRow">
+                                <img src="~/Content/medg/images/secLogo1.png">
+                            </div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Observation Data</td>
+                                        <td>Shared with 2 users</td>
+                                        <td><button id="obsdata" class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Medication Data</td>
+                                        <td>Shared with 1 users</td>
+                                        <td><button id="labdata" class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @*<div class="contSection">
+                            <div class="tableCont">
+                                <div class="logoRow">
+                                    <img src="~/Content/medg/images/secLogo2.png">
+                                </div>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Visit History</td>
+                                            <td>Shared with 3 users</td>
+                                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>*@
                 </div>
-                <br>
-                <br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Resources</th>
-                            <th>Scope</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Get Patient Medications (api/meds)</td>
-                            <td>Shared with 2 users</td>
-                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Manage</button></td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>Post Patient Medications (api/postmed)</td>
-                            <td>Shared with 1 user</td>
-                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Manage</button></td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>Get Patient Observation (api/labs)</td>
-                            <td>Shared with 3 users</td>
-                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Manage</button></td>
-                            <td>&nbsp;</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="contSection">
-                <div class="logoRow">
-                    <img src="~/Content/medg/images/secLogo2.png">
+                <h3 class="accordian" style="display: @(mod.Clients.Contains("Medinova-EHR") ? "" : "none")">EHRs</h3>
+                <div class="tabContent" style="display: @(mod.Clients.Contains("Medinova-EHR") ? "" : "none")">
+                    <div class="tableCont">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Resources</th>
+                                    <th>Scope</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="contSection">
+                        <div class="tableCont">
+                            <div class="logoRow">
+                                <img src="~/Content/medg/images/Medinova.png">
+                            </div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>patient/Patient [Demographic]</td>
+                                        <td>Shared with 0 users</td>
+                                        <td><button id="fhirdata" class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>patient/MedicationOrder [Medication]</td>
+                                        <td>Shared with 0 users</td>
+                                        <td><button id="" class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>patient/Observation [Observation]</td>
+                                        <td>Shared with 0 users</td>
+                                        <td><button id="" class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>patient/Appointment [Appointment]</td>
+                                        <td>Shared with 0 users</td>
+                                        <td><button id="" class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Resources</th>
-                            <th>Scope</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Labs</td>
-                            <td>Shared with 0 users</td>
-                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>Demographics</td>
-                            <td>Shared with 3 users</td>
-                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>H&amp;P Record</td>
-                            <td>Shared with 2 users</td>
-                            <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
-                            <td>&nbsp;</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3 class="accordian" style="display: @(mod.Clients.Contains("BMI-Device") ? "" : "none")">Smart Apps</h3>
+                <div class="tabContent" style="display: @(mod.Clients.Contains("BMI-Device") ? "" : "none")">
+                    <div class="tableCont">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Resources</th>
+                                    <th>Scope</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="contSection">
+                        <div class="tableCont">
+                            <div class="logoRow">
+                                <img src="~/Content/medg/images/googleFitLogo.png">
+                            </div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Activity Log</td>
+                                        <td>Shared with 2 users</td>
+                                        <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="contSection">
+                        <div class="tableCont">
+                            <div class="logoRow">
+                                <img src="~/Content/medg/images/blipcare.png">
+                            </div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>BMI</td>
+                                        <td>Shared with 0 users</td>
+                                        <td><button class="share-cls click" data-id="#share-id"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
     <div class="lightbox" id="share-id">
         <div class="scrollSec">
             <a href="#" class="closeIcon">X</a>
@@ -105,26 +189,26 @@
             <div class="resourceContSec1">
                 <div class="resourceContSec1Left">
                     <div class="resourceRow">
-                        <img src="/Content/medg/images/resourceLogo1.png">
-                        <h3>Visit History</h3>
+                        <img src="~/Content/medg/images/resourceLogo1.png">
+                        <h3 id="pop-hdr">Chest X-Ray</h3>
                     </div>
-                    <div class="resourceSectionLogo"><img src="/Content/medg/images/secLogo1.png"></div>
+                    <div class="resourceSectionLogo"><img src="~/Content/medg/images/secLogo1.png"></div>
                 </div>
                 <div class="resourceContSec1Right">
                     <div class="resourceForm">
-                        <input type="text" name="" placeholder="Add Users">
+                        <input type="text" name="" id="addUser" placeholder="Add Users" class="addUser">
                         <div class="selectPermission">
-                            <div class="selectLabel">Select Permissions</div>
-                            <ul>
-                                <li>View</li>
-                                <li>Share</li>
-                                <li>Read</li>
-                                <li>Edit</li>
+                            <div class="selectLabel" id="selectRsrcs">reliefexpress.com/scopes/view_lab_xray3</div>
+                            <ul id="permissionslist">
+                                <li><label><input type="checkbox" data-text="View"><span></span>View</label></li>
+                                <li><label><input type="checkbox" checked="checked" data-text="Share"><span></span>Share</label></li>
+                                <li><label><input type="checkbox" data-text="Edit"><span></span>Edit</label></li>
                             </ul>
                         </div>
+                        <div class="Listpermission"></div>
                         <div class="buttonsRow">
                             <button class="btn-cancel">Cancel</button>
-                            <button class="btn-share"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button>
+                            <button class="btn-share" id="saveData">Save</button>
                         </div>
                     </div>
                 </div>
@@ -134,27 +218,27 @@
                     <thead>
                         <tr>
                             <th>USER</th>
-                            <th>PERMISSION</th>
+                            <th>SCOPE</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Rumana@google.com</td>
-                            <td>View,Share</td>
-                        </tr>
-                        <tr>
-                            <td>Immanuel@within30.com</td>
-                            <td>View</td>
-                        </tr>
+                    <tbody class="scopeData" id="rsccontt">
+                        @*<tr>
+                                <td>Tom.Vogel@reliefexpress.com</td>
+                                <td><ul><li>Share</li><li>Edit</li></ul></td>
+                            </tr>
+                            <tr>
+                                <td>Becky.White@uhc.net</td>
+                                <td><ul><li>View</li></ul></td>
+                            </tr>*@
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <div class="lightbox" id="requests-id">
+    <div class="lightbox lightbox-wid" id="requests-id">
         <div class="scrollSec">
             <a href="#" class="closeIcon">X</a>
-            <h2 class="requests_title"><img src="/Content/medg/images/accessIcon.png">Access <span>Requests</span></h2>
+            <h2 class="requests_title"><img src="~/Content/medg/images/accessIcon.png">Access <span>Requests</span></h2>
             <h4>Pending Requests</h4>
             <div class="scroll">
                 <table class="requestsTable" cellpadding="0" cellspacing="0">
@@ -163,42 +247,55 @@
                             <th>USER</th>
                             <th>RESOURCE</th>
                             <th>REQUEST SENT</th>
-                            <th>PERMISSION</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Rumana@google.com</td>
-                            <td>View,Share</td>
-                            <td>View,Share</td>
-                            <td>View,Share</td>
+                        @foreach(var t in mod.PendingRequests)
+                        {
+                            <tr>
+                                <td>@t.user</td>
+                                <td>@t.scope</td>
+                                <td>@DateTime.Now.ToShortDateString()</td>
+                                <td>
+                                    <button class="btn-share requests-btn-share">Allow</button>
+                                    <button class="btn-cancel requests-btn-cancel">Deny</button>
+                                </td>
+                            </tr>
+                        }
+                        @*<tr>
+                            <td>Hardy_Ed@serenityltac.com</td>
+                            <td>Discharge Summary</td>
+                            <td>01/11/2017</td>
+                            <td>reliefexpress.com/scopes/share_disch_summary2</td>
                             <td>
-                                <button class="btn-share requests-btn-share"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button>
+                                <button class="btn-share requests-btn-share">Allow</button>
                                 <button class="btn-cancel requests-btn-cancel">Deny</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>Rumana@google.com</td>
-                            <td>View,Share</td>
-                            <td>View,Share</td>
-                            <td>View,Share</td>
+                            <td>Janice.Doe@nexusmc.net</td>
+                            <td>Fitness Activity</td>
+                            <td>01/09/2017</td>
+                            <td>beatbox.com/3983432/scopes/share_activity_data</td>
                             <td>
-                                <button class="btn-share requests-btn-share"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button>
+                                <button class="btn-share requests-btn-share">Allow</button>
                                 <button class="btn-cancel requests-btn-cancel">Deny</button>
                             </td>
-                        </tr>
+                        </tr>*@
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     <div class="popupShadow"></div>
+    <script>
+        var details = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(mod))');
+        var curuser = '@Session["CurUser"].ToString()';
+    </script>
     <script type="text/javascript" src="~/Content/medg/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="~/Content/medg/js/friendlyLightBox.js"></script>
+    <script type="text/javascript" src="~/Content/medg/js/gbMultiSelect.js"></script>
     <script type="text/javascript" src="~/Content/medg/js/custom.js"></script>
-    <script type="text/javascript">
-
-    </script>
 </body>
 </html>

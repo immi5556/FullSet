@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +11,7 @@ namespace AppConstants.Helper
 {
     public class TokenHelper
     {
-        public static void DecodeAndWrite(string token)
+        public static JObject DecodeAndWrite(string token)
         {
             try
             {
@@ -41,12 +42,21 @@ namespace AppConstants.Helper
 
                 // Write to output
                 Debug.Write(jwt.ToString());
+                return jwt;
             }
             catch (Exception ex)
             {
                 // something went wrong
                 Debug.Write(ex.Message);
             }
+            return null;
+        }
+
+        public static string CreateJwt(string payload)
+        {
+            var hdr = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(new { alg = "HS256", typ = "JWT" })));
+            var pld = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(payload));
+            return hdr + "." + pld;
         }
     }
 }

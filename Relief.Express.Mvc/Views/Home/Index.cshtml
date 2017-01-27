@@ -22,16 +22,22 @@
         </thead>
         <tbody>
             <tr>
-                <td>Name-1</td>
+                <td>John</td>
                 <td>21</td>
                 <td>M</td>
-                <td><a class="cls-order" style="cursor:pointer;text-decoration:none;">More Info....</a></td>
+                <td><a class="cls-order" data-myid="John" style="cursor:pointer;text-decoration:none;">More Info....</a></td>
             </tr>
             <tr>
-                <td>Name-2</td>
-                <td>21</td>
+                <td>Andrea</td>
+                <td>41</td>
+                <td>F</td>
+                <td><a style="cursor:pointer;text-decoration:none;" data-myid="Andrea" class="cls-order">More Info....</a></td>
+            </tr>
+            <tr>
+                <td>Bob</td>
+                <td>33</td>
                 <td>M</td>
-                <td><a style="cursor:pointer;text-decoration:none;" class="cls-order">More Info....</a></td>
+                <td><a style="cursor:pointer;text-decoration:none;" data-myid="Bob" class="cls-order">More Info....</a></td>
             </tr>
         </tbody>
     </table>   
@@ -39,7 +45,7 @@
 @section scripts {
     <script>
         $(".cls-order").on("click", function () {
-            window.location = "Home/Secure";
+            window.location = "/Home/Secure?patid=" + $(this).data("myid");
             //$('#detailsview').load("Home/GetData", { searchText: "Lord Jesus my Protector" });
             //$.ajax("Home/GetData")
             //  .done(function (data) {

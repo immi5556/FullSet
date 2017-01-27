@@ -11,7 +11,8 @@ namespace Sj.Mg.Idsrv4.Controllers
         // GET: Resource
         public ActionResult Index()
         {
-            return View();
+            var uapp = Config.Users.GetDetails().Find(t => t.UserName == Session ["CurUser"].ToString());
+            return View(uapp);
         }
 
         [HttpPost]
@@ -36,6 +37,36 @@ namespace Sj.Mg.Idsrv4.Controllers
         public void ResourceDelete(string id)
         {
             Config.Scopes.DeleteResource(id);
+        }
+
+        [HttpPost]
+        public JsonResult SaveDelegation(Constants.Model.ResShare share)
+        {
+            Config.Users.UpdateDetails(share);
+            //TO call RS server with PAT 
+            return Json(share, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult AllowRequest(Constants.Model.ResShare share)
+        {
+            Config.Users.UpdateDetails(share);
+            Config.Users.RemoveRequest(share);
+            //TO call RS server with PAT 
+            return Json(share, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult RemoveRequest(Constants.Model.ResShare share)
+        {
+            Config.Users.RemoveRequest(share);
+            //TO call RS server with PAT 
+            return Json(share, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteDelegation(Constants.Model.ResShare share)
+        {
+            Config.Users.DeleteDetails(share);
+            //TO call RS server with PAT 
+            return Json(share, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,4 +1,23 @@
 ﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #pragma warning disable 1591
 
 namespace IdentityServer3.Core.Resources
@@ -19,7 +38,7 @@ namespace IdentityServer3.Core.Resources
 			public const string PreLoginSuccess = "PreLoginSuccess";
 			public const string ResourceOwnerFlowLoginFailure = "ResourceOwnerFlowLoginFailure";
 			public const string ResourceOwnerFlowLoginSuccess = "ResourceOwnerFlowLoginSuccess";
-	        public const string TokenRevoked = "TokenRevoked";
+			public const string TokenRevoked = "TokenRevoked";
 	}
 	public class MessageIds
 	{
@@ -55,4 +74,5 @@ namespace IdentityServer3.Core.Resources
 			public const string Profile_DisplayName = "profile_DisplayName";
 			public const string Roles_DisplayName = "roles_DisplayName";
 	}
+
 }

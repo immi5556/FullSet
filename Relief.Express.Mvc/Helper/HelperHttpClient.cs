@@ -73,9 +73,9 @@ namespace Relief.Express.Mvc.Helper
 
             // expired.  Get a new one.
             var tokenEndpointClient = new TokenClient(
-                Constants.StsTokenEndpoint,
+                AppConstants.Constants.StsTokenEndpoint,
                 "tripgalleryhybrid",
-                Constants.ClientSecret);
+                AppConstants.Constants.ClientSecret);
 
             var requestRefreshTokenResponse =
                  tokenEndpointClient

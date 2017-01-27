@@ -9,7 +9,7 @@ namespace AppConstants.Model
     public class Permission
     {
         public string ticket { get; set; }
-        public DateTime expires { get; set; }
+        public long expires { get; set; }
     }
 
     public class PermissionRequest

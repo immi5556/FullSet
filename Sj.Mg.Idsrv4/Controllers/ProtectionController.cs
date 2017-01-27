@@ -15,15 +15,33 @@ namespace Sj.Mg.Idsrv4.Controllers
         }
 
         //[Authorize]
-        //[HttpPost]
+        [HttpGet]
         //public JsonResult PremissionTicket(AppConstants.Model.PermissionRequest req)
         public JsonResult PremissionTicket()
         {
-            return Json(Guid.NewGuid().ToString(), JsonRequestBehavior.AllowGet);
+            var tte = this.Request.Headers["Authorization"].Replace("Bearer ", "");
+            var tkt = Config.Permissions.AddTicket(tte);
+            return Json(tkt, JsonRequestBehavior.AllowGet);
         }
         //[Authorize]
         public JsonResult RptToken(string id)
         {
+            if (string.IsNullOrEmpty(id) || !Config.Permissions.ContainsTicket(id))
+            {
+                return Json(new
+                {
+                    active = true,
+                    exp = 1256953732,
+                    iat = 1256912345,
+                    permissions = new
+                    {
+                        scopes = new List<String>()
+                        {
+                            "uma_protection"
+                        }
+                    },
+                }, JsonRequestBehavior.AllowGet);
+            }
             return Json(new
             {
                 active = true,
@@ -34,8 +52,10 @@ namespace Sj.Mg.Idsrv4.Controllers
                     resource_set_id = "53E3C716-3D65-4201-8FEF-55E271F79F23",
                     scopes = new List<String>()
                     {
-                        "user.Observation"
+                        "patient.MedicationOrder",
+                        "uma_protection"
                     },
+                    amiallowed = Config.Permissions.GetAllowedUsers(id),
                     exp = 1256953732
                 },
             }, JsonRequestBehavior.AllowGet);

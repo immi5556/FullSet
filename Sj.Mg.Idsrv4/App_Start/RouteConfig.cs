@@ -14,6 +14,12 @@ namespace Sj.Mg.Idsrv4
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Uma-Disc-Config",
+                url: AppConstants.Constants.UmaDiscoveryConfiguration,
+                defaults: new { controller = "Uma", action = "UmaWellKnownConfig", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

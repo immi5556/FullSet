@@ -1,10 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using IdentityModel.Client;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Re.Api.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Security;
+using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -15,34 +19,69 @@ namespace Re.Api.Controllers
     [EnableCors("*", "*", "GET, POST, PATCH")]
     public class LabController : ApiController
     {
-        [Route("api/labs")]
+        [AuthzExt(new string[] { "patient.MedicationOrder" })]
+        [Route("api/medic")]
         [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
             ServicePointManager.ServerCertificateValidationCallback =
-    delegate (object s, X509Certificate certificate,
+            delegate (object s, X509Certificate certificate,
              X509Chain chain, SslPolicyErrors sslPolicyErrors)
-    { return true; };
-            if (Request.Headers.Authorization != null)
+            { return true; };
+            try
             {
-                if ((Request.Headers.Authorization.Scheme ?? "").ToLower() != "bearer")
-                {
-                    throw new ApplicationException("Invalid token scheme.");
-                }
-                //Validate the RPT token with riht expiry & so on
-                AppConstants.Helper.TokenHelper.DecodeAndWrite(Request.Headers.Authorization.Parameter);
+                var tt = Request.Headers.Authorization.Parameter;
+                var rpt = AppConstants.Helper.TokenHelper.DecodeAndWrite(tt);
+                var token = (string)rpt.SelectToken("access_token");
+                var idt = this.User.Identity as ClaimsIdentity;
+                UserInfoClient userInfoClient = new UserInfoClient(new Uri(AppConstants.Constants.StsUserInfoEndpoint), token);
+                var userInfoResp = await userInfoClient.GetAsync();
+                //var principal = User as ClaimsPrincipal;
             }
-            else
+            catch { }
+            //var idt = from c in principal.Identities.First().Claims
+            //                 select new
+            //                 {
+            //                     c.Type,
+            //                     c.Value
+            //                 };
+            //var idt = this.User.Identity as ClaimsIdentity;
+            //foreach (var t in idt)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(t.Type + "---" + t.Value);
+            //}
+            return Json(new List<object>()
             {
-                var httpClient = Helper.HelperHttpClient.GetClient();
-                var tt = await httpClient.GetAsync("/Protection/PremissionTicket").ConfigureAwait(false);
-                //var serializedTrip = JsonConvert.SerializeObject(new AppConstants.Model.PermissionRequest() { resource_set_id = "53E3C716-3D65-4201-8FEF-55E271F79F23", scopes = new List<string>() { "user.Observation" } });
-                //var tt = await httpClient.PostAsync("/Protection/PremissionTicket", new StringContent(serializedTrip, System.Text.Encoding.Unicode, "application/json")).ConfigureAwait(false);
-                var msg = await tt.Content.ReadAsStringAsync();
-                return Json(new { ticket = msg });
-            }
+                new { Code = "5182-1", Diagnosis = "Hepatitis A Virus IgM Serum Antibody EIA" },
+                new { Code = "7059-9", Diagnosis = "Vancomycin Susceptibility, Gradient Strip" },
+                new { Code = "CULT", Diagnosis = "**Corrected Micro Report** Rhodotorula glutinis**" }
+                });
+        }
 
-            return Json(new { ObservationMethod = "Some data", Diagnosis = "Some details" });
+        [AuthzExt(new string[] { "user.Observation" })]
+        [Route("api/obs")]
+        [HttpPost]
+        public IHttpActionResult Post([FromBody]AppConstants.PostData data)
+        {
+            ServicePointManager.ServerCertificateValidationCallback =
+            delegate (object s, X509Certificate certificate,
+             X509Chain chain, SslPolicyErrors sslPolicyErrors)
+            { return true; };
+            var idt = this.User.Identity as ClaimsIdentity;
+            foreach (var t in idt.Claims)
+            {
+                System.Diagnostics.Debug.WriteLine(t.Type + "---" + t.Value);
+            }
+            Console.WriteLine(data);
+            return Json(new
+            {
+                Patient = data,
+                Medication = new
+                {
+                    Detail = "Ranitidine Inj 25 mg/mL (IV)|50|mg",
+                    Pharam = "Sodium Chloride 0.9% 100 mL|100|mL"
+                }
+            });
         }
     }
 }

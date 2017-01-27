@@ -90,7 +90,7 @@ namespace Re.Api.Helper
                       "ReliefExpress-Api",
                       AppConstants.Constants.ClientSecret);
 
-            // ask for a token, containing the gallerymanagement scope
+            // ask for a token, containing the uma_protection scope
             var tokenResponse = oAuth2Client.RequestClientCredentialsAsync("uma_protection").Result;
 
             // decode & write out the token, so we can see what's in it
