@@ -237,6 +237,7 @@
     <Content Include="Content\medg\images\logo.png" />
     <Content Include="Content\medg\images\logoLogin.png" />
     <Content Include="Content\medg\images\ne_icc.jpg" />
+    <Content Include="Content\medg\images\prot_b.PNG" />
     <Content Include="Content\medg\images\resourceLogo1.png" />
     <Content Include="Content\medg\images\re_icc.jpg" />
     <Content Include="Content\medg\images\secLogo1.png" />

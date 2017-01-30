@@ -38,10 +38,10 @@ namespace Sj.Mg.Idsrv4.Controllers
                     "authorization_code"
                 },
                 dynamic_client_endpoint = AppConstants.Constants.UmaDynClientEndPoint,
-                rpt_endpoint = "TBD",
+                rpt_endpoint = AppConstants.Constants.UmaRptEndPoint,
                 permission_registration_endpoint = AppConstants.Constants.UmaResourceSetEndPoint,
                 resource_set_registration_endpoint = AppConstants.Constants.UmaResourceSetEndPoint,
-                introspection_endpoint = "TBD",
+                introspection_endpoint = AppConstants.Constants.StsIntrospectionEndPoint,
                 requesting_party_claims_endpoint = "TBD",
                 authorization_endpoint = AppConstants.Constants.StsAuthorizationEndpoint,
                 token_endpoint = AppConstants.Constants.StsTokenEndpoint

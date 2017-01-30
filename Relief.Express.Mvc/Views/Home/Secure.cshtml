@@ -1,7 +1,9 @@
-﻿<br /><br />
-<div style="text-align:center;"><h3>Secure Data</h3></div>
+﻿<br /><br /><br /><br /><br />
+<div style="background-color: deepskyblue;align-content: center; border-radius: 7px;text-align: center;">
+    <h2 style="color: white;">Secure Data</h2>
+    <span><b>Patient Name : @Request.QueryString["patid"]</b></span> <br />
+</div>
 <div style="text-align:center;">
-    <span>API Resources</span> <br />
     <li style="display: none;"><a class="med-dat" style="cursor:pointer;text-decoration:none;">Medication Data (oAuth2 Roles Scope)</a></li>
     <li style="display: none;"><a class="obs-dat" style="cursor:pointer;text-decoration:none;">Observation Data Api(UMA)</a></li>
 </div>
@@ -18,7 +20,7 @@
             $.ajax("/Home/GetObsData")
               .done(function (data) {
                   //alert(data);
-                  $('#detailsview').html("<h2>Obs Data </h2><pre>" + data + "</pre>");
+                  $('#detailsview').html("<h3>Obs Data </h3><pre>" + data + "</pre>");
               })
               .fail(function (err, err1, err2) {
                   alert("error");
@@ -31,7 +33,7 @@
             $.ajax("/Home/GetLabData")
               .done(function (data) {
                   //alert(data);
-                  $('#detailsview1').html("<h2>Medication Data </h2><pre>" + data + "</pre>");
+                  $('#detailsview1').html("<h3>Medication Data </h3><pre>" + data + "</pre>");
               })
               .fail(function (err, err1, err2) {
                   alert("error");
