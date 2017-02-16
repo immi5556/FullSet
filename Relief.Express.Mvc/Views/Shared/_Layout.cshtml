@@ -16,7 +16,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <span>Hello @((User.Identity as System.Security.Claims.ClaimsIdentity).FindFirst("given_name") == null ? "" : (User.Identity as System.Security.Claims.ClaimsIdentity).FindFirst("given_name").Value) </span><br />
-                    <span>@((User.Identity as System.Security.Claims.ClaimsIdentity).FindFirst("role").Value)</span><br />
+                    <span>@((User.Identity as System.Security.Claims.ClaimsIdentity).FindFirst("role") == null ? "" : (User.Identity as System.Security.Claims.ClaimsIdentity).FindFirst("role").Value)</span><br />
                     <span>@ViewBag.Address</span><br />
                     <a href="/Home/Logout" >Logout</a>
                 }
