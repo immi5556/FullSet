@@ -56,8 +56,9 @@ namespace Sj.Mg.Idsrv4
                         Boolean userExists = db.getData(ctx.Email);
                         if (!userExists)
                         {
-                            db.insertData(ctx.Name, ctx.Email, ctx.FamilyName, ctx.AccessToken);
+                            db.insertGoogleUserData(ctx.Name, ctx.Email, ctx.FamilyName);
                         }
+                        db.trackGoogleUserData(ctx.Email, ctx.AccessToken);
                         //AppConstants.Helper.TokenHelper.DecodeAndWrite(ctx.AccessToken);
                         //JWT.JsonWebToken.Decode(ctx.AccessToken, Convert.FromBase64String("mCWLDjLjItsd+E5bYmaTBvm6"));
                     }

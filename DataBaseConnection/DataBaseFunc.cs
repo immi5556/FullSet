@@ -22,15 +22,28 @@ namespace DataBaseConnection
             databaseConnection = server.GetDatabase("Medgrotto");
         }
 
-        public void insertData(String name, String email, String familyName, String accessToken)
+        public void insertGoogleUserData(String name, String email, String familyName)
         {
             MongoCollection<BsonDocument> userData =
         databaseConnection.GetCollection<BsonDocument>("UserData");
             BsonDocument department = new BsonDocument {
                 { "name", name },
                 { "email", email },
-                { "familyName", familyName },
-                { "accessToken", accessToken }
+                { "familyName", familyName }
+                };
+
+            userData.Insert(department);
+        }
+
+        public void trackGoogleUserData(String email, String accessToken)
+        {
+            DateTime date = DateTime.Now;
+            MongoCollection<BsonDocument> userData =
+        databaseConnection.GetCollection<BsonDocument>("UserLoginTrack");
+            BsonDocument department = new BsonDocument {
+                { "email", email },
+                { "accessToken", accessToken },
+                { "loginTime", date  }
                 };
 
             userData.Insert(department);
