@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
-using //DataBaseConnection;
+using DataBaseConnection;
 
 namespace Sj.Mg.Idsrv4
 {
@@ -52,9 +52,12 @@ namespace Sj.Mg.Idsrv4
                 {
                     OnAuthenticated = async ctx =>
                     {
-                        //DataBaseFunc db = new DataBaseFunc();
-                        //db.getData(ctx.Email);
-                        //db.insertData(ctx.Name, ctx.Email, ctx.FamilyName, ctx.AccessToken);
+                        DataBaseFunc db = new DataBaseFunc();                       
+                        Boolean userExists = db.getData(ctx.Email);
+                        if (!userExists)
+                        {
+                            db.insertData(ctx.Name, ctx.Email, ctx.FamilyName, ctx.AccessToken);
+                        }
                         //AppConstants.Helper.TokenHelper.DecodeAndWrite(ctx.AccessToken);
                         //JWT.JsonWebToken.Decode(ctx.AccessToken, Convert.FromBase64String("mCWLDjLjItsd+E5bYmaTBvm6"));
                     }
