@@ -11,7 +11,26 @@ namespace Sj.Mg.Idsrv4.Controllers
         // GET: Resource
         public ActionResult Index()
         {
+            int ObsCount = 0;
+            int MedicationCount = 0;
             var uapp = Config.Users.GetDetails().Find(t => t.UserName == Session ["CurUser"].ToString());
+            if (uapp.ScopeUsers.Count > 0)
+            {
+                foreach(var scope in uapp.ScopeUsers)
+                {
+                    string key = Convert.ToString(scope.Key);
+                    if(key== "user.Observation")
+                    {
+                        ObsCount = uapp.ScopeUsers[key].Count();
+                    }
+                    if(key== "patient.MedicationOrder")
+                    {
+                        MedicationCount = uapp.ScopeUsers[key].Count();
+                    }
+                }
+            }
+            ViewBag.ObsCount = ObsCount;
+            ViewBag.MedicationCount = MedicationCount;
             return View(uapp);
         }
 
