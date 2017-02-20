@@ -18,14 +18,14 @@
             <a href="/" id="logo"><img src="~/Content/medg/images/logo.png"></a>
             <ul>
                 <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
-                <li><a href="#" class="click" data-id="#requests-id"><i class="fa fa-bell" aria-hidden="true"></i><span class="notification">2</span></a></li>
+                <li><a href="#" class="click" data-id="#requests-id"><i class="fa fa-bell" aria-hidden="true"></i><span class="notification">@mod.PendingRequests.Count()</span></a></li>
                 <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
             </ul>
         </div>
     </header>
     <section class="main">
         <div class="container">
-            <h2>[<span>Logged in: </span>@mod.UserName]</h2>
+            <h2><span>Welcome :</span>@mod.UserName <a href="@Url.Action("LogOut","Home")" class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Log Out</a></h2>
             <div class="appSection">
                 <h3 class="accordian" style="display: @(mod.Clients.Contains("ReliefExpress") ? "" : "none")">Providers</h3>
                 <div class="tabContent" style="display: @(mod.Clients.Contains("ReliefExpress") ? "" : "none")">

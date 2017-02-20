@@ -24,5 +24,10 @@ namespace Sj.Mg.Idsrv4.Controllers
             Response.StatusCode = 401;
             return Json("Access Denied");
         }
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            return RedirectToAction("Index");
+        }
     }
 }

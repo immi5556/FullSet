@@ -111,6 +111,20 @@ header ul li a {
 	color: #fff;
 	font-size: 20px;
 }
+.logout
+{
+    background:#0072c6;
+    color:white;
+    border-radius:25px;
+    height:30px;
+    line-height:30px;
+    font-size:14px;
+    padding:0 14px;
+    margin-left:10px;
+    text-align:center;
+    display:inline-block;
+    text-decoration:none;
+}
 .notification {
 	position: absolute;
 	right: -8px;
@@ -128,7 +142,7 @@ header ul li a {
 }
 .main h2 {
 	color: #585858;
-	font-size: 18px;
+	font-size: 14px;
 	font-family: 'Droid Serif', serif;
 	line-height: 22px;
 	text-align: right;
