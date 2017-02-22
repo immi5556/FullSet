@@ -187,4 +187,21 @@ $(function () {
             alert("Error :" + err);
         });
     });
+    var isTrue = true;
+    $(document).on('click', '.profilelist', function (e) {
+        e.stopPropagation();
+        if (isTrue) {
+            isTrue = false;
+            $('.dropdownSettings').slideToggle(300, function () {
+                isTrue = true;
+            });
+        }
+        
+
+    });
+    $(document).on('click', function () {
+        if ($('.dropdownSettings').is(':visible')) {
+            $('.dropdownSettings').slideUp();
+        }
+    })
 });
