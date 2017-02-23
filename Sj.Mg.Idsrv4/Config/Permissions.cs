@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataBaseConnection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -32,7 +33,12 @@ namespace Sj.Mg.Idsrv4.Config
             string gn = rpt.given_name;
             string allwscope = rpt.allowed_scope;
             var tt = Config.Users.GetDetails().Find(t => t.UserName == rn);
-            var rest = tt.ScopeUsers[allwscope].Contains(gn);
+            var rest = false;
+            if (tt.ScopeUsers.Any() && tt.ScopeUsers.Keys.Contains(allwscope))
+            {
+                rest = tt.ScopeUsers[allwscope].Contains(gn);
+            }
+            
             if (!rest)
             {
                 Config.Users.RegisterRequest(new Constants.Model.ResShare()

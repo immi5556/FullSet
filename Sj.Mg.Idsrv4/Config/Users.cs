@@ -5,6 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+using DataBaseConnection;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson;
+using System.Web.Script.Serialization;
+using System.Collections;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
+using Constants.Model;
+using Newtonsoft.Json.Linq;
 
 namespace Sj.Mg.Idsrv4.Config
 {
@@ -12,76 +22,68 @@ namespace Sj.Mg.Idsrv4.Config
     {
         static List<InMemoryUser> _lstusers = new List<InMemoryUser>
         {
-            new InMemoryUser()
-                {
-                    Username = "Kevin",
-                    Password = "secret",
-                    Subject = "UniqueSubject-1",
-                    Claims = new[]
-                    {
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Kevin"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "KFly"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Address, "1, Main Street, Antwerp, Belgium"),
-                        new Claim("role", "FloorNurse")
-                    }
-                },
-                new InMemoryUser()
-                {
-                    Username = "Sven",
-                    Password = "secret",
-                    Subject = "UniqueSubject-2",
-                    Claims = new[]
-                    {
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Sven"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "SFly"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Address, "2, Main Road, Antwerp, Belgium"),
-                        new Claim("role", "Hospitalist")
-                    }
-                },
-                new InMemoryUser()
-                {
-                    Username = "John",
-                    Password = "secret",
-                    Subject = "UniqueSubject-3",
-                    Claims = new[]
-                    {
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "John"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Jly"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Address, "1, Main Street, Dallas, TX."),
-                        new Claim("role", "Patient")
-                    }
-                },
-                new InMemoryUser()
-                {
-                    Username = "Andrea",
-                    Password = "secret",
-                    Subject = "UniqueSubject-4",
-                    Claims = new[]
-                    {
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "John"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Jly"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Address, "1, Main Street, Dallas, TX."),
-                        new Claim("role", "Patient")
-                    }
-                },
-                new InMemoryUser()
-                {
-                    Username = "Bob",
-                    Password = "secret",
-                    Subject = "UniqueSubject-5",
-                    Claims = new[]
-                    {
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "John"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Jly"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Address, "1, Main Street, Dallas, TX."),
-                        new Claim("role", "Patient")
-                    }
-                }
+            
         };
         public static List<InMemoryUser> Get()
         {
+            DataBaseFunc db = new DataBaseFunc();
+            var users = db.getMedgrottoUsers();
+
+            foreach (var e in users)
+                {
+                    Constants.Model.UserDetails obj = new Constants.Model.UserDetails();
+
+                    obj.UserName = Convert.ToString(e["userName"]);
+                    obj.Password = Convert.ToString(e["password"]);
+                    obj.Subject = Convert.ToString(e["subject"]);
+                    obj.GivenName = Convert.ToString(e["claims"]["givenName"]);
+                    obj.FamilyName = Convert.ToString(e["claims"]["familyName"]);
+                    obj.Address = Convert.ToString(e["claims"]["address"]);
+                    obj.Role = Convert.ToString(e["claims"]["role"]);
+                    obj.Clients = JsonConvert.DeserializeObject<List<string>>(e["clients"].ToJson());
+                    obj.PendingRequests = JsonConvert.DeserializeObject<List<ResShare>>(e["pendingRequest"].ToJson());
+                    if(Convert.ToString(e["scopeUsers"].ToJson()) != null)
+                    {
+                        JArray json = JArray.Parse(e["scopeUsers"].ToJson());
+                        foreach(var scus in json)
+                        {
+                            string key = Convert.ToString(scus["k"]);
+                            List<string> users1 = new List<string>();
+                            JArray json1 = JArray.Parse(Convert.ToString(scus["v"]));
+                            foreach(var valueItem in json1)
+                            {
+                                users1.Add(valueItem.ToString());
+                            }
+
+                            obj.ScopeUsers.Add(key, users1);
+                        }
+                    }
+                    
+                    _lstusers.Add(new InMemoryUser()
+                        {
+                            Username = obj.UserName,
+                            Password = obj.Password,
+                            Subject = obj.Subject,
+                            Claims = new[]
+                            {
+                            new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, obj.GivenName),
+                            new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, obj.FamilyName),
+                            new Claim(IdentityServer3.Core.Constants.ClaimTypes.Address, obj.Address),
+                            new Claim("role", obj.Role)
+                        }
+                        });
+                    _lstuserdetails.Add(new Constants.Model.UserDetails()
+                    {
+
+                        UserName = obj.UserName,
+                        Clients = obj.Clients,
+                        ScopeUsers = obj.ScopeUsers,
+                        PendingRequests = obj.PendingRequests
+                    });
+                }
             return _lstusers;
         }
+
         public static void UpdateDetails(Constants.Model.ResShare share)
         {
             var usr = _lstuserdetails.Find(t => t.UserName == share.user);
@@ -96,6 +98,8 @@ namespace Sj.Mg.Idsrv4.Config
             {
                 usr.ScopeUsers.Add(share.scope, new List<string>() { share.touser });
             }
+            DataBaseFunc db = new DataBaseFunc();
+            db.updateScopeUsers(usr, share);
         }
         public static void DeleteDetails(Constants.Model.ResShare share)
         {
@@ -111,6 +115,8 @@ namespace Sj.Mg.Idsrv4.Config
             {
                 usr.ScopeUsers.Add(share.scope, new List<string>() { share.touser });
             }
+            DataBaseFunc db = new DataBaseFunc();
+            db.updateScopeUsers(usr, share);
         }
         public static void RegisterRequest(Constants.Model.ResShare share)
         {
@@ -118,6 +124,10 @@ namespace Sj.Mg.Idsrv4.Config
             if (usr.PendingRequests.Find(t => t.scope == share.scope && t.user == share.user) == null)
             {
                 usr.PendingRequests.Add(share);
+                DataBaseFunc db = new DataBaseFunc();
+                foreach ( var item in usr.PendingRequests ){
+                    db.registerRequest(item);
+                }
             }
         }
         public static void RemoveRequest(Constants.Model.ResShare share)
@@ -125,7 +135,11 @@ namespace Sj.Mg.Idsrv4.Config
             var usr = _lstuserdetails.Find(t => t.UserName == share.user);
             var torem = usr.PendingRequests.Find(t => t.scope == share.scope && t.user == share.touser);
             if (torem != null)
+            {
                 usr.PendingRequests.Remove(torem);
+                DataBaseFunc db = new DataBaseFunc();
+                db.removeRequest(torem, usr.PendingRequests);
+            }
         }
 
         public static List<Constants.Model.UserDetails> GetDetails()
@@ -135,121 +149,7 @@ namespace Sj.Mg.Idsrv4.Config
 
         static List<Constants.Model.UserDetails> _lstuserdetails = new List<Constants.Model.UserDetails>()
         {
-            new Constants.Model.UserDetails()
-            {
-                UserName = "Sven",
-                Clients = new List<string>()
-                {
-                    "ReliefExpress",
-                    "Medinova-EHR",
-                    "BMI-Device",
-                },
-                PendingRequests = new List<Constants.Model.ResShare>()
-                {
-
-                }
-            },
-            new Constants.Model.UserDetails()
-            {
-                UserName = "Kevin",
-                Clients = new List<string>()
-                {
-                    "ReliefExpress",
-                    "Medinova-EHR",
-                },
-                PendingRequests = new List<Constants.Model.ResShare>()
-                {
-
-                }
-            },
-            new Constants.Model.UserDetails()
-            {
-                UserName = "John",
-                Clients = new List<string>()
-                {
-                    "ReliefExpress",
-                    "BMI-Device",
-                    "Medinova-EHR"
-                },
-                ScopeUsers = new Dictionary<string, List<string>>()
-                {
-                    {
-                        "user.Observation", new List<string>()
-                        {
-                            "Sven"
-                        }
-                    },
-                    {
-                        "patient.MedicationOrder", new List<string>() // Lab data
-                        {
-                            "Sven"
-                        }
-                    }
-                },
-                PendingRequests = new List<Constants.Model.ResShare>()
-                {
-
-                }
-            },
-            new Constants.Model.UserDetails()
-            {
-                UserName = "Andrea",
-                Clients = new List<string>()
-                {
-                    "ReliefExpress"
-                },
-                ScopeUsers = new Dictionary<string, List<string>>()
-                {
-                    {
-                        "user.Observation", new List<string>()
-                        {
-                            
-                        }
-                    },
-                    {
-                        "patient.MedicationOrder", new List<string>() // Lab data
-                        {
-                            
-                        }
-                    }
-                },
-                PendingRequests = new List<Constants.Model.ResShare>()
-                {
-
-                }
-            },
-            new Constants.Model.UserDetails()
-            {
-                UserName = "Bob",
-                Clients = new List<string>()
-                {
-                    "ReliefExpress"
-                },
-                ScopeUsers = new Dictionary<string, List<string>>()
-                {
-                    {
-                        "user.Observation", new List<string>()
-                        {
-                            
-                        }
-                    },
-                    {
-                        "patient.MedicationOrder", new List<string>() // Lab data
-                        {
-                            
-                        }
-                    }
-                },
-                PendingRequests = new List<Constants.Model.ResShare>()
-                {
-                    new Constants.Model.ResShare()
-                    {
-                        scope = "user.Observation",
-                        touser = "Bob",
-                        user = "Sven"
-                    }
-                }
-            }
+            
         };
     }
 }
