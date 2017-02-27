@@ -28,14 +28,15 @@ namespace DataBaseConnection
             databaseConnection = server.GetDatabase("Medgrotto");
         }
 
-        public void insertGoogleUserData(String name, String email, String familyName)
+        public void insertGoogleUserData(String name, String email, String familyName, String source)
         {
             MongoCollection<BsonDocument> userData =
         databaseConnection.GetCollection<BsonDocument>("UserData");
             BsonDocument department = new BsonDocument {
                 { "name", name },
                 { "email", email },
-                { "familyName", familyName }
+                { "familyName", familyName },
+                {"source", source }
                 };
 
             userData.Insert(department);
