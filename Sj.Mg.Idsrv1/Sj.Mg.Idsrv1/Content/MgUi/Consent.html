@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{siteName}</title>
+    <meta charset="utf-8" />
+    <link href="/content/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/content/app/app.css" rel="stylesheet">
+</head>
+<body>
+    <h3>{siteName}</h3>
+    <div class="loggedinuser">
+        <li class="dropdown">
+            <a id="curUser" href="#"></a>
+            <ul class="dropdown-menu">
+                <li><a href="" id="logout">Logout</a></li>
+                <li><a href="" id="logdiff">loginWithDifferentAccountUrl</a></li>
+            </ul>
+        </li>
+    </div>
+    <div id="overCont">
+        <div id="consContain">
+            <div>Uncheck the permissions you do not wish to grant.</div>
+            <div>
+                Personal Information
+            </div>
+            <ul id="idtkns"></ul>
+        </div>
+        <div id="rsrcContain">
+            <div>
+                Application Access
+            </div>
+            <ul id="rsrtkns"></ul>
+        </div>
+        <div id="remmme">
+
+        </div>
+        <div id="btnssub">
+            <button name="button" value="yes" class="btn btn-primary" autofocus>Yes, Allow</button>
+            <button name="button" value="no" class="btn">No, Do Not Allow</button>
+            <a id="clntUrl" class="pull-right btn btn-default" target="_blank">
+                <strong>{{model.clientName}}</strong>
+            </a>
+        </div>
+    </div>
+</body>
+<script id='modelJson' type='application/json'>
+    {model}
+</script>
+<script type="text/javascript" src="/Content/medg/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/content/libs/encoder/encoder.min.js"></script>
+<script type="text/javascript" src="/Content/medg/js/consent.js"></script>
+</html>

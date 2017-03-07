@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{siteName}</title>
+    <link rel="stylesheet" type="text/css" href="/Content/medg/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/Content/medg/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/Content/medg/css/font-awesome.min.css">
+</head>
+<body class="login">
+    <div class="loginMain">
+        <div class="container loginScreen">
+            <a href="#" class="loginLogo"><img src="/Content/medg/images/login-logo.png"></a>
+            <div class="loginSection">
+                <div class="loginB" id="locallogin">
+                    <div class="emailRow">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <input type="text" name="Username" class="email" placeholder="Enter Email">
+                    </div>
+                    <div class="passwordRow">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <input type="password" name="Password" class="psw" placeholder="Enter Password">
+                    </div>
+                    <div class="remberRow">
+                        <label><input type="checkbox" name="RememberMe" id="rememberMe" checked="checked" value="true" class="reChk"><span></span> Remember me</label>
+                        <a href="#" class="frpsw">Forgot Password?</a>
+                    </div>
+                    <div class="loginRow">
+                        <button>login</button>
+                    </div>
+                </div>
+                <div class="orRow">
+                    <span>or</span>
+                </div>
+                <div class="socialMedia">
+                    <ul id="externaprovider">
+                        <!--<li><a href="#"><img src="/Content/medg/images/gmail.png"></a></li>
+                        <li><a href="#"><img src="/Content/medg/images/facebook.png"></a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="loginPush"></div>
+    </div>
+    <div class="loginFooter">All rights reserved &copy; 2017 Terms and conditions</div>
+    <script id='modelJson' type='application/json'>
+        {model}
+    </script>
+    <script type="text/javascript" src="/Content/medg/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/content/libs/encoder/encoder.min.js"></script>
+    <script type="text/javascript" src="/Content/medg/js/login.js"></script>
+</body>
+</html>
