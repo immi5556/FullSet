@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Hl7.Fhir.DSTU21.Specification</name>
+    </assembly>
+    <members>
+        <member name="T:Hl7.Fhir.Support.Error">
+            <summary>
+            Utility class for creating and unwrapping <see cref="T:System.Exception"/> instances.
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.formatMessage(System.String,System.Object[])">
+            <summary>
+            Formats the specified resource string using <see cref="M:CultureInfo.CurrentCulture"/>.
+            </summary>
+            <param name="format">A composite format string.</param>
+            <param name="args">An object array that contains zero or more objects to format.</param>
+            <returns>The formatted string.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.Argument(System.String,System.Object[])">
+            <summary>
+            Creates an <see cref="T:System.ArgumentException"/> with the provided properties.
+            </summary>
+            <param name="messageFormat">A composite format string explaining the reason for the exception.</param>
+            <param name="messageArgs">An object array that contains zero or more objects to format.</param>
+            <returns>The logged <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.Argument(System.String,System.String,System.Object[])">
+            <summary>
+            Creates an <see cref="T:System.ArgumentException"/> with the provided properties.
+            </summary>
+            <param name="parameterName">The name of the parameter that caused the current exception.</param>
+            <param name="messageFormat">A composite format string explaining the reason for the exception.</param>
+            <param name="messageArgs">An object array that contains zero or more objects to format.</param>
+            <returns>The logged <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.ArgumentNull(System.String)">
+            <summary>
+            Creates an <see cref="T:System.ArgumentNullException"/> with the provided properties.
+            </summary>
+            <param name="parameterName">The name of the parameter that caused the current exception.</param>
+            <returns>The logged <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.ArgumentNull(System.String,System.String,System.Object[])">
+            <summary>
+            Creates an <see cref="T:System.ArgumentNullException"/> with the provided properties.
+            </summary>
+            <param name="parameterName">The name of the parameter that caused the current exception.</param>
+            <param name="messageFormat">A composite format string explaining the reason for the exception.</param>
+            <param name="messageArgs">An object array that contains zero or more objects to format.</param>
+            <returns>The logged <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.ArgumentNullOrEmpty(System.String)">
+            <summary>
+            Creates an <see cref="T:System.ArgumentException"/> with a default message.
+            </summary>
+            <param name="parameterName">The name of the parameter that caused the current exception.</param>
+            <returns>The logged <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.InvalidOperation(System.String,System.Object[])">
+            <summary>
+            Creates an <see cref="T:System.InvalidOperationException"/>.
+            </summary>
+            <param name="messageFormat">A composite format string explaining the reason for the exception.</param>
+            <param name="messageArgs">An object array that contains zero or more objects to format.</param>
+            <returns>The logged <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.InvalidOperation(System.Exception,System.String,System.Object[])">
+            <summary>
+            Creates an <see cref="T:System.InvalidOperationException"/>.
+            </summary>
+            <param name="innerException">Inner exception</param>
+            <param name="messageFormat">A composite format string explaining the reason for the exception.</param>
+            <param name="messageArgs">An object array that contains zero or more objects to format.</param>
+            <returns>The logged <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.NotSupported(System.String,System.Object[])">
+            <summary>
+            Creates an <see cref="T:System.NotSupportedException"/>.
+            </summary>
+            <param name="messageFormat">A composite format string explaining the reason for the exception.</param>
+            <param name="messageArgs">An object array that contains zero or more objects to format.</param>
+            <returns>The logged <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.Format(System.String,Hl7.Fhir.Support.IPostitionInfo,System.Object[])">
+            <summary>
+            Creates an <see cref="T:System.FormatException"/> with the provided properties.
+            </summary>
+            <param name="messageFormat">A composite format string explaining the reason for the exception.</param>
+            <param name="pos">Optional line position information for the message</param>
+            <param name="messageArgs">An object array that contains zero or more objects to format.</param>
+            <returns>The logged <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.NotImplemented(System.String,System.Object[])">
+            <summary>
+            Creates an <see cref="T:System.NotImplementedException"/>.
+            </summary>
+            <param name="messageFormat">A composite format string explaining the reason for the exception.</param>
+            <param name="messageArgs">An object array that contains zero or more objects to format.</param>
+            <returns>The logged <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.Error.NotImplemented">
+            <summary>
+            Creates an <see cref="T:System.NotImplementedException"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.ReflectionHelper.GetAttributeOnEnum``1(System.Enum)">
+            <summary>
+            Gets an attribute on an enum field value
+            </summary>
+            <typeparam name="T">The type of the attribute you want to retrieve</typeparam>
+            <param name="enumVal">The enum value</param>
+            <returns>The attribute of type T that exists on the enum value</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Support.ReflectionHelper.GetCollectionItemType(System.Type)">
+            <summary>
+            Gets the type of the typed collection's items.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The type of the typed collection's items.</returns>
+        </member>
+        <member name="P:Hl7.Fhir.Specification.Navigation.BaseElementNavigator.PathName">
+            <summary>
+            Get the name of the current node, based on the last part of the part
+            </summary>
+            <returns>The name or String.Empty if the navigator is not located on a node</returns>
+        </member>
+        <member name="P:Hl7.Fhir.Specification.Navigation.BaseElementNavigator.ParentPath">
+            <summary>
+            Get the parent path of the current node
+            </summary>
+            <returns>The name or String.Empty if the navigator is not located on a node</returns>
+        </member>
+        <member name="P:Hl7.Fhir.Specification.Navigation.BaseElementNavigator.Path">
+            <summary>
+            Get the full path of the current node
+            </summary>
+            <returns>The path or String.Empty if the navigator is not located on a node</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Navigation.ElementNavigator.InsertBefore(Hl7.Fhir.Model.ElementDefinition)">
+            <summary>
+            Inserts the element passed in as a sibling to the element the navigator is currently on. 
+            The navigator will move to the inserted element.
+            </summary>
+            <param name="sibling"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Navigation.ElementNavigator.InsertAfter(Hl7.Fhir.Model.ElementDefinition)">
+            <summary>
+            Inserts the element passed in as a sibling to the element the navigator is currently on. 
+            The navigator will move to the inserted element.
+            </summary>
+            <param name="sibling"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Navigation.ElementNavigator.InsertFirstChild(Hl7.Fhir.Model.ElementDefinition)">
+            <summary>
+            Inserts the element passed in as a child of the element the navigator is currently on. 
+            The navigator will move to the inserted element.
+            </summary>
+            <param name="child"></param>
+            <returns></returns>
+            <remarks>You can only insert a child for an element does not have children yet.</remarks>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Navigation.ElementNavigator.ToListOfElements">
+            <summary>
+            Returns the list of elements passed to the constructor, including any changes made to the list using
+            the modification functions of the navigator.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Navigation.NavModificationExtensions.CopyChildren(Hl7.Fhir.Specification.Navigation.BaseElementNavigator,Hl7.Fhir.Specification.Navigation.ElementNavigator)">
+            <summary>
+            Insert the children of the source navigator under the node pointed to by this Navigator.
+            </summary>
+            <param name="dest"></param>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Navigation.ProfileNavigationExtensions.Rebase(Hl7.Fhir.Model.IElementList,System.String)">
+            <summary>
+            Rewrites the Path's of the elements in a structure so they are based on the given path: the root
+            of the given structure will become the given path, it's children will be relocated below that path
+            </summary>
+            <param name="root">The structure that will be rebased on the path</param>
+            <param name="path">The path to rebase the structure on</param>
+        </member>
+        <member name="T:Hl7.Fhir.Specification.Source.MultiArtifactSource">
+            <summary>
+            Reads FHIR artifacts (Profiles, ValueSets, ...) from a list of other IArtifactSources
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.MultiArtifactSource.#ctor(System.Collections.Generic.IEnumerable{Hl7.Fhir.Specification.Source.IArtifactSource})">
+            <summary>
+            Custom implementation of the artifact resolver
+            </summary>
+            <param name="sources">A custom set of IArtifact sources. Resolving occurs in order of input</param>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.MultiArtifactSource.#ctor(Hl7.Fhir.Specification.Source.IArtifactSource[])">
+            <summary>
+            Custom implementation of the artifact resolver
+            </summary>
+            <param name="sources">A custom set of IArtifact sources. Resolving occurs in order of input</param>
+        </member>
+        <member name="T:Hl7.Fhir.Specification.Source.ArtifactResolver">
+            <summary>
+            Reads FHIR artifacts (Profiles, ValueSets, ...) using a list of other IArtifactSources
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.ArtifactResolver.CreateDefault">
+            <summary>
+            Creates a default non-cached ArtifactResolver
+            Default only searches in the executable directory files and the core zip. 
+            This non-cached resolver is primary for testing purposes.
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.ArtifactResolver.CreateOffline">
+            <summary>
+            Creates a default offline cached ArtifactResolver
+            Default only searches in the executable directory files and the core zip. 
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.ArtifactResolver.CreateCachedDefault">
+            <summary>
+            Creates a default cached ArtifactResolver
+            Default only searches in the executable directory files and the core zip. 
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.ArtifactResolver.GetCoreModelUrls">
+            <summary>
+            Return canonical urls of all the core Resource/datatype/primitive StructureDefinitions available in the IArtifactSource
+            </summary>
+        </member>
+        <member name="T:Hl7.Fhir.Specification.Source.CachedArtifactSource">
+            <summary>
+            Reads FHIR artifacts (Profiles, ValueSets, ...) using a list of other IArtifactSources
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.CachedArtifactSource.#ctor(Hl7.Fhir.Specification.Source.IArtifactSource,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="source">ArtifactSource that will be used to get data from on a cache miss</param>
+            <param name="cacheDuration">Duration before trying to refresh the cache, in seconds</param>
+        </member>
+        <member name="T:Hl7.Fhir.Specification.Source.ZipArtifactSource">
+            <summary>
+            Reads FHIR artifacts (Profiles, ValueSets, ...) from validation.zip/validation-min.zip
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.ZipArtifactSource.prepare">
+            <summary>
+            Unpacks the zip-file and constructs a new FileArtifactSource on the unzipped directory
+            </summary>
+            <remarks>This is an expensive operations and should be run once. As well, it unpacks files on the
+            file system and is not thread-safe.</remarks>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.ZipArtifactSource.LoadConformanceResourceByUrl(System.String)">
+            <summary>
+            Locates the file belonging to the given artifactId on a filesystem (within the store directory given in the constructor)
+            and reads an artifact with the given id from it.
+            </summary>
+            <param name="url">identifying uri of the conformance resource to find</param>
+            <returns>An artifact (Profile, ValueSet, etc) or null if an artifact with the given uri could not be located</returns>
+        </member>
+        <member name="T:Hl7.Fhir.Specification.Source.FileDirectoryArtifactSource">
+            <summary>
+            Reads FHIR artifacts (Profiles, ValueSets, ...) from individual files
+            </summary>
+        </member>
+        <member name="P:Hl7.Fhir.Specification.Source.FileDirectoryArtifactSource.SpecificationDirectory">
+            <summary>
+            The default directory this artifact source will access for its files.
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.FileDirectoryArtifactSource.prepareFiles">
+            <summary>
+            Prepares the source by reading all files present in the directory (matching the mask, if given)
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.FileDirectoryArtifactSource.prepareResources">
+            <summary>
+            Scan all xml files found by prepareFiles and find conformance resources + their id
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.FileDirectoryArtifactSource.LoadConformanceResourceByUrl(System.String)">
+            <summary>
+            Locates the file belonging to the given artifactId on a filesystem (within the store directory given in the constructor)
+            and reads an artifact with the given id from it.
+            </summary>
+            <param name="url">identifying uri of the conformance resource to find</param>
+            <returns>An artifact (Profile, ValueSet, etc) or null if an artifact with the given uri could not be located. If both an
+            xml and a json version is available, the xml version is returned</returns>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.WebArtifactSource.#ctor">
+            <summary>Default constructor.</summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.WebArtifactSource.#ctor(System.Func{System.Uri,Hl7.Fhir.Rest.FhirClient})">
+            <summary>Create a new <see cref="T:Hl7.Fhir.Specification.Source.WebArtifactSource"/> instance that supports a custom <see cref="T:Hl7.Fhir.Rest.FhirClient"/> implementation.</summary>
+            <param name="fhirClientFactory">
+            Factory function that should create a new <see cref="T:Hl7.Fhir.Rest.FhirClient"/> instance for the specified <see cref="T:System.Uri"/>.
+            If this parameter equals <c>null</c>, then the new instance creates a default <see cref="T:Hl7.Fhir.Rest.FhirClient"/> instance.
+            </param>
+        </member>
+        <member name="T:Hl7.Fhir.Specification.Source.ConformanceArtifactScanner">
+            <summary>
+            Internal class which is able to scan a (possibly) large Xml conformance resource for its identifying url
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.ConformanceArtifactScanner.FindConformanceResourceByUrl(System.String)">
+            <summary>
+            Scan a supplied (bundle or single resource) file with the core artifacts for a conformance resource with a canonical Url equal to the given url 
+            </summary>
+            <param name="url">identifying canonical url of the conformance resource to find</param>
+            <returns></returns>
+        </member>
+        <member name="T:Hl7.Fhir.Specification.Source.ZipCacher">
+            <summary>
+            Internal class which gives access to files within a zip whilst avoiding unpacking that zip on every access.
+            The ZipCacher will unpack the zip once and store the contents in a cache directory, serving files from this cache.
+            When the ZipCacher detects the zip is more recent than its cache, it will update the cache directory automatically.
+            
+            The ZipCacher will either use a different cache for each instance, or -given a persistent "cache key"- reuse the
+            cache from a previous instantiation of ZipCacher. When using a shared cache over multiple ZipCachers with the/
+            same cacheKey, keep in mind that it uses the filesystem for its state, and is not thread-safe.
+            </summary>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.ZipCacher.GetContents">
+            <summary>
+            Returns a list of files present in the zip, returning a full path to the file
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.ZipCacher.IsActual">
+            <summary>
+            Returns true if the ZipCacher has an up-to-date cache for the zip file it manages
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Hl7.Fhir.Specification.Source.ZipCacher.getCachedZipDirectory">
+            <summary>
+            Gets the cache directory, but does not create one if it does not yet exist
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
