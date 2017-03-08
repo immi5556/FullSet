@@ -70,7 +70,7 @@ namespace Sj.Mg.Idsrv1.Config
                 },
                 new Scope()
                 {
-                    Name = "write",
+                    Name = "write1",
                     Type = ScopeType.Resource,
                     Description = "Some detail desd",
                     DisplayName = "Some detail display..",

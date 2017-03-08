@@ -63,7 +63,7 @@ namespace Sj.Mg.Idsrv1.Config
                         "openid",
                         "profile",
                         "address",
-                        "write",
+                        "write1",
                         "uma_protection",
                     },
                     RedirectUris = new List<string>
@@ -78,28 +78,29 @@ namespace Sj.Mg.Idsrv1.Config
                     AllowRememberConsent = false,
                     ClientSecrets = new List<Secret>()
                     {
-                        new Secret(AppConstants.Constants.ClientSecret.Sha256())
+                        //new Secret(AppConstants.Constants.ClientSecret.Sha256())
+                        new Secret("secret".Sha256())
                     }
                 },
                 new Client
                 {
-                     ClientId = "mvc.api",
-                     ClientName = "mvc sample api",
-                     Flow = Flows.ClientCredentials,
-                     //AllowAccessToAllScopes = true,
-                     AllowedScopes = new List<string>
-                     {
+                    ClientId = "mvc.api",
+                    ClientName = "mvc sample api",
+                    Flow = Flows.ClientCredentials,
+                    //AllowAccessToAllScopes = true,
+                    AllowedScopes = new List<string>
+                    {
                          "write"
-                     },
+                    },
                     // redirect = URI of the MVC application callback
                     RedirectUris = new List<string>
                     {
                         
-                    },           
-
+                    },
                     // client secret
                     ClientSecrets = new List<Secret>()
                     {
+                        //new Secret("secret".Sha256())
                         new Secret("secret".Sha256())
                     }
                 }
