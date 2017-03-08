@@ -15,11 +15,13 @@
                 <div class="loginB" id="locallogin">
                     <div class="emailRow">
                         <i class="fa fa-user" aria-hidden="true"></i>
-                        <input type="text" name="Username" class="email" placeholder="Enter Email">
+                        <input type="email" name="Username" class="email" placeholder="Enter Email" required>
+                        <div class="Error emailError">Enter Valid Email</div>
                     </div>
                     <div class="passwordRow">
                         <i class="fa fa-lock" aria-hidden="true"></i>
-                        <input type="password" name="Password" class="psw" placeholder="Enter Password">
+                        <input type="password" name="Password" class="psw" placeholder="Enter Password" required>
+                        <div class="Error passwordError">Enter Password</div>
                     </div>
                     <div class="remberRow">
                         <label><input type="checkbox" name="RememberMe" id="rememberMe" checked="checked" value="true" class="reChk"><span></span> Remember me</label>
@@ -28,6 +30,7 @@
                     <div class="loginRow">
                         <button>login</button>
                     </div>
+                    <div class="invalid"><span><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Invalid Username or Password</span></div>
                 </div>
                 <div class="orRow">
                     <span>or</span>

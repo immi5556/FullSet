@@ -4,19 +4,30 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Register</h2>
-@using (Html.BeginForm())
-{
-    <div class="form-group">
-        <label for="First">First Name</label>
-        @Html.TextBoxFor(x => x.First, new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        <label for="Last">Last Name</label>
-        @Html.TextBoxFor(x => x.Last, new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        <button class="btn btn-primary">Register</button>
-    </div>
-}
-
+<div class="loginMain">
+	<div class="container loginScreen">
+		<a href="#" class="loginLogo"><img src="~/Content/medg/images/login-logo.png" /></a>
+		<div class="registerSec">
+			<h2>Welcome to MedGrotto</h2>
+            @using (Html.BeginForm())
+            {
+			    <div class="reg-row">
+				    <label for="First">First Name</label>
+				    @Html.TextBoxFor(x => x.First, new { @class = "form-control" })
+			    </div>
+			    <div class="reg-row">
+				    <label for="Last">Last Name</label>
+				    @Html.TextBoxFor(x => x.Last, new { @class = "form-control" })
+			    </div>
+			    <div class="reg-row">
+				    <button class="registerBtn">Register</button>
+			    </div>
+            }
+		</div>
+	</div>
+	<div class="loginPush"></div>
+</div>
+<div class="loginFooter">All rights reserved &copy; 2017 Terms and conditions</div>
+<script>
+    $(".loginMain").closest("body").addClass("login");
+</script>

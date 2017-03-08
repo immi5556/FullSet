@@ -41,3 +41,7 @@
 
 identityServer.pupolateExternalProvider();
 identityServer.wrapForm();
+if (identityServer.getModel().errorMessage != null) {
+    $(".invalid").show();
+    identityServer.getModel().errorMessage = null;
+}

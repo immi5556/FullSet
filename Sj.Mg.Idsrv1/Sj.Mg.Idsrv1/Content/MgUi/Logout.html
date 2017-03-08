@@ -1,15 +1,23 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>UMA - Logout Confirmation</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/Content/medg/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/Content/site.css">
+   
+    <link rel="stylesheet" type="text/css" href="/Content/medg/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="col-md-6 col-sm-6">
-        <div id="logoutcontainer">
-            <button class="btn btn-primary">Yes</button>
+    <div class="lightbox lightbox-min" id="log-outPop" style="display:block">
+        <div class="scrollSec logoutScrn">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="buttonsRow" id="logoutcontainer">
+                <button class="btnYes">Yes</button>
+            </div>
         </div>
     </div>
+    <div class="popupShadow" style="display:block"></div>
     <script id='modelJson' type='application/json'>
         {model}
     </script>
