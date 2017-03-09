@@ -9,18 +9,16 @@ using Thinktecture.IdentityModel.WebApi;
 
 namespace Sj.Mg.Resource.Server.Controllers
 {
+    [Code.Security.UmaAuthz("Patient/Account")]
     [EnableCors("*", "*", "GET, POST, PATCH")]
     public class AccountController : ApiController
     {
         [HttpGet]
-        [ScopeAuthorize("Patient/Account.Read", "Patient/Account.*")]
         public List<Hl7.Fhir.Model.Account> Get()
         {
             return Code.AccountManager.Get(null);
         }
 
-        // POST: api/Account
-        [ScopeAuthorize("Patient/Account.Write, Patient/Account.*")]
         [HttpPost]
         public void Post([FromBody]Hl7.Fhir.Model.Account act)
         {

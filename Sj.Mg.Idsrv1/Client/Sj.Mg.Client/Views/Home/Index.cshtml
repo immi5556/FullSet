@@ -65,35 +65,65 @@
         <h4>Patient List</h4>
         <div style="position:relative;">
             <div style="float:left;height:100%;width:25%;background-color:aliceblue;">
+                <h3>Accounts</h3>
                 <table id="tblact">
                     
                 </table>
             </div>
             <div style="float:left;height:100%;width:25%;background-color:antiquewhite;">
+                <h3>Observation</h3>
                 <table id="tblobs">
                     
                 </table>
             </div>
             <div style="float:left;height:100%;width:25%;background-color:aliceblue;">
+                <h3>Medication</h3>
                 <table id="tblmed">
                     
                 </table>
             </div>
             <div style="float:left;height:100%;width:25%;background-color:antiquewhite;">
+                <h3>Patient</h3>
                 <table id="tblpat"></table>
             </div>
         </div>
     </div>
     <script src="~/Content/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="~/Content/encoder.min.js" type="text/javascript"></script>
-    <script id="modelJson">
-        @ViewBag.Acct
-    </script>
     <script>
-        var tt = JSON.parse(@Html.Raw(ViewBag.Acct1));
-        (tt || []).forEach(function (item) {
-            $("#tblact").append("<tr><td>" + item.NameElement.Value + "</td></tr>");
-        });
+        var tt = JSON.parse('@Html.Raw(ViewBag.Model)');
+        if (tt.Acct1 && Array.isArray(tt.Acct1)) {
+            (tt.Acct1 || []).forEach(function (item) {
+                $("#tblact").append("<tr><td><a href='#'>" + item.NameElement.Value + "</a></td></tr>");
+            });
+        }
+        else {
+            $("#tblact").append("<tr><td>" + tt.Acct1 + "</td></tr>");
+        }
+        if (tt.Obsr1 && Array.isArray(tt.Obsr1)) {
+            (tt.Obsr1 || []).forEach(function (item) {
+                $("#tblobs").append("<tr><td><a href='#'>" + item.IdElement.Value + "</a></td></tr>");
+            });
+        }
+        else {
+            $("#tblobs").append("<tr><td>" + tt.Obsr1 + "</td></tr>");
+        }
+        if (tt.Medi1 && Array.isArray(tt.Medi1)) {
+            (tt.Medi1 || []).forEach(function (item) {
+                $("#tblmed").append("<tr><td><a href='#'>" + item.IdElement.Value + "</a></td></tr>");
+            });
+        }
+        else {
+            $("#tblmed").append("<tr><td>" + tt.Medi1 + "</td></tr>");
+        }
+        if (tt.Pati1 && Array.isArray(tt.Pati1)) {
+            (tt.Pati1 || []).forEach(function (item) {
+                $("#tblpat").append("<tr><td><a href='#'>" + item.Name[0].FamilyElement[0].Value + "</a></td></tr>");
+            });
+        }
+        else {
+            $("#tblpat").append("<tr><td>" + tt.Pati1 + "</td></tr>");
+        }
         $(".cls-order").on("click", function () {
             window.location = "/Home/Secure?patid=" + $(this).data("myid");
             //$('#detailsview').load("Home/GetData", { searchText: "Lord Jesus my Protector" });

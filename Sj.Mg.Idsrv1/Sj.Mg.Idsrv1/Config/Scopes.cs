@@ -13,6 +13,7 @@ namespace Sj.Mg.Idsrv1.Config
                 StandardScopes.OpenId,
                 StandardScopes.ProfileAlwaysInclude,
                 StandardScopes.Address,
+                StandardScopes.OfflineAccess,
                 new Scope()
                 {
                     Name = "user.Observation",
@@ -99,105 +100,66 @@ namespace Sj.Mg.Idsrv1.Config
             _lstscopes.Add(
                 new Scope()
                 {
-                    Name = "Patient/Account.Read",
-                    DisplayName = "Patient/Account.Read",
-                    Description = "Read access to a single patient's account information.",
-                    Type = ScopeType.Resource
-                });
-            _lstscopes.Add(
-                new Scope()
-                {
-                    Name = "Patient/Account.Write",
-                    DisplayName = "Patient/Account.Write",
-                    Description = "Read and write access to a single patient's account information.",
-                    Type = ScopeType.Resource
-                });
-            _lstscopes.Add(
-                new Scope()
-                {
-                    Name = "Patient/Account.*",
-                    DisplayName = "Patient/Account.*",
-                    Description = "Full access to a single patient's account information.",
-                    Type = ScopeType.Resource
+                    Name = "Patient/Account",
+                    DisplayName = "Patient/Account",
+                    Description = "single patient's account information.",
+                    Type = ScopeType.Resource,
+                    Claims = new List<ScopeClaim>()
+                    {
+                        new ScopeClaim() { Name = "Patient/Account.Read", Description = "Read access to a single patient's account information." },
+                        new ScopeClaim() { Name = "Patient/Account.Write", Description = "Read and write access to a single patient's account information." },
+                        new ScopeClaim() { Name = "Patient/Account.*", Description = "Full access to a single patient's account information." }
+                    }
                 });
 
             //Patient Medication
             _lstscopes.Add(
                 new Scope()
                 {
-                    Name = "Patient/Medication.Read",
-                    DisplayName = "Patient/Medication.Read",
-                    Description = "Read access to a single patient's Medication information.",
-                    Type = ScopeType.Resource
+                    Name = "Patient/Medication",
+                    DisplayName = "Patient/Medication",
+                    Description = "single patient's Medication information.",
+                    Type = ScopeType.Resource,
+                    Claims = new List<ScopeClaim>()
+                    {
+                        new ScopeClaim() { Name = "Patient/Medication.Read", Description = "Read access to a single patient's Medication information." },
+                        new ScopeClaim() { Name = "Patient/Medication.Write", Description = "Read and write access to a single patient's Medication information." },
+                        new ScopeClaim() { Name = "Patient/Medication.*", Description = "Full access to a single patient's Medication information." }
+                    }
                 });
-            _lstscopes.Add(
-                new Scope()
-                {
-                    Name = "Patient/Medication.Write",
-                    DisplayName = "Patient/Medication.Write",
-                    Description = "Read and write access to a single patient's Medication information.",
-                    Type = ScopeType.Resource
-                });
-            _lstscopes.Add(
-                new Scope()
-                {
-                    Name = "Patient/Medication.*",
-                    DisplayName = "Patient/Medication.*",
-                    Description = "Full access to a single patient's Medication information.",
-                    Type = ScopeType.Resource
-                });
-
             //Patient Observation
             _lstscopes.Add(
                 new Scope()
                 {
-                    Name = "Patient/Observation.Read",
-                    DisplayName = "Patient/Observation.Read",
-                    Description = "Read access to a single patient's Observation information.",
-                    Type = ScopeType.Resource
-                });
-            _lstscopes.Add(
-                new Scope()
-                {
-                    Name = "Patient/Observation.Write",
-                    DisplayName = "Patient/Observation.Write",
-                    Description = "Read and write access to a single patient's Observation information.",
-                    Type = ScopeType.Resource
-                });
-            _lstscopes.Add(
-                new Scope()
-                {
-                    Name = "Patient/Observation.*",
-                    DisplayName = "Patient/Observation.*",
-                    Description = "Full access to a single patient's Observation information.",
-                    Type = ScopeType.Resource
+                    Name = "Patient/Observation",
+                    DisplayName = "Patient/Observation",
+                    Description = "access to a single patient's Observation information.",
+                    Type = ScopeType.Resource,
+                    Claims = new List<ScopeClaim>()
+                    {
+                        new ScopeClaim() { Name = "Patient/Observation.Read", Description = "Read access to a single patient's Observation information." },
+                        new ScopeClaim() { Name = "Patient/Observation.Write", Description = "Read and write access to a single patient's Observation information." },
+                        new ScopeClaim() { Name = "Patient/Observation.*", Description = "Full access to a single patient's Observation information." }
+                    }
                 });
 
             //Patient 
             _lstscopes.Add(
                 new Scope()
                 {
-                    Name = "patient/Patient.read",
-                    DisplayName = "patient/Patient.read",
-                    Description = "Read access to a single patient's demographic information.",
-                    Type = ScopeType.Resource
+                    Name = "patient/Patient",
+                    DisplayName = "patient/Patient",
+                    Description = "access to a single patient's demographic information.",
+                    Type = ScopeType.Resource,
+                    Claims = new List<ScopeClaim>()
+                    {
+                        new ScopeClaim() { Name = "Patient/Patient.Read", Description = "Read access to a single patient's demographic information." },
+                        new ScopeClaim() { Name = "Patient/Patient.Write", Description = "Read and write access to a single patient's demographic information." },
+                        new ScopeClaim() { Name = "Patient/Patient.*", Description = "Full access to a single patient's demographic information." }
+                    }
                 });
-            _lstscopes.Add(
-                new Scope()
-                {
-                    Name = "patient/Patient.write",
-                    DisplayName = "patient/Patient.write",
-                    Description = "Read and write access to a single patient's demographic information.",
-                    Type = ScopeType.Resource
-                });
-            _lstscopes.Add(
-                new Scope()
-                {
-                    Name = "patient/Patient.*",
-                    DisplayName = "patient/Patient.*",
-                    Description = "Full access to a single patient's demographic information.",
-                    Type = ScopeType.Resource
-                });
+            
+
             _lstscopes.Add(
                 new Scope()
                 {

@@ -51,6 +51,10 @@ namespace Sj.Mg.Idsrv1
                             }
                         },
                         EnablePostSignOutAutoRedirect = true
+                    },
+                    InputLengthRestrictions = new InputLengthRestrictions()
+                    {
+                        Scope = 1400
                     }
                 };
 

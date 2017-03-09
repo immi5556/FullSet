@@ -255,6 +255,10 @@
       <Project>{40bbc226-7781-4ad4-8ccb-0ad21740db6b}</Project>
       <Name>AppConstants</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Fhir\Client\Hl7.Fhir.Core\Hl7.Fhir.Core.Net45.csproj">
+      <Project>{92cc9186-0a21-4e06-b11f-907584fbfd81}</Project>
+      <Name>Hl7.Fhir.Core.Net45</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libs\Sj.Mg.CliLib\Sj.Mg.CliLib.csproj">
       <Project>{eb2046aa-3456-453a-bd0d-811f6497b867}</Project>
       <Name>Sj.Mg.CliLib</Name>

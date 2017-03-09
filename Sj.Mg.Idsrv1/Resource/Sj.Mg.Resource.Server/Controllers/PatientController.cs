@@ -4,21 +4,20 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Thinktecture.IdentityModel.WebApi;
 
 namespace Sj.Mg.Resource.Server.Controllers
 {
+    [ScopeAuthorize("Patient/Observation")]
+    [EnableCors("*", "*", "GET, POST, PATCH")]
     public class PatientController : ApiController
     {
         [HttpGet]
-        [ScopeAuthorize("Patient/Patient.Read", "Patient/Patient.*")]
         public List<Hl7.Fhir.Model.Patient> Get()
         {
             return Code.PatientManager.Get(null);
         }
-
-        // POST: api/Account
-        [ScopeAuthorize("Patient/Patient.Write, Patient/Patient.*")]
         [HttpPost]
         public void Post([FromBody]Hl7.Fhir.Model.Observation act)
         {

@@ -42,6 +42,15 @@ namespace Sj.Mg.Idsrv1.Config
                         "Patient/Account.Read",
                         "Patient/Account.*",
                         "Patient/Account.Write",
+                        "Patient/Medication.Read",
+                        "Patient/Medication.*",
+                        "Patient/Medication.Write",
+                        "Patient/Observation.Read",
+                        "Patient/Observation.*",
+                        "Patient/Observation.Write",
+                        "Patient/Patient.Read",
+                        "Patient/Patient.*",
+                        "Patient/Patient.Write"
                      },
                     // redirect = URI of the MVC application callback
                     RedirectUris = new List<string>
