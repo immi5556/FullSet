@@ -36,9 +36,12 @@ namespace Sj.Mg.Idsrv1.Config
                      //AllowAccessToAllScopes = true,
                      AllowedScopes = new List<string>
                      {
-                         "patient.MedicationOrder",
-                         "uma_protection",
-                         "user.Observation"
+                        "patient.MedicationOrder",
+                        "uma_protection",
+                        "user.Observation",
+                        "Patient/Account.Read",
+                        "Patient/Account.*",
+                        "Patient/Account.Write",
                      },
                     // redirect = URI of the MVC application callback
                     RedirectUris = new List<string>
@@ -95,7 +98,7 @@ namespace Sj.Mg.Idsrv1.Config
                     // redirect = URI of the MVC application callback
                     RedirectUris = new List<string>
                     {
-                        
+
                     },
                     // client secret
                     ClientSecrets = new List<Secret>()

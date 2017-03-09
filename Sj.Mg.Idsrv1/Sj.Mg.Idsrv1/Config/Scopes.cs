@@ -95,6 +95,85 @@ namespace Sj.Mg.Idsrv1.Config
 
         public static void AddFhirScopes()
         {
+            //Patient Accounts
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "Patient/Account.Read",
+                    DisplayName = "Patient/Account.Read",
+                    Description = "Read access to a single patient's account information.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "Patient/Account.Write",
+                    DisplayName = "Patient/Account.Write",
+                    Description = "Read and write access to a single patient's account information.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "Patient/Account.*",
+                    DisplayName = "Patient/Account.*",
+                    Description = "Full access to a single patient's account information.",
+                    Type = ScopeType.Resource
+                });
+
+            //Patient Medication
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "Patient/Medication.Read",
+                    DisplayName = "Patient/Medication.Read",
+                    Description = "Read access to a single patient's Medication information.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "Patient/Medication.Write",
+                    DisplayName = "Patient/Medication.Write",
+                    Description = "Read and write access to a single patient's Medication information.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "Patient/Medication.*",
+                    DisplayName = "Patient/Medication.*",
+                    Description = "Full access to a single patient's Medication information.",
+                    Type = ScopeType.Resource
+                });
+
+            //Patient Observation
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "Patient/Observation.Read",
+                    DisplayName = "Patient/Observation.Read",
+                    Description = "Read access to a single patient's Observation information.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "Patient/Observation.Write",
+                    DisplayName = "Patient/Observation.Write",
+                    Description = "Read and write access to a single patient's Observation information.",
+                    Type = ScopeType.Resource
+                });
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = "Patient/Observation.*",
+                    DisplayName = "Patient/Observation.*",
+                    Description = "Full access to a single patient's Observation information.",
+                    Type = ScopeType.Resource
+                });
+
+            //Patient 
             _lstscopes.Add(
                 new Scope()
                 {
