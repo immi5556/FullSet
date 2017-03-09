@@ -268,6 +268,7 @@
     <Content Include="Content\medg\images\logoLogin.png" />
     <Content Include="Content\medg\images\Medinova.png" />
     <Content Include="Content\medg\images\ne_icc.jpg" />
+    <Content Include="Content\medg\images\reliefSignlogo.png" />
     <Content Include="Content\medg\images\relief_api.png" />
     <Content Include="Content\medg\images\resourceLogo1.png" />
     <Content Include="Content\medg\images\re_icc.jpg" />

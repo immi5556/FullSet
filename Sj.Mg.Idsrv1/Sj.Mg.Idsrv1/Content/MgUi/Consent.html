@@ -6,9 +6,49 @@
     <meta charset="utf-8" />
     <link href="/content/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/content/app/app.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/content/medg/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/content/medg/css/font-awesome.min.css">
 </head>
 <body>
-    <h3>{siteName}</h3>
+    <div class="lightboxrelief relief-min">
+        <div class="userDetail">
+            <div class="userNm" id="curUser">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i> <span class="usrName">Vamshi Krishna</span> <i class="fa fa-caret-down" aria-hidden="true"></i>
+                <ul style="display: none;">
+                    <li><a href="" id="logout">Logout</a></li>
+                    <li><a href="" id="logdiff">login With Different Account</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="scrollSec">
+            <h2>{siteName}</span></h2>
+            <h3><span>Uncheck the permissions you do not wish to grant.</span></h3>
+            <div id="overCont">
+                <div class="reliefSection" id="consContain">
+                    <h4>Personal Information</h4>
+                    <ul id="idtkns"></ul>
+                </div>
+                <div class="reliefSection" id="rsrcContain">
+                    <h4>Application Access</h4>
+                    <ul id="rsrtkns"></ul>
+                </div>
+                <div id="remmme">
+
+                </div>
+                <div class="reliefSignSection">
+                    <div class="reliefSignRow1" id="btnssub">
+                        <button name="button" class="allow" value="yes" autofocus>Allow</button>
+                        <button name="button" class="cancel" value="no">No, Do Not Allow</button>
+                        <a href="#" class="signLogo"><img src="/content/medg/images/reliefSignlogo.png"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popupShadow" style="display:block"></div>
+
+
+    <!--<h3>{siteName}</h3>
     <div class="loggedinuser">
         <li class="dropdown">
             <a id="curUser" href="#"></a>
@@ -42,12 +82,13 @@
                 <strong>{{model.clientName}}</strong>
             </a>
         </div>
-    </div>
+    </div>-->
+    
+    <script id='modelJson' type='application/json'>
+        {model}
+    </script>
+    <script type="text/javascript" src="/Content/medg/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/content/libs/encoder/encoder.min.js"></script>
+    <script type="text/javascript" src="/Content/medg/js/consent.js"></script>
 </body>
-<script id='modelJson' type='application/json'>
-    {model}
-</script>
-<script type="text/javascript" src="/Content/medg/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="/content/libs/encoder/encoder.min.js"></script>
-<script type="text/javascript" src="/Content/medg/js/consent.js"></script>
 </html>

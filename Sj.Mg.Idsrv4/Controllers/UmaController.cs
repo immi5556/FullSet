@@ -48,7 +48,7 @@ namespace Sj.Mg.Idsrv4.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize]
+        //[Authorize]
         public JsonResult ClientRegister()
         {
             var nv = Request.Url.ParseQueryString();

@@ -87,3 +87,266 @@ body {
 .page-permissions .permissions .permission li:last-child:after {
   content: '';
 }
+
+/*Relief CSS Here*/
+
+.relief-min .scrollSec  {
+	padding: 15px 0 0;
+}
+.relief-min h2 {
+	color: #0c173a;
+	font-size: 20px;
+	text-align: center;
+	line-height: 24px;
+    clear: both;
+}
+.relief-min h2 span {
+	display: block;
+	color: #626262;
+	line-height: 18px;
+	font-size: 14px;
+}
+.relief-min h3 {
+	color: #9c9c9c;
+	font-size: 15px;
+	line-height: 35px;
+	text-align: center;
+	margin: 15px 0 0;
+}
+.relief-min h3 span {
+	display: inline-block;
+	border-top: 2px solid #f4f4f4;
+}
+.reliefSection {
+	clear: both;
+	padding: 20px 0 0 0;
+}
+.reliefSection h4 {
+	color: #1a2443;
+	font-size: 15px;
+	padding: 10px 15px;
+	background: #f1f1f1;
+    font-weight: bold !important;
+}
+.reliefSection ul {
+	clear: both;
+	padding: 10px 15px 0;
+    margin: 0px;
+}
+.reliefSection ul li {
+	list-style: none;
+	padding: 12px 0 0;
+}
+.reliefSection ul li:first-child {
+	padding-top:0; 
+}
+.reliefSection ul li label {
+	position: relative;
+	padding: 0 10px 0 23px;
+	font-size: 14px;
+	display: inherit;
+}
+.reliefSection ul li input[type="checkbox"]{
+	display: none;
+}
+.reliefSection ul li span {
+	position: absolute;
+	left: 0;
+	top: 1px;
+	width: 14px;
+	height: 14px;
+	border:1px solid #6e7486;
+}
+.reliefSection ul li input[type="checkbox"]:checked + span {
+	border:1px solid #32650c;
+}
+.reliefSection ul li input[type="checkbox"]:checked ~ strong {
+	color: #32650c;
+}
+.reliefSection ul li input[type="checkbox"]:checked + span::before {
+	content: '';
+	position: absolute;
+	left: 2px;
+	top: 2px;
+	width: 8px;
+	height: 5px;
+	border: 2px solid #32650c;
+	border-top: none;
+	border-right: none;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+.lightboxrelief {
+	position: fixed;
+    margin: auto;
+    box-sizing: border-box;
+    z-index: 99999;
+    overflow: hidden;
+	overflow-y:auto;
+	width:90%;
+	max-width: 636px;
+	box-sizing: border-box;
+	border:5px solid #f1f1f1;
+	font-family: arial; 
+	transition: all 0.5s ease-in;
+	border-radius: 5px;
+	background: #fff;
+}
+.reliefSignSection {
+	overflow:hidden;
+	margin-top: 10px;
+	padding: 0 45px 15px;
+	border-radius: 0 0 5px 5px;
+	background: #12214e;
+}
+.reliefSignRow1 {
+	clear: both;
+	padding: 20px 0 0;
+}
+.reliefSignRow1 button {
+	float: left;
+	width: 150px;
+	height: 35px;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	text-align: center;
+	line-height: 35px;
+	margin: 10px 25px 0 0;
+	border-bottom: 3px solid transparent;
+	background: none;
+    outline: none;
+}
+.reliefSignRow1 .allow {
+	border-color: #116007;
+	background: #19810b;
+}
+.reliefSignRow1 .cancel {
+	border-color: #6c6c6c;
+	background: #9e9d9d;
+}
+.signLogo {
+	float: right;
+}
+
+/*lightbox css*/
+
+.closeIcon {
+	position: absolute;
+	right: 7px;
+	top: 7px;
+	width: 25px;
+	height: 25px;
+	border:1px solid #ccc;
+	border-radius: 40px;
+	cursor: pointer;
+	text-align: center;
+	line-height: 25px;
+	text-decoration: none;
+	box-shadow: inset 0 0 5px rgba(85, 85, 85, 0.46); 
+}
+.lightbox {
+	position: fixed;
+    max-width: 720px;
+    margin: auto;
+    box-sizing: border-box;
+    background: #fff;
+    z-index: 99999;
+	overflow:auto;
+	width:90%;
+	display: none;
+	box-sizing: border-box;
+	border:5px solid #585858;
+	font-family: 'Droid Serif', serif; 
+	transition: all 0.5s ease-in;
+	background: #fff;
+}
+.lightbox-wid {
+	max-width: 1140px;
+}
+#log-outPop.lightbox-min {
+	max-width: 635px;
+	border-radius: 5px;
+    border-color: #f1f1f1;
+    height: 200px !important;
+    top: 50% !important;
+    left: 50% !important;
+    margin: -100px 0 0 -317px;
+}
+
+.scrollSec {
+	padding: 10px 25px;
+}
+.popupShadow {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	display: none;
+	background: rgba(0,0,0,0.8);
+	z-index: 9999;
+}
+
+.userDetail {
+ clear: both;
+ padding: 0 19px 0 0;
+}
+.userNm {
+ float: right;
+ margin: 0 0 10px;
+ color: #32650c;
+ font-size: 14px;
+ position: relative;
+ cursor: pointer;
+ padding-top: 5px;
+}
+.userNm ul {
+ position: absolute;
+ top: 37px;
+ right: -9px;
+ left: auto;
+ width: 200px;
+ border-radius: 5px;
+ background: #d8d8d8;
+ padding: 0px;
+}
+.userNm ul::before {
+ content: '';
+ position: absolute;
+ top: -10px;
+ right: 2px;
+ width: 0;
+ height: 0;
+ border-bottom: 14px solid #d8d8d8;
+ border-left: 14px solid transparent;
+ border-right: 14px solid transparent;
+}
+.userNm ul li {
+ line-height: 40px;
+ border-top: 1px solid #ffffff;
+ color: #333;
+ font-size: 14px;
+ cursor: pointer;
+ box-sizing: border-box;
+ list-style: none;
+}
+.userNm ul li:first-child{
+    border: none;
+}
+.userNm ul li a {
+    padding: 8px 10px;
+    display: block;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+}
