@@ -24,7 +24,41 @@ namespace Sj.Mg.Idsrv1.Custom
             public bool IsRegistered { get; set; }
             public List<Claim> Claims { get; set; }
         }
-        public static List<CustomUser> Users = new List<CustomUser>();
+        public static List<CustomUser> Users = new List<CustomUser>()
+        {
+            new CustomUser()
+            {
+                Subject = "818727", Username = "alice@bob.co", Password = "alice",
+                    Claims = new List<Claim>()
+                    {
+                        new Claim(Constants.ClaimTypes.Name, "Alice Smith"),
+                        new Claim(Constants.ClaimTypes.GivenName, "Alice"),
+                        new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
+                        new Claim(Constants.ClaimTypes.Email, "AliceSmith@email.com"),
+                        new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                        new Claim(Constants.ClaimTypes.Role, "Admin"),
+                        new Claim(Constants.ClaimTypes.Role, "Geek"),
+                        new Claim(Constants.ClaimTypes.WebSite, "http://alice.com"),
+                        new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
+                    }
+            },
+            new CustomUser()
+            {
+                Subject = "88421113", Username = "bob@bob.co", Password = "bob",
+                    Claims = new List<Claim>()
+                    {
+                        new Claim(Constants.ClaimTypes.Name, "Bob Smith"),
+                        new Claim(Constants.ClaimTypes.GivenName, "Bob"),
+                        new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
+                        new Claim(Constants.ClaimTypes.Email, "BobSmith@email.com"),
+                        new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                        new Claim(Constants.ClaimTypes.Role, "Developer"),
+                        new Claim(Constants.ClaimTypes.Role, "Geek"),
+                        new Claim(Constants.ClaimTypes.WebSite, "http://bob.com"),
+                        new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
+                    }
+            }
+        };
 
         public override Task AuthenticateLocalAsync(LocalAuthenticationContext context)
         {
@@ -61,7 +95,8 @@ namespace Sj.Mg.Idsrv1.Custom
                         Subject = Guid.NewGuid().ToString(),
                         Provider = context.ExternalIdentity.Provider,
                         ProviderID = context.ExternalIdentity.ProviderId,
-                        Claims = new List<Claim> { new Claim(Constants.ClaimTypes.Name, name) }
+                        Claims = context.ExternalIdentity.Claims.ToList()
+                        //Claims = new List<Claim> { new Claim(Constants.ClaimTypes.Name, name) }
                     };
                     Users.Add(user);
                 }

@@ -49,7 +49,7 @@ namespace Sj.Mg.CliLib
                 RedirectUri = Utils.Common.ReClientMvc,
                 SignInAsAuthenticationType = "Cookies",
                 ResponseType = "code id_token token",
-                Scope = "openid profile address roles uma_authorization",
+                Scope = "openid profile address roles Patient/Account.Read Patient/Account.Write Patient/Account.* Patient/Medication.* Patient/Medication.Read Patient/Medication.Write Patient/Observation.* Patient/Observation.Read Patient/Observation.Write Patient/Patient.* Patient/Patient.Read Patient/Patient.Write uma_authorization",
                 PostLogoutRedirectUri = Utils.Common.ReClientMvc,
                 Notifications = new OpenIdConnectAuthenticationNotifications()
                 {

@@ -69,5 +69,45 @@ namespace Sj.Mg.Idsrv1.Controllers
 
             return View();
         }
+
+        [Route("core/eula")]
+        [HttpGet]
+        public async Task<ActionResult> Eula()
+        {
+            var ctx = Request.GetOwinContext();
+            var partial_user = await ctx.Environment.GetIdentityServerPartialLoginAsync();
+            if (partial_user == null)
+            {
+                return View("Error");
+            }
+            return View();
+        }
+
+        [Route("core/eula")]
+        [HttpPost]
+        public async Task<ActionResult> Eula(string button)
+        {
+            var ctx = Request.GetOwinContext();
+            var partial_user = await ctx.Environment.GetIdentityServerPartialLoginAsync();
+            if (partial_user == null)
+            {
+                return View("Error");
+            }
+
+            if (button == "yes")
+            {
+                // update the "database" for our users with the outcome
+                var subject = partial_user.GetSubjectId();
+                //var user = EulaAtLoginUserService.Users.Single(x => x.Subject == subject);
+                //user.AcceptedEula = true;
+
+                // find the URL to continue with the process to the issue the token to the RP
+                var resumeUrl = await ctx.Environment.GetPartialLoginResumeUrlAsync();
+                return Redirect(resumeUrl);
+            }
+
+            ViewBag.Message = "Well, until you accept you can't continue.";
+            return View();
+        }
     }
 }

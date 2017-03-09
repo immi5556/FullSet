@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Eula</title>
+</head>
+<body>
+    <div>
+        <h2>Accept Eula</h2>
+        <div class="alert alert-danger">EULA Doc content</div>
+        <form method="post">
+            <div class="form-group">
+                Do you accept the site terms and conditions (whatever those might be)?
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" name="button" value="yes">Yes</button>
+                <button class="btn btn-danger" name="button" value="no">No</button>
+            </div>
+        </form>
+        @*@using (Html.BeginForm())
+                {
+                <div class="reg-row">
+                    <label for="First">First Name</label>
+                    @Html.TextBoxFor(x => x.First, new { @class = "form-control" })
+                </div>
+                    <div class="reg-row">
+                        <label for="Last">Last Name</label>
+                        @Html.TextBoxFor(x => x.Last, new { @class = "form-control" })
+                    </div>
+                    <div class="reg-row">
+                        <button class="registerBtn">Register</button>
+                    </div>
+            }*@
+    </div>
+</body>
+</html>

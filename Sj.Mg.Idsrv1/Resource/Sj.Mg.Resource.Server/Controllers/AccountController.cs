@@ -5,28 +5,26 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace Sj.Mg.Resource.Server.Controllers
 {
     [EnableCors("*", "*", "GET, POST, PATCH")]
     public class AccountController : ApiController
     {
-        // GET: api/Account/5
-        [Code.Security.MgAuthz(new string[] { "Patient/Account.Read", "Patient/Account.*" })]
-        public string Get(int id)
+        [HttpGet]
+        [ScopeAuthorize("Patient/Account.Read", "Patient/Account.*")]
+        public List<Hl7.Fhir.Model.Account> Get()
         {
-            return "value";
+            return Code.AccountManager.Get(null);
         }
 
         // POST: api/Account
-        [Code.Security.MgAuthz(new string[] { "Patient/Account.*" })]
-        public void Post([FromBody]string value)
+        [ScopeAuthorize("Patient/Account.Write, Patient/Account.*")]
+        [HttpPost]
+        public void Post([FromBody]Hl7.Fhir.Model.Account act)
         {
-        }
-
-        // DELETE: api/Account/5
-        public void Delete(int id)
-        {
+            Console.WriteLine();
         }
     }
 }

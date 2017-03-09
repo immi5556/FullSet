@@ -1,15 +1,26 @@
-﻿@model Sj.Mg.Idsrv1.Models.ExternalRegistrationModel
-
-@{
-    ViewBag.Title = "Index";
+﻿@*@model Sj.Mg.Idsrv1.Models.ExternalRegistrationModel*@
+@{ 
+    Layout = null;
 }
-
 <div class="loginMain">
 	<div class="container loginScreen">
 		<a href="#" class="loginLogo"><img src="~/Content/medg/images/login-logo.png" /></a>
 		<div class="registerSec">
 			<h2>Welcome to MedGrotto</h2>
-            @using (Html.BeginForm())
+            <form method="post">
+                <div class="reg-row">
+                    <label for="First">First Name</label>
+                    <input type="text" name="First" class = "form-control" />
+                </div>
+                <div class="reg-row">
+                    <label for="First">Last Name</label>
+                    <input type="text" name="Last" class="form-control" />
+                </div>
+                <div class="reg-row">
+                    <button class="registerBtn">Register</button>
+                </div>
+            </form>
+            @*@using (Html.BeginForm())
             {
 			    <div class="reg-row">
 				    <label for="First">First Name</label>
@@ -22,7 +33,7 @@
 			    <div class="reg-row">
 				    <button class="registerBtn">Register</button>
 			    </div>
-            }
+            }*@
 		</div>
 	</div>
 	<div class="loginPush"></div>
