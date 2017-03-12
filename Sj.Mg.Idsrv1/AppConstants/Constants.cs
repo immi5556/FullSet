@@ -23,5 +23,17 @@ namespace AppConstants
 
         public const string Sts = StsOrigin + "/core";
         public const string StsTokenEndpoint = Sts + "/connect/token";
+
+        public const string StsAuthorizationEndpoint = Sts + "/connect/authorize";
+        public const string StsIntrospectionEndPoint = StsOrigin + "connect/introspect";
+
+        // UMA
+        public const string UmaProtectionPermEndPoint = StsOrigin + "/Protection/PremissionTicket";
+        public const string UmaProtectionRptEndPoint = StsOrigin + "/Protection/RptToken";
+        public const string UmaResourceSetEndPoint = StsOrigin + "/Resource/ResourceGet/{id}";
+        public const string UmaDynClientEndPoint = StsOrigin + "/Uma/ClientRegister";
+        public const string UmaRptEndPoint = StsOrigin + "/Protection/RptToken";
+
+        public const string UmaDiscoveryConfiguration = "core/.well-known/uma-configuration";
     }
 }

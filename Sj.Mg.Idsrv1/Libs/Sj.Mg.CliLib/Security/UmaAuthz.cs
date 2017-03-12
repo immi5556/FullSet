@@ -2,24 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 
-namespace Sj.Mg.Resource.Server.Code.Security
+namespace Sj.Mg.CliLib.Security
 {
-    public class UmaAuthz : Thinktecture.IdentityModel.WebApi.ScopeAuthorizeAttribute
+    public class UmaAuthz: Thinktecture.IdentityModel.WebApi.ScopeAuthorizeAttribute
     {
         public string[] AllowedScopes { get; set; }
         public UmaAuthz(params string[] scopes) : base(scopes)
         {
+            AllowedScopes = scopes;
         }
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
-            Console.WriteLine();
+            var tte = actionContext.Request.Headers.Authorization.Parameter;
+            JObject jo = Utils.TokenHelper.DecodeAndWrite(tte);
             base.HandleUnauthorizedRequest(actionContext);
         }
 

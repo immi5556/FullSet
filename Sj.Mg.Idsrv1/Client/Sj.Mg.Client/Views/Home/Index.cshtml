@@ -66,21 +66,15 @@
         <div style="position:relative;">
             <div style="float:left;height:100%;width:25%;background-color:aliceblue;">
                 <h3>Accounts</h3>
-                <table id="tblact">
-                    
-                </table>
+                <table id="tblact"></table>
             </div>
             <div style="float:left;height:100%;width:25%;background-color:antiquewhite;">
                 <h3>Observation</h3>
-                <table id="tblobs">
-                    
-                </table>
+                <table id="tblobs"></table>
             </div>
             <div style="float:left;height:100%;width:25%;background-color:aliceblue;">
                 <h3>Medication</h3>
-                <table id="tblmed">
-                    
-                </table>
+                <table id="tblmed"></table>
             </div>
             <div style="float:left;height:100%;width:25%;background-color:antiquewhite;">
                 <h3>Patient</h3>
@@ -157,6 +151,33 @@
 
             return identityServer;
         })();
+        var html = "";
+        var extractData = function (data) {
+            if (Array.isArray(data)) {
+                (data).forEach(function (item) {
+                    extractData(item);
+                });
+            }
+            for (key in data) {
+                if (data.hasOwnProperty(key)) {
+                    if ("ActiveElement".indexOf(key) > -1) {
+                        html = html + "<br /><hr />" + key;
+                    }
+                    if ("Address^Animal^Breed^BirthDateElement^CareProvider".indexOf(key) > -1) {
+                        html = html + "<br />" + key;
+                    }
+                    if (isNaN(key) && data[key] && typeof (data[key]) == "string" || typeof (data[key]) == "number") {
+                        html = html + data[key].toString();
+                    }
+                    else if (typeof (data[key]) == "function") {
+
+                    }
+                    else {
+                        extractData(data[key]);
+                    }
+                }
+            }
+        }
     </script>
 </body>
 </html>

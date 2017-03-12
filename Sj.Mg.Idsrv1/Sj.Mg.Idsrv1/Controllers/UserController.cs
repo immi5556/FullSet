@@ -70,6 +70,14 @@ namespace Sj.Mg.Idsrv1.Controllers
             return View();
         }
 
+        [Authorize]
+        [Route("core/testauth")]
+        [HttpGet]
+        public async Task<ActionResult> Test()
+        {
+            return View("Eula");
+        }
+
         [Route("core/eula")]
         [HttpGet]
         public async Task<ActionResult> Eula()

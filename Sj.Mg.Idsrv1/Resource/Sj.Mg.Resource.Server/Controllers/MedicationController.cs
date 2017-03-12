@@ -9,15 +9,16 @@ using Thinktecture.IdentityModel.WebApi;
 
 namespace Sj.Mg.Resource.Server.Controllers
 {
-    [ScopeAuthorize("Patient/Medication")]
     [EnableCors("*", "*", "GET, POST, PATCH")]
     public class MedicationController : ApiController
     {
+        [CliLib.Security.UmaAuthz("Patient/Medication.Read", "Patient/Medication.*")]
         [HttpGet]
         public List<Hl7.Fhir.Model.Medication> Get()
         {
             return Code.MedicManager.Get(null);
         }
+        [CliLib.Security.UmaAuthz("Patient/Medication.Write", "Patient/Medication.*")]
         [HttpPost]
         public void Post([FromBody]Hl7.Fhir.Model.Medication act)
         {

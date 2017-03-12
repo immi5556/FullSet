@@ -225,7 +225,6 @@
     <Compile Include="Code\Medication\MedicManager.cs" />
     <Compile Include="Code\Observation\ObsManager.cs" />
     <Compile Include="Code\Patient\PatientManager.cs" />
-    <Compile Include="Code\Security\MgAuthz.cs" />
     <Compile Include="Code\Utils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

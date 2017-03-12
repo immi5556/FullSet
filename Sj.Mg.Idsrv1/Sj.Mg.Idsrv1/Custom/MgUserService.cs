@@ -2,6 +2,7 @@
 using IdentityServer3.Core.Extensions;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.Default;
+using Sj.Mg.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +14,6 @@ namespace Sj.Mg.Idsrv1.Custom
 {
     public class MgUserService : UserServiceBase
     {
-        public class CustomUser
-        {
-            public string Username { get; set; }
-            public string Password { get; set; }
-            public bool AcceptedEula { get; set; }
-            public string Subject { get; set; }
-            public string Provider { get; set; }
-            public string ProviderID { get; set; }
-            public bool IsRegistered { get; set; }
-            public List<Claim> Claims { get; set; }
-        }
         public static List<CustomUser> Users = new List<CustomUser>()
         {
             new CustomUser()
