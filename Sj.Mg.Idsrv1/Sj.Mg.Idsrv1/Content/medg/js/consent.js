@@ -44,12 +44,13 @@
             (model.resourceScopes || []).forEach(function (scope) {
                 var $scps = $('<li><label><input type="checkbox" name="scopes" id="scopes_' + scope.name + '" value="' + scope.name + '" /><span></span></label></li>');
                 $scps.find("label").append("<strong>" + scope.displayName + "</strong>");
-                $scps.find("label").append("<strong>" + scope.description + "</strong>");
+                if (scope.description)
+                    $scps.find("label").append("<strong> (" + scope.description + ")</strong>");
                 if (model.required) {
                     $scps.find("label").append("<strong> (required )</strong>");
                 }
                 if (model.emphasize) {
-                    $scps.find("label").append("<strong> ! - IMportant</strong>");
+                    $scps.find("label").append("<strong> ! - Important</strong>");
                 }
                 $("#rsrtkns").append($scps);
             });
@@ -60,7 +61,7 @@
                 else {
                     $("#remmme").append('<div><label><input type="checkbox" name="RememberConsent" value="true" /> Rememebr Selection<span></span></label></div>');
                 }
-            } 
+            }
             //$("#clntUrl").attr("href", model.clientUrl);
             //$("#clntUrl").html("<strong>" + model.clientName + "</strong>");
         }

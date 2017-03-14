@@ -11,6 +11,7 @@ using IdentityServer3.Core.Services;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Twitter;
 using Serilog;
+using Microsoft.Owin.Security.OpenIdConnect;
 
 namespace Sj.Mg.Idsrv1
 {
@@ -59,6 +60,16 @@ namespace Sj.Mg.Idsrv1
                 };
 
                 coreApp.UseIdentityServer(options);
+            });
+
+            app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
+            {
+                Authority = AppConstants.Constants.Sts,
+                ClientId = "IdSrv1",
+                RedirectUri = AppConstants.Constants.Sts + "/scopes",
+                ResponseType = "id_token",
+
+                SignInAsAuthenticationType = "Cookies"
             });
         }
 

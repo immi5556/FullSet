@@ -1,0 +1,419 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Scopes</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/medg/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .container-liquid {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .tablesSec .table td, .tablesSec .table th {
+            min-width: 100px;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-liquid">
+        <div class="tablesSec">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <h2>Scopes Table <button class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add Scope</button></h2>
+                    <div class="table-responsive">
+                        <table class="table scopesTable table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>DisplayName</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <h2>Clients Table <button class="btn btn-info pull-right" data-toggle="modal" data-target="#addClientsModal">Add Client</button></h2>
+                    <div class="table-responsive">
+                        <table class="table clientsTable table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Scopes</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Scope</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="usr">Name:</label>
+                                <input type="text" class="form-control name">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Display Name:</label>
+                                <input type="text" class="form-control displayName">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Description:</label>
+                                <input type="text" class="form-control description">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Type:</label>
+                                <select class="form-control type">
+                                    <option value="Select">Select</option>
+                                    <option value="Resources">ScopeType.Resource</option>
+                                    <option value="Identity">ScopeType.Identity</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Emphasize:</label>
+                                <select class="form-control emphasize">
+                                    <option value="Select">Select</option>
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Claims Name:</label>
+                                <select class="form-control claimsName">
+                                    <option value="Select">Select</option>
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Claims FamilyName:</label>
+                                <select class="form-control claimsFamilyName">
+                                    <option value="Select">Select</option>
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Claims Given Name:</label>
+                                <select class="form-control claimsGivenName">
+                                    <option value="Select">Select</option>
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Claims Email:</label>
+                                <select class="form-control claimsEmail">
+                                    <option value="Select">Select</option>
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="addScope" onclick="funSubmit()">Submit</button>
+                            <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="addClientsModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Client</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="usr">Name:</label>
+                                <input type="text" class="form-control name">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Display Name:</label>
+                                <input type="text" class="form-control displayName">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Description:</label>
+                                <input type="text" class="form-control description">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Type:</label>
+                                <select class="form-control type">
+                                    <option value="Select">Select</option>
+                                    <option value="Resources">ScopeType.Resource</option>
+                                    <option value="Identity">ScopeType.Identity</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Emphasize:</label>
+                                <select class="form-control emphasize">
+                                    <option value="Select">Select</option>
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Claims Name:</label>
+                                <select class="form-control claimsName">
+                                    <option value="Select">Select</option>
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Claims FamilyName:</label>
+                                <select class="form-control claimsFamilyName">
+                                    <option value="Select">Select</option>
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Claims Given Name:</label>
+                                <select class="form-control claimsGivenName">
+                                    <option value="Select">Select</option>
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Claims Email:</label>
+                                <select class="form-control claimsEmail">
+                                    <option value="Select">Select</option>
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="addScope" onclick="funSubmit()">Submit</button>
+                            <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="changeScope" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">List of Scopes Available for <span class="currentClient"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <button class="btn btn-default checkAll">Check All</button>
+                        <button class="btn btn-default uncheckAll">UnCheck All</button>
+                        <div class="scopes"></div>
+                        <button class="btn btn-warning scopesUpdate">Update</button>
+                        <div class="ScopesError" style="padding-top: 10px; color:green;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger closeScopeModel" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <script type="text/javascript">
+        var clients, scopes, scopesValues = [], currentClientIndex = -1;
+
+        function changeScope(index) {
+            currentClientIndex = index;
+            $(".currentClient").html(clients[index].ClientName);
+            $(".scopes").html();
+            scopesValues.forEach(function (item) {
+                if (clients[index].AllowAccessToAllScopes || clients[index].AllowedScopes.indexOf(item) != -1) {
+                    $(".scopes").append("<div class='checkbox'><label><input type='checkbox' name='scopeValue' value='" + item + "' checked>" + item+"</label></div>");
+                } else {
+                    $(".scopes").append("<div class='checkbox'><label><input type='checkbox' name='scopeValue' value='" + item + "'>" + item+"</label></div>");
+                }
+
+            });
+        }
+
+        $(".close, .closeScopeModel").on("click", function (e) {
+            currentClientIndex = -1;
+        });
+
+        $(".scopesUpdate").on("click", function (e) {
+            var allowedScopes = [];
+            $("input:checkbox[name=scopeValue]:checked").each(function () {
+                allowedScopes.push($(this).val());
+            });
+            clients[currentClientIndex].AllowedScopes = allowedScopes;
+            if (scopesValues.length == allowedScopes.length)
+                clients[currentClientIndex].AllowAccessToAllScopes = true;
+            else
+                clients[currentClientIndex].AllowAccessToAllScopes = false;
+
+            var formData = {
+                "clientId": clients[currentClientIndex].ClientId,
+                "allowAccessToAllScopes": clients[currentClientIndex].AllowAccessToAllScopes,
+                "allowedScopes": allowedScopes
+            };
+
+            $.ajax({
+                url: "/Service/UpdateScopes",
+                type: "post",
+                data: formData,
+                success: function (d) {
+                    console.log(d);
+                    if (d == "Success") {
+                        $(".ScopesError").html("Successfully Updated.");
+                    } else {
+                        $(".ScopesError").html("Error occured try again.");
+                        $(".ScopesError").css("color", "red");
+                    }
+                }
+            });
+
+        });
+
+        $('.checkAll').click(function () {
+            $('input:checkbox[name=scopeValue]').each(function () {
+                $(this).prop('checked', true);
+            })
+        });
+
+        $('.uncheckAll').click(function () {
+            $('input:checkbox[name=scopeValue]').each(function () {
+                $(this).prop('checked', false);
+            })
+        });
+
+
+        function funSubmit() {
+                event.preventDefault();
+
+                var formData = {
+                    'name': $('.name').val(),
+                    'displayname': $('.displayName').val(),
+                    'description': $('.description').val(),
+                    'type': $('.type').val(),
+                    'emphasize': $('.emphasize').val(),
+                    'claimsName': $('.claimsName').val(),
+                    'claimsFamilyName': $('.claimsFamilyName').val(),
+                    'claimsGivenName': $('.claimsGivenName').val(),
+                    'claimsEmail': $('.claimsEmail').val()
+                };
+
+                $.ajax({
+                    url: "/Service/Addscope",
+                    type: "post",
+                    data: formData,
+                    success: function (d) {
+                        if (d == "success") {
+                            $(".scopesTable tbody").append("<tr><td>" + $('.name').val() + "</td><td>" + $('.displayName').val() + "</td><td>" + $('.type').val() + "</td></tr>");
+                            $(".errorMessage").html("Successfully Inserted.");
+                            scopes.push({
+                                'Name': $('.name').val(),
+                                'DisplayName': $('.displayName').val(),
+                                'Description': $('.description').val(),
+                                'Type': $('.type').val(),
+                                'Emphasize': $('.emphasize').val(),
+                                'ClaimsName': $('.claimsName').val(),
+                                'ClaimsFamilyName': $('.claimsFamilyName').val(),
+                                'ClaimsGivenName': $('.claimsGivenName').val(),
+                                'ClaimsEmail': $('.claimsEmail').val()
+                            });
+                            $('.name').val("");
+                            $('.displayName').val("");
+                            $('.description').val("");
+                            $('.type').val("Select");
+                            $('.emphasize').val("Select");
+                            $('.claimsName').val("Select");
+                            $('.claimsFamilyName').val("Select");
+                            $('.claimsGivenName').val("Select");
+                            $('.claimsEmail').val("Select");
+                        } else {
+                            $(".errorMessage").html("Error occured try again.");
+                            $(".errorMessage").css("color","red");
+                        }
+                    }
+                });
+        };
+
+        function getClients() {
+            $.ajax({
+                url: "/Service/GetClients",
+                type: "post",
+                success: function (d) {
+                    clients = d;
+                    d.forEach(function (item, index) {
+                        if (item.AllowAccessToAllScopes) {
+                            $(".clientsTable tbody").append("<tr><td>" + item.ClientId + "</td><td>" + item.ClientName + "</td><td>" + scopesValues.join(", ") + "</td><td><button class='btn btn-warning' data-toggle='modal' data-target='#changeScope' onClick='changeScope("+index+")'>Change Scopes</button></td></tr>");
+                        } else {
+                            $(".clientsTable tbody").append("<tr><td>" + item.ClientId + "</td><td>" + item.ClientName + "</td><td>" + item.AllowedScopes.join(", ") + "</td><td><button class='btn btn-warning' data-toggle='modal' data-target='#changeScope' onClick='changeScope(" + index + ")'>Change Scopes</button></td></tr>");
+                        }
+
+                    });
+                }
+            });
+        };
+
+        function getScopes() {
+            $.ajax({
+                url: "/Service/GetScopes",
+                type: "post",
+                success: function (d) {
+                    scopes = d;
+                    getClients();
+                    d.forEach(function (item, index) {
+                        $(".scopesTable tbody").append("<tr><td>" + item.Name + "</td><td>" + item.DisplayName + "</td><td>" + (item.Type == 0 ? 'Identity' : 'Resource') + "</td></tr>");
+                        scopesValues.push(item.Name);
+                    });
+                }
+            });
+        };
+        getScopes();
+    </script>
+</body>
+</html>
