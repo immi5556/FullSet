@@ -57,6 +57,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson, Version=2.4.3.23, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.4.3\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.4.3.23, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.4.3\lib\net45\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.4.3.23, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.4.3\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -72,6 +84,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -246,11 +262,13 @@
     <Content Include="Content\libs\jquery\jquery-1.11.0.min.js" />
     <Content Include="Content\medg\css\font-awesome.min.css" />
     <Content Include="Content\medg\css\fonts.css" />
+    <Content Include="Content\medg\css\main.css" />
     <Content Include="Content\medg\css\style.css" />
     <Content Include="Content\medg\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\medg\fonts\nexa_bold-demo.html" />
     <Content Include="Content\medg\images\accessIcon.png" />
     <Content Include="Content\medg\images\bagScreen.jpg" />
+    <Content Include="Content\medg\images\banner.jpg" />
     <Content Include="Content\medg\images\bg.jpg" />
     <Content Include="Content\medg\images\blipcare.png" />
     <Content Include="Content\medg\images\cerner.png" />
@@ -269,7 +287,13 @@
     <Content Include="Content\medg\images\logo.png" />
     <Content Include="Content\medg\images\logoLogin.png" />
     <Content Include="Content\medg\images\Medinova.png" />
+    <Content Include="Content\medg\images\MG Logo.png" />
     <Content Include="Content\medg\images\ne_icc.jpg" />
+    <Content Include="Content\medg\images\pic01.jpg" />
+    <Content Include="Content\medg\images\pic022.jpg" />
+    <Content Include="Content\medg\images\pic031.jpg" />
+    <Content Include="Content\medg\images\pic041.jpg" />
+    <Content Include="Content\medg\images\pic052.jpg" />
     <Content Include="Content\medg\images\reliefSignlogo.png" />
     <Content Include="Content\medg\images\relief_api.png" />
     <Content Include="Content\medg\images\resourceLogo1.png" />
@@ -285,14 +309,21 @@
     <Content Include="Content\medg\images\twitter.png" />
     <Content Include="Content\medg\images\userIcon.png" />
     <Content Include="Content\medg\images\userIcon2.png" />
+    <Content Include="Content\medg\js\carasoulSlider.js" />
     <Content Include="Content\medg\js\consent.js" />
+    <Content Include="Content\medg\js\custom.js" />
+    <Content Include="Content\medg\js\custom1.js" />
     <Content Include="Content\medg\js\error.js" />
+    <Content Include="Content\medg\js\friendlyLightBox.js" />
+    <Content Include="Content\medg\js\gbLightbox.js" />
+    <Content Include="Content\medg\js\jquery-1.11.3.min.js" />
     <Content Include="Content\medg\js\loggedout.js" />
     <Content Include="Content\medg\js\login.js" />
     <Content Include="Content\medg\js\logout.js" />
     <Content Include="Content\medg\js\permission.js" />
     <Content Include="Content\medg\js\jquery-1.12.4.min.js" />
     <Content Include="Content\medg\js\tabs.js" />
+    <Content Include="Content\MgUi\AddScopes.html" />
     <Content Include="Content\MgUi\Consent.html" />
     <Content Include="Content\MgUi\Error.html" />
     <Content Include="Content\MgUi\Landing.html" />
@@ -300,6 +331,7 @@
     <Content Include="Content\MgUi\Login.html" />
     <Content Include="Content\MgUi\Logout.html" />
     <Content Include="Content\MgUi\Permissions.html" />
+    <Content Include="Content\MgUi\welcome.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -401,7 +433,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
@@ -413,6 +447,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{fb9e026e-bab3-498a-a954-b93b05c146a5}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Sj.Mg.Mongo\Sj.Mg.Mongo.csproj">
+      <Project>{69A5F51D-FEFE-4216-B8ED-8F656FBB8375}</Project>
+      <Name>Sj.Mg.Mongo</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Sj.Mg.Model\Sj.Mg.Model.csproj">
       <Project>{eb0bc5b2-e0fb-4e75-81e7-b1bb9243d355}</Project>

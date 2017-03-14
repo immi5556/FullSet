@@ -1,8 +1,12 @@
 ﻿using IdentityServer3.Core.Models;
+using Sj.Mg.Mongo.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MongoDB.Bson.IO;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Sj.Mg.Idsrv1.Config
 {
@@ -85,8 +89,10 @@ namespace Sj.Mg.Idsrv1.Config
                     }
                 }
             };
+        
         static Scopes()
         {
+            addScopesinDB();
             AddFhirScopes();
         }
         public static IEnumerable<Scope> Get()
@@ -274,6 +280,88 @@ namespace Sj.Mg.Idsrv1.Config
                     Description = "Read and write access to a single patient's medications consumption or other administration.",
                     Type = ScopeType.Resource
                 });
+        }
+
+        public string addNewScope(string name, string displayname, string description, string type, Boolean emphasize, Boolean claimsName, Boolean claimsFamilyName, Boolean claimsGivenName, Boolean claimsEmail)
+        {
+            _lstscopes.Add(
+                new Scope()
+                {
+                    Name = name,
+                    DisplayName = displayname,
+                    Description = description,
+                    Type = (type == "Identity" ? ScopeType.Identity : ScopeType.Resource),
+                    Emphasize = emphasize,
+                    Claims = new List<ScopeClaim>()
+                    {
+                        new ScopeClaim("name", claimsName),
+                        new ScopeClaim("given_name", claimsGivenName),
+                        new ScopeClaim("family_name", claimsFamilyName),
+                        new ScopeClaim("email", claimsEmail)
+                    }
+                }
+            );
+            BsonDocument scope = new BsonDocument {
+                { "name", name },
+                { "displayName", displayname },
+                { "description", description },
+                { "type", type },
+                { "emphasize", emphasize},
+                { "claims", new BsonDocument
+                    {
+                        { "name", claimsName },
+                        { "givenName", claimsGivenName },
+                        { "familyName", claimsFamilyName },
+                        { "email", claimsEmail }
+                    }
+                }
+            };
+            IMongoCollection<BsonDocument> userData =
+        BaseMongo.GetDatabase().GetCollection<BsonDocument>("Scopes");
+            try
+            {
+                userData.InsertOne(scope);
+                return "success";
+            }
+            catch 
+            {
+                return "error";
+            }
+            
+        }
+
+        public static async void addScopesinDB()
+        {
+            var collection = BaseMongo.GetDatabase().GetCollection<BsonDocument>("Scopes");
+            var filter = new BsonDocument();
+            using (var cursor = await collection.FindAsync(filter))
+            {
+                while (await cursor.MoveNextAsync())
+                {
+                    var batch = cursor.Current;
+                    foreach (var document in batch)
+                    {
+                        _lstscopes.Add(
+                            new Scope()
+                            {
+                                Name = document["name"].ToString(),
+                                DisplayName = document["displayName"].ToString(),
+                                Description = document["description"].ToString(),
+                                Type = document["type"].ToString() == "Identity" ? ScopeType.Identity : ScopeType.Resource,
+                                Emphasize = document["emphasize"].ToBoolean(),
+                                Claims = new List<ScopeClaim>()
+                                {
+                                    new ScopeClaim("name", document["claims"]["name"].ToBoolean()),
+                                    new ScopeClaim("given_name", document["claims"]["givenName"].ToBoolean()),
+                                    new ScopeClaim("family_name", document["claims"]["familyName"].ToBoolean()),
+                                    new ScopeClaim("email", document["claims"]["email"].ToBoolean())
+                                }
+                            }
+                        );
+
+                    }
+                }
+            }
         }
     }
 }

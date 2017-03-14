@@ -117,6 +117,7 @@ namespace Sj.Mg.Idsrv1.Config
                     }
                 }
             };
+
         public static IEnumerable<Client> Get()
         {
             return _lstclients;
@@ -152,6 +153,24 @@ namespace Sj.Mg.Idsrv1.Config
             };
             _lstclients.Add(nc);
             return nc;
+        }
+
+        internal string updateClientScope(string clientId, bool allowAccessToAllScopes, Array allowedScopes)
+        {
+            List<string> temp = new List<string>();
+            foreach (var document in allowedScopes)
+            {
+                temp.Add(document.ToString());
+            }
+            foreach (var document in _lstclients)
+            {
+                if (document.ClientId == clientId)
+                {
+                    document.AllowAccessToAllScopes = allowAccessToAllScopes;
+                    document.AllowedScopes = temp;
+                }
+            }
+            return "Success";
         }
     }
 }
