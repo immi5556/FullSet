@@ -193,16 +193,39 @@ namespace Sj.Mg.Idsrv1.Config
             var update = Builders<BsonDocument>.Update.Set("AllowAccessToAllScopes", document.AllowAccessToAllScopes).Set("AllowedScopes", document.AllowedScopes);
             
             collection.UpdateOneAsync(filter, update);
-            
         }
 
 
-        public string addNewClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes)
+        public string addNewClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
-            var newClient = GetClient(clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes);
+            var newClient = GetClient(clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
             _lstclients.Add(newClient);
             MongoManage.Insert(newClient, "Clients");
             return "Success";
+        }
+
+        public string updateClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
+        {
+            var newClient = GetClient(clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
+            
+            var i = 0;
+            foreach (var document in _lstclients)
+            {
+                if (document.ClientId == clientId)
+                {
+                    _lstclients[i] = newClient;
+                    break;
+                }
+                i++;
+            }
+            var database = BaseMongo.GetDatabase();
+            var collection = database.GetCollection<BsonDocument>("Clients");
+
+            var filter = Builders<BsonDocument>.Filter.Eq("ClientId", clientId);
+
+            collection.ReplaceOneAsync(filter, newClient.ToBsonDocument());
+
+            return "success";
         }
 
         public static async void addClientsinDB()
@@ -216,14 +239,14 @@ namespace Sj.Mg.Idsrv1.Config
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        var newScope = GetClient(document["ClientId"].ToString(), document["ClientName"].ToString(), document["Flow"].ToString(), document["AllowedScopes"].AsBsonArray.ToArray(), document["RedirectUris"].ToString(), document["PostLogoutRedirectUris"].ToString(), document["IncludeJwtId"].ToBoolean(), document["AllowRememberConsent"].ToBoolean(), document["AllowAccessToAllScopes"].ToBoolean());
+                        var newScope = GetClient(document["ClientId"].ToString(), document["ClientName"].ToString(), document["Flow"].ToString(), document["AllowedScopes"].AsBsonArray.ToArray(), document["RedirectUris"].ToString(), document["PostLogoutRedirectUris"].ToString(), document["IncludeJwtId"].ToBoolean(), document["AllowRememberConsent"].ToBoolean(), document["AllowAccessToAllScopes"].ToBoolean(), document["Enabled"].ToBoolean());
                         _lstclients.Add(newScope);
                     }
                 }
             }
         }
 
-        static Client GetClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes)
+        static Client GetClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
             List<string> scopes = new List<string>();
             foreach (var document in allowedScopes)
@@ -232,6 +255,7 @@ namespace Sj.Mg.Idsrv1.Config
             }
             return new Client
             {
+                Enabled = enable,
                 ClientId = clientId,
                 ClientName = clientName,
                 Flow = (flow == "AuthorizationCode" ? Flows.AuthorizationCode : (flow == "Implicit" ? Flows.Implicit : (flow == "Hybrid" ? Flows.Hybrid : (flow == "ClientCredentials" ? Flows.ClientCredentials : (flow == "ResourceOwner" ? Flows.ResourceOwner : (flow == "Custom" ? Flows.Custom : (flow == "AuthorizationCodeWithProofKey" ? Flows.AuthorizationCodeWithProofKey : Flows.HybridWithProofKey))))))),

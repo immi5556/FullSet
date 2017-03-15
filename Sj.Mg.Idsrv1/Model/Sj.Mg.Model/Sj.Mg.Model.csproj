@@ -67,12 +67,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Data\Sj.Mg.Mongo\Sj.Mg.Mongo.csproj">
-      <Project>{69a5f51d-fefe-4216-b8ed-8f656fbb8375}</Project>
-      <Name>Sj.Mg.Mongo</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

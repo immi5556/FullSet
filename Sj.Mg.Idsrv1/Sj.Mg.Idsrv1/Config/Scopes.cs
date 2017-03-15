@@ -283,11 +283,34 @@ namespace Sj.Mg.Idsrv1.Config
                 });
         }
 
-        public string addNewScope(string name, string displayname, string description, string type, Boolean emphasize, Boolean claimsName, Boolean claimsFamilyName, Boolean claimsGivenName, Boolean claimsEmail)
+        public string addNewScope(string name, string displayname, string description, string type, bool emphasize, bool claimsName, bool claimsFamilyName, bool claimsGivenName, bool claimsEmail, bool enable)
         {
-            var newScope = getScope(name, displayname, description, type, emphasize, claimsName, claimsFamilyName, claimsGivenName, claimsEmail);
+            var newScope = getScope(name, displayname, description, type, emphasize, claimsName, claimsFamilyName, claimsGivenName, claimsEmail, enable);
             _lstscopes.Add(newScope);
             MongoManage.Insert(newScope, "Scopes");
+            return "success";
+        }
+
+        public string updateScope(string name, string displayname, string description, string type, bool emphasize, bool claimsName, bool claimsFamilyName, bool claimsGivenName, bool claimsEmail, bool enable)
+        {
+            var newScope = getScope(name, displayname, description, type, emphasize, claimsName, claimsFamilyName, claimsGivenName, claimsEmail, enable);
+            var i = 0;
+            foreach( var document in _lstscopes)
+            {
+                if (document.Name == name)
+                {
+                    _lstscopes[i] = newScope;
+                    break;
+                }
+                i++;
+            }
+            var database = BaseMongo.GetDatabase();
+            var collection = database.GetCollection<BsonDocument>("Scopes");
+
+            var filter = Builders<BsonDocument>.Filter.Eq("Name", name);
+
+            collection.ReplaceOneAsync(filter, newScope.ToBsonDocument());
+
             return "success";
         }
 
@@ -302,17 +325,31 @@ namespace Sj.Mg.Idsrv1.Config
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        var newScope = getScope(document["Name"].ToString(), document["DisplayName"].ToString(), document["Description"].ToString(), document["Type"].ToString(), document["Emphasize"].ToBoolean(), document["Claims"]["name"].ToBoolean(), document["Claims"]["givenName"].ToBoolean(), document["Claims"]["familyName"].ToBoolean(), document["Claims"]["email"].ToBoolean());
+                        bool claimsName = false, claimsGivenName = false, claimsFamilyName = false, claimsEmail = false;
+
+                        foreach(var claimVal in document["Claims"].AsBsonArray)
+                        {
+                            if (claimVal["Name"] == "name")
+                                claimsName = claimVal["AlwaysIncludeInIdToken"].ToBoolean();
+                            if (claimVal["Name"] == "given_name")
+                                claimsGivenName = claimVal["AlwaysIncludeInIdToken"].ToBoolean();
+                            if (claimVal["Name"] == "family_name")
+                                claimsFamilyName = claimVal["AlwaysIncludeInIdToken"].ToBoolean();
+                            if (claimVal["Name"] == "email")
+                                claimsEmail = claimVal["AlwaysIncludeInIdToken"].ToBoolean();
+                        }
+                        var newScope = getScope(document["Name"].ToString(), document["DisplayName"].ToString(), document["Description"].ToString(), document["Type"].ToString(), document["Emphasize"].ToBoolean(), claimsName, claimsGivenName, claimsFamilyName, claimsEmail, document["Enabled"].ToBoolean());
                         _lstscopes.Add(newScope);
                     }
                 }
             }
         }
 
-        public static Scope getScope(string name, string displayname, string description, string type, Boolean emphasize, Boolean claimsName, Boolean claimsFamilyName, Boolean claimsGivenName, Boolean claimsEmail)
+        public static Scope getScope(string name, string displayname, string description, string type, bool emphasize, bool claimsName, bool claimsFamilyName, bool claimsGivenName, bool claimsEmail, bool enable)
         {
             return new Scope()
             {
+                Enabled = enable,
                 Name = name,
                 DisplayName = displayname,
                 Description = description,
