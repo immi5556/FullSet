@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">
-                    <h2>Clients Table <button class="btn btn-info pull-right" data-toggle="modal" data-target="#addClientsModal">Add Client</button></h2>
+                    <h2>Clients Table <button class="btn btn-info pull-right addClient" data-toggle="modal" data-target="#addClientsModal">Add Client</button></h2>
                     <div class="table-responsive">
                         <table class="table clientsTable table-striped table-bordered">
                             <thead>
@@ -129,7 +129,7 @@
                                     <option value="False">False</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary" id="addScope" onclick="funSubmit()">Submit</button>
+                            <button type="submit" class="btn btn-primary" onclick="addScope()">Submit</button>
                             <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
                         </form>
                     </div>
@@ -154,67 +154,59 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="usr">Name:</label>
-                                <input type="text" class="form-control name">
+                                <label for="usr">Client Id:</label>
+                                <input type="text" class="form-control clientId">
                             </div>
                             <div class="form-group">
-                                <label for="usr">Display Name:</label>
-                                <input type="text" class="form-control displayName">
+                                <label for="usr">Client Name:</label>
+                                <input type="text" class="form-control clientName">
                             </div>
                             <div class="form-group">
-                                <label for="usr">Description:</label>
-                                <input type="text" class="form-control description">
-                            </div>
-                            <div class="form-group">
-                                <label for="usr">Type:</label>
-                                <select class="form-control type">
+                                <label for="usr">Flows:</label>
+                                <select class="form-control flow">
                                     <option value="Select">Select</option>
-                                    <option value="Resources">ScopeType.Resource</option>
-                                    <option value="Identity">ScopeType.Identity</option>
+                                    <option value="AuthorizationCode">AuthorizationCode</option>
+                                    <option value="Implicit">Implicit</option>
+                                    <option value="Hybrid">Hybrid</option>
+                                    <option value="ClientCredentials">ClientCredentials</option>
+                                    <option value="ResourceOwner">ResourceOwner</option>
+                                    <option value="Custom">Custom</option>
+                                    <option value="AuthorizationCodeWithProofKey">AuthorizationCodeWithProofKey</option>
+                                    <option value="HybridWithProofKey">HybridWithProofKey</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="usr">Emphasize:</label>
-                                <select class="form-control emphasize">
-                                    <option value="Select">Select</option>
-                                    <option value="True">True</option>
-                                    <option value="False">False</option>
-                                </select>
+                                <label for="usr">AllowedScopes:</label>
+                                <input type="button" class="btn btn-default clientCheckAll" value="Check All">
+                                <input type="button" class="btn btn-default clientUnCheckAll" value="UnCheck All">
+                                <div class="clientAllowedScopes"></div>
                             </div>
                             <div class="form-group">
-                                <label for="usr">Claims Name:</label>
-                                <select class="form-control claimsName">
-                                    <option value="Select">Select</option>
-                                    <option value="True">True</option>
-                                    <option value="False">False</option>
-                                </select>
+                                <label for="usr">Redirect Uris:</label>
+                                <input type="text" class="form-control redirectUris">
                             </div>
                             <div class="form-group">
-                                <label for="usr">Claims FamilyName:</label>
-                                <select class="form-control claimsFamilyName">
-                                    <option value="Select">Select</option>
-                                    <option value="True">True</option>
-                                    <option value="False">False</option>
-                                </select>
+                                <label for="usr">Post Logout Redirect Uris:</label>
+                                <input type="text" class="form-control postLogoutRedirectUris">
                             </div>
                             <div class="form-group">
-                                <label for="usr">Claims Given Name:</label>
-                                <select class="form-control claimsGivenName">
+                                <label for="usr">Include Jwt Id:</label>
+                                <select class="form-control includeJwtId">
                                     <option value="Select">Select</option>
                                     <option value="True">True</option>
                                     <option value="False">False</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="usr">Claims Email:</label>
-                                <select class="form-control claimsEmail">
+                                <label for="usr">Allow Remember Consent:</label>
+                                <select class="form-control allowRememberConsent">
                                     <option value="Select">Select</option>
                                     <option value="True">True</option>
                                     <option value="False">False</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary" id="addScope" onclick="funSubmit()">Submit</button>
-                            <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
+                            <button type="submit" class="btn btn-primary" onclick="addClient()">Submit</button>
+                            <div class="clientErrorMessage" style="padding-top: 10px; color:green;"></div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -260,14 +252,13 @@
         function changeScope(index) {
             currentClientIndex = index;
             $(".currentClient").html(clients[index].ClientName);
-            $(".scopes").html();
+            $(".scopes").html("");
             scopesValues.forEach(function (item) {
                 if (clients[index].AllowAccessToAllScopes || clients[index].AllowedScopes.indexOf(item) != -1) {
                     $(".scopes").append("<div class='checkbox'><label><input type='checkbox' name='scopeValue' value='" + item + "' checked>" + item+"</label></div>");
                 } else {
                     $(".scopes").append("<div class='checkbox'><label><input type='checkbox' name='scopeValue' value='" + item + "'>" + item+"</label></div>");
                 }
-                
             });
         }
 
@@ -280,11 +271,8 @@
             $("input:checkbox[name=scopeValue]:checked").each(function () {
                 allowedScopes.push($(this).val());
             });
-            clients[currentClientIndex].AllowedScopes = allowedScopes;
-            if (scopesValues.length == allowedScopes.length)
-                clients[currentClientIndex].AllowAccessToAllScopes = true;
-            else
-                clients[currentClientIndex].AllowAccessToAllScopes = false;
+            clients[currentClientIndex].AllowedScopes = (scopesValues.length == allowedScopes.length ? [] : allowedScopes);
+            clients[currentClientIndex].AllowAccessToAllScopes = (scopesValues.length == allowedScopes.length ? true : false);
 
             var formData = {
                 "clientId": clients[currentClientIndex].ClientId,
@@ -297,7 +285,6 @@
                 type: "post",
                 data: formData,
                 success: function (d) {
-                    console.log(d);
                     if (d == "Success") {
                         $(".ScopesError").html("Successfully Updated.");
                     } else {
@@ -321,10 +308,27 @@
             })
         });
 
+        $('.clientCheckAll').click(function () {
+            $('input:checkbox[name=clientScopeValue]').each(function () {
+                $(this).prop('checked', true);
+            });
+        });
 
-        function funSubmit() {
-                event.preventDefault();
+        $('.clientUnCheckAll').click(function () {
+            $('input:checkbox[name=clientScopeValue]').each(function () {
+                $(this).prop('checked', false);
+            });
+        });
 
+        $(".addClient").on("click", function () {
+            $(".clientAllowedScopes").html();
+            scopesValues.forEach(function (item) {
+                $(".clientAllowedScopes").append("<div class='checkbox'><label><input type='checkbox' name='clientScopeValue' value='" + item + "'>" + item + "</label></div>");
+            });
+        });
+
+
+        function addScope() {
                 var formData = {
                     'name': $('.name').val(),
                     'displayname': $('.displayName').val(),
@@ -338,7 +342,7 @@
                 };
                
                 $.ajax({
-                    url: "/Home/Addscope",
+                    url: "/Home/AddScope",
                     type: "post",
                     data: formData,
                     success: function (d) {
@@ -371,6 +375,55 @@
                         }
                     }
                 });
+        };
+
+        function addClient() {
+            var allowedScopes = [];
+            $("input:checkbox[name=clientScopeValue]:checked").each(function () {
+                allowedScopes.push($(this).val());
+            });
+
+            var formData = {
+                'clientId': $('.clientId').val(),
+                'clientName': $('.clientName').val(),
+                'flow': $('.flow').val(),
+                'allowedScopes': allowedScopes,
+                'redirectUris': $('.redirectUris').val(),
+                'postLogoutRedirectUris': $('.postLogoutRedirectUris').val(),
+                'includeJwtId': $('.includeJwtId').val(),
+                'allowRememberConsent': $('.allowRememberConsent').val(),
+                'allowAccessToAllScopes': (allowedScopes.length == scopes.length ? true : false)
+            };
+
+            $.ajax({
+                url: "/Home/AddClient",
+                type: "post",
+                data: formData,
+                success: function (d) {
+                    if (d == "success") {
+                        clients.push({
+                            'ClientId': $('.clientId').val(),
+                            'ClientName': $('.clientName').val(),
+                            'Flow': $('.flow').val(),
+                            'AllowedScopes': (allowedScopes.length == scopes.length ? [] : allowedScopes),
+                            'RedirectUris': $('.redirectUris').val(),
+                            'PostLogoutRedirectUris': $('.postLogoutRedirectUris').val(),
+                            'IncludeJwtId': $('.includeJwtId').val(),
+                            'AllowRememberConsent': $('.allowRememberConsent').val(),
+                            'AllowAccessToAllScopes': (allowedScopes.length == scopes.length ? true : false)
+                        });
+                        if (allowedScopes.length == scopes.length) {
+                            $(".clientsTable tbody").append("<tr><td>" + $('.clientId').val() + "</td><td>" + $('.clientName').val() + "</td><td>" + scopes.join(", ") + "</td><td><button class='btn btn-warning' data-toggle='modal' data-target='#changeScope' onClick='changeScope(" + clients.length-1 + ")'>Change Scopes</button></td></tr>");
+                        } else {
+                            $(".clientsTable tbody").append("<tr><td>" + $('.clientId').val() + "</td><td>" + $('.clientName').val() + "</td><td>" + allowedScopes.join(", ") + "</td><td><button class='btn btn-warning' data-toggle='modal' data-target='#changeScope' onClick='changeScope(" + clients.length-1 + ")'>Change Scopes</button></td></tr>");
+                        }
+                        $(".clientErrorMessage").html("Successfully Inserted.");
+                    } else {
+                        $(".clientErrorMessage").html("Error occured try again.");
+                        $(".clientErrorMessage").css("color", "red");
+                    }
+                }
+            });
         };
 
         function getClients() {

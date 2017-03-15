@@ -7,6 +7,7 @@ using System.Web;
 using MongoDB.Bson.IO;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Sj.Mg.Mongo;
 
 namespace Sj.Mg.Idsrv1.Config
 {
@@ -284,50 +285,10 @@ namespace Sj.Mg.Idsrv1.Config
 
         public string addNewScope(string name, string displayname, string description, string type, Boolean emphasize, Boolean claimsName, Boolean claimsFamilyName, Boolean claimsGivenName, Boolean claimsEmail)
         {
-            _lstscopes.Add(
-                new Scope()
-                {
-                    Name = name,
-                    DisplayName = displayname,
-                    Description = description,
-                    Type = (type == "Identity" ? ScopeType.Identity : ScopeType.Resource),
-                    Emphasize = emphasize,
-                    Claims = new List<ScopeClaim>()
-                    {
-                        new ScopeClaim("name", claimsName),
-                        new ScopeClaim("given_name", claimsGivenName),
-                        new ScopeClaim("family_name", claimsFamilyName),
-                        new ScopeClaim("email", claimsEmail)
-                    }
-                }
-            );
-            BsonDocument scope = new BsonDocument {
-                { "name", name },
-                { "displayName", displayname },
-                { "description", description },
-                { "type", type },
-                { "emphasize", emphasize},
-                { "claims", new BsonDocument
-                    {
-                        { "name", claimsName },
-                        { "givenName", claimsGivenName },
-                        { "familyName", claimsFamilyName },
-                        { "email", claimsEmail }
-                    }
-                }
-            };
-            IMongoCollection<BsonDocument> userData =
-        BaseMongo.GetDatabase().GetCollection<BsonDocument>("Scopes");
-            try
-            {
-                userData.InsertOne(scope);
-                return "success";
-            }
-            catch 
-            {
-                return "error";
-            }
-            
+            var newScope = getScope(name, displayname, description, type, emphasize, claimsName, claimsFamilyName, claimsGivenName, claimsEmail);
+            _lstscopes.Add(newScope);
+            MongoManage.Insert(newScope, "Scopes");
+            return "success";
         }
 
         public static async void addScopesinDB()
@@ -341,27 +302,30 @@ namespace Sj.Mg.Idsrv1.Config
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        _lstscopes.Add(
-                            new Scope()
-                            {
-                                Name = document["name"].ToString(),
-                                DisplayName = document["displayName"].ToString(),
-                                Description = document["description"].ToString(),
-                                Type = document["type"].ToString() == "Identity" ? ScopeType.Identity : ScopeType.Resource,
-                                Emphasize = document["emphasize"].ToBoolean(),
-                                Claims = new List<ScopeClaim>()
-                                {
-                                    new ScopeClaim("name", document["claims"]["name"].ToBoolean()),
-                                    new ScopeClaim("given_name", document["claims"]["givenName"].ToBoolean()),
-                                    new ScopeClaim("family_name", document["claims"]["familyName"].ToBoolean()),
-                                    new ScopeClaim("email", document["claims"]["email"].ToBoolean())
-                                }
-                            }
-                        );
-
+                        var newScope = getScope(document["Name"].ToString(), document["DisplayName"].ToString(), document["Description"].ToString(), document["Type"].ToString(), document["Emphasize"].ToBoolean(), document["Claims"]["name"].ToBoolean(), document["Claims"]["givenName"].ToBoolean(), document["Claims"]["familyName"].ToBoolean(), document["Claims"]["email"].ToBoolean());
+                        _lstscopes.Add(newScope);
                     }
                 }
             }
+        }
+
+        public static Scope getScope(string name, string displayname, string description, string type, Boolean emphasize, Boolean claimsName, Boolean claimsFamilyName, Boolean claimsGivenName, Boolean claimsEmail)
+        {
+            return new Scope()
+            {
+                Name = name,
+                DisplayName = displayname,
+                Description = description,
+                Type = (type == "Identity" ? ScopeType.Identity : ScopeType.Resource),
+                Emphasize = emphasize,
+                Claims = new List<ScopeClaim>()
+                    {
+                        new ScopeClaim("name", claimsName),
+                        new ScopeClaim("given_name", claimsGivenName),
+                        new ScopeClaim("family_name", claimsFamilyName),
+                        new ScopeClaim("email", claimsEmail)
+                    }
+            };
         }
     }
 }
