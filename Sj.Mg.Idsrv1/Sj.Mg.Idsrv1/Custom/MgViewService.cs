@@ -27,6 +27,11 @@ namespace Sj.Mg.Idsrv1.Custom
             return await Render(model, "login", name);
         }
 
+        public Task<Stream> Welcome(LogoutViewModel model, SignOutMessage message)
+        {
+            return Render(model, "welcome");
+        }
+
         public Task<Stream> Logout(LogoutViewModel model, SignOutMessage message)
         {
             return Render(model, "logout");
