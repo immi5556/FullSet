@@ -42,14 +42,6 @@ namespace Sj.Mg.Idsrv1.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateScopes(string clientId, Boolean allowAccessToAllScopes, Array allowedScopes)
-        {
-            Clients ab = new Clients();
-            string result = ab.updateClientScope(clientId, allowAccessToAllScopes, allowedScopes);
-            return Json(result);
-        }
-
-        [HttpPost]
         public ActionResult GetClients()
         {
             return Json(Clients.Get());

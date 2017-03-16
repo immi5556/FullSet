@@ -164,38 +164,6 @@ namespace Sj.Mg.Idsrv1.Config
             return nc;
         }
 
-        internal string updateClientScope(string clientId, bool allowAccessToAllScopes, Array allowedScopes)
-        {
-            List<string> temp = new List<string>();
-            foreach (var document in allowedScopes)
-            {
-                temp.Add(document.ToString());
-            }
-            foreach (var document in _lstclients)
-            {
-                if (document.ClientId == clientId)
-                {
-                    document.AllowAccessToAllScopes = allowAccessToAllScopes;
-                    document.AllowedScopes = temp;
-                    updateClientScope(clientId, document);
-                }
-            }
-            
-            return "Success";
-        }
-
-        public void updateClientScope(string clientId, Client document)
-        {
-            var database = BaseMongo.GetDatabase();
-            var collection = database.GetCollection<BsonDocument>("Clients");
-
-            var filter = Builders<BsonDocument>.Filter.Eq("ClientId", clientId);
-            var update = Builders<BsonDocument>.Update.Set("AllowAccessToAllScopes", document.AllowAccessToAllScopes).Set("AllowedScopes", document.AllowedScopes);
-            
-            collection.UpdateOneAsync(filter, update);
-        }
-
-
         public string addNewClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
             var newClient = GetClient(clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);

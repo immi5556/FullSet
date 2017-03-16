@@ -67,7 +67,7 @@
                         <h4 class="modal-title">Add Scope</h4>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form method="POST">
                             <div class="form-group">
                                 <label for="usr">Name:</label>
                                 <input type="text" class="form-control name">
@@ -128,11 +128,11 @@
                                     <option value="False">False</option>
                                 </select>
                             </div>
-                            <div class="checkbox form-group">
-                                <label><input type="checkbox" class="scopeCheckBox" name="scopeEnable"  value="Enable">Enable</label>
+                            <div class="checkbox">
+                                <label><input type="checkbox" class="scopeCheckBox" value="">Enable</label>
                             </div>
-                            <button type="submit" class="btn btn-primary addScopeObj" onclick="addScope()">Submit</button>
-                            <button type="submit" class="btn btn-primary updateScopeObj" onclick="updateScope()">Submit</button>
+                            <button class="btn btn-primary addScopeObj" onclick="return addScope()">Submit</button>
+                            <button class="btn btn-primary updateScopeObj" onclick="return updateScope()">Update</button>
                             <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
                         </form>
                     </div>
@@ -155,7 +155,7 @@
                         <h4 class="modal-title">Add Client</h4>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form method="post">
                             <div class="form-group">
                                 <label for="usr">Client Id:</label>
                                 <input type="text" class="form-control clientId">
@@ -209,10 +209,10 @@
                                 </select>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" class="clientCheckBox" name="clientEnable" value="Enable">Enable</label>
+                                <label><input type="checkbox" class="clientCheckBox" value="">Enable</label>
                             </div>
-                            <button type="submit" class="btn btn-primary addClientObj" onclick="addClient()">Submit</button>
-                            <button type="submit" class="btn btn-primary updateClientObj" onclick="updateClient()">Update</button>
+                            <button class="btn btn-primary addClientObj" onclick="return addClient()">Submit</button>
+                            <button class="btn btn-primary updateClientObj" onclick="return updateClient()">Update</button>
                             <div class="clientErrorMessage" style="padding-top: 10px; color:green;"></div>
                         </form>
                     </div>
@@ -220,54 +220,13 @@
                         <button type="button" class="btn btn-danger popup" data-dismiss="modal">Close</button>
                     </div>
                 </div>
-
             </div>
         </div>
-
-        <!-- Modal -->
-        <div id="changeScope" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">List of Scopes Available for <span class="currentClient"></span></h4>
-                    </div>
-                    <div class="modal-body">
-                        <button class="btn btn-default checkAll">Check All</button>
-                        <button class="btn btn-default uncheckAll">UnCheck All</button>
-                        <div class="scopes"></div>
-                        <button class="btn btn-warning scopesUpdate">Update</button>                  
-                        <div class="ScopesError" style="padding-top: 10px; color:green;"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger closeScopeModel" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-        
-        
     </div>
     <script type="text/javascript">
+        $('form').removeAttr('action');
+        $('form').removeAttr('action');
         var clients, scopes, scopesValues = [], currentClientIndex = -1;
-            
-        function changeScope(index) {
-            currentClientIndex = index;
-            $(".currentClient").html(clients[index].ClientName);
-            $(".scopes").html("");
-            scopesValues.forEach(function (item) {
-                if (clients[index].AllowAccessToAllScopes || clients[index].AllowedScopes.indexOf(item) != -1) {
-                    $(".scopes").append("<div class='checkbox'><label><input type='checkbox' name='scopeValue' value='" + item + "' checked>" + item + "</label></div>");
-                } else {
-                    $(".scopes").append("<div class='checkbox'><label><input type='checkbox' name='scopeValue' value='" + item + "'>" + item + "</label></div>");
-                }
-            });
-        };
 
         function clearScopeFields() {
             $('.name').val(""),
@@ -281,6 +240,7 @@
             $('.claimsEmail').val("Select"),
             $('.scopeCheckBox').prop("checked", false);
             $("#myModal .modal-title").html("Add Scope");
+            $(".errorMessage").html("");
         }
 
         function clearClientFields() {
@@ -310,52 +270,6 @@
             });
         });
 
-        $(".close, .closeScopeModel, .popup").on("click", function (e) {
-            currentClientIndex = -1;
-        });
-
-        $(".scopesUpdate").on("click", function (e) {
-            var allowedScopes = [];
-            $("input:checkbox[name=scopeValue]:checked").each(function () {
-                allowedScopes.push($(this).val());
-            });
-            clients[currentClientIndex].AllowedScopes = (scopesValues.length == allowedScopes.length ? [] : allowedScopes);
-            clients[currentClientIndex].AllowAccessToAllScopes = (scopesValues.length == allowedScopes.length ? true : false);
-
-            var formData = {
-                "clientId": clients[currentClientIndex].ClientId,
-                "allowAccessToAllScopes": clients[currentClientIndex].AllowAccessToAllScopes,
-                "allowedScopes": allowedScopes
-            };
-
-            $.ajax({
-                url: "/Service/UpdateScopes",
-                type: "post",
-                data: formData,
-                success: function (d) {
-                    if (d == "Success") {
-                        $(".ScopesError").html("Successfully Updated.");
-                    } else {
-                        $(".ScopesError").html("Error occured try again.");
-                        $(".ScopesError").css("color", "red");
-                    }
-                }
-            });
-            
-        });
-
-        $('.checkAll').click(function () {
-            $('input:checkbox[name=scopeValue]').each(function () {
-                $(this).prop('checked', true);
-            })
-        });
-
-        $('.uncheckAll').click(function () {
-            $('input:checkbox[name=scopeValue]').each(function () {
-                $(this).prop('checked', false);
-            })
-        });
-
         $('.clientCheckAll').click(function () {
             $('input:checkbox[name=clientScopeValue]').each(function () {
                 $(this).prop('checked', true);
@@ -368,7 +282,7 @@
             });
         });
 
-        $(".updateScopeObj").on("click", function () {
+        function updateScope() {
             var formData = scopeData();
 
             $.ajax({
@@ -376,23 +290,32 @@
                 type: "post",
                 data: formData,
                 success: function (d) {
-                    window.Reload();
+                    $(".errorMessage").html("Updated Successfully");
+                    var index = scopesValues.indexOf(formData.name);
+                    if (index > -1) {
+                        $(".scopesTable tbody tr:nth-child(" + (index+1)+ ") td:nth-child(2)").html(formData.displayname);
+                        $(".scopesTable tbody tr:nth-child(" + (index+1) + ") td:nth-child(3)").html(formData.type);
+                    }
+                    scopes[index].Name = $('.name').val();
+                    scopes[index].DisplayName = $('.displayName').val();
+                    scopes[index].Description = $('.description').val();
+                    scopes[index].Type = $('.type').val() == "Identity" ? 1 : 0;
+                    scopes[index].Emphasize = $('.emphasize').val() ? true : false;
+                    scopes[index].Claims.forEach(function (item, i) {
+                        if (item.Name == "name")
+                            item.AlwaysIncludeInIdToken = $('.claimsName').val() == "True" ? true : false;
+                        if (item.Name == "family_name")
+                            item.AlwaysIncludeInIdToken = $('.claimsFamilyName').val() == "True" ? true : false;
+                        if (item.Name == "given_name")
+                            item.AlwaysIncludeInIdToken = $('.claimsGivenName').val() == "True" ? true : false;
+                        if (item.Name == "email")
+                            item.AlwaysIncludeInIdToken = $('.claimsEmail').val() == "True" ? true : false;
+                    });
+                    scopes[index].Enabled = $('.scopeCheckBox').is(":checked");
                 }
             });
-        });
-
-        $(".updateClientObj").on("click", function () {
-            var formData = clientData();
-
-            $.ajax({
-                url: "/Service/UpdateClient",
-                type: "post",
-                data: formData,
-                success: function (d) {
-                    window.Reload();
-                }
-            });
-        });
+            return false;
+        };
 
         function editScope(index) {
             clearScopeFields();
@@ -416,29 +339,6 @@
                     $('.claimsEmail').val(item.AlwaysIncludeInIdToken ? "True" : "False");
             });
             $('.scopeCheckBox').prop("checked", scopes[index].Enabled);
-        };
-
-        function editClient(index) {
-            clearClientFields();
-            $(".addClientObj").hide();
-            $(".updateClientObj").show();
-            $("#addClientsModal .modal-title").html("Edit Client");
-            $("#addClientsModal").modal('show');
-            $('.clientId').val(clients[index].ClientId),
-            $('.clientName').val(clients[index].ClientName),
-            $('.flow').val((clients[index].Flow == 1 ? "Implicit" : (clients[index].Flow == 2 ? "Hybrid" : (clients[index].Flow == 3 ? "ClientCredentials" : (clients[index].Flow == 4 ? "ResourceOwner" : (clients[index].Flow == 5 ? "Custom" : (clients[index].Flow == 6 ? "AuthorizationCodeWithProofKey" : (clients[index].Flow == 7 ? "HybridWithProofKey" : "AuthorizationCode")))))))),
-            $('.redirectUris').val(clients[index].RedirectUris),
-            $('.postLogoutRedirectUris').val(clients[index].PostLogoutRedirectUris),
-            $('.includeJwtId').val(clients[index].IncludeJwtId ? "True" : "False"),
-            $('.allowRememberConsent').val(clients[index].AllowRememberConsent ? "True" : "False"),
-            $('.clientCheckBox').prop("checked", clients[index].Enabled);
-            scopesValues.forEach(function (item) {
-                if (clients[index].AllowAccessToAllScopes || clients[index].AllowedScopes.indexOf(item) != -1) {
-                    $(".clientAllowedScopes").append("<div class='checkbox'><label><input type='checkbox' name='clientScopeValue' value='" + item + "' checked>" + item + "</label></div>");
-                } else {
-                    $(".clientAllowedScopes").append("<div class='checkbox'><label><input type='checkbox' name='clientScopeValue' value='" + item + "'>" + item + "</label></div>");
-                }
-            });
         };
         
         function scopeData() {
@@ -465,7 +365,8 @@
                 data: formData,
                 success: function (d) {
                     if (d == "success") {
-                        $(".scopesTable tbody").append("<tr><td>" + $('.name').val() + "</td><td>" + $('.displayName').val() + "</td><td>" + $('.type').val() + "</td></tr>");
+                        scopesValues.push($('.name').val());
+                        $(".scopesTable tbody").append("<tr><td style='cursor: pointer;'><a onclick='editScope(" + scopesValues.length-1 + ")'>" + item.Name + "</a></td><td>" + $('.displayName').val() + "</td><td>" + $('.type').val() + "</td></tr>");
                         $(".errorMessage").html("Successfully Inserted.");
                         scopes.push({
                             'Name': $('.name').val(),
@@ -483,6 +384,70 @@
                         $(".errorMessage").html("Error occured try again.");
                         $(".errorMessage").css("color","red");
                     }
+                }
+            });
+
+            return false;
+        };
+
+        function updateClient() {
+            var formData = clientData();
+
+            $.ajax({
+                url: "/Service/UpdateClient",
+                type: "post",
+                data: formData,
+                success: function (d) {
+                    $(".clientErrorMessage").html("Updated Successfully");
+                    var index = -1;
+                    for (var i = 0; i < clients.length; i++) {
+                        if (clients[i].ClientId == formData.clientId) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    if (index > -1) {
+                        $(".clientsTable tbody tr:nth-child(" + (index + 1) + ") td:nth-child(2)").html(formData.clientName);
+                        $(".clientsTable tbody tr:nth-child(" + (index + 1) + ") td:nth-child(3)").html(formData.allowedScopes.join(", "));
+                    }
+                    clients[index].ClientId = $('.clientId').val(),
+                    clients[index].ClientName = $('.clientName').val(),
+                    clients[index].Flow = ($('.flow').val() == 1 ? "Implicit" : (clients[index].Flow == 2 ? "Hybrid" : (clients[index].Flow == 3 ? "ClientCredentials" : (clients[index].Flow == 4 ? "ResourceOwner" : (clients[index].Flow == 5 ? "Custom" : (clients[index].Flow == 6 ? "AuthorizationCodeWithProofKey" : (clients[index].Flow == 7 ? "HybridWithProofKey" : "AuthorizationCode"))))))),
+                    clients[index].RedirectUris = $('.redirectUris').val(),
+                    clients[index].PostLogoutRedirectUris = $('.postLogoutRedirectUris').val(),
+                    clients[index].IncludeJwtId = $('.includeJwtId').val() == "True" ? true : false,
+                    clients[index].AllowRememberConsent = $('.allowRememberConsent').val() == "True" ? true : false,
+                    clients[index].Enabled = $('.clientCheckBox').is(":checked");
+                    var allowedScopes = [];
+                    $("input:checkbox[name=clientScopeValue]:checked").each(function () {
+                        allowedScopes.push($(this).val());
+                    });
+                    clients[index].AllowedScopes = allowedScopes;
+                }
+            });
+            return false;
+        };
+
+        function editClient(index) {
+            clearClientFields();
+            $(".addClientObj").hide();
+            $(".updateClientObj").show();
+            $(".clientErrorMessage").html("Updated Successfully");
+            $("#addClientsModal .modal-title").html("Edit Client");
+            $("#addClientsModal").modal('show');
+            $('.clientId').val(clients[index].ClientId),
+            $('.clientName').val(clients[index].ClientName),
+            $('.flow').val((clients[index].Flow == 1 ? "Implicit" : (clients[index].Flow == 2 ? "Hybrid" : (clients[index].Flow == 3 ? "ClientCredentials" : (clients[index].Flow == 4 ? "ResourceOwner" : (clients[index].Flow == 5 ? "Custom" : (clients[index].Flow == 6 ? "AuthorizationCodeWithProofKey" : (clients[index].Flow == 7 ? "HybridWithProofKey" : "AuthorizationCode")))))))),
+            $('.redirectUris').val(clients[index].RedirectUris),
+            $('.postLogoutRedirectUris').val(clients[index].PostLogoutRedirectUris),
+            $('.includeJwtId').val(clients[index].IncludeJwtId ? "True" : "False"),
+            $('.allowRememberConsent').val(clients[index].AllowRememberConsent ? "True" : "False"),
+            $('.clientCheckBox').prop("checked", clients[index].Enabled);
+            scopesValues.forEach(function (item) {
+                if (clients[index].AllowAccessToAllScopes || clients[index].AllowedScopes.indexOf(item) != -1) {
+                    $(".clientAllowedScopes").append("<div class='checkbox'><label><input type='checkbox' name='clientScopeValue' value='" + item + "' checked>" + item + "</label></div>");
+                } else {
+                    $(".clientAllowedScopes").append("<div class='checkbox'><label><input type='checkbox' name='clientScopeValue' value='" + item + "'>" + item + "</label></div>");
                 }
             });
         };
@@ -529,9 +494,9 @@
                             'AllowAccessToAllScopes': (allowedScopes.length == scopes.length ? true : false)
                         });
                         if (allowedScopes.length == scopes.length) {
-                            $(".clientsTable tbody").append("<tr><td>" + $('.clientId').val() + "</td><td>" + $('.clientName').val() + "</td><td>" + scopes.join(", ") + "</td><td><button class='btn btn-warning' data-toggle='modal' data-target='#changeScope' onClick='changeScope(" + clients.length-1 + ")'>Change Scopes</button></td></tr>");
+                            $(".clientsTable tbody").append("<tr><td>" + $('.clientId').val() + "</td><td>" + $('.clientName').val() + "</td><td>" + scopes.join(", ") + "</td></tr>");
                         } else {
-                            $(".clientsTable tbody").append("<tr><td>" + $('.clientId').val() + "</td><td>" + $('.clientName').val() + "</td><td>" + allowedScopes.join(", ") + "</td><td><button class='btn btn-warning' data-toggle='modal' data-target='#changeScope' onClick='changeScope(" + clients.length-1 + ")'>Change Scopes</button></td></tr>");
+                            $(".clientsTable tbody").append("<tr><td>" + $('.clientId').val() + "</td><td>" + $('.clientName').val() + "</td><td>" + allowedScopes.join(", ") + "</td></tr>");
                         }
                         $(".clientErrorMessage").html("Successfully Inserted.");
                     } else {
@@ -540,6 +505,7 @@
                     }
                 }
             });
+            return false;
         };
 
         function getClients() {
