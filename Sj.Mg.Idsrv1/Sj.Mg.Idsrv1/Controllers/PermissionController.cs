@@ -8,19 +8,14 @@ using System.Web.Mvc;
 
 namespace Sj.Mg.Idsrv1.Controllers
 {
+    [IdentityServer3.Extensions.Mvc.Filters.IdentityServerFullLoginAttribute]
     public class PermissionController : Controller
     {
         [Route("core/scopes")]
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var ctx = Request.GetOwinContext();
-            var partial_user = await ctx.Environment.GetIdentityServerPartialLoginAsync();
-            if (partial_user == null)
-            {
-                return View("Error");
-            }
             return View();
         }
     }

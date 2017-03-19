@@ -238,6 +238,10 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Custom\MgUserService.cs" />
     <Compile Include="Custom\MgViewService.cs" />
+    <Compile Include="Filters\HandleAccessDeniedAttribute.cs" />
+    <Compile Include="Filters\IdentityServerFullLoginAttribute.cs" />
+    <Compile Include="Filters\IdentityServerPartialLoginAttribute.cs" />
+    <Compile Include="Filters\OwinAuthenticationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -462,6 +466,10 @@
     <ProjectReference Include="..\Data\Sj.Mg.Mongo\Sj.Mg.Mongo.csproj">
       <Project>{69A5F51D-FEFE-4216-B8ED-8F656FBB8375}</Project>
       <Name>Sj.Mg.Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libs\Sj.Mg.CliLib\Sj.Mg.CliLib.csproj">
+      <Project>{EB2046AA-3456-453A-BD0D-811F6497B867}</Project>
+      <Name>Sj.Mg.CliLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Sj.Mg.Model\Sj.Mg.Model.csproj">
       <Project>{eb0bc5b2-e0fb-4e75-81e7-b1bb9243d355}</Project>

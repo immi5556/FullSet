@@ -27,7 +27,7 @@ namespace Sj.Mg.Idsrv1
             app.Map("/core", coreApp =>
             {
                 var factory = new IdentityServerServiceFactory()
-                    .UseInMemoryUsers(Users.Get())
+                    //.UseInMemoryUsers(Users.Get())
                     .UseInMemoryClients(Clients.Get())
                     .UseInMemoryScopes(Scopes.Get());
 

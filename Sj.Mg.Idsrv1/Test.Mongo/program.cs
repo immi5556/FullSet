@@ -14,8 +14,10 @@ namespace Test.Mongo
         public static void Main()
         {
             //Insert();
-            SelectFilt();
+            SelectDict();
+            //SelectFilt();
             //Update();
+            //PopulateUsers();
             Console.ReadKey();
         }
         static void SelectFilt()
@@ -29,7 +31,7 @@ namespace Test.Mongo
         static void SelectDict()
         {
             Dictionary<string, object> filter = new Dictionary<string, object>();
-            filter.Add("Username", "smith@smith.co");
+            filter.Add("Username", "alice@bob.co");
             var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.Model.CustomUser>(filter, "Users");
             foreach(var t in tt)
             {
@@ -68,6 +70,64 @@ namespace Test.Mongo
                         new CustomClaim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
                     }
             };
+        }
+
+        static void PopulateUsers()
+        {
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.Model.CustomUser>(new CustomUser()
+            {
+                Subject = "818727",
+                Username = "alice@bob.co",
+                Password = "alice",
+                Claims = new List<Claim>()
+                        {
+                            new Claim(Constants.ClaimTypes.Name, "Alice Smith"),
+                            new Claim(Constants.ClaimTypes.GivenName, "Alice"),
+                            new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
+                            new Claim(Constants.ClaimTypes.Email, "AliceSmith@email.com"),
+                            new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                            new Claim(Constants.ClaimTypes.Role, "Parent"),
+                            new Claim(Constants.ClaimTypes.Role, "Patient"),
+                            new Claim(Constants.ClaimTypes.WebSite, "http://alice.com"),
+                            new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
+                        }
+            }, "Users");
+
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.Model.CustomUser>(new CustomUser()
+            {
+                Subject = "88421113",
+                Username = "bob@bob.co",
+                Password = "bob",
+                Claims = new List<Claim>()
+                        {
+                            new Claim(Constants.ClaimTypes.Name, "Bob Smith"),
+                            new Claim(Constants.ClaimTypes.GivenName, "Bob"),
+                            new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
+                            new Claim(Constants.ClaimTypes.Email, "BobSmith@email.com"),
+                            new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                            new Claim(Constants.ClaimTypes.Role, "Patient"),
+                            new Claim(Constants.ClaimTypes.WebSite, "http://bob.com"),
+                            new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
+                        }
+            }, "Users");
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.Model.CustomUser>(new CustomUser()
+            {
+                Subject = "818956",
+                Username = "admin@medgrotto.com",
+                Password = "123",
+                Claims = new List<Claim>()
+                        {
+                            new Claim(Constants.ClaimTypes.Name, "Admin MG"),
+                            new Claim(Constants.ClaimTypes.GivenName, "Admin"),
+                            new Claim(Constants.ClaimTypes.FamilyName, "Medgrotto"),
+                            new Claim(Constants.ClaimTypes.Email, "admin@medgrotto.com"),
+                            new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                            new Claim(Constants.ClaimTypes.Role, "Admin"),
+                            new Claim(Constants.ClaimTypes.Role, "Geek"),
+                            new Claim(Constants.ClaimTypes.WebSite, "http://medgrotto.com"),
+                            new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Texas"", ""postal_code"": 69118, ""country"": ""USA"" }", Constants.ClaimValueTypes.Json)
+                        }
+            }, "Users");
         }
     }
 }

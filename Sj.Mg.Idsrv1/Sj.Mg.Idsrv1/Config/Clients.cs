@@ -119,7 +119,24 @@ namespace Sj.Mg.Idsrv1.Config
                         //new Secret("secret".Sha256())
                         new Secret("secret".Sha256())
                     }
-                }
+                },
+                new Client
+                {
+                    ClientId = "IdSrv1",
+                    ClientName = "IdSrv1 (All)",
+                    Flow = Flows.Hybrid,
+                    AllowAccessToAllScopes = true,
+                    RedirectUris = new List<string>
+                    {
+                        AppConstants.Constants.Sts + "/scopes",
+                    },
+                    PostLogoutRedirectUris = new List<string>()
+                    {
+                        AppConstants.Constants.ReClientMvc
+                    },
+                    IncludeJwtId = true,
+                    AllowRememberConsent = false
+                },
             };
 
         static Clients()
@@ -168,7 +185,7 @@ namespace Sj.Mg.Idsrv1.Config
         {
             var newClient = GetClient(clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
             _lstclients.Add(newClient);
-            MongoManage.Insert(newClient, "Clients");
+            MongoManage.Insert<Client>(newClient, "Clients");
             return "Success";
         }
 

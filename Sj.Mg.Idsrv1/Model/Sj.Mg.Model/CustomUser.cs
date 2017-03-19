@@ -10,9 +10,10 @@ namespace Sj.Mg.Model
     public class CustomUser
     {
         [MongoDB.Bson.Serialization.Attributes.BsonId]
-        [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
+        //[MongoDB.Bson.Serialization.Attributes.BsonIgnore]
         [Newtonsoft.Json.JsonIgnore]
-        public MongoDB.Bson.ObjectId _Id { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement("id")]
+        public MongoDB.Bson.ObjectId Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public bool AcceptedEula { get; set; }

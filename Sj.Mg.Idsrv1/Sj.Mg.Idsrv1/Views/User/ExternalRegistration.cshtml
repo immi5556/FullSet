@@ -1,44 +1,51 @@
 ﻿@*@model Sj.Mg.Idsrv1.Models.ExternalRegistrationModel*@
-@{ 
+@{
     Layout = null;
 }
-<div class="loginMain">
-	<div class="container loginScreen">
-		<a href="#" class="loginLogo"><img src="~/Content/medg/images/login-logo.png" /></a>
-		<div class="registerSec">
-			<h2>Welcome to MedGrotto</h2>
-            <form method="post">
-                <div class="reg-row">
-                    <label for="First">First Name</label>
-                    <input type="text" name="First" class = "form-control" />
-                </div>
-                <div class="reg-row">
-                    <label for="First">Last Name</label>
-                    <input type="text" name="Last" class="form-control" />
-                </div>
-                <div class="reg-row">
-                    <button class="registerBtn">Register</button>
-                </div>
-            </form>
-            @*@using (Html.BeginForm())
-            {
-			    <div class="reg-row">
-				    <label for="First">First Name</label>
-				    @Html.TextBoxFor(x => x.First, new { @class = "form-control" })
-			    </div>
-			    <div class="reg-row">
-				    <label for="Last">Last Name</label>
-				    @Html.TextBoxFor(x => x.Last, new { @class = "form-control" })
-			    </div>
-			    <div class="reg-row">
-				    <button class="registerBtn">Register</button>
-			    </div>
-            }*@
-		</div>
-	</div>
-	<div class="loginPush"></div>
-</div>
-<div class="loginFooter">All rights reserved &copy; 2017 Terms and conditions</div>
-<script>
-    $(".loginMain").closest("body").addClass("login");
-</script>
+<html>
+<head>
+</head>
+<body>
+    <div class="loginMain">
+        <div class="container loginScreen">
+            <a href="#" class="loginLogo"><img src="~/Content/medg/images/login-logo.png" /></a>
+            <div class="registerSec">
+                <h2>Welcome to MedGrotto</h2>
+                <form method="post">
+                    <div class="reg-row">
+                        <label for="First">First Name</label>
+                        <input type="text" name="First" class="form-control" />
+                    </div>
+                    <div class="reg-row">
+                        <label for="First">Last Name</label>
+                        <input type="text" name="Last" class="form-control" />
+                    </div>
+                    <div class="reg-row">
+                        <button class="registerBtn">Register</button>
+                    </div>
+                </form>
+                @*@using (Html.BeginForm())
+                    {
+                        <div class="reg-row">
+                            <label for="First">First Name</label>
+                            @Html.TextBoxFor(x => x.First, new { @class = "form-control" })
+                        </div>
+                        <div class="reg-row">
+                            <label for="Last">Last Name</label>
+                            @Html.TextBoxFor(x => x.Last, new { @class = "form-control" })
+                        </div>
+                        <div class="reg-row">
+                            <button class="registerBtn">Register</button>
+                        </div>
+                    }*@
+            </div>
+        </div>
+        <div class="loginPush"></div>
+    </div>
+    <div class="loginFooter">All rights reserved &copy; 2017 Terms and conditions</div>
+    <script src="~/Content/medg/js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(".loginMain").closest("body").addClass("login");
+    </script>
+</body>
+</html>

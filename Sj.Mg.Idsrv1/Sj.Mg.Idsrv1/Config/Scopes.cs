@@ -93,7 +93,7 @@ namespace Sj.Mg.Idsrv1.Config
         
         static Scopes()
         {
-            addScopesinDB();
+            AddMgScopesFromDB();
             AddFhirScopes();
         }
         public static IEnumerable<Scope> Get()
@@ -287,7 +287,7 @@ namespace Sj.Mg.Idsrv1.Config
         {
             var newScope = getScope(name, displayname, description, type, emphasize, claimsName, claimsFamilyName, claimsGivenName, claimsEmail, enable);
             _lstscopes.Add(newScope);
-            MongoManage.Insert(newScope, "Scopes");
+            MongoManage.Insert<Scope>(newScope, "Scopes");
             return "success";
         }
 
@@ -314,7 +314,7 @@ namespace Sj.Mg.Idsrv1.Config
             return "success";
         }
 
-        public static async void addScopesinDB()
+        public static async void AddMgScopesFromDB()
         {
             var collection = BaseMongo.GetDatabase().GetCollection<BsonDocument>("Scopes");
             var filter = new BsonDocument();

@@ -16,43 +16,63 @@ namespace Sj.Mg.Idsrv1.Custom
     {
         public static List<CustomUser> Users = new List<CustomUser>()
         {
-            new CustomUser()
-            {
-                Subject = "818727", Username = "alice@bob.co", Password = "alice",
-                    Claims = new List<Claim>()
-                    {
-                        new Claim(Constants.ClaimTypes.Name, "Alice Smith"),
-                        new Claim(Constants.ClaimTypes.GivenName, "Alice"),
-                        new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
-                        new Claim(Constants.ClaimTypes.Email, "AliceSmith@email.com"),
-                        new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                        new Claim(Constants.ClaimTypes.Role, "Admin"),
-                        new Claim(Constants.ClaimTypes.Role, "Geek"),
-                        new Claim(Constants.ClaimTypes.WebSite, "http://alice.com"),
-                        new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
-                    }
-            },
-            new CustomUser()
-            {
-                Subject = "88421113", Username = "bob@bob.co", Password = "bob",
-                    Claims = new List<Claim>()
-                    {
-                        new Claim(Constants.ClaimTypes.Name, "Bob Smith"),
-                        new Claim(Constants.ClaimTypes.GivenName, "Bob"),
-                        new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
-                        new Claim(Constants.ClaimTypes.Email, "BobSmith@email.com"),
-                        new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                        new Claim(Constants.ClaimTypes.Role, "Developer"),
-                        new Claim(Constants.ClaimTypes.Role, "Geek"),
-                        new Claim(Constants.ClaimTypes.WebSite, "http://bob.com"),
-                        new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
-                    }
-            }
+             new CustomUser()
+                {
+                    Subject = "818727", Username = "alice@bob.co", Password = "alice",
+                        Claims = new List<Claim>()
+                        {
+                            new Claim(Constants.ClaimTypes.Name, "Alice Smith"),
+                            new Claim(Constants.ClaimTypes.GivenName, "Alice"),
+                            new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
+                            new Claim(Constants.ClaimTypes.Email, "AliceSmith@email.com"),
+                            new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                            new Claim(Constants.ClaimTypes.Role, "Parent"),
+                            new Claim(Constants.ClaimTypes.Role, "Patient"),
+                            new Claim(Constants.ClaimTypes.WebSite, "http://alice.com"),
+                            new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
+                        }
+                },
+                new CustomUser()
+                {
+                    Subject = "88421113", Username = "bob@bob.co", Password = "bob",
+                        Claims = new List<Claim>()
+                        {
+                            new Claim(Constants.ClaimTypes.Name, "Bob Smith"),
+                            new Claim(Constants.ClaimTypes.GivenName, "Bob"),
+                            new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
+                            new Claim(Constants.ClaimTypes.Email, "BobSmith@email.com"),
+                            new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                            new Claim(Constants.ClaimTypes.Role, "Patient"),
+                            new Claim(Constants.ClaimTypes.WebSite, "http://bob.com"),
+                            new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
+                        }
+                },
+                new CustomUser()
+                {
+                    Subject = "818956", Username = "admin@medgrotto.com", Password = "123",
+                        Claims = new List<Claim>()
+                        {
+                            new Claim(Constants.ClaimTypes.Name, "Admin MG"),
+                            new Claim(Constants.ClaimTypes.GivenName, "Admin"),
+                            new Claim(Constants.ClaimTypes.FamilyName, "Medgrotto"),
+                            new Claim(Constants.ClaimTypes.Email, "admin@medgrotto.com"),
+                            new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                            new Claim(Constants.ClaimTypes.Role, "Admin"),
+                            new Claim(Constants.ClaimTypes.Role, "Geek"),
+                            new Claim(Constants.ClaimTypes.WebSite, "http://medgrotto.com"),
+                            new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Texas"", ""postal_code"": 69118, ""country"": ""USA"" }", Constants.ClaimValueTypes.Json)
+                        }
+                }
         };
 
         public override Task AuthenticateLocalAsync(LocalAuthenticationContext context)
         {
-            var user = Users.SingleOrDefault(x => x.Username == context.UserName && x.Password == context.Password);
+            Dictionary<string, object> filter = new Dictionary<string, object>();
+            filter.Add("Username", context.UserName);
+            filter.Add("Password", context.Password);
+            var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.Model.CustomUser>(filter, "Users");
+            var user = (tt == null || tt.Count == 0) ? null : tt[0];
+            //var user = Users.SingleOrDefault(x => x.Username == context.UserName && x.Password == context.Password);
             if (user != null)
             {
                 if (user.AcceptedEula)
