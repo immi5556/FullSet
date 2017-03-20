@@ -1543,6 +1543,10 @@ footer {
 #log-outPop.lightbox-min {
 	border-radius: 5px;
 	border-color: #f1f1f1;
+    overflow: hidden;
+}
+.logoutScrn {
+    font-family: 'nexa_boldregular';
 }
 
 /*Relief CSS Here*/
