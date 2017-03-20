@@ -1,0 +1,172 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UMA</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/Content/medg/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/Content/medg/css/fonts.css">
+	<link rel="stylesheet" type="text/css" href="/Content/medg/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="lightboxrelief relief-min">
+        <div class="scrollSec">
+        	<h2>Registration</h2>
+        	<div class="regiFormSection">
+        			<div class="form-row">
+        				<div class="row">
+        					<div class="col-lg-4">
+        						<label>Firstname</label>
+        					</div>
+        					<div class="col-lg-8">
+        						<input type="text" name="firstName" class="firstName">
+        					</div>
+        				</div>
+        			</div>
+        			<div class="form-row">
+        				<div class="row">
+        					<div class="col-lg-4">
+        						<label>Lastname</label>
+        					</div>
+        					<div class="col-lg-8">
+        						<input type="text" name="lastName" class="lastName">
+        					</div>
+        				</div>
+        			</div>
+        			<div class="form-row">
+        				<div class="row">
+        					<div class="col-lg-4">
+        						<label>Email</label>
+        					</div>
+        					<div class="col-lg-8">
+        						<input type="email" name="email" class="emailVal">
+        					</div>
+        				</div>
+        			</div>
+        			<div class="form-row">
+        				<div class="row">
+        					<div class="col-lg-4">
+        						<label>Phone Number</label>
+        					</div>
+        					<div class="col-lg-8">
+        						<input type="number" name="phoneNumber" class="phoneNumber">
+        					</div>
+        				</div>
+        			</div>
+        			<div class="form-row">
+        				<div class="row">
+        					<div class="col-lg-4">
+        						<label>password</label>
+        					</div>
+        					<div class="col-lg-8">
+        						<input type="password" name="password" class="password">
+        					</div>
+        				</div>
+        			</div>
+                    <div class="form-row">
+        				<div class="row">
+        					<div class="col-lg-4">
+        						<label></label>
+        					</div>
+                            <div class="col-lg-6">
+                                <div class="errorMessage">
+                                </div>
+                            </div>
+        				</div>
+        			</div>
+        		</div>
+        	<div class="reliefSignSection">
+        		
+        		<div class="reliefSignRow1">
+        			<button class="allow" onclick="return CreateUser()">SignUp</button>
+        			<a href="#" class="signLogo"><img src="/Content/medg/images/reliefSignlogo.png" /></a>
+        		</div>
+        	</div>
+        </div>
+    </div>
+	<div class="popupShadow" style="display:block"></div>
+    <script src="/Content/medg/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+		(function(){
+			init();
+			function init(){
+				 responsive();
+			};
+
+			function responsive(){
+		        var Ww = $(window).outerWidth();
+		        Wh = $(window).outerHeight();
+		         curElemWid = $(".lightboxrelief").outerWidth(),
+		        curElemHih = $(".lightboxrelief").outerHeight(),
+		        contentHh = Wh - curElemHih,
+	          	 lightContbox = $(".lightboxrelief");	
+
+		        //console.log(roundVal)
+		        if(contentHh <0){
+		           contentHh = 40;
+		          }
+		        $(lightContbox).css({
+		              top: contentHh / 2,
+					  left: (Ww - curElemWid)/2
+		          });
+
+		        if($(curElemHih) > Wh){
+		          $(set.lightCont).css({
+		            maxHeight:Wh-20,
+					      height:"100%"
+		          });
+		        }else{
+		    			$(lightContbox).css({
+		              maxHeight:Wh-20,
+		    			    height:"auto",               
+		          });	
+				    }
+
+		      }
+
+
+			$(window).on('resize',function(eve) {
+		        responsive();
+		        //responsive();
+		       setTimeout(responsive, 600);
+		       });
+			
+
+		})();
+
+		function CreateUser() {
+		    var formData = {
+		        'firstName': $('.firstName').val(),
+		        'lastName': $('.lastName').val(),
+		        'email': $('.emailVal').val(),
+		        'password': $('.password').val(),
+		        'phoneNumber': $('.phoneNumber').val()
+		    };
+
+		    $.ajax({
+		        url: "/Service/Registration",
+		        type: "post",
+		        data: formData,
+		        success: function (responseData) {
+		            console.log(responseData);
+		            if (responseData == "exists") {
+		                $(".errorMessage").html("Email already exists.");
+		                $(".errorMessage").css("color","red");
+		            } else {
+		                $(".errorMessage").html("Successfully Registered.");
+		                $(".errorMessage").css("color", "green");
+		                $('.firstName').val(""),
+		                $('.lastName').val(""),
+		                $('.emailVal').val(""),
+		                $('.password').val(""),
+		                $('.phoneNumber').val("")
+		            }
+		        }
+		    });
+		    return false;
+		};
+	</script>
+</body>
+</html>

@@ -284,6 +284,7 @@
     <Content Include="Content\medg\css\fonts.css" />
     <Content Include="Content\medg\css\Site.css" />
     <Content Include="Content\medg\css\style.css" />
+    <Content Include="Content\medg\css\tableData.css" />
     <Content Include="Content\medg\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\medg\fonts\nexa_bold-demo.html" />
     <Content Include="Content\medg\images\accessIcon.png" />
@@ -331,13 +332,13 @@
     <Content Include="Content\medg\images\userIcon2.png" />
     <Content Include="Content\medg\js\consent.js" />
     <Content Include="Content\medg\js\error.js" />
+    <Content Include="Content\medg\js\gbDataTable.js" />
     <Content Include="Content\medg\js\loggedout.js" />
     <Content Include="Content\medg\js\login.js" />
     <Content Include="Content\medg\js\logout.js" />
     <Content Include="Content\medg\js\permission.js" />
     <Content Include="Content\medg\js\jquery-1.12.4.min.js" />
     <Content Include="Content\medg\js\tabs.js" />
-    <Content Include="Content\MgUi\AddScopes.html" />
     <Content Include="Content\MgUi\Consent.html" />
     <Content Include="Content\MgUi\Error.html" />
     <Content Include="Content\MgUi\Landing.html" />
@@ -345,7 +346,6 @@
     <Content Include="Content\MgUi\Login.html" />
     <Content Include="Content\MgUi\Logout.html" />
     <Content Include="Content\MgUi\Permissions.html" />
-    <Content Include="Content\MgUi\welcome.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -438,6 +438,7 @@
     <Content Include="Views\User\ExternalRegistration.cshtml" />
     <Content Include="Views\User\Eula.cshtml" />
     <Content Include="Views\Permission\Index.cshtml" />
+    <Content Include="Views\Home\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

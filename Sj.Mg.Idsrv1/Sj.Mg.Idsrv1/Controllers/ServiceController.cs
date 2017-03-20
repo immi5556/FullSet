@@ -1,4 +1,5 @@
 ﻿using Sj.Mg.Idsrv1.Config;
+using Sj.Mg.Idsrv1.Custom;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,14 @@ namespace Sj.Mg.Idsrv1.Controllers
         public ActionResult GetScopes()
         {
             return Json(Scopes.Get());
+        }
+
+        [HttpPost]
+        public ActionResult Registration(string firstName, string lastName, string password, string email, string phoneNumber)
+        {
+            MgUserService temp = new MgUserService();
+            string result = temp.addUser(firstName, lastName, password, email, phoneNumber);
+            return Json(result);
         }
 
     }

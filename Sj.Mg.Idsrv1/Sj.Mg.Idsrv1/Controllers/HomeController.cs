@@ -26,6 +26,13 @@ namespace Sj.Mg.Idsrv1.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }        
+        }
+
+        public ActionResult Registration()
+        {
+            ViewBag.Message = "Your Registration page.";
+
+            return View();
+        }
     }
 }

@@ -505,9 +505,19 @@ html,body{
 body{
 	
 }
+.form-row {
+    clear: both;
+    padding: 10px 0;
+}
+.form-row::before, .form-row::after {
+    content: '';
+    clear: both;
+    display: block;
+}
 .col-lg-8,.col-lg-4,.col-lg-6 {
 	float: left;
 	padding: 0 15px;
+    box-sizing: border-box;
 }
 .col-lg-8 {
 	width: 66.66666667%;
@@ -1790,4 +1800,34 @@ footer {
 }
 .nextBtn:hover{
   border-left: 12px solid #49a723;
+}
+
+/*Registration CSS Here*/
+
+.regiFormSection {
+	clear: both;
+	padding: 25px 15px 0;
+}
+.regiFormSection .form-row label {
+	color: #12214e;
+	font-size: 17px;
+	line-height: 35px;
+	font-family: arial;
+	font-weight: 700;
+	display: block;
+	text-align: right;
+}
+.regiFormSection .form-row input {
+	width: 100%;
+	height: 35px;
+	line-height: 35px;
+	font-size: 17px;
+	padding: 0 10px;
+	outline: none;
+	color: #333;
+	box-sizing: border-box;
+	border-radius: 4px;
+	border:1px solid #12214e;
+	font-family: arial;
+	background: #f2f2f2;
 }

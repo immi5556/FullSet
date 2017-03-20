@@ -2,7 +2,11 @@
 using IdentityServer3.Core.Extensions;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.Default;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using Sj.Mg.Model;
+using Sj.Mg.Mongo;
+using Sj.Mg.Mongo.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -143,6 +147,48 @@ namespace Sj.Mg.Idsrv1.Custom
             }
 
             return Task.FromResult(0);
+        }
+
+        public string addUser(string firstName, string lastName, string password, string email, string phoneNumber)
+        {
+            var database = BaseMongo.GetDatabase();
+            var collection = database.GetCollection<BsonDocument>("Users");
+
+            var filter = Builders<BsonDocument>.Filter.Eq("Username", email);
+
+            var response = collection.Find(filter).ToList();
+            if (response.Count == 0)
+            {
+                var newUser = GetUser(firstName, lastName, password, email, phoneNumber);
+                MongoManage.Insert<CustomUser>(newUser, "Users");
+                Users.Add(newUser);
+                return "success";
+            }
+            else
+            {
+                return "exists";
+            }
+        }
+
+        public CustomUser GetUser(string firstName, string lastName, string password, string email, string phoneNumber)
+        {
+            return new CustomUser
+            {
+                Subject = Guid.NewGuid().ToString(),
+                Username = email,
+                Password = password,
+                AcceptedEula = false,
+                Provider = null,
+                ProviderID = null,
+                IsRegistered = false,
+                Claims = new List<Claim>()
+                        {
+                            new Claim(Constants.ClaimTypes.Name, "Alice Smith"),
+                            new Claim(Constants.ClaimTypes.GivenName, firstName),
+                            new Claim(Constants.ClaimTypes.FamilyName, lastName),
+                            new Claim(Constants.ClaimTypes.Email, email),
+                        }
+            };
         }
     }
 }
