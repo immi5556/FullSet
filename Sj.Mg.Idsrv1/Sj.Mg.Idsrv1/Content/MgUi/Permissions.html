@@ -5,20 +5,23 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/Content/medg/css/style.css">
     <link rel="stylesheet" type="text/css" href="/Content/medg/css/fonts.css">
+    <link href="/Content/medg/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="mainContent">
-        <div id="logoutcontainer">
-            
-        </div>
         <header>
             <div class="container">
                 <a href="#" id="logo"><img src="/Content/medg/images/logo.png"></a>
-                <div class="hamberMenu">
+                <ul class="hNav">
+                    <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                    <li><a class="logout" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                </ul>
+                <!-- <div class="hamberMenu">
                     <span></span>
                     <span></span>
                     <span></span>
-                </div>
+                </div> -->
             </div>
         </header>
         <div class="main">
@@ -28,8 +31,12 @@
                         <h2 class="sec-heading">View only </h2>
                         <ul class="viewSectionList userList">
                             <li>
-                                <span><img src="/Content/medg/images/userIcon.png"></span>
-                                <label>person3</label>
+                                <div class="listGrid">
+                                    <h4>Relief Express</h4>
+                                    <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                    <h5>John1</h5>
+                                    <strong>Designation</strong>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -37,16 +44,28 @@
                         <h2 class="sec-heading">View &amp; Share</h2>
                         <ul class="viewShareSectionList userList">
                             <li>
-                                <span><img src="/Content/medg/images/userIcon.png"></span>
-                                <label>person4</label>
+                                <div class="listGrid">
+                                    <h4>Relief Express</h4>
+                                    <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                    <h5>John1</h5>
+                                    <strong>Designation</strong>
+                                </div>
                             </li>
                             <li>
-                                <span><img src="/Content/medg/images/userIcon.png"></span>
-                                <label>person5</label>
+                                <div class="listGrid">
+                                    <h4>Relief Express</h4>
+                                    <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                    <h5>John1</h5>
+                                    <strong>Designation</strong>
+                                </div>
                             </li>
                             <li>
-                                <span><img src="/Content/medg/images/userIcon.png"></span>
-                                <label>person6</label>
+                                <div class="listGrid">
+                                    <h4>Relief Express</h4>
+                                    <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                    <h5>John1</h5>
+                                    <strong>Designation</strong>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -54,19 +73,49 @@
                 <div class="contentRight">
                     <h2 class="sec-heading">Requesting Access</h2>
                     <ul class="requestingSectionList userList">
-                        <li>
-                            <span><img src="/Content/medg/images/userIcon2.png"></span>
-                            <label>person1</label>
-                            <strong class="clsUsr">x</strong>
+                        <li class="click" data-id="#requests-id">
+                            <div class="listGrid">
+                                <h4>Relief Express</h4>
+                                <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                <h5>John1</h5>
+                                <strong>Designation</strong>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula. </p>
+                                <strong class="clsUsr">x</strong>
+                            </div>
                         </li>
-                        <li>
-                            <span><img src="/Content/medg/images/userIcon2.png"></span>
-                            <label>person2</label>
-                            <strong class="clsUsr">x</strong>
+                        <li class="click" data-id="#requests-id">
+                            <div class="listGrid">
+                                <h4>Relief Express</h4>
+                                <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                <h5>John1</h5>
+                                <strong>Designation</strong>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula. </p>
+                                <strong class="clsUsr">x</strong>
+                            </div>
+                        </li>
+                        <li class="click" data-id="#requests-id">
+                            <div class="listGrid">
+                                <h4>Relief Express</h4>
+                                <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                <h5>John1</h5>
+                                <strong>Designation</strong>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula. </p>
+                                <strong class="clsUsr">x</strong>
+                            </div>
+                        </li>
+                        <li class="click" data-id="#requests-id">
+                            <div class="listGrid">
+                                <h4>Relief Express</h4>
+                                <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                <h5>John1</h5>
+                                <strong>Designation</strong>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula. </p>
+                                <strong class="clsUsr">x</strong>
+                            </div>
                         </li>
                     </ul>
                     <div class="searchBar">
-                        <input type="text" name="" class="srh">
+                        <input type="text" name="" class="srh" placeholder="Enter Email">
                         <span class="srchIcon"><img src="/Content/medg/images/searchIcon.png"></span>
                     </div>
                 </div>
@@ -91,7 +140,6 @@
                 </div>
             </div>
         </div>
-
         <div class="push"></div>
     </div>
     <footer>
@@ -102,6 +150,212 @@
             <div class="carouselModule"></div>
         </div>
     </footer>
+
+    <div class="lightbox lightbox-wid" id="requests-id">
+        <div class="scrollSec">
+            <a href="#" class="closeIcon">X</a>
+            <div class="scroll">
+                <div class="patientTabModule">
+
+                    <div class="tabContentContainer">
+                        <div class="tabIntro">
+                            <p>
+                                <label>
+                                    <input data-ng-model="patientSigned" class="ng-pristine ng-untouched ng-valid" id="agreeChk" type="checkbox"> <span data-ng-bind-html="org.ppn.signOff" class="ng-binding"><strong>By checking this box and clicking the button below, you acknowledge receipt of this notice.  To print this notice, click here <a href="#">hardcopy</a>.  You may also contact our office to request a printed copy.</strong></span>
+                                    <button class="hidden-print" data-ng-disabled="!patientSigned" data-role="sign-agreement" data-ng-click="signAgreement()" disabled="disabled">I agree, continue</button>
+                                </label>
+                            </p>
+
+                        </div>
+                        <ul class="tabSectionMenu">
+                            <li class="active">Your Rights</li>
+                            <li>Your Choices</li>
+                            <li>Our Uses and Disclosures</li>
+                            <li>Our Obligations</li>
+                        </ul>
+                        <div class="tabContSec rightsCls active">
+                            <h2>Your Rights</h2>
+                            <h3>When it comes to your healthcare info, you have certain rights.</h3>
+                            <h4>This section explains your rights and some of our responsibilities to help you.</h4>
+                            <ul class="accordian">
+                                <li>
+                                    <h5 class="accordianHeading">Get a summary of the health info that you can view in MedGrotto <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>You can get an electronic summary of the different types of medical records and other health info we have about you. We can provide this free-of-cost, usually within 30 days of your request. </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">Get a list of users/providers with whom we’ve shared your info <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>You can ask for a list (accounting) of the times we’ve shared your health info for oneyear prior to the date you ask, who we shared it with, and why.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">Get a copy of this privacy notice <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>You can ask for a paper copy of this notice at any time, even if you have agreed to receive the notice electronically. We will provide you with a paper copy promptly.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">Choose someone to act for you <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>
+                                            If you have given someone 'surrogate' access or if someone is your legal guardian, that
+                                            person can exercise your rights and make choices about your health info.
+                                        </li>
+                                        <li>We will make sure the person has this authority and can act for you before we take any action.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">File a complaint if you believe your privacy rights have been violated <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>You can complain if you feel we have violated your rights by contacting us using the info in this notice.</li>
+                                        <li>
+                                            You can file a complaint with the U.S. Department of Health and Human Services Office for Civil
+                                            Rights by sending a letter to
+                                            <address>
+                                                200 Independence Avenue, S.W.<br>
+                                                Washington, D.C. 20201
+                                            </address>
+                                            <p>
+                                                by calling 1-877-696-6775, or visiting <a href="http://www.hhs.gov/ocr/privacy/hipaa/complaints/" target="_blank">
+                                                    HHS.GOV Complaints
+                                                    <i class="fa fa-external-link"></i>
+                                                </a>
+                                            </p>
+                                        </li>
+                                        <li>We will not retaliate against you for filing a complaint.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="tabContSec choicesCls">
+                            <h2>Your Choices</h2>
+                            <h3>For every piece of health info handled by MedGrotto, you can determine what we share.</h3>
+                            <h4>The raison d'etre of MedGrotto is to let you fully control your health info. We will only share the info you have requested us to share and no other, for the time period specified by you.</h4>
+                            <ul class="accordian">
+                                <li>
+                                    <h5 class="accordianHeading">In these cases, you have both the right and choice to tell us what to share. <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>Share info with your family, close friends, or others involved in your care</li>
+                                        <li>Share info in a disaster relief situation</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">In these cases we never share your information unless you give us written permission. <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>Marketing purposes</li>
+                                        <li>Sale of your information</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="tabContSec disclosuresCls">
+                            <h2>Our Uses and Disclosures</h2>
+                            <h3>What can be the reasons for accessing or sharing your health info?</h3>
+                            <h4>We may access or share your health info for the following reasons.</h4>
+                            <ul class="accordian">
+                                <li>
+                                    <h5 class="accordianHeading">To facilitate your treatment or care. <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>The most common reason to access your health info and share it with other professionals is to aid those who are treating you.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">To comply with the law <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li> We will share information about you if state or federal laws require it, including with the Department of Health and Human Services if it wants to see that we’re complying with federal privacy law.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h3>How long will we allow a user with whom you have shared your health info to continue to have access?</h3>
+                            <h4>Duration of access to your health info is determined by the following.</h4>
+                            <ul class="accordian">
+                                <li>
+                                    <h5 class="accordianHeading">Until the time specified by you while sharing or allowing access <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>
+                                            You can specify the time duration for which someone has access to your health info in two scenarios:
+                                            <ul>
+                                                <li>When a user requests for access to a specific resource and you choose to 'Allow' them access</li>
+                                                <li>When you proactively enter a user's email address and give them access</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">Until the time your account with MedGrotto is Active <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li> Your account may cease to be Active in two cases:</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h3>How do we determine how much to share?</h3>
+                            <h4>We can share your health info at the level of granularity specified by you.</h4>
+                            <ul class="accordian">
+                                <li>
+                                    <h5 class="accordianHeading">Share by Provider or Healthcare Entity <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>
+                                            We can share all the health info that is available with a specified Provider or Healthcare entity.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">Share by Record Name <i class="fa fa-question-circle" data-role="more-info"></i></h5>
+                                    <ul class="accorDropdown">
+                                        <li>  We can also share info at a specific document level.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="tabContSec obligationsCls">
+                            <h2>Our Obligations</h2>
+                            <ul class="accordian">
+                                <li>
+                                    <h5 class="accordianHeading">We are required by law to maintain the privacy and security of your protected health information. </h5>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">We will let you know promptly if a breach occurs that may have compromised the privacy or security of your information. </h5>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">We must follow the duties and privacy practices described in this notice and give you a copy of it. </h5>
+                                </li>
+                                <li>
+                                    <h5 class="accordianHeading">We will not use or share your information other than as described here unless you tell us we can in writing. If you tell us we can, you may change your mind at any time. Let us know in writing if you change your mind. </h5>
+                                </li>
+                            </ul>
+                            <section class="contSection">
+                                <section>
+                                    For more information see: <a href="http://www.hhs.gov/ocr/privacy/hipaa/understanding/consumers/noticepp.html" target="_blank">HHS.GOV consumer notice<i class="fa fa-external-link"></i></a>.
+                                </section>
+
+                                <section>
+                                    <strong>Changes to the Terms of this Notice</strong>
+
+                                    <p>
+                                        We can change the terms of this notice, and the changes will apply to all information we have about
+                                        you.
+                                        The new notice will be available upon request, in our office, and on our web site.
+                                    </p>
+                                </section>
+
+                                <p>This notice is effective as of <strong class="ng-binding">03/15/2017 12:00AM</strong></p>
+
+                                <p><strong class="ng-binding">This notice applies to MedGrotto only.</strong></p>
+                                <p><strong class="ng-binding">HIPAA Compliance Dept., Phone: 123-555-1212, xxxx N. 11th Ave, Dallas, TX 75021</strong></p>
+                            </section>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popupShadow"></div>
     <script id='modelJson' type='application/json'>
         {model}
     </script>

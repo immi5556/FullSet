@@ -299,6 +299,7 @@
     <Content Include="Content\medg\images\favi16x16.png" />
     <Content Include="Content\medg\images\favi32x32.png" />
     <Content Include="Content\medg\images\favi64x64.png" />
+    <Content Include="Content\medg\images\footerbg2.png" />
     <Content Include="Content\medg\images\gmail.png" />
     <Content Include="Content\medg\images\googleFitLogo.png" />
     <Content Include="Content\medg\images\headerbg.jpg" />
@@ -308,6 +309,10 @@
     <Content Include="Content\medg\images\logo.png" />
     <Content Include="Content\medg\images\logoLogin.png" />
     <Content Include="Content\medg\images\Medinova.png" />
+    <Content Include="Content\medg\images\menuActiveLeft1.png" />
+    <Content Include="Content\medg\images\menuActiveRight2.png" />
+    <Content Include="Content\medg\images\menuNormalLeft1.png" />
+    <Content Include="Content\medg\images\menuNormalRight1.png" />
     <Content Include="Content\medg\images\MG Logo.png" />
     <Content Include="Content\medg\images\ne_icc.jpg" />
     <Content Include="Content\medg\images\pic01.jpg" />

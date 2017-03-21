@@ -57,7 +57,7 @@ var identityServer = function () {
         },
         wrapForm: function () {
             var model = this.getModel();
-            $("#logoutcontainer").append("<a href='" + model.logoutUrl + "'>Logout</a>");
+            $(".logout").attr("href", model.logoutUrl);
         }
     }
 }();
