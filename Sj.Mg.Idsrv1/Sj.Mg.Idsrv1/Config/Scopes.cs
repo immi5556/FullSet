@@ -283,17 +283,17 @@ namespace Sj.Mg.Idsrv1.Config
                 });
         }
 
-        public string addNewScope(string name, string displayname, string description, string type, bool emphasize, bool claimsName, bool claimsFamilyName, bool claimsGivenName, bool claimsEmail, bool enable)
+        public string addNewScope(string name, string displayname, string description, string type, bool emphasize, List<ScopeClaim> claims, bool enable)
         {
-            var newScope = getScope(name, displayname, description, type, emphasize, claimsName, claimsFamilyName, claimsGivenName, claimsEmail, enable);
+            var newScope = getScope(name, displayname, description, type, emphasize, claims, enable);
             _lstscopes.Add(newScope);
             MongoManage.Insert<Scope>(newScope, "Scopes");
             return "success";
         }
 
-        public string updateScope(string name, string displayname, string description, string type, bool emphasize, bool claimsName, bool claimsFamilyName, bool claimsGivenName, bool claimsEmail, bool enable)
+        public string updateScope(string name, string displayname, string description, string type, bool emphasize, List<ScopeClaim> claimsObj, bool enable)
         {
-            var newScope = getScope(name, displayname, description, type, emphasize, claimsName, claimsFamilyName, claimsGivenName, claimsEmail, enable);
+            var newScope = getScope(name, displayname, description, type, emphasize, claimsObj, enable);
             var i = 0;
             foreach( var document in _lstscopes)
             {
@@ -325,27 +325,22 @@ namespace Sj.Mg.Idsrv1.Config
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        bool claimsName = false, claimsGivenName = false, claimsFamilyName = false, claimsEmail = false;
+                        List<ScopeClaim> claimObj = new List<ScopeClaim>();
 
                         foreach(var claimVal in document["Claims"].AsBsonArray)
                         {
-                            if (claimVal["Name"] == "name")
-                                claimsName = claimVal["AlwaysIncludeInIdToken"].ToBoolean();
-                            if (claimVal["Name"] == "given_name")
-                                claimsGivenName = claimVal["AlwaysIncludeInIdToken"].ToBoolean();
-                            if (claimVal["Name"] == "family_name")
-                                claimsFamilyName = claimVal["AlwaysIncludeInIdToken"].ToBoolean();
-                            if (claimVal["Name"] == "email")
-                                claimsEmail = claimVal["AlwaysIncludeInIdToken"].ToBoolean();
+                            claimObj.Add(
+                                new ScopeClaim(claimVal["Name"].ToString(), claimVal["AlwaysIncludeInIdToken"].ToBoolean())
+                            );
                         }
-                        var newScope = getScope(document["Name"].ToString(), document["DisplayName"].ToString(), document["Description"].ToString(), document["Type"].ToString(), document["Emphasize"].ToBoolean(), claimsName, claimsGivenName, claimsFamilyName, claimsEmail, document["Enabled"].ToBoolean());
+                        var newScope = getScope(document["Name"].ToString(), document["DisplayName"].ToString(), document["Description"].ToString(), document["Type"].ToString(), document["Emphasize"].ToBoolean(), claimObj, document["Enabled"].ToBoolean());
                         _lstscopes.Add(newScope);
                     }
                 }
             }
         }
 
-        public static Scope getScope(string name, string displayname, string description, string type, bool emphasize, bool claimsName, bool claimsFamilyName, bool claimsGivenName, bool claimsEmail, bool enable)
+        public static Scope getScope(string name, string displayname, string description, string type, bool emphasize, List<ScopeClaim> claims, bool enable)
         {
             return new Scope()
             {
@@ -355,13 +350,7 @@ namespace Sj.Mg.Idsrv1.Config
                 Description = description,
                 Type = (type == "Identity" ? ScopeType.Identity : ScopeType.Resource),
                 Emphasize = emphasize,
-                Claims = new List<ScopeClaim>()
-                    {
-                        new ScopeClaim("name", claimsName),
-                        new ScopeClaim("given_name", claimsGivenName),
-                        new ScopeClaim("family_name", claimsFamilyName),
-                        new ScopeClaim("email", claimsEmail)
-                    }
+                Claims = claims
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using Sj.Mg.Idsrv1.Config;
+﻿using IdentityServer3.Core.Models;
+using Sj.Mg.Idsrv1.Config;
 using Sj.Mg.Idsrv1.Custom;
 using System;
 using System.Collections.Generic;
@@ -12,18 +13,18 @@ namespace Sj.Mg.Idsrv1.Controllers
     public class ServiceController : Controller
     {
         [HttpPost]
-        public ActionResult AddScope(string name, string displayname, string description, string type, bool emphasize, bool claimsName, bool claimsFamilyName, bool claimsGivenName, bool claimsEmail, bool enable)
+        public ActionResult AddScope(string name, string displayname, string description, string type, bool emphasize, List<ScopeClaim> claimsObj, bool enable)
         {
             Scopes ab = new Scopes();
-            string result = ab.addNewScope(name, displayname, description, type, emphasize, claimsName, claimsGivenName, claimsFamilyName, claimsEmail, enable);
+            string result = ab.addNewScope(name, displayname, description, type, emphasize, claimsObj, enable);
             return Json(result);
         }
         
         [HttpPost]
-        public ActionResult UpdateScope(string name, string displayname, string description, string type, bool emphasize, bool claimsName, bool claimsFamilyName, bool claimsGivenName, bool claimsEmail, bool enable)
+        public ActionResult UpdateScope(string name, string displayname, string description, string type, bool emphasize, List<ScopeClaim> claimsObj, bool enable)
         {
             Scopes ab = new Scopes();
-            string result = ab.updateScope(name, displayname, description, type, emphasize, claimsName, claimsGivenName, claimsFamilyName, claimsEmail, enable);
+            string result = ab.updateScope(name, displayname, description, type, emphasize, claimsObj, enable);
             return Json(result);
         }
 

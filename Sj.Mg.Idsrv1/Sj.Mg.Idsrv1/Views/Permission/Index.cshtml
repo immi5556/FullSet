@@ -24,6 +24,9 @@
             min-width: 100px;
             word-break: break-word;
         }
+        .claimRow .checkbox {
+            margin-top:6px;
+        }
     </style>
 </head>
 <body>
@@ -105,36 +108,27 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="usr">Claims Name:</label>
-                                <select class="form-control claimsName">
-                                    <option value="Select">Select</option>
-                                    <option value="True">True</option>
-                                    <option value="False">False</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="usr">Claims FamilyName:</label>
-                                <select class="form-control claimsFamilyName">
-                                    <option value="Select">Select</option>
-                                    <option value="True">True</option>
-                                    <option value="False">False</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="usr">Claims Given Name:</label>
-                                <select class="form-control claimsGivenName">
-                                    <option value="Select">Select</option>
-                                    <option value="True">True</option>
-                                    <option value="False">False</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="usr">Claims Email:</label>
-                                <select class="form-control claimsEmail">
-                                    <option value="Select">Select</option>
-                                    <option value="True">True</option>
-                                    <option value="False">False</option>
-                                </select>
+                                <label for="usr">Claims:</label>
+                                <div class="claimRow">
+                                    <div class="row-claim">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <input type="text" class="claimsFirstName form-control" placeholder="Name"></div>
+
+                                                <div class="col-lg-3">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" class="claimsAlwaysAllow" value="">Always Allow</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <button class="addClaim btn btn-success" onclick="return addClaim()">Add New</button>
+                                                </div>
+                                            </div>
+                                         </div>
+                                     </div>
+                                </div>
                             </div>
                             <div class="checkbox">
                                 <label><input type="checkbox" class="scopeCheckBox" value="">Enable</label>
@@ -242,13 +236,17 @@
             $('.description').val(""),
             $('.type').val("Select"),
             $('.emphasize').val("Select"),
-            $('.claimsName').val("Select"),
-            $('.claimsFamilyName').val("Select"),
-            $('.claimsGivenName').val("Select"),
-            $('.claimsEmail').val("Select"),
             $('.scopeCheckBox').prop("checked", false);
             $("#myModal .modal-title").html("Add Scope");
             $(".errorMessage").html("");
+            $(".row-claim").each(function (index) {
+                if (index == 0) {
+                    $(this).find(".claimsFirstName").val("");
+                    $(this).find(".claimsAlwaysAllow").prop("checked", false);
+                } else {
+                    $(this).remove();
+                }
+            });
         }
 
         function clearClientFields() {
@@ -309,16 +307,7 @@
                     scopes[index].Description = $('.description').val();
                     scopes[index].Type = $('.type').val() == "Identity" ? 1 : 0;
                     scopes[index].Emphasize = $('.emphasize').val() ? true : false;
-                    scopes[index].Claims.forEach(function (item, i) {
-                        if (item.Name == "name")
-                            item.AlwaysIncludeInIdToken = $('.claimsName').val() == "True" ? true : false;
-                        if (item.Name == "family_name")
-                            item.AlwaysIncludeInIdToken = $('.claimsFamilyName').val() == "True" ? true : false;
-                        if (item.Name == "given_name")
-                            item.AlwaysIncludeInIdToken = $('.claimsGivenName').val() == "True" ? true : false;
-                        if (item.Name == "email")
-                            item.AlwaysIncludeInIdToken = $('.claimsEmail').val() == "True" ? true : false;
-                    });
+                    scopes[index].Claims = formData.claimsObj;
                     scopes[index].Enabled = $('.scopeCheckBox').is(":checked");
                 }
             });
@@ -337,36 +326,41 @@
             $('.type').val(scopes[index].Type == 1 ? "Identity" : "Resources");
             $('.emphasize').val(scopes[index].Emphasize ? "True" : "False");
             scopes[index].Claims.forEach(function (item, i) {
-                if (item.Name == "name")
-                    $('.claimsName').val(item.AlwaysIncludeInIdToken ? "True" : "False");
-                if (item.Name == "family_name")
-                    $('.claimsFamilyName').val(item.AlwaysIncludeInIdToken ? "True" : "False");
-                if (item.Name == "given_name")
-                    $('.claimsGivenName').val(item.AlwaysIncludeInIdToken ? "True" : "False");
-                if (item.Name == "email")
-                    $('.claimsEmail').val(item.AlwaysIncludeInIdToken ? "True" : "False");
+                if (i == 0) {
+                    $(".row-claim").find(".claimsFirstName").val(item.Name);
+                    $(".row-claim").find(".claimsAlwaysAllow").prop("checked", item.AlwaysIncludeInIdToken);
+                } else {
+                    addClaim(item.Name, item.AlwaysIncludeInIdToken);
+                }
             });
             $('.scopeCheckBox').prop("checked", scopes[index].Enabled);
         };
         
         function scopeData() {
+            var claimsArray = [];
+
+            $(".row-claim").each(function (index) {
+                var claimsObj = {
+                    Name: $(this).find(".claimsFirstName").val(),
+                    AlwaysIncludeInIdToken: $(this).find(".claimsAlwaysAllow").is(":checked")
+                };
+                claimsArray.push(claimsObj);
+            });
+            
             var formData = {
                 'name': $('.name').val(),
                 'displayname': $('.displayName').val(),
                 'description': $('.description').val(),
                 'type': $('.type').val(),
                 'emphasize': $('.emphasize').val(),
-                'claimsName': $('.claimsName').val(),
-                'claimsFamilyName': $('.claimsFamilyName').val(),
-                'claimsGivenName': $('.claimsGivenName').val(),
-                'claimsEmail': $('.claimsEmail').val(),
-                'enable': $('.scopeCheckBox').is(":checked")
+                'enable': $('.scopeCheckBox').is(":checked"),
+                'claimsObj': claimsArray
             };
             return formData;
         }
         function addScope() {
             var formData = scopeData();
-               
+            
             $.ajax({
                 url: "/Service/AddScope",
                 type: "post",
@@ -374,7 +368,7 @@
                 success: function (d) {
                     if (d == "success") {
                         scopesValues.push($('.name').val());
-                        $(".scopesTable tbody").append("<tr><td style='cursor: pointer;'><a onclick='editScope(" + scopesValues.length-1 + ")'>" + item.Name + "</a></td><td>" + $('.displayName').val() + "</td><td>" + $('.type').val() + "</td></tr>");
+                        $(".scopesTable tbody").append("<tr><td style='cursor: pointer;'><a onclick='editScope(" + scopesValues.length - 1 + ")'>" + $('.name').val() + "</a></td><td>" + $('.displayName').val() + "</td><td>" + $('.type').val() + "</td></tr>");
                         $(".errorMessage").html("Successfully Inserted.");
                         scopes.push({
                             'Name': $('.name').val(),
@@ -382,10 +376,7 @@
                             'Description': $('.description').val(),
                             'Type': $('.type').val(),
                             'Emphasize': $('.emphasize').val(),
-                            'ClaimsName': $('.claimsName').val(),
-                            'ClaimsFamilyName': $('.claimsFamilyName').val(),
-                            'ClaimsGivenName': $('.claimsGivenName').val(),
-                            'ClaimsEmail': $('.claimsEmail').val()
+                            'Claims': formData.claimsObj
                         });
                         clearScopeFields();
                     } else {
@@ -549,6 +540,34 @@
             });
         };
         getScopes();
+
+        var divData = $('<div class="divData"></div>');
+        $('.claimRow').append(divData);
+
+        function addClaim(name, checked) {
+
+                var temp = $('<div class="row-claim"><div class="form-group"><div class="row"> \
+                                        <div class="col-lg-6"><input type="text" class="claimsFirstName form-control" placeholder="Name" value="'+(name ? name : "")+'"></div> \
+                                         <div class="col-lg-3"> \
+                                             <div class="checkbox"> \
+                                                 <label><input type="checkbox" class="claimsAlwaysAllow" value="" '+(checked ? "checked" : "")+'>Always Allow</label> \
+                                            </div>\
+                                        </div>\
+                                        <div class="col-lg-2">\
+                                        <button class="deleteClaim btn btn-danger">Delete</button>\
+                                            </div>\
+                                            </div></div></div>');
+                $(divData).append(temp);
+
+                var deletebtn = $('.row-claim').find('.deleteClaim');
+
+                $(deletebtn).on('click', function () {
+                    var ReElem = $(this).closest('.row-claim');
+                    $(ReElem).remove();
+                });
+                return false;
+        }
+
     </script>
 </body>
 </html>
