@@ -277,25 +277,13 @@ header {
 	background: #ce2129;
 }
 .searchBar {
-	border-radius: 3px;
-	background: #fff;
 	position: relative;
-    margin: 30px 0 0 10px;
-}
-.searchBar::before {
-	content: 'Find and Share';
-	position:absolute;
-	top: -25px;
-	width: 100%;
-	clear: both;
-	color: #13214e;
-	font-size: 15px;
-	font-family: 'nexa_boldregular';
+    margin: 0 0 0 10px;
 }
 .searchBar input[type="text"]{
 	width: 100%;
-	height: 45px;
-	line-height: 45px;
+	height: 40px;
+	line-height: 40px;
 	padding: 0 35px 0 10px;
 	outline: none;
 	color: #13224f;
@@ -304,16 +292,17 @@ header {
 	font-family: arial;
 	font-weight: 700;
 	border: none;
-	background: none;
+    border-radius:3px;
+	background: #fff;
 }
 .searchBar .srchIcon {
 	position: absolute;
 	right: 0;
 	top: 0;
 	width: 30px;
-	height: 45px;
+	height: 40px;
 	text-align: center;
-	line-height: 44px;
+	line-height: 39px;
 	cursor: pointer;
 }
 .searchBar .srchIcon img {
@@ -703,8 +692,42 @@ footer {
 	background-color: #5cb85c;
 	border-color: #4cae4c;
 }
-
-
+.searchBar .sec-heading {
+    margin-left: -10px;
+    margin-top: 5px;
+}
+.searchRow {
+    display: none;
+    position: relative;
+     margin-top: 5px;
+}
+.requestingSectionList {
+    display: none;
+}
+.sec-heading {
+    position: relative;
+}
+.contentRight {
+    position: relative;
+    z-index: 0;
+}
+.contentRight .sec-heading::after {
+    content: '';
+    position: absolute;
+    right: 11px;
+    top: 14px;
+    width: 0;
+    height: 0;
+    border-bottom: 8px solid #203868;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+}
+.contentRight .sec-heading.active::after {
+    right: 11px;
+    top: 16px;
+    border-bottom: inherit;
+    border-top: 8px solid #203868;
+}
 /*Login CSS Here*/
 .login {
 	background: url(../images/loginBg.jpg) repeat-x left top;

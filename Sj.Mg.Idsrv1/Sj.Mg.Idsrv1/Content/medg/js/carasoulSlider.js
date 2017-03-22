@@ -39,7 +39,6 @@ var isMobile = {
 
     return this.each(function(){
 
-      console.log(set.subCatagory)
       var $this = $(this),
           carouselContainer = $('<div/>').addClass('carouselContainer'),
           myCarouselData = set.subCatagory,
@@ -237,7 +236,6 @@ var isMobile = {
         }
 
 
-      console.log(firstLI);
     });
 
   }

@@ -18,7 +18,6 @@
 			isTrue = true,
 			response =set.respons;
 
-			console.log(menuList)
 
 			for(var i=0; i < menuList.length; i++){
 					menuList[i].onclick = mytab(i);
