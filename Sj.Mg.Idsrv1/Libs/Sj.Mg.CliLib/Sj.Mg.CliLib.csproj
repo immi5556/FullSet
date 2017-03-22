@@ -105,14 +105,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Initializer.cs" />
+    <Compile Include="Model\resource.cs" />
+    <Compile Include="Model\Rpt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\UmaAuthz.cs" />
     <Compile Include="Utils\Common.cs" />
+    <Compile Include="Utils\HelperHttpClient.cs" />
     <Compile Include="Utils\TokenHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{FB9E026E-BAB3-498A-A954-B93B05C146A5}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

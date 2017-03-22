@@ -233,6 +233,7 @@
     <Compile Include="Config\Users.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\UmaController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -448,6 +449,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Resource\" />
     <Folder Include="Views\Service\" />
     <Folder Include="Views\Uma\" />
   </ItemGroup>

@@ -36,30 +36,32 @@ namespace Sj.Mg.Idsrv1.Config
                 {
                      ClientId = "FHIR-Resource1",
                      ClientName = "MG- Resource Server Api (Authorization Code)",
-                     Flow = Flows.ClientCredentials,
-                     //AllowAccessToAllScopes = true,
-                     AllowedScopes = new List<string>
-                     {
-                        "patient.MedicationOrder",
-                        "uma_protection",
-                        "user.Observation",
-                        "Patient/Account.Read",
-                        "Patient/Account.*",
-                        "Patient/Account.Write",
-                        "Patient/Medication.Read",
-                        "Patient/Medication.*",
-                        "Patient/Medication.Write",
-                        "Patient/Observation.Read",
-                        "Patient/Observation.*",
-                        "Patient/Observation.Write",
-                        "Patient/Patient.Read",
-                        "Patient/Patient.*",
-                        "Patient/Patient.Write"
-                     },
+                     //Flow = Flows.ClientCredentials,
+                     Flow = Flows.Hybrid,
+                     AllowAccessToAllScopes = true,
+                     //AllowedScopes = new List<string>
+                     //{
+                     //   "patient.MedicationOrder",
+                     //   "uma_protection",
+                     //   "user.Observation",
+                     //   "Patient/Account.Read",
+                     //   "Patient/Account.*",
+                     //   "Patient/Account.Write",
+                     //   "Patient/Medication.Read",
+                     //   "Patient/Medication.*",
+                     //   "Patient/Medication.Write",
+                     //   "Patient/Observation.Read",
+                     //   "Patient/Observation.*",
+                     //   "Patient/Observation.Write",
+                     //   "Patient/Patient.Read",
+                     //   "Patient/Patient.*",
+                     //   "Patient/Patient.Write"
+                     //},
                     // redirect = URI of the MVC application callback
                     RedirectUris = new List<string>
                     {
-                        AppConstants.Constants.ReClientMvcStsCallback
+                        //AppConstants.Constants.ReClientMvcStsCallback
+                        AppConstants.Constants.ReApi
                     },           
 
                     // client secret

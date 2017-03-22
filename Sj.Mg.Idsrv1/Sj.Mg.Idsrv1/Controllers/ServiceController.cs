@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Sj.Mg.Idsrv1.Controllers
 {
+    [IdentityServer3.Extensions.Mvc.Filters.IdentityServerFullLoginAttribute]
     public class ServiceController : Controller
     {
         [HttpPost]
@@ -62,5 +63,12 @@ namespace Sj.Mg.Idsrv1.Controllers
             return Json(result);
         }
 
+        public JsonResult RptToken()
+        {
+            var tte = this.Request.Headers["Authorization"].Replace("Bearer ", "");
+            var actkn = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(tte);
+            actkn.Add("rptkn", Newtonsoft.Json.Linq.JObject.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(new Sj.Mg.CliLib.Model.Rpt() { })));
+            return Json(actkn.ToObject(typeof(object)), JsonRequestBehavior.AllowGet);
+        }
     }
 }

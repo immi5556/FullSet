@@ -16,6 +16,11 @@ namespace Sj.Mg.Idsrv1.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            var token = (User as System.Security.Claims.ClaimsPrincipal);
+            foreach(var tt in token.Claims)
+            {
+                Console.WriteLine(tt.Value);
+            }
             return View();
         }
     }

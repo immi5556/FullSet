@@ -8,6 +8,7 @@ namespace Sj.Mg.Resource.Server.Controllers
 {
     public class HomeController : Controller
     {
+        //[Authorize]
         public ActionResult Index()
         {
             return View();

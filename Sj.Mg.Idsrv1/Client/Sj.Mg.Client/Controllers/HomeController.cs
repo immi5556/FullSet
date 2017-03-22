@@ -18,7 +18,21 @@ namespace Sj.Mg.Client.Controllers
             var token = (User as ClaimsPrincipal).FindFirst("access_token").Value;
             var client = new HttpClient();
             dynamic dyn = new System.Dynamic.ExpandoObject();
-            client.SetBearerToken(token);
+            try
+            {
+                client.SetBearerToken(token);
+                var data = await client.GetStringAsync(@"https://localhost:44305/Service/RptToken");
+                //var tkn = JsonConvert.DeserializeObject<Sj.Mg.CliLib.Model.Rpt>(data);
+                //dyn.RptTkn = tkn;
+                //var actkn = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(token);
+                //actkn.Add("rptkn", Newtonsoft.Json.Linq.JObject.Parse(data));
+                //token = Sj.Mg.CliLib.Utils.TokenHelper.CreateJwt(actkn.ToString());
+                client.SetBearerToken(data);
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine(exp.ToString());
+            }
             try
             {
                 var data = await client.GetStringAsync(@"https://localhost:44306/Api/Account");

@@ -36,6 +36,7 @@ namespace Sj.Mg.Model
         }
         List<Claim> GetClaims()
         {
+            _claims.Clear();
             _custClaim.ForEach(t =>
             {
                 if (_claims.Find(t1 => t1.Type == t.type && t1.Value == t.value) == null)
