@@ -11,7 +11,43 @@
 	<link rel="stylesheet" type="text/css" href="/Content/medg/css/font-awesome.min.css">
 </head>
 <body>
-	<div class="lightboxrelief relief-min">
+    <div class="loginMain">
+        <div class="container loginScreen">
+            <a href="#" class="loginLogo" style="width: 110px;"><img src="~/Content/medg/images/login-logo.png" /></a>
+            <div class="registerSec">
+                <h2>Welcome to MedGrotto</h2>
+                <form method="post">
+                    <div class="reg-row">
+                        <label for="First">First Name</label>
+                        <input type="text" name="firstName" class="form-control firstName">
+                    </div>
+                    <div class="reg-row">
+                        <label for="First">Last Name</label>
+                        <input type="text" name="lastName" class="form-control lastName">
+                    </div>
+                    <div class="reg-row">
+                        <label for="First">Email</label>
+                        <input type="email" name="email" class="form-control emailVal">
+                    </div>
+                    <div class="reg-row">
+                        <label for="First">Phone Number</label>
+                        <input type="number" name="phoneNumber" class="form-control phoneNumber">
+                    </div>
+                    <div class="reg-row">
+                        <label for="First">Password</label>
+                        <input type="password" name="password" class="form-control password">
+                    </div>
+                    <div class="reg-row">
+                        <button class="registerBtn" onclick="return CreateUser()">Sign Up</button>
+                        <div class="errorMessage"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="loginPush"></div>
+    </div>
+    <div class="loginFooter">All rights reserved &copy; 2017 Terms and conditions</div>
+	<!--<div class="lightboxrelief relief-min">
         <div class="scrollSec">
         	<h2>Registration</h2>
         	<div class="regiFormSection">
@@ -86,7 +122,7 @@
         	</div>
         </div>
     </div>
-	<div class="popupShadow" style="display:block"></div>
+	<div class="popupShadow" style="display:block"></div>-->
     <script src="/Content/medg/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
 		(function(){
@@ -167,6 +203,7 @@
 		    });
 		    return false;
 		};
+		$(".loginMain").closest("body").addClass("login");
 	</script>
 </body>
 </html>

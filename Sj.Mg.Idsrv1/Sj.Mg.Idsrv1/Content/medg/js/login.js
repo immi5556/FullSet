@@ -19,13 +19,13 @@
             model.externalProviders.forEach(function (item, idx) {
                 if (((item.text || "").toLowerCase().indexOf("gmail") > -1) ||
                     ((item.text || "").toLowerCase().indexOf("google") > -1)) {
-                    $("#externaprovider").append('<li><a href="' + item.href + '"><img src="/Content/medg/images/gmail.png"></a></li>');
+                    $("#externaprovider").append('<li><a href="' + item.href + '" class="gmail"></a></li>');
                 }
                 if (((item.text || "").toLowerCase().indexOf("facebook") > -1)) {
-                    $("#externaprovider").append('<li><a href="' + item.href + '"><img src="/Content/medg/images/facebook.png"></a></li>');
+                    $("#externaprovider").append('<li><a href="' + item.href + '" class="facebook"></a></li>');
                 }
                 if (((item.text || "").toLowerCase().indexOf("twitter") > -1)) {
-                    $("#externaprovider").append('<li style="display:none;><a href="' + item.href + '"><img src="/Content/medg/images/twitter.png"></a></li>');
+                    $("#externaprovider").append('<li style="display:none;><a href="' + item.href + '" class="twitter"></a></li>');
                 }
             });
         },
@@ -44,4 +44,6 @@ identityServer.wrapForm();
 if (identityServer.getModel().errorMessage != null) {
     $(".invalid").show();
     identityServer.getModel().errorMessage = null;
+} else {
+    $(".invalid").hide();
 }

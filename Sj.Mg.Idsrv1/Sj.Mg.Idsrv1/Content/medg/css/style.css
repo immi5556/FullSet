@@ -6,7 +6,7 @@ html,body{
 	height: 100%;
 }
 body{
-	
+	font-family: 'Cabin', sans-serif;
 }
 
 .form-row {
@@ -143,7 +143,7 @@ header {
 	clear: both;
 }
 .sec-heading {
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 	font-size: 16px;
 	line-height: 35px;
 	padding: 0 15px;
@@ -188,7 +188,7 @@ header {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	color: #fff;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 	font-size: 13px;
 	text-align: center;
 	margin: -6px 0 0 0;
@@ -270,7 +270,7 @@ header {
 	width: 18px;
 	height: 18px;
 	border-radius: 40px;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 	text-align: center;
 	line-height: 18px;
 	color: #fff;
@@ -289,7 +289,7 @@ header {
 	color: #13224f;
 	font-size: 14px;
 	box-sizing: border-box;
-	font-family: arial;
+	/*font-family: arial;*/
 	font-weight: 700;
 	border: none;
     border-radius:3px;
@@ -341,7 +341,7 @@ header {
 	text-align: center;
 	padding: 0 58px 0 30px;
 	margin-left: 11px;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 	line-height: 38px;
 	text-decoration: none;
 	background: url(../images/menuNormalRight1.png) no-repeat right top;
@@ -376,7 +376,7 @@ background: url(../images/menuActiveLeft1.png) no-repeat left top;
 	display: block;
 	line-height: 27px;
 	color: #fff;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 	font-size: 13px;
 	font-weight: 400;
 }
@@ -561,7 +561,7 @@ footer {
 .tabContSec {
 	display: none;
 	clear: both;
-	font-family: arial;
+	/*font-family: arial;*/
 	padding: 20px 0 0 0;
 	border: 1px solid #ddd;
 }
@@ -782,6 +782,7 @@ footer {
 	font-size: 15px;
 	line-height: 50px;
 	border: none;
+    font-family: 'Cabin', sans-serif;
 	background: none !important;
 }
 .email::-webkit-input-placeholder,.psw::-webkit-input-placeholder {
@@ -817,7 +818,7 @@ footer {
 	position: relative;
 	color: #102649;
 	font-size: 13px;
-	font-family: arial;
+	/*font-family: arial;*/
 	padding-left: 19px;
 }
 .reChk {
@@ -854,7 +855,7 @@ footer {
 	float: right;
     font-size: 13px;
     margin: 0 108px 0 0;
-    font-family: arial;
+    /*font-family: arial;*/
     text-decoration: none;
     color: #102649;
 }
@@ -863,20 +864,35 @@ footer {
 	padding:24px 0 0 0; 
 }
 .loginRow button {
+    position:relative;
 	float: right;
-	height: 29px;
-	width: 110px;
-	margin: 0 116px 0 0;
-	border: none;
-	cursor: pointer;
-	color: #fff;
-	font-size: 11px;
-	text-align: center;
-	line-height: 29px;
-	font-family: arial;
-	text-transform: uppercase;
-	border-bottom: 3px solid #185b2e;
-	background: #1c7c3d;
+    height: 35px;
+    width: 110px;
+    margin: 0 116px 0 0;
+    border: none;
+    cursor: pointer;
+    font-weight:600;
+    color: #1e3665;
+    font-size: 14px;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 6px;
+    box-sizing:border-box;
+    text-transform: uppercase;
+    border: 2px solid #e5898d;
+    background: #ffffff;
+}
+.loginRow button::after {
+    content: '';
+    position: absolute;
+    width: 110px;
+    height: 35px;
+    padding:2px;
+    left:-3px;
+    top:-2px;
+    border-radius: 8px;
+    z-index: -1;
+    background: #1e3665;
 }
 .orRow {
 	float: left;
@@ -891,7 +907,7 @@ footer {
 	width: 30px;
 	height: 30px;
 	font-size: 12px;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 	text-align: center;
 	line-height: 30px;
 	color: #fff;
@@ -920,11 +936,39 @@ footer {
 }
 .socialMedia {
 	float: left;
-	padding: 87px 0 0 93px;
+    text-align:center;
+	padding: 24px 0 0 93px;
+}
+.socialMedia h3 {
+    clear:both;
+    color:#1e3665;
+    font-size:18px;
+}
+#externaprovider {
+    width:120px;
+    margin:auto;
 }
 .socialMedia li {
 	list-style: none;
-	padding: 50px 0 0 0;
+    display:inline-block;
+	padding: 50px 5px 0;
+}
+.socialMedia li a {
+    background-image: url(/Content/medg/images/socialicons.png);
+    /*background-size: 25px 25px;*/
+    height: 45px;
+    background-repeat: no-repeat;
+    width: 47px;
+    display: block;
+}
+.socialMedia li a.gmail {
+    background-position: -100px -50px;
+}
+.socialMedia li a.twitter {
+    background-position: 0 0;
+}
+.socialMedia li a.facebook {
+    background-position: 0 0;
 }
 .loginFooter,.loginPush {
 	height: 40px;
@@ -935,7 +979,7 @@ footer {
 	color: #1e3665;
 	font-size: 13px;
 	clear: both;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 }
 .Error {
 	position: absolute;
@@ -951,7 +995,7 @@ footer {
 	line-height: 22px;
 	font-size: 12px;
 	margin-top: -6px;
-	font-family: arial;
+	/*font-family: arial;*/
 	background: #dee2e9;
 }
 .Error::before{
@@ -972,7 +1016,7 @@ footer {
     white-space: nowrap;
     color: #fff;
     font-size: 14px;
-    font-family: arial;
+    /*font-family: arial;*/
     border-radius: 4px;
     padding: 10px;
     background: #c52d26;
@@ -1009,7 +1053,7 @@ footer {
 	display: none;
 	box-sizing: border-box;
 	border:5px solid #585858;
-	font-family: 'Droid Serif', serif; 
+	/*font-family: 'Droid Serif', serif;*/ 
 	transition: all 0.5s ease-in;
 	background: #fff;
 }
@@ -1059,7 +1103,7 @@ footer {
 	color: #ce2129;
 	font-size: 20px;
 	line-height: 26px;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 } 
 
 
@@ -1075,7 +1119,7 @@ footer {
 	margin-bottom: 30px;
 	text-align: center;
 	line-height: 35px;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 	background: #f2f2f2;
 }
 .reg-row {
@@ -1089,9 +1133,23 @@ footer {
 	color: #ce2129;
 	font-size: 16px;
 	line-height: 37px;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 }
-.reg-row input[type="text"]{
+.emailVal {
+    display: inline-block;
+	width: 290px;
+	height: 37px;
+	line-height: 37px;
+	padding: 0 10px;
+	font-size: 13px;
+	font-family: arial;
+	border-radius: 4px;
+	color: #fff;
+	border: none;
+	outline: none;
+	background: #1e3665;
+}
+.reg-row input[type="text"], input[type="password"], input[type="number"]{
 	display: inline-block;
 	width: 290px;
 	height: 37px;
@@ -1112,7 +1170,7 @@ footer {
 	cursor: pointer;
 	color: #ffffff;
 	margin-top: 12px;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 	border-radius: 6px;
 	font-size: 15px;
 	outline: none;
@@ -1129,7 +1187,7 @@ footer {
 	text-align: center;
 	font-size: 18px;
 	line-height: 30px;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 }
 .buttonsRow {
 	clear: both;
@@ -1145,7 +1203,7 @@ footer {
 	color: #fff;
 	font-size: 13px;
 	cursor: pointer;
-	font-family: 'nexa_boldregular';
+	/*font-family: 'nexa_boldregular';*/
 	border-radius: 4px;
 	border: none;
 	margin: 0 10px;
@@ -1165,7 +1223,7 @@ footer {
     overflow: hidden;
 }
 .logoutScrn {
-    font-family: 'nexa_boldregular';
+    /*font-family: 'nexa_boldregular';*/
 }
 
 /*Relief CSS Here*/
@@ -1267,7 +1325,7 @@ footer {
 	max-width: 636px;
 	box-sizing: border-box;
 	border:5px solid #f1f1f1;
-	font-family: arial; 
+	/*font-family: arial;*/ 
 	transition: all 0.5s ease-in;
 	border-radius: 5px;
 	background: #fff;
@@ -1380,7 +1438,7 @@ footer {
   font-size: 12px;
   line-height: normal;
   text-align: center;
-  font-family: 'nexa_boldregular';
+  /*font-family: 'nexa_boldregular';*/
   color: #fff;
 }
 .prevBtn,.nextBtn {
@@ -1419,7 +1477,7 @@ footer {
 	color: #12214e;
 	font-size: 17px;
 	line-height: 35px;
-	font-family: arial;
+	/*font-family: arial;*/
 	font-weight: 700;
 	display: block;
 	text-align: right;
@@ -1435,6 +1493,6 @@ footer {
 	box-sizing: border-box;
 	border-radius: 4px;
 	border:1px solid #12214e;
-	font-family: arial;
+	/*font-family: arial;*/
 	background: #f2f2f2;
 }
