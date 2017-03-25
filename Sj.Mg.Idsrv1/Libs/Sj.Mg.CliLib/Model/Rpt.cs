@@ -14,8 +14,8 @@ namespace Sj.Mg.CliLib.Model
             active = true;
         }
         public bool active { get; set; }
-        public long exp { get; set; }
-        public long iat { get; set; }
+        public double exp { get; set; }
+        public double iat { get; set; }
         public List<resource> permissions { get; set; }
     }
 }

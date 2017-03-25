@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sj.Mg.CliLib.Utils
 {
-    class Common
+    public class Common
     {
         public const string ReApi = "https://localhost:44306/";
         public const string ReApiStsCallback = "https://localhost:44306/home/stscallback";

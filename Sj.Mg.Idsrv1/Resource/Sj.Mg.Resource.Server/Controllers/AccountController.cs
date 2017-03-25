@@ -12,13 +12,22 @@ namespace Sj.Mg.Resource.Server.Controllers
     [EnableCors("*", "*", "GET, POST, PATCH")]
     public class AccountController : ApiController
     {
-        [CliLib.Security.UmaAuthz("Patient/Account.Read", "Patient/Account.*")]
+        [CliLib.Security.UmaAuthz("Patient/Account.*")]
         [HttpGet]
         public List<Hl7.Fhir.Model.Account> Get()
         {
-            return Code.AccountManager.Get(null);
+            return Code.AccountManager.Get();
         }
 
+        [Authorize]
+        [CliLib.Security.UmaAuthz("Patient/Account.Read")]
+        [HttpGet]
+        public List<Hl7.Fhir.Model.Account> Get(string ids)
+        {
+            return Code.AccountManager.Get(ids);
+        }
+
+        [Authorize]
         [CliLib.Security.UmaAuthz("Patient/Account.Write", "Patient/Account.*")]
         [HttpPost]
         public void Post([FromBody]Hl7.Fhir.Model.Account act)

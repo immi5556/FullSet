@@ -17,28 +17,11 @@ namespace Sj.Mg.CliLib.Utils
             {
                 var parts = token.Split('.');
 
-                string partToConvert = parts[1];
-                partToConvert = partToConvert.Replace('-', '+');
-                partToConvert = partToConvert.Replace('_', '/');
-                switch (partToConvert.Length % 4)
-                {
-                    case 0:
-                        break;
-                    case 2:
-                        partToConvert += "==";
-                        break;
-                    case 3:
-                        partToConvert += "=";
-                        break;
-                    default:
-                        break;
-                }
-
-                var partAsBytes = Convert.FromBase64String(partToConvert);
-                var partAsUTF8String = Encoding.UTF8.GetString(partAsBytes, 0, partAsBytes.Count());
-
+                //System.IdentityModel.Tokens.JwtSecurityToken j = new System.IdentityModel.Tokens.JwtSecurityToken(token);
+                //var hdr = JObject.Parse(GetConverted(parts[0]));
+                //var sig = JObject.Parse(GetConverted(parts[2]));
                 // Json .NET
-                var jwt = JObject.Parse(partAsUTF8String);
+                var jwt = JObject.Parse(GetConverted(parts[1]));
 
                 // Write to output
                 Debug.Write(jwt.ToString());
@@ -50,6 +33,29 @@ namespace Sj.Mg.CliLib.Utils
                 Debug.Write(ex.Message);
             }
             return null;
+        }
+
+        public static string GetConverted(string toconvert)
+        {
+            string partToConvert = toconvert;
+            partToConvert = partToConvert.Replace('-', '+');
+            partToConvert = partToConvert.Replace('_', '/');
+            switch (partToConvert.Length % 4)
+            {
+                case 0:
+                    break;
+                case 2:
+                    partToConvert += "==";
+                    break;
+                case 3:
+                    partToConvert += "=";
+                    break;
+                default:
+                    break;
+            }
+            var partAsBytes = Convert.FromBase64String(partToConvert);
+            var partAsUTF8String = Encoding.UTF8.GetString(partAsBytes, 0, partAsBytes.Count());
+            return partAsUTF8String;
         }
 
         public static string CreateJwt(string payload)

@@ -9,6 +9,19 @@ namespace Sj.Mg.Resource.Server.Code
 {
     public class AccountManager
     {
+        public static List<Hl7.Fhir.Model.Account> Get()
+        {
+            return Get("");
+        }
+        public static List<Hl7.Fhir.Model.Account> Get(string[] search)
+        {
+            List<Hl7.Fhir.Model.Account> ret = new List<Account>();
+           (search ?? new string[] { }).ToList().ForEach(t =>
+           {
+               ret.AddRange(Get(t));
+           });
+            return ret;
+        }
         public static List<Hl7.Fhir.Model.Account> Get(string search)
         {
             var client = new FhirClient(Utils.endpoint);
