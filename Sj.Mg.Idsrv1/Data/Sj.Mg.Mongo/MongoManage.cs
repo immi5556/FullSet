@@ -39,5 +39,11 @@ namespace Sj.Mg.Mongo
             var db = Data.BaseMongo.GetDatabase();
             return db.GetCollection<Sj.Mg.CliLib.Model.permission>(tbl).Find(_ => _.Id == new ObjectId(_id)).ToList();
         }
+
+        public static List<Sj.Mg.CliLib.Model.CustomUser> SearchUser(string srch)
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => _.Username.ToLower().Contains((srch ?? "").ToLower())).ToList();
+        }
     }
 }

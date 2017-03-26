@@ -61,5 +61,6 @@ var identityServer = function () {
         }
     }
 }();
-
+//window.location = "https://localhost:44383/Home/Secure";
+window.location.href = "https://localhost:44383/Home/Secure";
 identityServer.wrapForm();

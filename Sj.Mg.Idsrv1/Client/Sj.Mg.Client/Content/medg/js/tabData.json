@@ -1,0 +1,251 @@
+[
+	{
+		"tabName":"Providers",
+		"tabSub":[
+			{
+				"subName":"Relief Express",
+				"categories":[
+					{
+						"icon":"images/serIcon1.png",
+						"title":"Demographic"
+					},
+					{
+						"icon":"images/serIcon2.png",
+						"title":"Diagnosis"
+					},
+					{
+						"icon":"images/serIcon3.png",
+						"title":"Medication"
+					},
+					{
+						"icon":"images/serIcon4.png",
+						"title":"Labreports"
+					},
+					{
+						"icon":"images/serIcon1.png",
+						"title":"Demographic"
+					},
+					{
+						"icon":"images/serIcon2.png",
+						"title":"Diagnosis"
+					},
+					{
+						"icon":"images/serIcon3.png",
+						"title":"Medication"
+					},
+					{
+						"icon":"images/serIcon4.png",
+						"title":"Labreports"
+					}
+				]
+			},
+			{
+				"subName":"Neuro Care Partners",
+        "categories": [
+          {
+            "icon": "images/serIcon1.png",
+            "title": "Demographic"
+          },
+          {
+            "icon": "images/serIcon2.png",
+            "title": "Diagnosis"
+          },
+          {
+            "icon": "images/serIcon3.png",
+            "title": "Medication"
+          },
+          {
+            "icon": "images/serIcon4.png",
+            "title": "Labreports"
+          },
+          {
+            "icon": "images/serIcon1.png",
+            "title": "Demographic"
+          },
+          {
+            "icon": "images/serIcon2.png",
+            "title": "Diagnosis"
+          },
+          {
+            "icon": "images/serIcon3.png",
+            "title": "Medication"
+          },
+          {
+            "icon": "images/serIcon4.png",
+            "title": "Labreports"
+          },
+          {
+            "icon": "images/serIcon2.png",
+            "title": "Diagnosis"
+          },
+          {
+            "icon": "images/serIcon3.png",
+            "title": "Medication"
+          },
+          {
+            "icon": "images/serIcon4.png",
+            "title": "Labreports"
+          }
+        ]
+			}
+		]
+	},
+	{
+		"tabName":"EHRs",
+		"tabSub":[
+			{
+				"subName":"Relief Express",
+				"categories":[
+					{
+						"icon":"images/serIcon1.png",
+						"title":"Demographic"
+					},
+					{
+						"icon":"images/serIcon2.png",
+						"title":"Diagnosis"
+					},
+					{
+						"icon":"images/serIcon3.png",
+						"title":"Medication"
+					},
+					{
+						"icon":"images/serIcon4.png",
+						"title":"Labreports"
+					},
+					{
+						"icon":"images/serIcon1.png",
+						"title":"Demographic"
+					},
+					{
+						"icon":"images/serIcon2.png",
+						"title":"Diagnosis"
+					},
+					{
+						"icon":"images/serIcon3.png",
+						"title":"Medication"
+					},
+					{
+						"icon":"images/serIcon4.png",
+						"title":"Labreports"
+					}
+				]
+			},
+			{
+				"subName":"Neuro Care Partners",
+				"categories":[
+					{
+						"icon":"images/serIcon1.png",
+						"title":"Demographic"
+					},
+					{
+						"icon":"images/serIcon2.png",
+						"title":"Diagnosis"
+					},
+					{
+						"icon":"images/serIcon3.png",
+						"title":"Medication"
+					},
+					{
+						"icon":"images/serIcon4.png",
+						"title":"Labreports"
+					},
+					{
+						"icon":"images/serIcon1.png",
+						"title":"Demographic"
+					},
+					{
+						"icon":"images/serIcon2.png",
+						"title":"Diagnosis"
+					},
+					{
+						"icon":"images/serIcon3.png",
+						"title":"Medication"
+					},
+					{
+						"icon":"images/serIcon4.png",
+						"title":"Labreports"
+					}
+				]
+			}
+		]
+	},
+	{
+		"tabName":"Smart Apps",
+		"tabSub":[
+			{
+				"subName":"Relief Express",
+				"categories":[
+					{
+						"icon":"images/serIcon1.png",
+						"title":"Demographic"
+					},
+					{
+						"icon":"images/serIcon2.png",
+						"title":"Diagnosis"
+					},
+					{
+						"icon":"images/serIcon3.png",
+						"title":"Medication"
+					},
+					{
+						"icon":"images/serIcon4.png",
+						"title":"Labreports"
+					},
+					{
+						"icon":"images/serIcon1.png",
+						"title":"Demographic"
+					},
+					{
+						"icon":"images/serIcon2.png",
+						"title":"Diagnosis"
+					},
+					{
+						"icon":"images/serIcon3.png",
+						"title":"Medication"
+					},
+					{
+						"icon":"images/serIcon4.png",
+						"title":"Labreports"
+					}
+				]
+			},
+			{
+				"subName":"Neuro Care Partners",
+				"categories":[
+					{
+						"icon":"images/serIcon1.png",
+						"title":"Demographic"
+					},
+					{
+						"icon":"images/serIcon2.png",
+						"title":"Diagnosis"
+					},
+					{
+						"icon":"images/serIcon3.png",
+						"title":"Medication"
+					},
+					{
+						"icon":"images/serIcon4.png",
+						"title":"Labreports"
+					},
+					{
+						"icon":"images/serIcon1.png",
+						"title":"Demographic"
+					},
+					{
+						"icon":"images/serIcon2.png",
+						"title":"Diagnosis"
+					},
+					{
+						"icon":"images/serIcon3.png",
+						"title":"Medication"
+					},
+					{
+						"icon":"images/serIcon4.png",
+						"title":"Labreports"
+					}
+				]
+			}
+		]
+	}
+]

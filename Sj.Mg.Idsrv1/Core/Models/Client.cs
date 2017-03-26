@@ -296,5 +296,8 @@ namespace IdentityServer3.Core.Models
 
             AllowAccessTokensViaBrowser = true;
         }
+
+        //Mine..
+        public List<string> Resources { get; set; }
     }
 }

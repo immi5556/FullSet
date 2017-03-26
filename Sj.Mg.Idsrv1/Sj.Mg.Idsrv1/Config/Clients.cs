@@ -30,7 +30,11 @@ namespace Sj.Mg.Idsrv1.Config
                         AppConstants.Constants.ReClientMvc
                     },
                     IncludeJwtId = true,
-                    AllowRememberConsent = false
+                    AllowRememberConsent = false,
+                    Resources = new List<string>()
+                    {
+                        "Account", "Medication", "Observation", "Demographic"
+                    }
                 },
                 new Client
                 {

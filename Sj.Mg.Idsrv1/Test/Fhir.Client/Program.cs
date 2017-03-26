@@ -26,12 +26,19 @@ namespace Fhir.Client
             //GetMeds();
 
             ///Accounts
-            InsertAcct();
+            //InsertAcct();
             GetAccts();
+            //InsertAcctAddl("bob@smith.co");
+            //InsertAcctAddl("john@john.co");
+            //InsertAcctAddl("sam@sam.co");
+            //InsertAcctAddl("saphire@saphire.co");
+            //InsertAcctAddl("alice@bob.co");
+            //InsertAcctAddl("bob@bob.co");
+            //InsertAcctAddl("admin@medgrotto.com");
 
             ///Patients
-            InsertPats();
-            GetPats();
+            //InsertPats();
+            //GetPats();
             Console.ReadKey();
         }
         static void GetObservetion()
@@ -205,8 +212,10 @@ namespace Fhir.Client
             var client = new FhirClient(endpoint);
 
             //var query = new string[] { "name=Rob" };
-            var query = new string[] { "name=Acc" };
-            var bundle = client.Search("Account", query);
+            //var query = new string[] { "name=Acc" };
+            //var bundle = client.Search("Account", query);
+
+            var bundle = client.Search("Account");
 
             Console.WriteLine("Got " + bundle.Entry.Count() + " records!");
             string str = "";
@@ -217,6 +226,39 @@ namespace Fhir.Client
             }
 
             Console.WriteLine(str);
+        }
+        static void InsertAcctAddl(string email)
+        {
+            var client = new FhirClient(endpoint);
+            Account act = new Account()
+            {
+                Name = email,
+                Status = "Status1",
+                Type = new CodeableConcept()
+                {
+                    Text = "ActType"
+                },
+                Currency = Common.getCoding(),
+                ActivePeriod = Common.getPeriod(),
+                Balance = Common.getMoney(),
+                CoveragePeriod = Common.getPeriod(),
+                VersionId = "1.0",
+                Description = "Some dec abt account",
+                Identifier = new List<Identifier>()
+                {
+                    new Identifier()
+                    {
+                        Assigner = new ResourceReference()
+                        {
+                            Display = "Alt Display Resource",
+                            Reference = "Ref url",
+                            Url = new Uri(Common.nsurl)
+                        },
+                        Value = ""
+                    }
+                }
+            };
+            client.Create<Account>(act);
         }
         static void InsertAcct()
         {

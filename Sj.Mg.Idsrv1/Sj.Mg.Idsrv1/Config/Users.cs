@@ -1,6 +1,6 @@
 ﻿using IdentityServer3.Core;
 using IdentityServer3.Core.Services.InMemory;
-using Sj.Mg.Model;
+using Sj.Mg.CliLib.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

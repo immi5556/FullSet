@@ -157,8 +157,9 @@ namespace Sj.Mg.CliLib
                             .Identity.FindFirst(IdentityModel.JwtClaimTypes.Role);
 
                         //create a new claims, issuer + sub as unique identifier
-                        var nameClaim = new Claim(IdentityModel.JwtClaimTypes.Name,
-                                    Utils.Common.IssuerUri + subClaim.Value);
+                        //var nameClaim = new Claim(IdentityModel.JwtClaimTypes.Name,
+                        //            Utils.Common.IssuerUri + subClaim.Value);
+                        var nameClaim = new Claim(IdentityModel.JwtClaimTypes.Name, subClaim.Value);
 
                         var newClaimsIdentity = new ClaimsIdentity(
                            n.AuthenticationTicket.Identity.AuthenticationType,

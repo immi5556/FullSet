@@ -4,7 +4,7 @@ using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.Default;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Sj.Mg.Model;
+using Sj.Mg.CliLib.Model;
 using Sj.Mg.Mongo;
 using Sj.Mg.Mongo.Data;
 using System;
@@ -74,7 +74,7 @@ namespace Sj.Mg.Idsrv1.Custom
             Dictionary<string, object> filter = new Dictionary<string, object>();
             filter.Add("Username", context.UserName);
             filter.Add("Password", context.Password);
-            var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.Model.CustomUser>(filter, "Users");
+            var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter, "Users");
             var user = (tt == null || tt.Count == 0) ? null : tt[0];
             //var user = Users.SingleOrDefault(x => x.Username == context.UserName && x.Password == context.Password);
             if (user != null)

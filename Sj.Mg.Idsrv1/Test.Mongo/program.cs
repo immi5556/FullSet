@@ -1,5 +1,5 @@
 ﻿using IdentityServer3.Core;
-using Sj.Mg.Model;
+using Sj.Mg.CliLib.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +17,14 @@ namespace Test.Mongo
             //SelectDict();
             //SelectFilt();
             //Update();
-            PopulateUsers();
+            //PopulateUsers();
+            //PopulateResource();
+            //PopulateAddlUsers();
             Console.ReadKey();
         }
         static void SelectFilt()
         {
-            var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.Model.CustomUser>(GetCustomer(), "Users");
+            var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(GetCustomer(), "Users");
             foreach (var t in tt)
             {
                 Console.WriteLine(t.Username);
@@ -32,7 +34,7 @@ namespace Test.Mongo
         {
             Dictionary<string, object> filter = new Dictionary<string, object>();
             filter.Add("Username", "alice@bob.co");
-            var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.Model.CustomUser>(filter, "Users");
+            var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter, "Users");
             foreach(var t in tt)
             {
                 Console.WriteLine(t.Username);
@@ -43,16 +45,16 @@ namespace Test.Mongo
             var tofind = GetCustomer();
             var tochange = GetCustomer();
             tochange.Username = "feed@feed.co";
-            Sj.Mg.Mongo.MongoManage.Update<Sj.Mg.Model.CustomUser>(tofind, tochange, "Users");
+            Sj.Mg.Mongo.MongoManage.Update<Sj.Mg.CliLib.Model.CustomUser>(tofind, tochange, "Users");
         }
         static void Insert()
         {
-            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.Model.CustomUser>(GetCustomer(), "Users");
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(GetCustomer(), "Users");
         }
 
-        static Sj.Mg.Model.CustomUser GetCustomer()
+        static Sj.Mg.CliLib.Model.CustomUser GetCustomer()
         {
-            return new Sj.Mg.Model.CustomUser()
+            return new Sj.Mg.CliLib.Model.CustomUser()
             {
                 Subject = "88421113",
                 Username = "bob@smith.co",
@@ -71,10 +73,68 @@ namespace Test.Mongo
                     }
             };
         }
+        static void PopulateAddlUsers()
+        {
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
+            {
+                Subject = "938727",
+                Username = "john@john.co",
+                Password = "123",
+                CustomClaims = new List<CustomClaim>()
+                        {
+                            new CustomClaim(Constants.ClaimTypes.Name, "John Doe"),
+                            new CustomClaim(Constants.ClaimTypes.GivenName, "John"),
+                            new CustomClaim(Constants.ClaimTypes.FamilyName, "Doe"),
+                            new CustomClaim(Constants.ClaimTypes.Email, "john@john.com"),
+                            new CustomClaim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                            new CustomClaim(Constants.ClaimTypes.Role, "Parent"),
+                            new CustomClaim(Constants.ClaimTypes.Role, "Patient"),
+                            new CustomClaim(Constants.ClaimTypes.WebSite, "http://johndoe.com"),
+                            new CustomClaim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""some st."", ""locality"": ""place"", ""postal_code"": 69118, ""country"": ""USA"" }", Constants.ClaimValueTypes.Json)
+                        }
+            }, "Users");
 
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
+            {
+                Subject = "938728",
+                Username = "sam@sam.co",
+                Password = "123",
+                CustomClaims = new List<CustomClaim>()
+                        {
+                            new CustomClaim(Constants.ClaimTypes.Name, "Sam pari"),
+                            new CustomClaim(Constants.ClaimTypes.GivenName, "Sam"),
+                            new CustomClaim(Constants.ClaimTypes.FamilyName, "Pari"),
+                            new CustomClaim(Constants.ClaimTypes.Email, "sam@sam.com"),
+                            new CustomClaim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                            new CustomClaim(Constants.ClaimTypes.Role, "Parent"),
+                            new CustomClaim(Constants.ClaimTypes.Role, "Patient"),
+                            new CustomClaim(Constants.ClaimTypes.WebSite, "http://sampari.com"),
+                            new CustomClaim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""some st."", ""locality"": ""place"", ""postal_code"": 69118, ""country"": ""USA"" }", Constants.ClaimValueTypes.Json)
+                        }
+            }, "Users");
+
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
+            {
+                Subject = "938729",
+                Username = "saphire@saphire.co",
+                Password = "123",
+                CustomClaims = new List<CustomClaim>()
+                        {
+                            new CustomClaim(Constants.ClaimTypes.Name, "Saphire Gold"),
+                            new CustomClaim(Constants.ClaimTypes.GivenName, "Saphire"),
+                            new CustomClaim(Constants.ClaimTypes.FamilyName, "Gold"),
+                            new CustomClaim(Constants.ClaimTypes.Email, "saphire@saphire.com"),
+                            new CustomClaim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                            new CustomClaim(Constants.ClaimTypes.Role, "Parent"),
+                            new CustomClaim(Constants.ClaimTypes.Role, "Patient"),
+                            new CustomClaim(Constants.ClaimTypes.WebSite, "http://saphire.com"),
+                            new CustomClaim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""some st."", ""locality"": ""place"", ""postal_code"": 69118, ""country"": ""USA"" }", Constants.ClaimValueTypes.Json)
+                        }
+            }, "Users");
+        }
         static void PopulateUsers()
         {
-            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.Model.CustomUser>(new CustomUser()
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
             {
                 Subject = "818727",
                 Username = "alice@bob.co",
@@ -93,7 +153,7 @@ namespace Test.Mongo
                         }
             }, "Users");
 
-            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.Model.CustomUser>(new CustomUser()
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
             {
                 Subject = "88421113",
                 Username = "bob@bob.co",
@@ -110,7 +170,7 @@ namespace Test.Mongo
                             new CustomClaim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
                         }
             }, "Users");
-            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.Model.CustomUser>(new CustomUser()
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
             {
                 Subject = "818956",
                 Username = "admin@medgrotto.com",
@@ -128,6 +188,60 @@ namespace Test.Mongo
                             new CustomClaim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Texas"", ""postal_code"": 69118, ""country"": ""USA"" }", Constants.ClaimValueTypes.Json)
                         }
             }, "Users");
+        }
+        static void PopulateResource()
+        {
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.resource>(new resource()
+            {
+                resource_set_id = "Account",
+                scopes = new List<string>()
+                {
+                    "Patient/Account.*",
+                    "Patient/Account.Read",
+                    "Patient/Account.Write",
+                    "Patient/Account.Share"
+                }
+            }, "Resources");
+
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.resource>(new resource()
+            {
+                resource_set_id = "Medication",
+                scopes = new List<string>()
+                {
+                    "Patient/Medication.*",
+                    "Patient/Medication.Read",
+                    "Patient/Medication.Write",
+                    "Patient/Medication.Share"
+                }
+            }, "Resources");
+
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.resource>(new resource()
+            {
+                resource_set_id = "Observation",
+                scopes = new List<string>()
+                {
+                    "Patient/Observation.*",
+                    "Patient/Observation.Read",
+                    "Patient/Observation.Write",
+                    "Patient/Observation.Share"
+                }
+            }, "Resources");
+
+            Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.resource>(new resource()
+            {
+                resource_set_id = "Demographic",
+                scopes = new List<string>()
+                {
+                    "Patient/Patient.*",
+                    "Patient/Patient.Read",
+                    "Patient/Patient.Write",
+                    "Patient/Patient.Share"
+                }
+            }, "Resources");
+        }
+        static void PopulateUserDetails()
+        {
+
         }
     }
 }

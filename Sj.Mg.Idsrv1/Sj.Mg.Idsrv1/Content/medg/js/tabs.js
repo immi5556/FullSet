@@ -209,34 +209,6 @@
 					{
 					    "icon": "/content/medg/images/serIcon1.png",
 					    "title": "Demographic"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon2.png",
-					    "title": "Diagnosis"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon3.png",
-					    "title": "Medication"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon4.png",
-					    "title": "Labreports"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon1.png",
-					    "title": "Demographic"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon2.png",
-					    "title": "Diagnosis"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon3.png",
-					    "title": "Medication"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon4.png",
-					    "title": "Labreports"
 					}
 			    ]
 			},
@@ -244,36 +216,12 @@
 			    "subName": "Neuro Care Partners",
 			    "categories": [
 					{
-					    "icon": "/content/medg/images/serIcon1.png",
-					    "title": "Demographic"
-					},
-					{
 					    "icon": "/content/medg/images/serIcon2.png",
 					    "title": "Diagnosis"
 					},
 					{
 					    "icon": "/content/medg/images/serIcon3.png",
 					    "title": "Medication"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon4.png",
-					    "title": "Labreports"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon1.png",
-					    "title": "Demographic"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon2.png",
-					    "title": "Diagnosis"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon3.png",
-					    "title": "Medication"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon4.png",
-					    "title": "Labreports"
 					}
 			    ]
 			}

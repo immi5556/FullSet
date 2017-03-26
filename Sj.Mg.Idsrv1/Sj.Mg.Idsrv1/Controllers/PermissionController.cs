@@ -23,5 +23,18 @@ namespace Sj.Mg.Idsrv1.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("core/account/{id}")]
+        public JsonResult GetAccount(string id)
+        {
+            var token = (User as System.Security.Claims.ClaimsPrincipal);
+            foreach (var tt in token.Claims)
+            {
+                Console.WriteLine(tt.Value);
+            }
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sj.Mg.Model
+namespace Sj.Mg.CliLib.Model
 {
     public class CustomClaim
     {

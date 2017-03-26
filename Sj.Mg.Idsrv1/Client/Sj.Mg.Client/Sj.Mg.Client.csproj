@@ -241,6 +241,82 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\jquery-1.10.2.min.js" />
+    <Content Include="Content\medg\css\bootstrap.css" />
+    <Content Include="Content\medg\css\bootstrap.min.css" />
+    <Content Include="Content\medg\css\font-awesome.min.css" />
+    <Content Include="Content\medg\css\fonts.css" />
+    <Content Include="Content\medg\css\main.css" />
+    <Content Include="Content\medg\css\Site.css" />
+    <Content Include="Content\medg\css\style.css" />
+    <Content Include="Content\medg\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\medg\fonts\nexa_bold-demo.html" />
+    <Content Include="Content\medg\images\accessIcon.png" />
+    <Content Include="Content\medg\images\bagScreen.jpg" />
+    <Content Include="Content\medg\images\banner.jpg" />
+    <Content Include="Content\medg\images\bg.jpg" />
+    <Content Include="Content\medg\images\blipcare.png" />
+    <Content Include="Content\medg\images\carasoulBg.jpg" />
+    <Content Include="Content\medg\images\cerner.png" />
+    <Content Include="Content\medg\images\collapse-bg.gif" />
+    <Content Include="Content\medg\images\del_.png" />
+    <Content Include="Content\medg\images\facebook.png" />
+    <Content Include="Content\medg\images\favi16x16.png" />
+    <Content Include="Content\medg\images\favi32x32.png" />
+    <Content Include="Content\medg\images\favi64x64.png" />
+    <Content Include="Content\medg\images\footerbg1.png" />
+    <Content Include="Content\medg\images\footerbg2.png" />
+    <Content Include="Content\medg\images\gmail.png" />
+    <Content Include="Content\medg\images\googleFitLogo.png" />
+    <Content Include="Content\medg\images\headerbg.jpg" />
+    <Content Include="Content\medg\images\login-block.png" />
+    <Content Include="Content\medg\images\login-logo.png" />
+    <Content Include="Content\medg\images\loginBg.jpg" />
+    <Content Include="Content\medg\images\logo.png" />
+    <Content Include="Content\medg\images\logoLogin.png" />
+    <Content Include="Content\medg\images\Medinova.png" />
+    <Content Include="Content\medg\images\menuActiveLeft1.png" />
+    <Content Include="Content\medg\images\menuActiveRight2.png" />
+    <Content Include="Content\medg\images\menuNormalLeft1.png" />
+    <Content Include="Content\medg\images\menuNormalRight1.png" />
+    <Content Include="Content\medg\images\MG Logo.png" />
+    <Content Include="Content\medg\images\ne_icc.jpg" />
+    <Content Include="Content\medg\images\pic01.jpg" />
+    <Content Include="Content\medg\images\pic022.jpg" />
+    <Content Include="Content\medg\images\pic031.jpg" />
+    <Content Include="Content\medg\images\pic041.jpg" />
+    <Content Include="Content\medg\images\pic052.jpg" />
+    <Content Include="Content\medg\images\reliefSignlogo.png" />
+    <Content Include="Content\medg\images\relief_api.png" />
+    <Content Include="Content\medg\images\resourceLogo1.png" />
+    <Content Include="Content\medg\images\re_icc.jpg" />
+    <Content Include="Content\medg\images\searchIcon.png" />
+    <Content Include="Content\medg\images\secLogo1.png" />
+    <Content Include="Content\medg\images\secLogo2.png" />
+    <Content Include="Content\medg\images\serIcon1.png" />
+    <Content Include="Content\medg\images\serIcon2.png" />
+    <Content Include="Content\medg\images\serIcon3.png" />
+    <Content Include="Content\medg\images\serIcon4.png" />
+    <Content Include="Content\medg\images\socialicons.png" />
+    <Content Include="Content\medg\images\twitter.jpg" />
+    <Content Include="Content\medg\images\twitter.png" />
+    <Content Include="Content\medg\images\userIcon.png" />
+    <Content Include="Content\medg\images\userIcon2.png" />
+    <Content Include="Content\medg\js\carasoulSlider.js" />
+    <Content Include="Content\medg\js\consent.js" />
+    <Content Include="Content\medg\js\custom.js" />
+    <Content Include="Content\medg\js\custom1.js" />
+    <Content Include="Content\medg\js\error.js" />
+    <Content Include="Content\medg\js\friendlyLightBox.js" />
+    <Content Include="Content\medg\js\gbLightbox.js" />
+    <Content Include="Content\medg\js\jquery-1.11.3.min.js" />
+    <Content Include="Content\medg\js\jquery-1.12.4.min.js" />
+    <Content Include="Content\medg\js\jquery.slimscroll.min.js" />
+    <Content Include="Content\medg\js\loggedout.js" />
+    <Content Include="Content\medg\js\login.js" />
+    <Content Include="Content\medg\js\logout.js" />
+    <Content Include="Content\medg\js\permission.js" />
+    <Content Include="Content\medg\js\popTabs.js" />
+    <Content Include="Content\medg\js\tabs.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -267,6 +343,16 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\medg\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\medg\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\medg\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\medg\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\medg\fonts\FontAwesome.otf" />
+    <Content Include="Content\medg\fonts\font_1.woff2" />
+    <Content Include="Content\medg\fonts\font_2.woff2" />
+    <Content Include="Content\medg\fonts\nexa_bold-webfont.woff" />
+    <Content Include="Content\medg\fonts\nexa_bold-webfont.woff2" />
+    <Content Include="Content\medg\js\tabData.json" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Home\Secure.cshtml" />
   </ItemGroup>
@@ -274,6 +360,10 @@
     <ProjectReference Include="..\..\AppConstants\AppConstants.csproj">
       <Project>{40bbc226-7781-4ad4-8ccb-0ad21740db6b}</Project>
       <Name>AppConstants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\Sj.Mg.Mongo\Sj.Mg.Mongo.csproj">
+      <Project>{69a5f51d-fefe-4216-b8ed-8f656fbb8375}</Project>
+      <Name>Sj.Mg.Mongo</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Fhir\Client\Hl7.Fhir.Core\Hl7.Fhir.Core.Net45.csproj">
       <Project>{92cc9186-0a21-4e06-b11f-907584fbfd81}</Project>

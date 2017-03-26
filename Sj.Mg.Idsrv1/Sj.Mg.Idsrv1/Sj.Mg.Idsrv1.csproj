@@ -338,6 +338,7 @@
     <Content Include="Content\medg\images\userIcon.png" />
     <Content Include="Content\medg\images\userIcon2.png" />
     <Content Include="Content\medg\js\consent.js" />
+    <Content Include="Content\medg\js\custom.js" />
     <Content Include="Content\medg\js\error.js" />
     <Content Include="Content\medg\js\gbDataTable.js" />
     <Content Include="Content\medg\js\jquery.slimscroll.min.js" />
@@ -480,10 +481,6 @@
     <ProjectReference Include="..\Libs\Sj.Mg.CliLib\Sj.Mg.CliLib.csproj">
       <Project>{EB2046AA-3456-453A-BD0D-811F6497B867}</Project>
       <Name>Sj.Mg.CliLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Sj.Mg.Model\Sj.Mg.Model.csproj">
-      <Project>{eb0bc5b2-e0fb-4e75-81e7-b1bb9243d355}</Project>
-      <Name>Sj.Mg.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

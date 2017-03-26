@@ -96,4 +96,14 @@
 	$('.requestingSectionList').slimScroll({
 	    "height": reqBlockHeight
 	});
+
+	var jqxhr = function () {
+	    $.ajax({
+	        url: "/core/account/124",
+	    })
+        .done(function (data, textStatus, jqXHR) { alert("Success: " + response); })
+        .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); })
+        .always(function (jqXHROrData, textStatus, jqXHROrErrorThrown) { alert("complete"); });
+	}
+	//jqxhr();
 })();

@@ -117,7 +117,35 @@ namespace Sj.Mg.Client.Controllers
         [Authorize]
         public ActionResult Secure()
         {
+            var token1 = (User as ClaimsPrincipal).FindFirst("access_token").Value;
+            var token = (User as System.Security.Claims.ClaimsPrincipal);
+            foreach (var tt in token.Claims)
+            {
+                Console.WriteLine(tt.Value);
+            }
             return View();
+        }
+
+        [Authorize]
+        [Route("user/{id}")]
+        public JsonResult SearchUser(string id)
+        {
+            //var token = (User as System.Security.Claims.ClaimsPrincipal);
+            //foreach (var tt in token.Claims)
+            //{
+            //    Console.WriteLine(tt.Value);
+            //}
+            List< Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(id);
+            return Json(gg, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        [Route("account/{id}")]
+        public JsonResult GetAccount(string id)
+        {
+            var basetkn = GetEmptyRptToken();
+            var acct = Execute<List<Hl7.Fhir.Model.Account>>(@"https://localhost:44306/Api/Account", basetkn);
+            return Json(acct, JsonRequestBehavior.AllowGet);
         }
         T ExecuteProc<T>(string url, string basetkn)
         {

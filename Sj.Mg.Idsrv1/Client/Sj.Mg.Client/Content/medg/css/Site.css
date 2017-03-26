@@ -1,0 +1,455 @@
+﻿/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}*/
+
+html, body {
+    height: 100%;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*Register CSS Here*/
+
+.registerSec {
+	clear: both;
+	padding: 40px 0 0;
+}
+.registerSec h2 {
+	color: #1e3665;
+	font-size: 18px;
+	margin-bottom: 30px;
+	text-align: center;
+	line-height: 35px;
+	font-family: 'nexa_boldregular';
+	background: #f2f2f2;
+}
+.reg-row {
+	clear: both;
+	padding: 36px 0 0 0;
+	text-align: center;
+}
+.reg-row label {
+	display: inline-block;
+	width: 120px;
+	color: #ce2129;
+	font-size: 16px;
+	line-height: 37px;
+	font-family: 'nexa_boldregular';
+}
+.reg-row input[type="text"]{
+	display: inline-block;
+	width: 290px;
+	height: 37px;
+	line-height: 37px;
+	padding: 0 10px;
+	font-size: 13px;
+	font-family: arial;
+	border-radius: 4px;
+	color: #fff;
+	border: none;
+	outline: none;
+	background: #1e3665;
+}
+.registerBtn {
+	width: 170px;
+	height: 40px;
+	border: none;
+	cursor: pointer;
+	color: #ffffff;
+	margin-top: 12px;
+	font-family: 'nexa_boldregular';
+	border-radius: 6px;
+	font-size: 15px;
+	outline: none;
+	border-bottom: 5px solid #97191f;
+	background: #ce2129;
+}
+
+.navbar {
+    display: none !important;
+}
+footer {
+    display: none !important;
+}
+
+.loginFooter {
+    text-align: center;
+    line-height: 40px;
+    color: #1e3665;
+    font-size: 13px;
+    clear: both;
+    font-family: 'nexa_boldregular';
+}
+.loginFooter, .loginPush {
+    height: 40px;
+}
+/*Login CSS Here*/
+.login {
+	background: url(medg/images/loginBg.jpg) repeat-x left top;
+}
+.loginMain {
+	min-height: 100%;
+	margin-bottom: -40px;
+}
+.loginScreen {
+	padding-top: 40px;
+}
+.loginLogo {
+	margin: auto;
+	display: block;
+	width: 163px;
+}
+.loginSection {
+	clear: both;
+	padding:40px 0 0 0; 
+}
+.loginB {
+	float: left;
+	width: 459px;
+	height: 423px;
+	margin: 0 0 0 109px;
+	box-sizing: border-box;
+	padding: 140px 0 0 0;
+	background: url(medg/images/login-block.png) no-repeat center top;
+}
+.emailRow {
+	position: relative;
+	clear: both;
+	padding: 0 0 0 200px;
+	height: 54px;
+	line-height: 48px;
+	box-sizing: border-box;
+}
+.emailRow i,.passwordRow i {
+	color: #fff;
+	float: left;
+	height: 54px;
+	line-height: 48px;
+}
+.email,.passwordRow .psw {
+	float: left;
+	margin: 0 0 0 50px;
+	height: 50px;
+	width: 162px;
+	padding: 0;
+	outline: none;
+	color: #fff;
+	font-size: 15px;
+	line-height: 50px;
+	border: none;
+	background: none;
+}
+.email::-webkit-input-placeholder,.psw::-webkit-input-placeholder {
+  color: #fff;
+}
+.email::-moz-placeholder,.psw::-moz-placeholder {
+  color: #fff;
+}
+.email:-ms-input-placeholder,.psw:-ms-input-placeholder {
+  color: #fff;
+}
+.email:-moz-placeholder,.psw:-moz-placeholder { 
+  color: #fff;
+}
+.passwordRow {
+	position: relative;
+	clear: both;
+	margin: 13px 0 0 162px;
+	height: 54px;
+	line-height: 48px;
+	box-sizing: border-box;
+}
+.passwordRow .psw {
+	margin-left: 48px;
+	width: 150px
+}
+.remberRow {
+	clear: both;
+	padding: 4px 0 0 0;
+}
+.remberRow label {
+	float: left;
+	position: relative;
+	color: #102649;
+	font-size: 13px;
+	font-family: arial;
+	padding-left: 19px;
+}
+.reChk {
+	display: none;
+}
+.remberRow label span {
+	position: absolute;
+	width: 12px;
+	height: 12px;
+	float: left;
+	top: 1px;
+	left: 4px;
+	background: #102649;
+}
+.remberRow label span:after {
+    content: '';
+    width: 6px;
+    height: 3px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    opacity: 0.1;
+	  -webkit-transform: rotate(-45deg);
+	          transform: rotate(-45deg);
+}
+.remberRow label .reChk:checked + span:after {
+    opacity: 1;
+}
+.frpsw {
+	float: right;
+    font-size: 13px;
+    margin: 0 108px 0 0;
+    font-family: arial;
+    text-decoration: none;
+    color: #102649;
+}
+.loginRow {
+	clear: both;
+	padding:24px 0 0 0; 
+}
+.loginRow button {
+	float: right;
+	height: 29px;
+	width: 110px;
+	margin: 0 116px 0 0;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	font-size: 11px;
+	text-align: center;
+	line-height: 29px;
+	font-family: arial;
+	text-transform: uppercase;
+	border-bottom: 3px solid #185b2e;
+	background: #1c7c3d;
+}
+.orRow {
+	float: left;
+	width: 30px;
+	height: 316px;
+	margin: 65px 0 0 47px;
+}
+.orRow span {
+	position: relative;
+	top: 139px;
+	display: block;
+	width: 30px;
+	height: 30px;
+	font-size: 12px;
+	font-family: 'nexa_boldregular';
+	text-align: center;
+	line-height: 30px;
+	color: #fff;
+	border-radius: 40px;
+	background: #1e3664;
+}
+.orRow span::before {
+	position: absolute;
+	top: -139px;
+	left: 50%;
+	width: 2px;
+	height: 131px;
+	content: '';
+	background: #ce2029;
+	margin: 0 0 0 -1px;
+}
+.orRow span::after {
+	position: absolute;
+	bottom: -139px;
+	left: 50%;
+	width: 2px;
+	height: 131px;
+	content: '';
+	background: #1e3664;
+	margin: 0 0 0 -1px;
+}
+.socialMedia {
+	float: left;
+	padding: 87px 0 0 93px;
+}
+.socialMedia li {
+	list-style: none;
+	padding: 50px 0 0 0;
+}
+.loginFooter,.loginPush {
+	height: 40px;
+}
+.loginFooter {
+	text-align: center;
+	line-height: 40px;
+	color: #1e3665;
+	font-size: 13px;
+	clear: both;
+	font-family: 'nexa_boldregular';
+}
+.Error {
+	position: absolute;
+	right: 0;
+	top: 100%;
+	height: 22px;
+	min-width: 150px;
+	color: red;
+	border-radius: 5px;
+	white-space: nowrap;
+	padding: 0 15px;
+	line-height: 22px;
+	font-size: 12px;
+	margin-top: -6px;
+	font-family: arial;
+	background: #dee2e9;
+}
+.Error::before{
+	content: '';
+	display: block;
+	position: absolute;
+	top:-8px;
+	left: 8px;
+	border-bottom: 8px solid #dee2e9;
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+}
+.invalid {
+	clear: both;
+	padding: 25px 0 0 0;
+}
+.invalid span {
+    white-space: nowrap;
+    color: #fff;
+    font-size: 14px;
+    font-family: arial;
+    border-radius: 4px;
+    padding: 10px;
+    background: #c52d26;
+    margin: 0 0 0 210px;
+}
+
+/*Logout CSS Here*/
+
+.logoutScrn h2 {
+	padding: 30px 0 0;
+	color: #12214e;
+	text-align: center;
+	font-size: 18px;
+	line-height: 30px;
+	font-family: 'nexa_boldregular';
+}
+.buttonsRow {
+	clear: both;
+	padding: 30px 0 40px;
+	text-align: center;
+}
+.buttonsRow button {
+	display: inline-block;
+	width: 153px;
+	height: 39px;
+	line-height: 39px;
+	text-align: center;
+	color: #fff;
+	font-size: 13px;
+	cursor: pointer;
+	font-family: 'nexa_boldregular';
+	border-radius: 4px;
+	border: none;
+	margin: 0 10px;
+	border-bottom: 4px solid transparent;
+}
+.btnYes {
+	border-color: #16690b;
+	background: #19810b;
+}
+.btnCancel {
+	border-color: #6c6c6c;
+	background: #9e9d9d;
+}
+.lightbox-min {
+	border-radius: 5px;
+	border-color: #f1f1f1;
+}
+/*lightbox css*/
+
+.closeIcon {
+	position: absolute;
+	right: 7px;
+	top: 7px;
+	width: 25px;
+	height: 25px;
+	border:1px solid #ccc;
+	border-radius: 40px;
+	cursor: pointer;
+	text-align: center;
+	line-height: 25px;
+	text-decoration: none;
+	box-shadow: inset 0 0 5px rgba(85, 85, 85, 0.46); 
+}
+.lightbox {
+	position: fixed;
+    max-width: 720px;
+    margin: auto;
+    box-sizing: border-box;
+    background: #fff;
+    z-index: 99999;
+	overflow:auto;
+	width:90%;
+	display: none;
+	box-sizing: border-box;
+	border:5px solid #585858;
+	font-family: 'Droid Serif', serif; 
+	transition: all 0.5s ease-in;
+	background: #fff;
+}
+.lightbox-wid {
+	max-width: 1140px;
+}
+.lightbox-min {
+	max-width: 635px;
+	border-radius: 5px;
+    overflow: hidden;
+    border-color: #f1f1f1;
+    height: 200px !important;
+    top: 50% !important;
+    left: 50% !important;
+    margin: -100px 0 0 -317px;
+}
+
+.scrollSec {
+	padding: 10px 25px;
+}
+.popupShadow {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	display: none;
+	background: rgba(0,0,0,0.8);
+	z-index: 9999;
+}
+
