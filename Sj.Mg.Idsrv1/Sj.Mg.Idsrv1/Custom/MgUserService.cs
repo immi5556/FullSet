@@ -18,56 +18,8 @@ namespace Sj.Mg.Idsrv1.Custom
 {
     public class MgUserService : UserServiceBase
     {
-        public static List<CustomUser> Users = new List<CustomUser>()
-        {
-             new CustomUser()
-                {
-                    Subject = "818727", Username = "alice@bob.co", Password = "alice",
-                        Claims = new List<Claim>()
-                        {
-                            new Claim(Constants.ClaimTypes.Name, "Alice Smith"),
-                            new Claim(Constants.ClaimTypes.GivenName, "Alice"),
-                            new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
-                            new Claim(Constants.ClaimTypes.Email, "AliceSmith@email.com"),
-                            new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                            new Claim(Constants.ClaimTypes.Role, "Parent"),
-                            new Claim(Constants.ClaimTypes.Role, "Patient"),
-                            new Claim(Constants.ClaimTypes.WebSite, "http://alice.com"),
-                            new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
-                        }
-                },
-                new CustomUser()
-                {
-                    Subject = "88421113", Username = "bob@bob.co", Password = "bob",
-                        Claims = new List<Claim>()
-                        {
-                            new Claim(Constants.ClaimTypes.Name, "Bob Smith"),
-                            new Claim(Constants.ClaimTypes.GivenName, "Bob"),
-                            new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
-                            new Claim(Constants.ClaimTypes.Email, "BobSmith@email.com"),
-                            new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                            new Claim(Constants.ClaimTypes.Role, "Patient"),
-                            new Claim(Constants.ClaimTypes.WebSite, "http://bob.com"),
-                            new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Heidelberg"", ""postal_code"": 69118, ""country"": ""Germany"" }", Constants.ClaimValueTypes.Json)
-                        }
-                },
-                new CustomUser()
-                {
-                    Subject = "818956", Username = "admin@medgrotto.com", Password = "123",
-                        Claims = new List<Claim>()
-                        {
-                            new Claim(Constants.ClaimTypes.Name, "Admin MG"),
-                            new Claim(Constants.ClaimTypes.GivenName, "Admin"),
-                            new Claim(Constants.ClaimTypes.FamilyName, "Medgrotto"),
-                            new Claim(Constants.ClaimTypes.Email, "admin@medgrotto.com"),
-                            new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                            new Claim(Constants.ClaimTypes.Role, "Admin"),
-                            new Claim(Constants.ClaimTypes.Role, "Geek"),
-                            new Claim(Constants.ClaimTypes.WebSite, "http://medgrotto.com"),
-                            new Claim(Constants.ClaimTypes.Address, @"{ ""street_address"": ""One Hacker Way"", ""locality"": ""Texas"", ""postal_code"": 69118, ""country"": ""USA"" }", Constants.ClaimValueTypes.Json)
-                        }
-                }
-        };
+        
+        
 
         public override Task AuthenticateLocalAsync(LocalAuthenticationContext context)
         {
@@ -94,8 +46,13 @@ namespace Sj.Mg.Idsrv1.Custom
         public override Task AuthenticateExternalAsync(ExternalAuthenticationContext context)
         {
             // look for the user in our local identity system from the external identifiers
-            var user = Users.SingleOrDefault(x => x.Provider == context.ExternalIdentity.Provider && x.ProviderID == context.ExternalIdentity.ProviderId);
+            //var user = Users.SingleOrDefault(x => x.Provider == context.ExternalIdentity.Provider && x.ProviderID == context.ExternalIdentity.ProviderId);
             string name = "Unknown";
+            Dictionary<string, object> filter = new Dictionary<string, object>();
+            filter.Add("Provider", context.ExternalIdentity.Provider);
+            filter.Add("ProviderID", context.ExternalIdentity.ProviderId);
+            var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter, "Users");
+            var user = (tt == null || tt.Count == 0) ? null : tt[0];
             if (user == null)
             {
                 if (true) //TO DO: make sure condition is applied wheter auto register or 
@@ -112,7 +69,7 @@ namespace Sj.Mg.Idsrv1.Custom
                         Claims = context.ExternalIdentity.Claims.ToList()
                         //Claims = new List<Claim> { new Claim(Constants.ClaimTypes.Name, name) }
                     };
-                    Users.Add(user);
+                    //Users.Add(user);
                 }
                 else
                 {
@@ -140,11 +97,11 @@ namespace Sj.Mg.Idsrv1.Custom
         public override Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             // issue the claims for the user
-            var user = Users.SingleOrDefault(x => x.Subject == context.Subject.GetSubjectId());
-            if (user != null)
-            {
-                context.IssuedClaims = user.Claims.Where(x => context.RequestedClaimTypes.Contains(x.Type));
-            }
+            //var user = Users.SingleOrDefault(x => x.Subject == context.Subject.GetSubjectId());
+            //if (user != null)
+            //{
+            //    context.IssuedClaims = user.Claims.Where(x => context.RequestedClaimTypes.Contains(x.Type));
+            //}
 
             return Task.FromResult(0);
         }
@@ -161,7 +118,7 @@ namespace Sj.Mg.Idsrv1.Custom
             {
                 var newUser = GetUser(firstName, lastName, password, email, phoneNumber);
                 MongoManage.Insert<CustomUser>(newUser, "Users");
-                Users.Add(newUser);
+                //Users.Add(newUser);
                 return "success";
             }
             else

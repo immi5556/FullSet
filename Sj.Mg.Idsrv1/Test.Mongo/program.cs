@@ -17,9 +17,9 @@ namespace Test.Mongo
             //SelectDict();
             //SelectFilt();
             //Update();
-            //PopulateUsers();
+            PopulateUsers();
             //PopulateResource();
-            //PopulateAddlUsers();
+            PopulateAddlUsers();
             Console.ReadKey();
         }
         static void SelectFilt()
@@ -56,7 +56,7 @@ namespace Test.Mongo
         {
             return new Sj.Mg.CliLib.Model.CustomUser()
             {
-                Subject = "88421113",
+                Subject = "bob@smith.co",
                 Username = "bob@smith.co",
                 Password = "bob",
                 CustomClaims = new List<CustomClaim>()
@@ -77,7 +77,7 @@ namespace Test.Mongo
         {
             Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
             {
-                Subject = "938727",
+                Subject = "john@john.co",
                 Username = "john@john.co",
                 Password = "123",
                 CustomClaims = new List<CustomClaim>()
@@ -96,7 +96,7 @@ namespace Test.Mongo
 
             Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
             {
-                Subject = "938728",
+                Subject = "sam@sam.co",
                 Username = "sam@sam.co",
                 Password = "123",
                 CustomClaims = new List<CustomClaim>()
@@ -115,7 +115,7 @@ namespace Test.Mongo
 
             Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
             {
-                Subject = "938729",
+                Subject = "saphire@saphire.co",
                 Username = "saphire@saphire.co",
                 Password = "123",
                 CustomClaims = new List<CustomClaim>()
@@ -136,7 +136,7 @@ namespace Test.Mongo
         {
             Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
             {
-                Subject = "818727",
+                Subject = "alice@bob.co",
                 Username = "alice@bob.co",
                 Password = "alice",
                 CustomClaims = new List<CustomClaim>()
@@ -155,7 +155,7 @@ namespace Test.Mongo
 
             Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
             {
-                Subject = "88421113",
+                Subject = "bob@bob.co",
                 Username = "bob@bob.co",
                 Password = "bob",
                 CustomClaims = new List<CustomClaim>()
@@ -172,7 +172,7 @@ namespace Test.Mongo
             }, "Users");
             Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(new CustomUser()
             {
-                Subject = "818956",
+                Subject = "admin@medgrotto.com",
                 Username = "admin@medgrotto.com",
                 Password = "123",
                 CustomClaims = new List<CustomClaim>()

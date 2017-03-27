@@ -40,7 +40,9 @@ namespace Sj.Mg.Idsrv1.Controllers
             {
                 // update the "database" for our users with the registration data
                 var subject = partial_user.GetSubjectId();
-                var db_user = Custom.MgUserService.Users.Single(x => x.Subject == subject);
+                var dict = new Dictionary<string, object>();
+                dict.Add("Subject", subject);
+                var db_user = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(dict, "Users").First();// Custom.MgUserService.Users.Single(x => x.Subject == subject);
                 db_user.Claims.Add(new Claim(Constants.ClaimTypes.GivenName, model.First));
                 db_user.Claims.Add(new Claim(Constants.ClaimTypes.FamilyName, model.Last));
 

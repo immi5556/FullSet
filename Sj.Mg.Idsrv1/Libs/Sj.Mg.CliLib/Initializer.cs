@@ -156,10 +156,14 @@ namespace Sj.Mg.CliLib
                         var roleClaim = n.AuthenticationTicket
                             .Identity.FindFirst(IdentityModel.JwtClaimTypes.Role);
 
+                        var emailClaim = n.AuthenticationTicket
+                            .Identity.FindFirst(IdentityModel.JwtClaimTypes.Email);
+
                         //create a new claims, issuer + sub as unique identifier
                         //var nameClaim = new Claim(IdentityModel.JwtClaimTypes.Name,
                         //            Utils.Common.IssuerUri + subClaim.Value);
                         var nameClaim = new Claim(IdentityModel.JwtClaimTypes.Name, subClaim.Value);
+                        //var nameClaim = new Claim(IdentityModel.JwtClaimTypes.Name, emailClaim.Value);
 
                         var newClaimsIdentity = new ClaimsIdentity(
                            n.AuthenticationTicket.Identity.AuthenticationType,

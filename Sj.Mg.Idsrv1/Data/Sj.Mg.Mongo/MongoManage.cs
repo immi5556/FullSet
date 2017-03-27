@@ -45,5 +45,17 @@ namespace Sj.Mg.Mongo
             var db = Data.BaseMongo.GetDatabase();
             return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => _.Username.ToLower().Contains((srch ?? "").ToLower())).ToList();
         }
+        public static List<Sj.Mg.CliLib.Model.RequestPerm> GetUserPerms()
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            return db.GetCollection<Sj.Mg.CliLib.Model.RequestPerm>("ReqPerms").Find(_ => true).ToList();
+        }
+
+        public static void ReplaceReqPerm(Sj.Mg.CliLib.Model.RequestPerm data)
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            var toins = db.GetCollection<Sj.Mg.CliLib.Model.RequestPerm>("ReqPerms");
+            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.RequestPerm>(f => f.MyEmail == data.MyEmail, data);
+        }
     }
 }
