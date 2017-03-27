@@ -159,7 +159,7 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult GetMyData(string id)
         {
             List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(id);
-            int index = gg.FindIndex(x => x.Username == User.Identity.Name);
+            int index = gg.FindIndex(x => x.Subject== User.Identity.Name);
             return Json(gg[index], JsonRequestBehavior.AllowGet);
         }
         

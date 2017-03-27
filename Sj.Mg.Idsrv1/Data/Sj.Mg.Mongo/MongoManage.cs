@@ -43,7 +43,7 @@ namespace Sj.Mg.Mongo
         public static List<Sj.Mg.CliLib.Model.CustomUser> SearchUser(string srch)
         {
             var db = Data.BaseMongo.GetDatabase();
-            return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => _.Username.ToLower().Contains((srch ?? "").ToLower())).ToList();
+            return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => _.Subject.ToLower().Contains((srch ?? "").ToLower())).ToList();
         }
         public static void ReplaceUser(Sj.Mg.CliLib.Model.CustomUser data)
         {
