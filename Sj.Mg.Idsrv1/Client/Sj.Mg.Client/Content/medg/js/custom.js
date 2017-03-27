@@ -5,7 +5,7 @@
 		tabCont:".tabContSec"
 	});*/
     var reqUser = "", reqUserScope = "", reqUserResource = "";
-    var myData;
+    var myData, profileData;
 
     function loadPermission() {
         $('body').gbLightbox({
@@ -286,6 +286,18 @@
         .fail(function (jqXHR, textStatus, errorThrown) { alert("Error11"); });
 	}
 
-	getData();
+	function getMyData() {
+	    $.ajax({
+	        url: "/getMyData",
+	    })
+        .done(function (data, textStatus, jqXHR) {
+                profileData = data;
+                $(".userName").text(data.Username);
+                getData();
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) { alert("Error1"); });
+	}
+
+	getMyData();
 
 })();

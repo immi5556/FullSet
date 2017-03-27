@@ -1309,6 +1309,9 @@ footer {
 	border-bottom: 5px solid #97191f;
 	background: #ce2129;
 }
+.userName:before {
+    padding-right: 5px;
+}
 
 
 /*Logout CSS Here*/
