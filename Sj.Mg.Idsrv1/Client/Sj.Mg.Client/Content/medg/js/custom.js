@@ -266,7 +266,8 @@ var permission = (function () {
                                 data: $(this).data("scpdata")
                             })
                             .done(function (data, textStatus, jqXHR) {
-                                alert(data);
+                                $("#data-disp").html("<pre>" + JSON.stringify(data, null, "\t") + "</pre>");
+                                $('.slideUp').trigger("click");
                             })
                             .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
                         });

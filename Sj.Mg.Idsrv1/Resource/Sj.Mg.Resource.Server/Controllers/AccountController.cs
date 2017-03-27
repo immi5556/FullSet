@@ -25,7 +25,7 @@ namespace Sj.Mg.Resource.Server.Controllers
         public List<Hl7.Fhir.Model.Account> GetActs(string ids)
         {
             var id = System.Web.HttpUtility.UrlDecode(ids ?? "");
-            return Code.AccountManager.Get(ids);
+            return Code.AccountManager.Get();
         }
 
         [CliLib.Security.UmaAuthz("Patient/Account.Write", "Patient/Account.*")]

@@ -27,7 +27,7 @@ namespace Fhir.Client
 
             ///Accounts
             //InsertAcct();
-            GetAccts();
+            //GetAccts();
             //InsertAcctAddl("bob@smith.co");
             //InsertAcctAddl("john@john.co");
             //InsertAcctAddl("sam@sam.co");
@@ -39,8 +39,15 @@ namespace Fhir.Client
             ///Patients
             //InsertPats();
             //GetPats();
+            InsertDiagn();
             Console.ReadKey();
         }
+
+        static void InsertDiagn()
+        {
+            var tt = Newtonsoft.Json.JsonConvert.DeserializeObject<Patient>(System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Patient_Sample.json"));
+        }
+
         static void GetObservetion()
         {
             var client = new FhirClient(endpoint);
