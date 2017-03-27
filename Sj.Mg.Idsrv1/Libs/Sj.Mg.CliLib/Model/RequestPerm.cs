@@ -11,6 +11,8 @@ namespace Sj.Mg.CliLib.Model
         public RequestPerm()
         {
             AllowedUsers = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>();
+            RequestedUsers = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>();
+            MyDetailsSharedWith = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>();
         }
         [MongoDB.Bson.Serialization.Attributes.BsonId]
         [Newtonsoft.Json.JsonIgnore]
@@ -18,5 +20,7 @@ namespace Sj.Mg.CliLib.Model
         public MongoDB.Bson.ObjectId Id { get; set; }
         public string MyEmail { get; set;  }
         public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> AllowedUsers { get; set; }
+        public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> RequestedUsers { get; set; }
+        public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> MyDetailsSharedWith { get; set; }
     }
 }

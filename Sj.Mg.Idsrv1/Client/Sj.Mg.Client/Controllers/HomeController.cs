@@ -157,6 +157,73 @@ namespace Sj.Mg.Client.Controllers
             {
                 if (t.MyEmail == toemail)
                 {
+                    if (t.RequestedUsers.ContainsKey(toclient))
+                    {
+                        if (t.RequestedUsers[toclient].ContainsKey(toresrc))
+                        {
+                            if (t.RequestedUsers[toclient][toresrc].ContainsKey(toscope))
+                            {
+                                if (t.RequestedUsers[toclient][toresrc][toscope].Contains(un))
+                                {
+                                    alreadyaccess = true;
+                                }
+                                else // user doesnt exist
+                                {
+                                    t.RequestedUsers[toclient][toresrc][toscope].Add(un);
+                                }
+                            }
+                            else // scope doesnt exist
+                            {
+                                t.RequestedUsers[toclient][toresrc].Add(toscope, new List<string>());
+                                t.RequestedUsers[toclient][toresrc][toscope].Add(un);
+                            }
+                        } 
+                        else // resrc doesnt exist
+                        {
+                            t.RequestedUsers[toclient].Add(toresrc, new Dictionary<string, List<string>>());
+                            t.RequestedUsers[toclient][toresrc].Add(toscope, new List<string>());
+                            t.RequestedUsers[toclient][toresrc][toscope].Add(un);
+                        }
+                    }
+                    else // client doesnt exist
+                    {
+                        t.RequestedUsers.Add(toclient, new Dictionary<string, Dictionary<string, List<string>>>());
+                        t.RequestedUsers[toclient].Add(toresrc, new Dictionary<string, List<string>>());
+                        t.RequestedUsers[toclient][toresrc].Add(toscope, new List<string>());
+                        t.RequestedUsers[toclient][toresrc][toscope].Add(un);
+                    }
+                    Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                    alreadyaccess = true;
+                }
+            });
+            if (!alreadyaccess)
+            {
+                Sj.Mg.CliLib.Model.RequestPerm perm = new CliLib.Model.RequestPerm();
+                perm.MyEmail = toemail;
+                perm.RequestedUsers.Add(toclient, new Dictionary<string, Dictionary<string, List<string>>>());
+                perm.RequestedUsers[toclient].Add(toresrc, new Dictionary<string, List<string>>());
+                perm.RequestedUsers[toclient][toresrc].Add(toscope, new List<string>());
+                perm.RequestedUsers[toclient][toresrc][toscope].Add(un);
+                Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
+            }
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize]
+        [Route("provide/{toemail}/{toclient}/{toresrc}/{toscope}")]
+        public JsonResult ProvAccess(string toemail, string toclient, string toresrc, string toscope)
+        {
+            var token = (User as System.Security.Claims.ClaimsPrincipal);
+            foreach (var tt1 in token.Claims)
+            {
+                Console.WriteLine(tt1.Value);
+            }
+            var un = User.Identity.Name;
+            var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
+            bool alreadyaccess = false;
+            tt.ForEach(t =>
+            {
+                if (t.MyEmail == toemail)
+                {
                     if (t.AllowedUsers.ContainsKey(toclient))
                     {
                         if (t.AllowedUsers[toclient].ContainsKey(toresrc))
@@ -177,7 +244,7 @@ namespace Sj.Mg.Client.Controllers
                                 t.AllowedUsers[toclient][toresrc].Add(toscope, new List<string>());
                                 t.AllowedUsers[toclient][toresrc][toscope].Add(un);
                             }
-                        } 
+                        }
                         else // resrc doesnt exist
                         {
                             t.AllowedUsers[toclient].Add(toresrc, new Dictionary<string, List<string>>());
@@ -206,7 +273,67 @@ namespace Sj.Mg.Client.Controllers
                 perm.AllowedUsers[toclient][toresrc][toscope].Add(un);
                 Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
             }
+            AddToMySharedList(toemail, un, toclient, toresrc, toscope);
             return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+        void AddToMySharedList(string un, string toemail, string toclient, string toresrc, string toscope)
+        {
+            var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
+            bool alreadyaccess = false;
+            tt.ForEach(t =>
+            {
+                if (t.MyEmail == toemail)
+                {
+                    if (t.MyDetailsSharedWith.ContainsKey(toclient))
+                    {
+                        if (t.MyDetailsSharedWith[toclient].ContainsKey(toresrc))
+                        {
+                            if (t.MyDetailsSharedWith[toclient][toresrc].ContainsKey(toscope))
+                            {
+                                if (t.MyDetailsSharedWith[toclient][toresrc][toscope].Contains(un))
+                                {
+                                    alreadyaccess = true;
+                                }
+                                else // user doesnt exist
+                                {
+                                    t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(un);
+                                }
+                            }
+                            else // scope doesnt exist
+                            {
+                                t.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<string>());
+                                t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(un);
+                            }
+                        }
+                        else // resrc doesnt exist
+                        {
+                            t.MyDetailsSharedWith[toclient].Add(toresrc, new Dictionary<string, List<string>>());
+                            t.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<string>());
+                            t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(un);
+                        }
+                    }
+                    else // client doesnt exist
+                    {
+                        t.MyDetailsSharedWith.Add(toclient, new Dictionary<string, Dictionary<string, List<string>>>());
+                        t.MyDetailsSharedWith[toclient].Add(toresrc, new Dictionary<string, List<string>>());
+                        t.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<string>());
+                        t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(un);
+                    }
+                    Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                    alreadyaccess = true;
+                }
+            });
+            if (!alreadyaccess)
+            {
+                Sj.Mg.CliLib.Model.RequestPerm perm = new CliLib.Model.RequestPerm();
+                perm.MyEmail = toemail;
+                perm.MyDetailsSharedWith.Add(toclient, new Dictionary<string, Dictionary<string, List<string>>>());
+                perm.MyDetailsSharedWith[toclient].Add(toresrc, new Dictionary<string, List<string>>());
+                perm.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<string>());
+                perm.MyDetailsSharedWith[toclient][toresrc][toscope].Add(un);
+                Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
+            }
         }
 
         [Authorize]

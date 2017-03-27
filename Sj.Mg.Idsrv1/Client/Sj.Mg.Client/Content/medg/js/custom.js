@@ -109,7 +109,7 @@
             $("#srchrest").html('');
             //alert("Success: " + data);
             (data || []).forEach(function (item) {
-                $("#srchrest").append("<span>" + item.Username + "</span> <a data-emailto=" + item.Username + " class='req-r' href='javascript:void(0);'>req</a><div style='width:30px;display:inline-block;text-align:center;'>|</div><a class='pro-r' href='javascript:void(0);'>provide</a><br>")
+                $("#srchrest").append("<span>" + item.Username + "</span> <a data-emailto=" + item.Username + " class='req-r' href='javascript:void(0);'>req</a><div style='width:30px;display:inline-block;text-align:center;'>|</div><a data-emailto=" + item.Username + " class='pro-r' href='javascript:void(0);'>provide</a><br>")
             });
         })
         .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
@@ -117,7 +117,24 @@
 	}
 
 	$(document).on("click", ".pro-r", function () {
-
+	    toemail = $(this).data("emailto");
+	    $("#searchEmail").val('');
+	    $("#srchrest").html('');
+	    $("#srchrest").append("<span>App:</span> <span>Releief Express</span>");
+	    $("#srchrest").append("<select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select>");
+	    $("#srchrest").append("<select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select>");
+	    $("#srchrest").append("<button id='conf-prov'>Confirm</button>");
+	});
+	$(document).on("click", "#conf-prov", function () {
+	    $.ajax({
+	        url: "/provide/" + toemail + "/ReliefExpress/" + $("#selrsrc").val() + "/" + $("#selscpe").val(),
+	    })
+        .done(function (data, textStatus, jqXHR) {
+            //alert("Success: " + data);
+            alert("request sent Successfully");
+            $("#srchrest").html('');
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
 	});
 	$(document).on("click", ".req-r", function () {
 	    toemail = $(this).data("emailto");
