@@ -45,6 +45,12 @@ namespace Sj.Mg.Mongo
             var db = Data.BaseMongo.GetDatabase();
             return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => _.Username.ToLower().Contains((srch ?? "").ToLower())).ToList();
         }
+        public static void ReplaceUser(Sj.Mg.CliLib.Model.CustomUser data)
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            var toins = db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users");
+            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.CustomUser>(f => f.Subject == data.Subject, data);
+        }
         public static List<Sj.Mg.CliLib.Model.RequestPerm> GetUserPerms()
         {
             var db = Data.BaseMongo.GetDatabase();

@@ -42,7 +42,7 @@ namespace Sj.Mg.Idsrv1.Controllers
                 var subject = partial_user.GetSubjectId();
                 var dict = new Dictionary<string, object>();
                 dict.Add("Subject", subject);
-                var db_user = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(dict, "Users").First();// Custom.MgUserService.Users.Single(x => x.Subject == subject);
+                var db_user = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(dict, "Users").FirstOrDefault();// Custom.MgUserService.Users.Single(x => x.Subject == subject);
                 db_user.Claims.Add(new Claim(Constants.ClaimTypes.GivenName, model.First));
                 db_user.Claims.Add(new Claim(Constants.ClaimTypes.FamilyName, model.Last));
 
@@ -54,7 +54,10 @@ namespace Sj.Mg.Idsrv1.Controllers
 
                 // mark user as registered
                 db_user.IsRegistered = true;
-
+                db_user.Claims.ForEach(t =>
+                {
+                    db_user.CustomClaims.Add(new CliLib.Model.CustomClaim(t.Type, t.Value));
+                });
                 // this replaces the name issued in the partial signin cookie
                 // the reason for doing is so when we redriect back to IdSvr it will
                 // use the updated name for display purposes. this is only needed if
@@ -63,7 +66,7 @@ namespace Sj.Mg.Idsrv1.Controllers
                 var partialClaims = partial_user.Claims.Where(x => x.Type != Constants.ClaimTypes.Name).ToList();
                 partialClaims.Add(nameClaim);
                 await ctx.Environment.UpdatePartialLoginClaimsAsync(partialClaims);
-
+                Sj.Mg.Mongo.MongoManage.ReplaceUser(db_user);
                 // find the URL to continue with the process to the issue the token to the RP
                 var resumeUrl = await ctx.Environment.GetPartialLoginResumeUrlAsync();
                 return Redirect(resumeUrl);

@@ -48,11 +48,13 @@ namespace Sj.Mg.Idsrv1.Custom
             // look for the user in our local identity system from the external identifiers
             //var user = Users.SingleOrDefault(x => x.Provider == context.ExternalIdentity.Provider && x.ProviderID == context.ExternalIdentity.ProviderId);
             string name = "Unknown";
+            string email = context.ExternalIdentity.Claims.First(x => x.Type == Constants.ClaimTypes.Email).Value;
             Dictionary<string, object> filter = new Dictionary<string, object>();
             filter.Add("Provider", context.ExternalIdentity.Provider);
             filter.Add("ProviderID", context.ExternalIdentity.ProviderId);
+            filter.Add("Subject", email);
             var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter, "Users");
-            var user = (tt == null || tt.Count == 0) ? null : tt[0];
+            CustomUser user = (tt == null || tt.Count == 0) ? null : tt[0];
             if (user == null)
             {
                 if (true) //TO DO: make sure condition is applied wheter auto register or 
@@ -61,19 +63,24 @@ namespace Sj.Mg.Idsrv1.Custom
                     var nameClaim = context.ExternalIdentity.Claims.First(x => x.Type == Constants.ClaimTypes.Name);
                     if (nameClaim != null) name = nameClaim.Value;
 
-                    user = new CustomUser
+                    user = new CustomUser()
                     {
-                        Subject = Guid.NewGuid().ToString(),
+                        Subject = email,
                         Provider = context.ExternalIdentity.Provider,
                         ProviderID = context.ExternalIdentity.ProviderId,
-                        Claims = context.ExternalIdentity.Claims.ToList()
+                        //Claims = context.ExternalIdentity.Claims.ToList()
                         //Claims = new List<Claim> { new Claim(Constants.ClaimTypes.Name, name) }
                     };
+                    context.ExternalIdentity.Claims.ToList().ForEach(t =>
+                    {
+                        user.CustomClaims.Add(new CustomClaim(t.Type, t.Value));
+                    });
+                    Sj.Mg.Mongo.MongoManage.Insert<CustomUser>(user, "Users");
                     //Users.Add(user);
                 }
                 else
                 {
-                    // user is not registered so redirect
+                    // user is not registered so redirect -- TO DO: confirm  do we need this
                     context.AuthenticateResult = new AuthenticateResult("~/registerfirstexternalregistration", context.ExternalIdentity);
                 }
             }
@@ -96,12 +103,14 @@ namespace Sj.Mg.Idsrv1.Custom
 
         public override Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
+            var dict = new Dictionary<string, object>();
+            dict.Add("Subject", context.Subject.GetSubjectId());
             // issue the claims for the user
-            //var user = Users.SingleOrDefault(x => x.Subject == context.Subject.GetSubjectId());
-            //if (user != null)
-            //{
-            //    context.IssuedClaims = user.Claims.Where(x => context.RequestedClaimTypes.Contains(x.Type));
-            //}
+            var user = Sj.Mg.Mongo.MongoManage.Select<CustomUser>(dict, "Users").FirstOrDefault();
+            if (user != null)
+            {
+                context.IssuedClaims = user.Claims.Where(x => context.RequestedClaimTypes.Contains(x.Type));
+            }
 
             return Task.FromResult(0);
         }
