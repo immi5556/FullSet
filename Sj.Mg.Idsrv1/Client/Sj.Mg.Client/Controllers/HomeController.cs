@@ -146,6 +146,11 @@ namespace Sj.Mg.Client.Controllers
             //    Console.WriteLine(tt.Value);
             //}
             List< Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(id);
+            int index = gg.FindIndex(x => x.Username == User.Identity.Name);
+            
+            if(index != -1)
+                gg.RemoveAt(index);
+
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
 
