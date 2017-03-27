@@ -291,6 +291,7 @@
     <Content Include="Content\medg\images\accessIcon.png" />
     <Content Include="Content\medg\images\bagScreen.jpg" />
     <Content Include="Content\medg\images\banner.jpg" />
+    <Content Include="Content\medg\images\banner2.gif" />
     <Content Include="Content\medg\images\bg.jpg" />
     <Content Include="Content\medg\images\blipcare.png" />
     <Content Include="Content\medg\images\cerner.png" />

@@ -51,6 +51,13 @@ namespace Sj.Mg.Mongo
             return db.GetCollection<Sj.Mg.CliLib.Model.RequestPerm>("ReqPerms").Find(_ => true).ToList();
         }
 
+        public static List<Sj.Mg.CliLib.Model.RequestPerm> GetReqUserPerms(string userId)
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            var toins = db.GetCollection<Sj.Mg.CliLib.Model.RequestPerm>("ReqPerms");
+            return toins.Find<Sj.Mg.CliLib.Model.RequestPerm>(f => f.MyEmail == userId).ToList();
+        }
+
         public static void ReplaceReqPerm(Sj.Mg.CliLib.Model.RequestPerm data)
         {
             var db = Data.BaseMongo.GetDatabase();

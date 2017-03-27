@@ -2496,6 +2496,7 @@
 			.image.fit img {
 				width: 100%;
 				height: 100%;
+				object-fit: cover;
 			}
 
 		.image.round {
@@ -3735,7 +3736,7 @@
 		-webkit-justify-content: center;
 		-ms-justify-content: center;
 		justify-content: center;
-		/*background-image: url("../../images/banner2.gif");*/
+		background-image: url("/Content/medg/images/banner2.gif");
 		background-position: center;
 		background-size: cover;
 		background-repeat: no-repeat;

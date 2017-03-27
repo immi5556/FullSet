@@ -4,14 +4,50 @@
 		tabUL:".tabSectionMenu",
 		tabCont:".tabContSec"
 	});*/
+    var reqUser = "", reqUserScope = "", reqUserResource = "";
+    var myData;
 
-	$('body').gbLightbox({
-        triggerElem : '.click',
-        lightCont :'.lightbox',
-        shadow:'popupShadow',
-        closei:'closeIcon',
-        saveData:"#saveData"
-    });
+    function loadPermission() {
+        $('body').gbLightbox({
+            triggerElem: '.click',
+            lightCont: '.lightbox',
+            shadow: 'popupShadow',
+            closei: 'closeIcon',
+            saveData: "#saveData"
+        });
+
+        $(".requestingSectionList li").on("click", function () {
+            $(".scopesData").html("Click the checkbox to agree to give " + $(this).find(".scopeKey").text() + " access to " + $(this).find("h5").text());
+            reqUser = $(this).find("h5").text();
+            reqUserScope = $(this).find(".scopeKey").text();
+            reqUserResource = $(this).find(".resourcePro").text();
+            $(".scopeInput").attr("checked", false);
+            $(".requestAgreed").attr("disabled", "disabled");
+        });
+        $(".notification").text($(".requestingSectionList li").length);
+
+        $(".scopeInput").on("click", function () {
+            if ($(this).is(":checked")) {
+                $(".requestAgreed").attr("disabled", false);
+            } else {
+                $(".requestAgreed").attr("disabled", true);
+            }
+        })
+    }
+
+    $(".requestAgreed").on("click", function () {
+        $.ajax({
+            url: "/provide/" + reqUser + "/ReliefExpress/" + reqUserResource + "/" + reqUserScope,
+        })
+        .done(function (data, textStatus, jqXHR) {
+            alert("request Accepted Successfully");
+            $(".popupShadow").click();
+            getData();
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
+    })
+
+	
 
 	$(".tabModule").myTabs({
 		mydata:'/content/medg/js/tabData.json',
@@ -80,8 +116,7 @@
 	    //})
 	    $('.catagoryContent').hide();
 	});
-	$(".requestingSectionList").show();
-
+	
 	$('.contentRight .sec-heading').on('click', function () {
 	    $('.searchRow,.slimScrollDiv').slideUp();
 	    $('.sec-heading').removeClass('active');
@@ -92,10 +127,13 @@
 	        $(nextItem).slideDown();
 	        $(this).addClass('active');
 	    }
+	    $("#srchrest").html('');
+	    $("#searchEmail").val("");
 	})
 	$('.requestingSectionList').slimScroll({
 	    "height": reqBlockHeight
 	});
+	$('.slimScrollDiv').hide();
 
 	var srchUser = function (srch) {
 	    if (!srch) {
@@ -107,9 +145,11 @@
 	    })
         .done(function (data, textStatus, jqXHR) {
             $("#srchrest").html('');
+            var filterUl = $('<ul/>');
+            $("#srchrest").append(filterUl);
             //alert("Success: " + data);
             (data || []).forEach(function (item) {
-                $("#srchrest").append("<span>" + item.Username + "</span> <a data-emailto=" + item.Username + " class='req-r' href='javascript:void(0);'>req</a><div style='width:30px;display:inline-block;text-align:center;'>|</div><a data-emailto=" + item.Username + " class='pro-r' href='javascript:void(0);'>provide</a><br>")
+                $(filterUl).append("<li><span>" + item.Username + "</span> <div class='provideRow'><a data-emailto=" + item.Username + " class='req-r' href='javascript:void(0);'>Request</a><a data-emailto=" + item.Username + " class='pro-r' href='javascript:void(0);'>Provide</a></div></li>")
             });
         })
         .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
@@ -118,12 +158,14 @@
 
 	$(document).on("click", ".pro-r", function () {
 	    toemail = $(this).data("emailto");
-	    $("#searchEmail").val('');
 	    $("#srchrest").html('');
-	    $("#srchrest").append("<span>App:</span> <span>Releief Express</span>");
-	    $("#srchrest").append("<select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select>");
-	    $("#srchrest").append("<select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select>");
-	    $("#srchrest").append("<button id='conf-prov'>Confirm</button>");
+	    var filterUl = $('<div class="providesAcc"></div>');
+	    $("#srchrest").append(filterUl);
+	    $("#searchEmail").val('');
+	    $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>Releief Express</span></div>");
+	    $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select></div>");
+	    $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
+	    $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Confirm</button></div>");
 	});
 	$(document).on("click", "#conf-prov", function () {
 	    $.ajax({
@@ -138,12 +180,14 @@
 	});
 	$(document).on("click", ".req-r", function () {
 	    toemail = $(this).data("emailto");
-	    $("#searchEmail").val('');
 	    $("#srchrest").html('');
-	    $("#srchrest").append("<span>App:</span> <span>Releief Express</span>");
-	    $("#srchrest").append("<select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select>");
-	    $("#srchrest").append("<select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select>");
-	    $("#srchrest").append("<button id='conf-req'>Confirm</button>");
+	    var filterUl = $('<div class="providesAcc"></div>');
+	    $("#srchrest").append(filterUl);
+	    $("#searchEmail").val('');
+	    $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>Releief Express</span></div>");
+	    $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select></div>");
+	    $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
+	    $(filterUl).append("<div class='provideRow'><button id='conf-req'>Confirm</button></div>");
 	});
 	$(document).on("click", "#conf-req", function () {
 	    $.ajax({
@@ -173,5 +217,75 @@
 	$(".listGrid").on("click", function () {
 	    getAcct();
 	});
+
+	function loadData() {
+	    var data = myData;
+	    $(".viewSectionList").html('');
+	    $(".requestingSectionList").html('');
+	    $(".viewShareSectionList").html('');
+	    for (var clientKeys in data[0].RequestedUsers) {
+	        for (var resourceKeys in data[0].RequestedUsers[clientKeys]) {
+	            for (var scopeKeys in data[0].RequestedUsers.ReliefExpress[resourceKeys]) {
+	                for (var i = 0; i < data[0].RequestedUsers.ReliefExpress[resourceKeys][scopeKeys].length; i++) {
+	                    $(".requestingSectionList").append('<li> \
+                                                                    \ <strong class="clsUsr">x</strong>\
+                                                                    \ <div class="click listGrid"  data-id="#requests-id"> \
+                                                                    \  <h4>' + clientKeys + '</h4> \
+                                                                    \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>\
+                                                                    \ <h5>' + data[0].RequestedUsers.ReliefExpress[resourceKeys][scopeKeys][i] + '</h5>\
+                                                                    \ <p> This user is requesting you to <em class="scopeKey" >' + scopeKeys + '</em> your data.</p>\
+                                                                    \ </div>\
+                                                                    \ <div style="display:none;" class="resourcePro">' + resourceKeys + '</div> \
+                                                                    \   </li>');
+	                }
+	            }
+	        }
+	    }
+
+	    for (var clientKeys in data[0].MyDetailsSharedWith) {
+	        for (var resourceKeys in data[0].MyDetailsSharedWith[clientKeys]) {
+	            for (var scopeKeys in data[0].MyDetailsSharedWith[clientKeys][resourceKeys]) {
+	                for (var i = 0; i < data[0].MyDetailsSharedWith[clientKeys][resourceKeys][scopeKeys].length; i++) {
+	                    var item = data[0].MyDetailsSharedWith[clientKeys][resourceKeys][scopeKeys];
+	                    if (scopeKeys == "Read") {
+	                        $(".viewSectionList").append('<li> \
+                                                    \   <div class="listGrid"> \
+                                                    \   <h4>' + clientKeys + '</h4> \
+                                                    \   <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                                    \   <h5>' + data[0].MyDetailsSharedWith[clientKeys][resourceKeys][scopeKeys][i] + '</h5> \
+                                                    \   <div style="display:none;" class="resourcePro">' + resourceKeys + '</div> \
+                                                    \   </div> \
+                                                        </li>');
+	                    } else if (scopeKeys == "Share") {
+	                        $(".viewShareSectionList").append('<li> \
+                                                    \   <div class="listGrid"> \
+                                                    \   <h4>' + clientKeys + '</h4> \
+                                                    \   <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                                    \   <h5>' + data[0].MyDetailsSharedWith[clientKeys][resourceKeys][scopeKeys][i] + '</h5> \
+                                                    \   <div style="display:none;" class="resourcePro">' + resourceKeys + '</div> \
+                                                    \   </div> \
+                                                        </li>');
+	                    }
+	                }
+	            }
+	        }
+	    }
+	}
+
+	function getData() {
+	    $.ajax({
+	        url: "/permissionsData",
+	    })
+        .done(function (data, textStatus, jqXHR) {
+            if (data.length) {
+                myData = data;
+                loadData();
+                loadPermission();
+            }
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) { alert("Error11"); });
+	}
+
+	getData();
 
 })();

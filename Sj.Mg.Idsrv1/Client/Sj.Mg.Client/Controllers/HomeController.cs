@@ -129,6 +129,14 @@ namespace Sj.Mg.Client.Controllers
         }
 
         [Authorize]
+        [Route("permissionsData")]
+        public JsonResult PermissionsData()
+        {
+            List<Sj.Mg.CliLib.Model.RequestPerm> gg = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(User.Identity.Name);
+            return Json(gg, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
         [Route("user/{id}")]
         public JsonResult SearchUser(string id)
         {
@@ -334,6 +342,34 @@ namespace Sj.Mg.Client.Controllers
                 perm.MyDetailsSharedWith[toclient][toresrc][toscope].Add(un);
                 Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
             }
+            removeRequest(un, toemail, toclient, toresrc, toscope);
+        }
+
+        public void removeRequest(string un, string toemail, string toclient, string toresrc, string toscope)
+        {
+            var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
+            tt.ForEach(t =>
+            {
+                if (t.MyEmail == toemail)
+                {
+                    if (t.RequestedUsers.ContainsKey(toclient))
+                    {
+                        if (t.RequestedUsers[toclient].ContainsKey(toresrc))
+                        {
+                            if (t.RequestedUsers[toclient][toresrc].ContainsKey(toscope))
+                            {
+                                if (t.RequestedUsers[toclient][toresrc][toscope].Contains(un))
+                                {
+                                    //alreadyaccess = true;
+                                    t.RequestedUsers[toclient][toresrc][toscope].RemoveAt(t.RequestedUsers[toclient][toresrc][toscope].IndexOf(un));
+                                }
+                            }
+                        }
+                    }
+                    Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                    //alreadyaccess = true;
+                }
+            });
         }
 
         [Authorize]

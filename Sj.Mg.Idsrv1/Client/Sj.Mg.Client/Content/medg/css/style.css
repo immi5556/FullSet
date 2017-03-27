@@ -221,12 +221,17 @@ header {
     color: #1e3665;
     font-size: 13px;
     line-height: 16px;
+    position:relative;
+    top:5px;
 }
 .listGrid strong {
     color: #ce2129;
      font-size: 13px;
     line-height: 16px;
     font-weight: 400;
+}
+.listGrid em {
+    font-style: normal;
 }
 .usrPic {
     float: left;
@@ -262,8 +267,10 @@ header {
     color: #7a7a7a;
     font-size: 13px;
     line-height: 16px;
+    clear:both;
+    padding:5px;
 }
-.listGrid .clsUsr {
+.clsUsr {
 	position: absolute;
 	top: 9px;
 	right: 9px;
@@ -519,6 +526,9 @@ footer {
 .tabSectionMenu li:nth-child(4){
 	border-color:#31b543;
 }
+.tabSectionMenu li:nth-child(5){
+	border-color:#7a7a7a;
+}
 .tabSectionMenu li.active {
 	color: #fff;
 }
@@ -533,6 +543,9 @@ footer {
 }
 .tabSectionMenu li.active:nth-child(4){
 	background: #31b543;
+}
+.tabSectionMenu li.active:nth-child(5){
+	background: #7a7a7a;
 }
 .tabContentContainer {
 	clear: both;
@@ -660,20 +673,21 @@ footer {
 .obligationsCls h2 {
 	background: #31b543;
 }
+.scopesCls h2{
+    background: #7a7a7a;
+}
 .hidden-print {
 	display: block;
 	width: 200px;
 	margin: auto;
-	cursor: not-allowed;
-	color: red;
-	background-color: darkgray;
+	
 	border: 1px solid transparent;
 	margin-bottom: 0;
 	font-weight: normal;
 	text-align: center;
 	vertical-align: middle;
 	background-image: none;
-	border: 1px solid transparent;
+	
 	white-space: nowrap;
 	padding: 6px 12px;
 	font-size: 14px;
@@ -686,11 +700,129 @@ footer {
 	user-select: none;
 	margin-top: 10px;
 }
-#agreeChk:checked ~ .hidden-print {
+.hidden-print[disabled="disabled"] {
+    cursor: not-allowed;
+	color: red;
+	background-color: darkgray;
+    border: 1px solid transparent;
+}
+.hidden-print {
 	color: #fff;
 	cursor: pointer;
 	background-color: #5cb85c;
 	border-color: #4cae4c;
+}
+.scpChck {
+    position:absolute;
+    display:inline-block;
+    left:15px;
+    top:1px;
+    width:15px;
+    height:15px;
+    border:1px solid #7a7a7a;
+    border-radius:3px;
+    background:#fff;
+}
+.notification {
+    width:20px;
+    height:20px;
+    border-radius:6px;
+    background:red;
+    color:white;
+    font-size:11px;
+    text-align:center;
+    line-height:20px;
+    display:inline-block;
+    position:relative;
+    top:-3px;
+}
+.scopesCls > div {
+    padding-bottom:20px;
+}
+.scopesCls label {
+    position:relative;
+    padding:0 0 0 40px;
+}
+.scopeInput {
+    display:none;
+}
+.scopeInput:checked + .scpChck:after {
+    content: '';
+    width: 10px;
+    height: 5px;
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    border: 3px solid #31b543;
+    border-top: none;
+    border-right: none;
+	  -webkit-transform: rotate(-45deg);
+	          transform: rotate(-45deg);
+}
+#srchrest ul {
+    max-height:160px;
+    overflow-y:auto;
+    background:#dce1e9;
+}
+#srchrest ul li{
+    list-style:none;
+    color:#333;
+    text-align:center;
+    font-size:14px;
+    padding:7px 10px;
+    border-top:1px solid #ccc;
+}
+#srchrest ul li .provideRow {
+    padding:10px 0 0;
+}
+#srchrest ul li .provideRow a {
+    width:40%;
+    height:25px;
+    font-size:13px;
+    line-height:25px;
+    color:#fff;
+    display:inline-block;
+    text-align:center;
+    border-radius:6px;
+    margin:0 5%;
+    text-decoration:none;
+    background:#1e3665;
+}
+.providesAcc {
+    padding:10px 0;
+    background:#dce1e9;
+}
+.providesAcc .provideRow {
+    color:#333;
+    font-size:14px;
+    padding:7px 10px;
+}
+.providesAcc .provideRow label {
+    min-width:80px;
+    height:25px;
+    line-height:25px;
+    display:inline-block;
+}
+.providesAcc .provideRow select {
+    line-height:25px;
+    height:25px;
+    width:130px;
+    font-size:13px;
+    font-family: 'Cabin', sans-serif;
+}
+.providesAcc button {
+    width:40%;
+    height:25px;
+    font-size:13px;
+    line-height:25px;
+    color:#fff;
+    display:block;
+    text-align:center;
+    border-radius:6px;
+    margin:0 auto;
+    text-decoration:none;
+    outline:none;
+    background:#1e3665;
 }
 .searchBar .sec-heading {
     margin-left: -10px;
@@ -701,9 +833,9 @@ footer {
     position: relative;
      margin-top: 5px;
 }
-.requestingSectionList {
+/*.requestingSectionList {
     display: none;
-}
+}*/
 .sec-heading {
     position: relative;
 }

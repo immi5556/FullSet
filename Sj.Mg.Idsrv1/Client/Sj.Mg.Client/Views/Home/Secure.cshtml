@@ -33,89 +33,19 @@
                     <div class="viewSection">
                         <h2 class="sec-heading">View </h2>
                         <ul class="viewSectionList userList">
-                            <li>
-                                <div class="listGrid">
-                                    <h4>Relief Express</h4>
-                                    <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
-                                    <h5>John1</h5>
-                                    <strong>Designation</strong>
-                                </div>
-                            </li>
+                            
                         </ul>
                     </div>
                     <div class="viewShareSection">
                         <h2 class="sec-heading">Share</h2>
                         <ul class="viewShareSectionList userList">
-                            <li>
-                                <div class="listGrid">
-                                    <h4>Relief Express</h4>
-                                    <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
-                                    <h5>John1</h5>
-                                    <strong>Designation</strong>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="listGrid">
-                                    <h4>Relief Express</h4>
-                                    <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
-                                    <h5>John1</h5>
-                                    <strong>Designation</strong>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="listGrid">
-                                    <h4>Relief Express</h4>
-                                    <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
-                                    <h5>John1</h5>
-                                    <strong>Designation</strong>
-                                </div>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
                 <div class="contentRight">
-                    <h2 class="sec-heading active">Requesting Access</h2>
+                    <h2 class="sec-heading">Requesting Access <span class="notification">0</span></h2>
                     <ul class="requestingSectionList userList">
-                        <li class="click" data-id="#requests-id">
-                            <div class="listGrid">
-                                <h4>Relief Express</h4>
-                                <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
-                                <h5>John1</h5>
-                                <strong>Designation</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula. </p>
-                                <strong class="clsUsr">x</strong>
-                            </div>
-                        </li>
-                        <li class="click" data-id="#requests-id">
-                            <div class="listGrid">
-                                <h4>Relief Express</h4>
-                                <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
-                                <h5>John1</h5>
-                                <strong>Designation</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula. </p>
-                                <strong class="clsUsr">x</strong>
-                            </div>
-                        </li>
-                        <li class="click" data-id="#requests-id">
-                            <div class="listGrid">
-                                <h4>Relief Express</h4>
-                                <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
-                                <h5>John1</h5>
-                                <strong>Designation</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula. </p>
-                                <strong class="clsUsr">x</strong>
-                            </div>
-                        </li>
-                        <li class="click" data-id="#requests-id">
-                            <div class="listGrid">
-                                <h4>Relief Express</h4>
-                                <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>
-                                <h5>John1</h5>
-                                <strong>Designation</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula. </p>
-                                <strong class="clsUsr">x</strong>
-                            </div>
-                        </li>
                     </ul>
                     <div class="searchBar">
                         <h2 class="sec-heading">Find and Share</h2>
@@ -165,8 +95,9 @@
                         <div class="tabIntro">
                             <p>
                                 <label>
-                                    <input data-ng-model="patientSigned" class="ng-pristine ng-untouched ng-valid" id="agreeChk" type="checkbox"> <span data-ng-bind-html="org.ppn.signOff" class="ng-binding"><strong>By checking this box and clicking the button below, you acknowledge receipt of this notice.  To print this notice, click here <a href="#">hardcopy</a>.  You may also contact our office to request a printed copy.</strong></span>
-                                    <button class="hidden-print" data-ng-disabled="!patientSigned" data-role="sign-agreement" data-ng-click="signAgreement()" disabled="disabled">I agree, continue</button>
+                                    <!--<input data-ng-model="patientSigned" class="ng-pristine ng-untouched ng-valid" type="checkbox"> <span data-ng-bind-html="org.ppn.signOff" class="ng-binding"><strong>By checking this box and clicking the button below, you acknowledge receipt of this notice.  To print this notice, click here <a href="#">hardcopy</a>.  You may also contact our office to request a printed copy.</strong></span>-->
+                                    <span><strong>Check the scopes tab for complete request details.</strong></span>
+                                    <button class="hidden-print requestAgreed" data-ng-disabled="!patientSigned" data-role="sign-agreement" data-ng-click="signAgreement()" disabled="disabled">I agree, continue</button>
                                 </label>
                             </p>
 
@@ -176,6 +107,7 @@
                             <li>Your Choices</li>
                             <li>Our Uses and Disclosures</li>
                             <li>Our Obligations</li>
+                            <li>Scopes</li>
                         </ul>
                         <div class="tabContSec rightsCls active">
                             <h2>Your Rights</h2>
@@ -353,7 +285,10 @@
                                 <p><strong class="ng-binding">HIPAA Compliance Dept., Phone: 123-555-1212, xxxx N. 11th Ave, Dallas, TX 75021</strong></p>
                             </section>
                         </div>
-
+                        <div class="tabContSec scopesCls">
+                            <h2>Scopes</h2>
+                            <div><label><input type="checkbox" class="scopeInput"/><em class="scpChck"></em><span class="scopesData"></span></label></div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -364,7 +299,7 @@
         
     </script>
     <script type="text/javascript" src="/content/medg/js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="/content/libs/encoder/encoder.min.js"></script>
+    <!--<script type="text/javascript" src="/content/libs/encoder/encoder.min.js"></script>-->
     <script src="/Content/medg/js/jquery.slimscroll.min.js"></script>
     <script type="text/javascript" src="/content/medg/js/custom1.js"></script>
     <script type="text/javascript" src="/content/medg/js/tabs.js"></script>
