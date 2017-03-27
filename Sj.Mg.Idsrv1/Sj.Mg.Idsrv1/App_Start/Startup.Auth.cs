@@ -12,6 +12,7 @@ using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Twitter;
 using Serilog;
 using Microsoft.Owin.Security.OpenIdConnect;
+using System.Threading.Tasks;
 
 namespace Sj.Mg.Idsrv1
 {
@@ -91,9 +92,17 @@ namespace Sj.Mg.Idsrv1
                 SignInAsAuthenticationType = signInAsType,
                 AppId = "1909035272666825",
                 AppSecret = "1bba429b29e7cdb59e6d594e29ba717a",
-                Scope = { "email" },
-                UserInformationEndpoint = "https://graph.facebook.com/v2.7/me?fields=id,name,email"
+                Provider = new FacebookAuthenticationProvider()
+                {
+                    OnAuthenticated = (context) =>
+                    {
+                        context.Identity.AddClaim(new System.Security.Claims.Claim("urn:facebook:access_token", context.AccessToken, System.Security.Claims.ClaimValueTypes.String, "Facebook"));
+                        return Task.FromResult(0);
+                    }
+                }
+
             };
+            fb.Scope.Add("email");
             app.UseFacebookAuthentication(fb);
 
             var twitter = new TwitterAuthenticationOptions

@@ -48,7 +48,22 @@ namespace Sj.Mg.Idsrv1.Custom
             // look for the user in our local identity system from the external identifiers
             //var user = Users.SingleOrDefault(x => x.Provider == context.ExternalIdentity.Provider && x.ProviderID == context.ExternalIdentity.ProviderId);
             string name = "Unknown";
-            string email = context.ExternalIdentity.Claims.First(x => x.Type == Constants.ClaimTypes.Email).Value;
+            string email = "";
+            if (context.ExternalIdentity.Provider == "Facebook")
+            {
+                var claimsList = context.ExternalIdentity.Claims.ToList();
+                var extraClaims = GetAdditionalFacebookClaims(context.ExternalIdentity.Claims.First(claim => claim.Type == "urn:facebook:access_token"));
+                email = extraClaims.SelectToken("email").ToString();
+                claimsList.Add(new Claim("email", extraClaims.SelectToken("email").ToString()));
+                claimsList.Add(new Claim("given_name", extraClaims.SelectToken("first_name").ToString()));
+                claimsList.Add(new Claim("family_name", extraClaims.SelectToken("last_name").ToString()));
+                context.ExternalIdentity.Claims = claimsList;
+            }
+            if (context.ExternalIdentity.Provider == "Google")
+            {
+                email = context.ExternalIdentity.Claims.First(x => x.Type == Constants.ClaimTypes.Email).Value;
+            }
+
             Dictionary<string, object> filter = new Dictionary<string, object>();
             filter.Add("Provider", context.ExternalIdentity.Provider);
             filter.Add("ProviderID", context.ExternalIdentity.ProviderId);
@@ -100,7 +115,12 @@ namespace Sj.Mg.Idsrv1.Custom
 
             return Task.FromResult(0);
         }
-
+        protected static Newtonsoft.Json.Linq.JObject GetAdditionalFacebookClaims(Claim accessToken)
+        {
+            var fb = new Facebook.FacebookClient(accessToken.Value);
+            var tt = fb.Get("me", new { fields = new[] { "email", "first_name", "last_name" } });
+            return Newtonsoft.Json.Linq.JObject.FromObject(tt);
+        }
         public override Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var dict = new Dictionary<string, object>();
