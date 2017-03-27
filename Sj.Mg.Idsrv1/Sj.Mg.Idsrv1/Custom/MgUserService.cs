@@ -81,6 +81,7 @@ namespace Sj.Mg.Idsrv1.Custom
                     user = new CustomUser()
                     {
                         Subject = email,
+                        Username = email,
                         Provider = context.ExternalIdentity.Provider,
                         ProviderID = context.ExternalIdentity.ProviderId,
                         //Claims = context.ExternalIdentity.Claims.ToList()
