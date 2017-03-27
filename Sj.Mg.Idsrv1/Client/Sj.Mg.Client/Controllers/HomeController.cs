@@ -119,6 +119,7 @@ namespace Sj.Mg.Client.Controllers
         {
             //var token1 = (User as ClaimsPrincipal).FindFirst("access_token").Value;
             var token1 = (User as ClaimsPrincipal).FindFirst("id_token").Value;
+            ViewBag.FullName = (User as ClaimsPrincipal).FindFirst("given_name").Value + ", " + (User as ClaimsPrincipal).FindFirst("family_name").Value;
             var jo = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(token1);
             var token = (User as System.Security.Claims.ClaimsPrincipal);
             foreach (var tt in token.Claims)

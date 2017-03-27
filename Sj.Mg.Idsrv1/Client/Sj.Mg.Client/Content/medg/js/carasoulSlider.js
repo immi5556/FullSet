@@ -54,7 +54,12 @@ var isMobile = {
           for(var i=0; i < myCarouselData.length; i++){
               var list = $('<li><img src="' + myCarouselData[i].icon + '"><span>' + myCarouselData[i].title + '</span></li>');
               list.on("click", function () {
-
+                  selectedresource = $(this).find("span").text();
+                  if (selectedresource == "Diagnosis") {
+                      selectedresource = "Diagnostics";
+                  }
+                  $(".categ-hdr").text(selectedresource);
+                  permission.loaddata();
               });
             sliderUL.append(list);
           };

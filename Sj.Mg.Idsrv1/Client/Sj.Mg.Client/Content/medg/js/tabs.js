@@ -1,4 +1,13 @@
-
+var selectedclient = "ReliefExpress", selectedresource = "Demographic";
+$(document).on("click", ".subLi", function () {
+    selectedclient = $(this).find("strong").text();
+    if (selectedclient == "Relief Express") {
+        selectedclient = "ReliefExpress";
+    }
+    else if (selectedclient == "Neuro Care Partners") {
+        selectedclient = "NeuroCarePartners";
+    }
+});
 (function ($) {
     
 	$.fn.myTabs = function(opt){

@@ -17,7 +17,7 @@
                 <a href="#" id="logo"><img src="/Content/medg/images/logo.png"></a>
                 <ul class="hNav">
                     <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-                    <li><a href="#" style="    background-color: #ff2c00;padding: 6px 8px;border-radius: 7px;"><i class="fa fa-user userName" aria-hidden="true">@User.Identity.Name</i></a></li>
+                    <li><a href="#" style="    background-color: #ff2c00;padding: 6px 8px;border-radius: 7px;"><i class="fa fa-user userName" aria-hidden="true">@ViewBag.FullName</i></a></li>
                     <li><a class="logout" href="/home/Signout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
                 </ul>
                 <!-- <div class="hamberMenu">
@@ -65,11 +65,11 @@
                     <span class="slideDown"></span>
                 </div>
                 <div class="catagoryContent">
-                    <div class="container">
-                        <h3>Diagnosis</h3>
-                        <p>
+                    <div class="container category-display">
+                        <h3 class="categ-hdr">Diagnosis</h3>
+                        <pre id="data-disp">
                             details...
-                        </p>
+                        </pre>
                     </div>
                 </div>
             </div>
