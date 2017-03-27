@@ -146,23 +146,13 @@ namespace Sj.Mg.Client.Controllers
             //    Console.WriteLine(tt.Value);
             //}
             List< Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(id);
-            int index = gg.FindIndex(x => x.Username == User.Identity.Name);
+            int index = gg.FindIndex(x => x.Subject == User.Identity.Name);
             
             if(index != -1)
                 gg.RemoveAt(index);
 
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
-
-        [Authorize]
-        [Route("getMyData")]
-        public JsonResult GetMyData(string id)
-        {
-            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(id);
-            int index = gg.FindIndex(x => x.Subject== User.Identity.Name);
-            return Json(gg[index], JsonRequestBehavior.AllowGet);
-        }
-        
 
         [Authorize]
         [Route("request/{toemail}/{toclient}/{toresrc}/{toscope}")]
@@ -476,6 +466,12 @@ namespace Sj.Mg.Client.Controllers
                 return result;
             }
             return null;
+        }
+
+        public ActionResult Signout()
+        {
+            Request.GetOwinContext().Authentication.SignOut();
+            return Redirect("/");
         }
     }
 }

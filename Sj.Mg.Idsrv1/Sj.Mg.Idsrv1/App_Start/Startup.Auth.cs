@@ -90,7 +90,9 @@ namespace Sj.Mg.Idsrv1
                 AuthenticationType = "Facebook",
                 SignInAsAuthenticationType = signInAsType,
                 AppId = "1909035272666825",
-                AppSecret = "1bba429b29e7cdb59e6d594e29ba717a"
+                AppSecret = "1bba429b29e7cdb59e6d594e29ba717a",
+                Scope = { "email" },
+                UserInformationEndpoint = "https://graph.facebook.com/v2.7/me?fields=id,name,email"
             };
             app.UseFacebookAuthentication(fb);
 

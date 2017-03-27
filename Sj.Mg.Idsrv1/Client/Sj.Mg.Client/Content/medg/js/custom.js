@@ -149,7 +149,7 @@
             $("#srchrest").append(filterUl);
             //alert("Success: " + data);
             (data || []).forEach(function (item) {
-                $(filterUl).append("<li><span>" + item.Username + "</span> <div class='provideRow'><a data-emailto=" + item.Username + " class='req-r' href='javascript:void(0);'>Request</a><a data-emailto=" + item.Username + " class='pro-r' href='javascript:void(0);'>Provide</a></div></li>")
+                $(filterUl).append("<li><span>" + item.Subject + "</span> <div class='provideRow'><a data-emailto=" + item.Subject + " class='req-r' href='javascript:void(0);'>Request</a><a data-emailto=" + item.Subject + " class='pro-r' href='javascript:void(0);'>Provide</a></div></li>")
             });
         })
         .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
@@ -242,17 +242,17 @@
 	        }
 	    }
 
-	    for (var clientKeys in data[0].MyDetailsSharedWith) {
-	        for (var resourceKeys in data[0].MyDetailsSharedWith[clientKeys]) {
-	            for (var scopeKeys in data[0].MyDetailsSharedWith[clientKeys][resourceKeys]) {
-	                for (var i = 0; i < data[0].MyDetailsSharedWith[clientKeys][resourceKeys][scopeKeys].length; i++) {
-	                    var item = data[0].MyDetailsSharedWith[clientKeys][resourceKeys][scopeKeys];
+	    for (var clientKeys in data[0].AllowedUsers) {
+	        for (var resourceKeys in data[0].AllowedUsers[clientKeys]) {
+	            for (var scopeKeys in data[0].AllowedUsers[clientKeys][resourceKeys]) {
+	                for (var i = 0; i < data[0].AllowedUsers[clientKeys][resourceKeys][scopeKeys].length; i++) {
+	                    var item = data[0].AllowedUsers[clientKeys][resourceKeys][scopeKeys];
 	                    if (scopeKeys == "Read") {
 	                        $(".viewSectionList").append('<li> \
                                                     \   <div class="listGrid"> \
                                                     \   <h4>' + clientKeys + '</h4> \
                                                     \   <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
-                                                    \   <h5>' + data[0].MyDetailsSharedWith[clientKeys][resourceKeys][scopeKeys][i] + '</h5> \
+                                                    \   <h5>' + data[0].AllowedUsers[clientKeys][resourceKeys][scopeKeys][i] + '</h5> \
                                                     \   <div style="display:none;" class="resourcePro">' + resourceKeys + '</div> \
                                                     \   </div> \
                                                         </li>');
@@ -261,7 +261,7 @@
                                                     \   <div class="listGrid"> \
                                                     \   <h4>' + clientKeys + '</h4> \
                                                     \   <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
-                                                    \   <h5>' + data[0].MyDetailsSharedWith[clientKeys][resourceKeys][scopeKeys][i] + '</h5> \
+                                                    \   <h5>' + data[0].AllowedUsers[clientKeys][resourceKeys][scopeKeys][i] + '</h5> \
                                                     \   <div style="display:none;" class="resourcePro">' + resourceKeys + '</div> \
                                                     \   </div> \
                                                         </li>');
@@ -285,19 +285,5 @@
         })
         .fail(function (jqXHR, textStatus, errorThrown) { alert("Error11"); });
 	}
-
-	function getMyData() {
-	    $.ajax({
-	        url: "/getMyData",
-	    })
-        .done(function (data, textStatus, jqXHR) {
-                profileData = data;
-                $(".userName").text(data.Username);
-                getData();
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) { alert("Error1"); });
-	}
-
-	getMyData();
-
+	getData();
 })();
