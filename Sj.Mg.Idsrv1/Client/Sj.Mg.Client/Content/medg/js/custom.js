@@ -260,6 +260,15 @@ var permission = (function () {
                             scope: scopeKeys
                         });
                         $li.on("click", function () {
+                            $.ajax({
+                                url: "/home/ReqData",
+                                type: "POST",
+                                data: $(this).data("scpdata")
+                            })
+                            .done(function (data, textStatus, jqXHR) {
+                                alert(data);
+                            })
+                            .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
                         });
                         $(".viewSectionList").append($li);
 

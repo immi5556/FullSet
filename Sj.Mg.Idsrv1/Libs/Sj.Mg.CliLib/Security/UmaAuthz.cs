@@ -48,17 +48,6 @@ namespace Sj.Mg.CliLib.Security
                     }
                 });
 
-                //JToken rtk = jo.SelectToken("rptkn").SelectToken("permissions", false);
-                //List<Model.resource> perms = rtk.ToObject<List<Model.resource>>();
-                //bool allow = false;
-                //perms.ForEach(t =>
-                //{
-                //    if (t.scopes.Intersect(AllowedScopes).Any())
-                //    {
-                //        allow = true;
-                //        return;
-                //    }
-                //});
                 if (!allow)
                 {
                     var httpClient = Utils.HelperHttpClient.GetClient();
@@ -70,7 +59,10 @@ namespace Sj.Mg.CliLib.Security
                     jo.SelectToken("rptkn")["permissions"] = JArray.FromObject(perms);
                     //jo["rptkn"] =   perms;
                     httpClient.SetBearerToken(Utils.TokenHelper.CreateJwt(jo.ToString()));
-                    var tt = httpClient.GetAsync("https://localhost:44305/Service/PermTkt").Result;
+                    var url = "https://localhost:44305/Service/PermTkt";
+                    if (actionContext.RequestContext.RouteData.Values.ContainsKey("ids"))
+                        url = url + "/" + actionContext.RequestContext.RouteData.Values["ids"].ToString();
+                    var tt = httpClient.GetAsync(url).Result;
                     var msg = tt.Content.ReadAsStringAsync().Result;
                     HttpResponseMessage responseMessage = new HttpResponseMessage()
                     {

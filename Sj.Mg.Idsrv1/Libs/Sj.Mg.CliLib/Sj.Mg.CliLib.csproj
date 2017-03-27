@@ -152,6 +152,7 @@
     <Compile Include="Initializer.cs" />
     <Compile Include="Model\CustomClaim.cs" />
     <Compile Include="Model\CustomUser.cs" />
+    <Compile Include="Model\Params\ReqParam.cs" />
     <Compile Include="Model\permission.cs" />
     <Compile Include="Model\RequestPerm.cs" />
     <Compile Include="Model\resource.cs" />

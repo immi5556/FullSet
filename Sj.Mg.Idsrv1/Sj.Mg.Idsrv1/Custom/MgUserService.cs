@@ -65,8 +65,8 @@ namespace Sj.Mg.Idsrv1.Custom
             }
 
             Dictionary<string, object> filter = new Dictionary<string, object>();
-            filter.Add("Provider", context.ExternalIdentity.Provider);
-            filter.Add("ProviderID", context.ExternalIdentity.ProviderId);
+            //filter.Add("Provider", context.ExternalIdentity.Provider);
+            //filter.Add("ProviderID", context.ExternalIdentity.ProviderId);
             filter.Add("Subject", email);
             var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter, "Users");
             CustomUser user = (tt == null || tt.Count == 0) ? null : tt[0];

@@ -19,15 +19,15 @@ namespace Sj.Mg.Resource.Server.Controllers
             return Code.AccountManager.Get();
         }
 
-        [Authorize]
+        [Route("api/account/{ids}")]
         [CliLib.Security.UmaAuthz("Patient/Account.Read")]
         [HttpGet]
-        public List<Hl7.Fhir.Model.Account> Get(string ids)
+        public List<Hl7.Fhir.Model.Account> GetActs(string ids)
         {
+            var id = System.Web.HttpUtility.UrlDecode(ids ?? "");
             return Code.AccountManager.Get(ids);
         }
 
-        [Authorize]
         [CliLib.Security.UmaAuthz("Patient/Account.Write", "Patient/Account.*")]
         [HttpPost]
         public void Post([FromBody]Hl7.Fhir.Model.Account act)

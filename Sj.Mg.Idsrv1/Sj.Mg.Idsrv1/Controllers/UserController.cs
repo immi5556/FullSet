@@ -48,8 +48,8 @@ namespace Sj.Mg.Idsrv1.Controllers
                 }
                 var dict = new Dictionary<string, object>();
                 dict.Add("Subject", subject);
-                if (!string.IsNullOrEmpty(idp))
-                    dict.Add("Provider", idp);
+                //if (!string.IsNullOrEmpty(idp))
+                    //dict.Add("Provider", idp);
                 var db_user = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(dict, "Users").FirstOrDefault();// Custom.MgUserService.Users.Single(x => x.Subject == subject);
                 db_user.Claims.Add(new Claim(Constants.ClaimTypes.GivenName, model.First));
                 db_user.Claims.Add(new Claim(Constants.ClaimTypes.FamilyName, model.Last));

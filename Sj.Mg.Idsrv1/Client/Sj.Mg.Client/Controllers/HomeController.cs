@@ -379,11 +379,20 @@ namespace Sj.Mg.Client.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public JsonResult ReqData(Sj.Mg.CliLib.Model.Params.ReqParam para)
+        {
+            var basetkn = GetEmptyRptToken();
+            var acct = Execute<List<Hl7.Fhir.Model.Account>>(@"https://localhost:44306/Api/Account/" + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+            return Json(acct, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
         [Route("account/{id}")]
         public JsonResult GetAccount(string id)
         {
             var basetkn = GetEmptyRptToken();
-            var acct = Execute<List<Hl7.Fhir.Model.Account>>(@"https://localhost:44306/Api/Account", basetkn);
+            var acct = Execute<List<Hl7.Fhir.Model.Account>>(@"https://localhost:44306/Api/Account/" + id, basetkn);
             return Json(acct, JsonRequestBehavior.AllowGet);
         }
         T ExecuteProc<T>(string url, string basetkn)

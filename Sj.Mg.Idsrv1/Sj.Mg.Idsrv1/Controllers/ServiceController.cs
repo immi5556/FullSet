@@ -83,7 +83,9 @@ namespace Sj.Mg.Idsrv1.Controllers
                 return Json(new { Error = "Invalid token." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public JsonResult PermTkt() // From rsource server with scopes epected
+
+        [Route("Service/PermTkt/{ids}")]
+        public JsonResult PermTkt(string ids) // From rsource server with scopes epected
         {
             try
             {
@@ -94,6 +96,7 @@ namespace Sj.Mg.Idsrv1.Controllers
                 //create a new permission ticket with list of scopes expected
                 Sj.Mg.CliLib.Model.permission rsr = new CliLib.Model.permission();
                 rsr.ticket = rsr.Id.ToString();
+                rsr.subjects = (ids ?? "").Replace("^2E", ".").Split(',').ToList();
                 rsr.requestedscopes = perms;
                 Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.permission>(rsr, "PermTkt");
                 //return Json(Sj.Mg.CliLib.Utils.TokenHelper.CreateJwt(actkn.ToString()), JsonRequestBehavior.AllowGet);
