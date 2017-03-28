@@ -264,6 +264,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+    <None Include="Properties\PublishProfiles\wewew.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Fhir\Client\Hl7.Fhir.Core\Hl7.Fhir.Core.Net45.csproj">

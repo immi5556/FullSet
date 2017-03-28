@@ -8,10 +8,6 @@ namespace Sj.Mg.Resource.Server.Code
 {
     public class Utils
     {
-        //public static Uri endpoint = new Uri("http://spark.furore.com/fhir");
-        //public static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
-        public static Uri endpoint = new Uri("http://localhost:49922/fhir");
-
         public static string nsurl = "http://oidc.medgrotto.com/";
         public static ResourceReference GetResourceReference(string display, string reference)
         {

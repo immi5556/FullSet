@@ -24,7 +24,7 @@ namespace Sj.Mg.Resource.Server.Code
         }
         public static List<Hl7.Fhir.Model.Account> Get(string search)
         {
-            var client = new FhirClient(Utils.endpoint);
+            var client = new FhirClient(CliLib.Utils.Common.fhirendpoint);
             List<Hl7.Fhir.Model.Account> ret = new List<Account>();
             var query = new string[] { "name=" + (search ?? "") };
             Bundle bundle = null;
@@ -54,7 +54,7 @@ namespace Sj.Mg.Resource.Server.Code
         public static void Insert(string name, string status,
             string actype, string desc)
         {
-            var client = new FhirClient(Utils.endpoint);
+            var client = new FhirClient(CliLib.Utils.Common.fhirendpoint);
             Account act = new Account()
             {
                 Name = name ?? "Account1",

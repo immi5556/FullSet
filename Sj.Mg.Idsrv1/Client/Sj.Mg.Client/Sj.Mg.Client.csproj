@@ -355,6 +355,7 @@
     <Content Include="Content\medg\js\tabData.json" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Home\Secure.cshtml" />
+    <None Include="Properties\PublishProfiles\wewe.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Sj.Mg.Mongo\Sj.Mg.Mongo.csproj">

@@ -12,7 +12,7 @@ namespace Sj.Mg.Resource.Server.Code
         public static List<Hl7.Fhir.Model.Patient> Get(string search)
         {
             List<Hl7.Fhir.Model.Patient> ret = new List<Hl7.Fhir.Model.Patient>();
-            var client = new FhirClient(Utils.endpoint);
+            var client = new FhirClient(CliLib.Utils.Common.fhirendpoint);
             var query = new string[] { "name=" + (search ?? "") };
             Bundle bundle = null;
             if (string.IsNullOrEmpty(search))
