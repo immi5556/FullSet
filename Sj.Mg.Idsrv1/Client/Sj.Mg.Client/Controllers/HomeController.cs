@@ -17,6 +17,7 @@ namespace Sj.Mg.Client.Controllers
     [EnableCors("*", "*", "GET, POST, PATCH", "*")]
     public class HomeController : CliLib.Security.UmaController
     {
+        log4net.ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
         [Authorize]
         public async Task<ActionResult> Index()
         {
@@ -34,14 +35,16 @@ namespace Sj.Mg.Client.Controllers
             }
             catch (Exception exp)
             {
+                log.Error("RptTknEndpoint Error" + exp.ToString());
                 Console.WriteLine(exp.ToString());
             }
             try
             {
-                dyn.Acct1 = Execute<List<Hl7.Fhir.Model.Account>>(CliLib.Utils.Common.ReApiAccount, basetkn);
+                dyn.Acct1 = Execute<List<Hl7.Fhir.Model.Account>>(CliLib.Utils.Common.ReApiAccount + "123", basetkn);
             }
             catch (Exception exp)
             {
+                log.Error("Account Error" + exp.ToString());
                 if (exp.Message.Contains("403 (Forbidden)"))
                 {
                     dyn.Acct1 = "Acces Denied";
@@ -54,10 +57,11 @@ namespace Sj.Mg.Client.Controllers
             }
             try
             {
-                dyn.Medi1 = Execute<List<Hl7.Fhir.Model.Medication>>(CliLib.Utils.Common.ReApiMedication, basetkn);
+                dyn.Medi1 = Execute<List<Hl7.Fhir.Model.Medication>>(CliLib.Utils.Common.ReApiMedication + "123", basetkn);
             }
             catch (Exception exp)
             {
+                log.Error("Medication Error" + exp.ToString());
                 if (exp.Message.Contains("403 (Forbidden)"))
                 {
                     dyn.Medi1 = "Acces Denied";
@@ -74,6 +78,7 @@ namespace Sj.Mg.Client.Controllers
             }
             catch (Exception exp)
             {
+                log.Error("Patient Error" + exp.ToString());
                 if (exp.Message.Contains("403 (Forbidden)"))
                 {
                     dyn.Pati1 = "Acces Denied";
@@ -90,6 +95,7 @@ namespace Sj.Mg.Client.Controllers
             }
             catch (Exception exp)
             {
+                log.Error("Observation Error" + exp.ToString());
                 if (exp.Message.Contains("403 (Forbidden)"))
                 {
                     dyn.Obsr1 = "Acces Denied";
@@ -437,6 +443,7 @@ namespace Sj.Mg.Client.Controllers
 
                 }
             }
+            log.Info("Data Recieved" + result);
             string fintkn = ValidPermTkt(result, basetkn);
             if (fintkn != null)
                 return ExecuteProc<T>(url, fintkn.Replace("\"", ""));

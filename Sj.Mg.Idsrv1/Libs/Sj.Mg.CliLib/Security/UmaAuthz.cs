@@ -11,6 +11,7 @@ namespace Sj.Mg.CliLib.Security
 {
     public class UmaAuthz : Thinktecture.IdentityModel.WebApi.ScopeAuthorizeAttribute
     {
+        log4net.ILog log = log4net.LogManager.GetLogger(typeof(UmaAuthz));
         public string[] AllowedScopes { get; set; }
         public UmaAuthz(params string[] scopes) : base(scopes)
         {
@@ -64,6 +65,7 @@ namespace Sj.Mg.CliLib.Security
                     var url = Utils.Common.StsPermTktEndpoint;
                     if (actionContext.RequestContext.RouteData.Values.ContainsKey("ids"))
                         url = url + "/" + actionContext.RequestContext.RouteData.Values["ids"].ToString();
+                    log.Info("url: " + url);
                     var tt = httpClient.GetAsync(url).Result;
                     var msg = tt.Content.ReadAsStringAsync().Result;
                     HttpResponseMessage responseMessage = new HttpResponseMessage()
@@ -71,6 +73,7 @@ namespace Sj.Mg.CliLib.Security
                         Content = new StringContent(msg),
                         ReasonPhrase = "Permission ticket"
                     };
+                    log.Info("msg: " + msg);
                     responseMessage.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
                     responseMessage.Content.Headers.Add("Access-Control-Allow-Origin", "*");
                     actionContext.Response = responseMessage;
