@@ -289,7 +289,6 @@
     <Content Include="Content\medg\css\fonts.css" />
     <Content Include="Content\medg\css\Site.css" />
     <Content Include="Content\medg\css\style.css" />
-    <Content Include="Content\medg\css\tableData.css" />
     <Content Include="Content\medg\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\medg\fonts\nexa_bold-demo.html" />
     <Content Include="Content\medg\images\accessIcon.png" />

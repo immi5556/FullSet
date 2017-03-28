@@ -122,7 +122,8 @@ namespace Sj.Mg.CliLib
             JwtSecurityTokenHandler.InboundClaimTypeMap = new Dictionary<string, string>();
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationType = "Cookies"
+                AuthenticationType = "Cookies",
+                SlidingExpiration = true
             });
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
@@ -136,6 +137,7 @@ namespace Sj.Mg.CliLib
                 Scope = "openid profile address uma_authorization offline_access",
                 //Scope = "openid profile address offline_access Patient/Account Patient/Medication Patient/Observation patient/Patient uma_authorization",
                 PostLogoutRedirectUri = Utils.Common.ReClientMvc,
+                UseTokenLifetime = true,
                 Notifications = new OpenIdConnectAuthenticationNotifications()
                 {
 
