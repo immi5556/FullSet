@@ -1,0 +1,59 @@
+﻿{
+  "resourceType": "Medication",
+  "text": {
+    "status": "generated"
+  },
+  "contained": [
+    {
+      "resourceType": "Substance",
+      "id": "sub03",
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "116602009",
+            "display": "Prednisone (substance)"
+          }
+        ]
+      }
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "373994007",
+        "display": "Prednisone 5mg tablet (Product)"
+      }
+    ]
+  },
+  "isBrand": false,
+  "form": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "385055001",
+        "display": "Tablet dose form (qualifier value)"
+      }
+    ]
+  },
+  "ingredient": [
+    {
+      "itemReference": {
+        "reference": "#sub03"
+      },
+      "amount": {
+        "numerator": {
+          "value": 5,
+          "system": "http://unitsofmeasure.org",
+          "code": "mg"
+        },
+        "denominator": {
+          "value": 1,
+          "system": "http://hl7.org/fhir/v3/orderableDrugForm",
+          "code": "TAB"
+        }
+      }
+    }
+  ]
+}

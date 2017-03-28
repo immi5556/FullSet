@@ -14,8 +14,8 @@ namespace Fhir.Client
     class Program
     {
         //static Uri endpoint = new Uri("http://spark.furore.com/fhir");
-        //static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
-        static Uri endpoint = new Uri("http://localhost:49922/fhir");
+        static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
+        //static Uri endpoint = new Uri("http://localhost:49922/fhir");
         static void Main(string[] args)
         {
             System.Net.ServicePointManager.ServerCertificateValidationCallback =
@@ -45,10 +45,79 @@ namespace Fhir.Client
             //InsertDiagn();
 
             //InsertPat();
-            SearchPats();
+            //SearchPats();
+
+            //InsObs();
+            //GetObs();
+
+            //InsMds(); //Not tested
+
+            InsAct();
 
             Console.ReadKey();
         }
+        static void InsAct()
+        {
+            string data = System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Act_Sample.json");
+            var act = (Account)FhirParser.ParseFromJson(data);
+            var client = new FhirClient(endpoint);
+            (new List<string>()
+            {
+                "bob@smith.co", "john@john.co",  "sam@sam.co", "saphire@saphire.co", "alice@bob.co", "bob@bob.co", "admin@medgrotto.com"
+            }).ForEach(t =>
+            {
+                act.Identifier[0].Value = t;
+                act.Subject.Reference = "Patient/" + t;
+                var tt = FhirSerializer.SerializeResourceToJson(act);
+                var ttx = FhirSerializer.SerializeResourceToXml(act);
+                client.Create<Account>(act);
+            });
+        }
+        static void InsMds() //Not tested
+        {
+            string data = System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Med_Sample.json");
+            var obs = (Observation)FhirParser.ParseFromJson(data);
+            var client = new FhirClient(endpoint);
+            (new List<string>()
+            {
+                "bob@smith.co", "john@john.co",  "sam@sam.co", "saphire@saphire.co", "alice@bob.co", "bob@bob.co", "admin@medgrotto.com"
+            }).ForEach(t =>
+            {
+                obs.Identifier[0].Value = t;
+                obs.Subject.Reference = "Patient/" + t;
+                client.Create<Observation>(obs);
+            });
+        }
+        static void GetObs()
+        {
+            string str = "";
+            var client = new FhirClient(endpoint);
+            var query = new string[] { "identifier=bob@bob.co" };
+            var bundle = client.Search("Patient", query);
+            foreach (var entry in bundle.Entry)
+            {
+                Patient p = (Patient)entry.Resource;
+                str = str + p.Id + " " + p.Language + " " + "\r\n";
+            }
+            Console.WriteLine(str);
+        }
+
+        static void InsObs()
+        {
+            string data = System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Obs_Sample.json");
+            var obs = (Observation)FhirParser.ParseFromJson(data);
+            var client = new FhirClient(endpoint);
+            (new List<string>()
+            {
+                "bob@smith.co", "john@john.co",  "sam@sam.co", "saphire@saphire.co", "alice@bob.co", "bob@bob.co", "admin@medgrotto.com"
+            }).ForEach(t =>
+            {
+                obs.Identifier[0].Value = t;
+                obs.Subject.Reference = "Patient/" + t;
+                client.Create<Observation>(obs);
+            });
+        }
+
         static void SearchPats()
         {
             string str = "";
@@ -68,9 +137,17 @@ namespace Fhir.Client
             string data = System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Patient_Sample.json");
             var pt = (Patient)FhirParser.ParseFromJson(data);
             var client = new FhirClient(endpoint);
-            var tt = FhirSerializer.SerializeResourceToJson(pt);
-            var ttx = FhirSerializer.SerializeResourceToXml(pt);
-            client.Create<Patient>(pt);
+            (new List<string>()
+            {
+                "bob@smith.co", "john@john.co",  "sam@sam.co", "saphire@saphire.co", "alice@bob.co", "bob@bob.co", "admin@medgrotto.com"
+            }).ForEach(t =>
+            {
+                pt.Identifier[0].Value = t;
+                client.Create<Patient>(pt);
+            });
+            //var tt = FhirSerializer.SerializeResourceToJson(pt);
+            //var ttx = FhirSerializer.SerializeResourceToXml(pt);
+            //client.Create<Patient>(pt);
 
             //var pt = new Patient()
             //{
