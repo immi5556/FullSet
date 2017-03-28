@@ -50,9 +50,10 @@ namespace Fhir.Client
             //InsObs();
             //GetObs();
 
-            //InsMds(); //Not tested
+            InsMds(); 
 
-            InsAct();
+            //InsAct();
+
 
             Console.ReadKey();
         }
@@ -76,16 +77,15 @@ namespace Fhir.Client
         static void InsMds() //Not tested
         {
             string data = System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Med_Sample.json");
-            var obs = (Observation)FhirParser.ParseFromJson(data);
+            var med = (MedicationStatement)FhirParser.ParseFromJson(data);
             var client = new FhirClient(endpoint);
             (new List<string>()
             {
                 "bob@smith.co", "john@john.co",  "sam@sam.co", "saphire@saphire.co", "alice@bob.co", "bob@bob.co", "admin@medgrotto.com"
             }).ForEach(t =>
             {
-                obs.Identifier[0].Value = t;
-                obs.Subject.Reference = "Patient/" + t;
-                client.Create<Observation>(obs);
+                med.Identifier[0].Value = t;
+                client.Create<MedicationStatement>(med);
             });
         }
         static void GetObs()

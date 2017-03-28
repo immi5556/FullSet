@@ -383,7 +383,12 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult ReqData(Sj.Mg.CliLib.Model.Params.ReqParam para)
         {
             var basetkn = GetEmptyRptToken();
-            var acct = Execute<List<Hl7.Fhir.Model.Account>>(CliLib.Utils.Common.ReApiAccount + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+            if (para.resource == "Demographic")
+            {
+                var pats = Execute<List<Hl7.Fhir.Model.Patient>>(CliLib.Utils.Common.ReApiAccount + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                return Json(pats, JsonRequestBehavior.AllowGet);
+            }
+            var acct = Execute<List<Hl7.Fhir.Model.Account>>(CliLib.Utils.Common.ReApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
             return Json(acct, JsonRequestBehavior.AllowGet);
         }
 

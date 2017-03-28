@@ -13,7 +13,7 @@ namespace Sj.Mg.Resource.Server.Code
         {
             List<Hl7.Fhir.Model.Patient> ret = new List<Hl7.Fhir.Model.Patient>();
             var client = new FhirClient(CliLib.Utils.Common.fhirendpoint);
-            var query = new string[] { "name=" + (search ?? "") };
+            var query = new string[] { "identifier=" + (search ?? "") };
             Bundle bundle = null;
             if (string.IsNullOrEmpty(search))
             {
