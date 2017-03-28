@@ -6,6 +6,8 @@
 <head>
     <title>Medgrotto Permissions</title>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Scope+One&amp;subset=latin-ext" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="/Content/medg/css/style.css">
     <link rel="stylesheet" type="text/css" href="/Content/medg/css/fonts.css">
     <link href="/Content/medg/css/font-awesome.min.css" rel="stylesheet" />
@@ -18,6 +20,7 @@
                 <ul class="hNav">
                     <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i></a></li>
                     <li><a href="#" style="    background-color: #ff2c00;padding: 6px 8px;border-radius: 7px;"><i class="fa fa-user userName" aria-hidden="true">@ViewBag.FullName</i></a></li>
+                    <li><a href="#" class="click"  data-id="#ChangeScope"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
                     <li><a class="logout" href="/home/Signout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
                 </ul>
                 <!-- <div class="hamberMenu">
@@ -37,18 +40,18 @@
                         </ul>
                     </div>
                     <div class="viewShareSection">
-                        <h2 class="sec-heading">Share</h2>
+                        <h2 class="sec-heading">View & Share</h2>
                         <ul class="viewShareSectionList userList">
                             
                         </ul>
                     </div>
                 </div>
                 <div class="contentRight">
-                    <h2 class="sec-heading">Requesting Access <span class="notification">0</span></h2>
+                    <h2 class="sec-heading" style="cursor: pointer;">Requesting Access <span class="notification">0</span></h2>
                     <ul class="requestingSectionList userList">
                     </ul>
                     <div class="searchBar">
-                        <h2 class="sec-heading">Find and Share</h2>
+                        <h2 class="sec-heading" style="cursor: pointer;">Find and Share</h2>
                         <div class="searchRow">
                             <input type="text" id="searchEmail" name="" class="srh" placeholder="Enter Email">
                             <span class="srchIcon"><img src="/Content/medg/images/searchIcon.png"></span>
@@ -84,7 +87,31 @@
             <div class="carouselModule"></div>
         </div>
     </footer>
-
+    
+    <div class="lightbox lightbox-allowedUsr" id="ChangeScope">
+        <div class="scrollSec">
+            <a href="#" class="closeIcon">X</a>
+             <h2>List of Allowed Users</h2>
+              <table class="allowedUsr1" cellspacing="0" cellpadding="0">
+                  <thead>
+                      <tr>
+                          <th>User</th>
+                          <th>Resource</th>
+                          <th>Access</th>
+                          <th>Revoke Access</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!--<tr>
+                          <td>Eamil</td>
+                          <td>Diagnostics</td>
+                          <td>Diagnostics</td>
+                          <td><i class="fa fa-times-circle" aria-hidden="true"></i></td>
+                      </tr>-->
+                  </tbody>
+              </table>
+            </div>
+        </div>
     <div class="lightbox lightbox-wid" id="requests-id">
         <div class="scrollSec">
             <a href="#" class="closeIcon">X</a>
@@ -287,7 +314,9 @@
                         </div>
                         <div class="tabContSec scopesCls">
                             <h2>Scopes</h2>
+                            <div><label>Valid Till: </label><select id='requesttimePeriod'><option value='hour'>1 Hour</option><option value='Day'>1 Day</option><option value='NoLimit'>No Time Limit</option></select></div>
                             <div><label><input type="checkbox" class="scopeInput"/><em class="scpChck"></em><span class="scopesData"></span></label></div>
+                            
                             </div>
                     </div>
                 </div>

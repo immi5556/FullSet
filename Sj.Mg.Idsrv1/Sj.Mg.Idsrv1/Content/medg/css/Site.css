@@ -38,7 +38,6 @@ textarea {
 	margin-bottom: 30px;
 	text-align: center;
 	line-height: 35px;
-	font-family: 'nexa_boldregular';
 	background: #f2f2f2;
 }
 .reg-row {
@@ -52,7 +51,6 @@ textarea {
 	color: #ce2129;
 	font-size: 16px;
 	line-height: 37px;
-	font-family: 'nexa_boldregular';
 }
 .reg-row input[type="text"]{
 	display: inline-block;
@@ -75,7 +73,6 @@ textarea {
 	cursor: pointer;
 	color: #ffffff;
 	margin-top: 12px;
-	font-family: 'nexa_boldregular';
 	border-radius: 6px;
 	font-size: 15px;
 	outline: none;
@@ -96,7 +93,6 @@ footer {
     color: #1e3665;
     font-size: 13px;
     clear: both;
-    font-family: 'nexa_boldregular';
 }
 .loginFooter, .loginPush {
     height: 40px;
@@ -264,7 +260,6 @@ footer {
 	width: 30px;
 	height: 30px;
 	font-size: 12px;
-	font-family: 'nexa_boldregular';
 	text-align: center;
 	line-height: 30px;
 	color: #fff;
@@ -308,7 +303,6 @@ footer {
 	color: #1e3665;
 	font-size: 13px;
 	clear: both;
-	font-family: 'nexa_boldregular';
 }
 .Error {
 	position: absolute;
@@ -359,7 +353,6 @@ footer {
 	text-align: center;
 	font-size: 18px;
 	line-height: 30px;
-	font-family: 'nexa_boldregular';
 }
 .buttonsRow {
 	clear: both;
@@ -375,7 +368,6 @@ footer {
 	color: #fff;
 	font-size: 13px;
 	cursor: pointer;
-	font-family: 'nexa_boldregular';
 	border-radius: 4px;
 	border: none;
 	margin: 0 10px;

@@ -6,9 +6,8 @@ html,body{
 	height: 100%;
 }
 body{
-	font-family: 'Cabin', sans-serif;
+	font-family: 'Scope One', serif;
 }
-
 .form-row {
     clear: both;
     padding: 10px 0;
@@ -685,7 +684,7 @@ footer {
 	margin-bottom: 0;
 	font-weight: normal;
 	text-align: center;
-	vertical-align: middle;
+	/*vertical-align: middle;*/
 	background-image: none;
 	
 	white-space: nowrap;
@@ -737,7 +736,10 @@ footer {
     top:-3px;
 }
 .scopesCls > div {
-    padding-bottom:20px;
+    padding:0 0 20px 23px;
+}
+.scopesCls div:first-of-type{
+    padding-left:0;
 }
 .scopesCls label {
     position:relative;
@@ -1192,6 +1194,9 @@ footer {
 .lightbox-wid {
 	max-width: 1140px;
 }
+.lightbox-allowedUsr {
+	max-width: 600px;
+}
 #log-outPop.lightbox-min {
 	max-width: 635px;
 	border-radius: 5px;
@@ -1356,9 +1361,6 @@ footer {
 	border-radius: 5px;
 	border-color: #f1f1f1;
     overflow: hidden;
-}
-.logoutScrn {
-    /*font-family: 'nexa_boldregular';*/
 }
 
 /*Relief CSS Here*/
@@ -1630,4 +1632,20 @@ footer {
 	border:1px solid #12214e;
 	/*font-family: arial;*/
 	background: #f2f2f2;
+}
+#requesttimePeriod {
+    width: 140px;
+    height: 32px;
+    border-radius: 4px;
+}
+.allowedUsr1 {
+    width:100%;
+    text-align:center;
+}
+.allowedUsr1 th,.allowedUsr1 td {
+    border:1px solid #ccc;
+    padding:6px 8px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
 }

@@ -6,7 +6,7 @@ html,body{
 	height: 100%;
 }
 body{
-	font-family: 'Cabin', sans-serif;
+	font-family: 'Scope One', serif;
 }
 
 .form-row {
@@ -1164,12 +1164,13 @@ footer {
 	background: #1e3665;
 }
 .registerBtn {
-	width: 170px;
+	width: 130px;
 	height: 40px;
 	border: none;
 	cursor: pointer;
 	color: #ffffff;
 	margin-top: 12px;
+    margin-left: 120px;
 	/*font-family: 'nexa_boldregular';*/
 	border-radius: 6px;
 	font-size: 15px;

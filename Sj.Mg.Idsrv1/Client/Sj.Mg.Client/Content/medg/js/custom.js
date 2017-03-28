@@ -11,7 +11,7 @@ var permission = (function () {
         $('body').gbLightbox({
             triggerElem: '.click',
             lightCont: '.lightbox',
-            shadow: 'popupShadow',
+            shadow: '.popupShadow',
             closei: 'closeIcon',
             saveData: "#saveData"
         });
@@ -165,6 +165,7 @@ var permission = (function () {
         $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>" + selectedclient + "</span></div>");
         $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
+        $(filterUl).append("<div class='provideRow'><label>Valid Till:</label><select id='timePeriod'><option value='hour'>1 Hour</option><option value='Day'>1 Day</option><option value='NoLimit'>No Time Limit</option></select></div>");
         $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Confirm</button></div>");
     });
     $(document).on("click", "#conf-prov", function () {
@@ -226,6 +227,7 @@ var permission = (function () {
         $(".viewSectionList").html('');
         $(".requestingSectionList").html('');
         $(".viewShareSectionList").html('');
+        $(".allowedUsr tbody").html('');
         if (data.RequestedUsers && data.RequestedUsers[selectedclient] && data.RequestedUsers[selectedclient][selectedresource]) {
             for (var scopeKeys in data.RequestedUsers[selectedclient][selectedresource]) {
                 (data.RequestedUsers[selectedclient][selectedresource][scopeKeys] || []).forEach(function (user) {
@@ -303,6 +305,41 @@ var permission = (function () {
                     }
                 });
             }
+        }
+        if (data.MyDetailsSharedWith && data.MyDetailsSharedWith[selectedclient]) {
+            for (var selectedresourceVal in data.MyDetailsSharedWith[selectedclient]) {
+                for (var scopeKeys in data.MyDetailsSharedWith[selectedclient][selectedresourceVal]) {
+                    (data.MyDetailsSharedWith[selectedclient][selectedresourceVal][scopeKeys] || []).forEach(function (user) {
+                        $(".allowedUsr1 tbody").append('<tr><td>'+ user + '</td><td>' + selectedresourceVal + '</td><td><select class="accessType"><option value="Read" ' + (scopeKeys == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + (scopeKeys == "Share" ? "selected" : "" )+ '>Share</option></select></td><td><i class="fa fa-times-circle revokeAccess" aria-hidden="true"></i></td></tr>');
+                    });
+                }
+            }
+            var previous;
+
+            $(".accessType").on('focus', function () {
+                previous = this.value;
+            }).change(function () {
+                $.ajax({
+                    url: "/updaterequest/" + $(this).closest("tr").find('td:eq(0)').text() + "/" + selectedclient + "/" + $(this).closest("tr").find('td:eq(1)').text() + "/" + previous + "/" + $(this).val(),
+                })
+                .done(function (data, textStatus, jqXHR) {
+                    //alert("Success: " + data);
+                    alert("Access Level Changed Successfully.");
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
+            });
+            $(".revokeAccess").on("click", function () {
+                var $this = $(this);
+                $.ajax({
+                    url: "/revokeaccess/" + $(this).closest("tr").find('td:eq(0)').text() + "/" + selectedclient + "/" + $(this).closest("tr").find('td:eq(1)').text() + "/" + $(this).closest("tr").find('.accessType').val(),
+                })
+                .done(function (data, textStatus, jqXHR) {
+                    //alert("Success: " + data);
+                    alert("Access Revoked Successfully.");
+                    $this.closest("tr").remove();
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
+            });
         }
         loadPermission();
     }

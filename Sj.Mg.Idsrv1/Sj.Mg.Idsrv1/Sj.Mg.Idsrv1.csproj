@@ -311,6 +311,7 @@
     <Content Include="Content\medg\images\gmail.png" />
     <Content Include="Content\medg\images\googleFitLogo.png" />
     <Content Include="Content\medg\images\headerbg.jpg" />
+    <Content Include="Content\medg\images\bannergif.gif" />
     <Content Include="Content\medg\images\login-block.png" />
     <Content Include="Content\medg\images\login-logo.png" />
     <Content Include="Content\medg\images\loginBg.jpg" />

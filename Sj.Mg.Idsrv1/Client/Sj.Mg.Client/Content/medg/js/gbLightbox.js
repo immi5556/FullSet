@@ -3,7 +3,7 @@
     var defaults = {
       triggerElem : '.click',
       lightCont :'.lightbox',
-      shadow:'shadow',
+      shadow: '.popupShadow ',
       closei:'close',
       saveData:"#saveData"
     },
@@ -14,7 +14,7 @@
       focusElem = $this.find(set.triggerElem),
       lightContbox = $this.find(set.lightCont),
       closeIcon = $('<a/>').addClass(set.closei),
-      shadowbx = $('<div/>').addClass(set.shadow),
+      shadowbx = $this.find(set.shadow),
       Ww = $(window).outerWidth(),
       Wh = $(window).outerHeight(),
       //contentHh = Wh - ($(set.lightCont).outerHeight()),
@@ -113,38 +113,10 @@
 
       //closeLightbox close here
 
-      $(window).on('resize',function(eve) {
-         openLightbox();
-         Ww = $(window).outerWidth();
-        Wh = $(window).outerHeight();
-        curElemWid = $(currentElement).outerWidth();
-        curElemHih = $(currentElement).outerHeight();
-        //var roundVal = Math.round($(oldElement).height());
-        contentHh = Wh - curElemHih;    
-
-        //console.log(roundVal)
-        if(contentHh <0){
-           contentHh = 40;
-          }
-        $(set.lightCont).css({
-              top: contentHh / 2,
-        left: (Ww - curElemWid)/2
-          });
-
-        if($(curElemHih) > Wh){
-          $(set.lightCont).css({
-            maxHeight:Wh-20,
-            height:"100%"
-          });
-        }else{
-          $(set.lightCont).css({
-              maxHeight:Wh-20,
-              height:"auto",               
-          }); 
-        }
-         responsive();
-
-       });
+      $(window).on('resize', function (eve) {
+          responsive();
+          setTimeout(responsive, 600);
+      });
 
       lightResponsive(function(){
          Ww = $(window).outerWidth();

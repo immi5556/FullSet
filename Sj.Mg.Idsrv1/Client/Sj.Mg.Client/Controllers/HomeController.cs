@@ -156,6 +156,113 @@ namespace Sj.Mg.Client.Controllers
         }
 
         [Authorize]
+        [Route("revokeaccess/{toemail}/{toclient}/{toresrc}/{toscope}")]
+        public JsonResult RevokeAccess(string toemail, string toclient, string toresrc, string toscope)
+        {
+            var token = (User as System.Security.Claims.ClaimsPrincipal);
+            foreach (var tt1 in token.Claims)
+            {
+                Console.WriteLine(tt1.Value);
+            }
+            var un = User.Identity.Name;
+            var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
+            tt.ForEach(t =>
+            {
+                if (t.MyEmail == toemail)
+                {
+                    if (t.AllowedUsers.ContainsKey(toclient))
+                    {
+                        if (t.AllowedUsers[toclient].ContainsKey(toresrc))
+                        {
+                            if (t.AllowedUsers[toclient][toresrc].ContainsKey(toscope))
+                            {
+                                if (t.AllowedUsers[toclient][toresrc][toscope].Contains(un))
+                                {
+                                    //alreadyaccess = true;
+                                    t.AllowedUsers[toclient][toresrc][toscope].RemoveAt(t.AllowedUsers[toclient][toresrc][toscope].IndexOf(un));
+                                }
+                            }
+                        }
+                    }
+                    Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                }
+                if (t.MyEmail == un)
+                {
+                    if (t.MyDetailsSharedWith.ContainsKey(toclient))
+                    {
+                        if (t.MyDetailsSharedWith[toclient].ContainsKey(toresrc))
+                        {
+                            if (t.MyDetailsSharedWith[toclient][toresrc].ContainsKey(toscope))
+                            {
+                                if (t.MyDetailsSharedWith[toclient][toresrc][toscope].Contains(toemail))
+                                {
+                                    //alreadyaccess = true;
+                                    t.MyDetailsSharedWith[toclient][toresrc][toscope].RemoveAt(t.MyDetailsSharedWith[toclient][toresrc][toscope].IndexOf(toemail));
+                                }
+                            }
+                        }
+                    }
+                    Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                }
+            });
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        [Route("updaterequest/{toemail}/{toclient}/{toresrc}/{oldScope}/{toscope}")]
+        public JsonResult UpdateReqAccess(string toemail, string toclient, string toresrc, string oldScope, string toscope)
+        {
+            var token = (User as System.Security.Claims.ClaimsPrincipal);
+            foreach (var tt1 in token.Claims)
+            {
+                Console.WriteLine(tt1.Value);
+            }
+            var un = User.Identity.Name;
+            var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
+            tt.ForEach(t =>
+            {
+                if (t.MyEmail == toemail)
+                {
+                    if (t.AllowedUsers.ContainsKey(toclient))
+                    {
+                        if (t.AllowedUsers[toclient].ContainsKey(toresrc))
+                        {
+                            if (t.AllowedUsers[toclient][toresrc].ContainsKey(oldScope))
+                            {
+                                if (t.AllowedUsers[toclient][toresrc][oldScope].Contains(un))
+                                {
+                                //alreadyaccess = true;
+                                t.AllowedUsers[toclient][toresrc][oldScope].RemoveAt(t.AllowedUsers[toclient][toresrc][oldScope].IndexOf(un));
+                                }
+                            }
+                        }
+                    }
+                    Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                }
+                if (t.MyEmail == un)
+                {
+                    if (t.MyDetailsSharedWith.ContainsKey(toclient))
+                    {
+                        if (t.MyDetailsSharedWith[toclient].ContainsKey(toresrc))
+                        {
+                            if (t.MyDetailsSharedWith[toclient][toresrc].ContainsKey(oldScope))
+                            {
+                                if (t.MyDetailsSharedWith[toclient][toresrc][oldScope].Contains(toemail))
+                                {
+                                    //alreadyaccess = true;
+                                    t.MyDetailsSharedWith[toclient][toresrc][oldScope].RemoveAt(t.MyDetailsSharedWith[toclient][toresrc][oldScope].IndexOf(toemail));
+                                }
+                            }
+                        }
+                    }
+                    Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                }
+            });
+            ProvAccess(toemail, toclient, toresrc, toscope);
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
         [Route("request/{toemail}/{toclient}/{toresrc}/{toscope}")]
         public JsonResult ReqAccess(string toemail, string toclient, string toresrc, string toscope)
         {
