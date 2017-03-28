@@ -18,6 +18,8 @@ namespace Sj.Mg.Client
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                (s, cert, chain, sslPolicyErrors) => true;
             Sj.Mg.CliLib.Initializer.ConfigureClientAuth(app, "MgClient1");
         }
 

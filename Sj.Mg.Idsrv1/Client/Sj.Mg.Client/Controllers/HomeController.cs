@@ -9,10 +9,12 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 
 namespace Sj.Mg.Client.Controllers
 {
+    [EnableCors("*", "*", "GET, POST, PATCH", "*")]
     public class HomeController : CliLib.Security.UmaController
     {
         [Authorize]
