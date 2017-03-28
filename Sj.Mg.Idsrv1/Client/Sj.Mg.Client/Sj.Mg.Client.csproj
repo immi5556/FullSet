@@ -357,10 +357,6 @@
     <Content Include="Views\Home\Secure.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AppConstants\AppConstants.csproj">
-      <Project>{40bbc226-7781-4ad4-8ccb-0ad21740db6b}</Project>
-      <Name>AppConstants</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Data\Sj.Mg.Mongo\Sj.Mg.Mongo.csproj">
       <Project>{69a5f51d-fefe-4216-b8ed-8f656fbb8375}</Project>
       <Name>Sj.Mg.Mongo</Name>

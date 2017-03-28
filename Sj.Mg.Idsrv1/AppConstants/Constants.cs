@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppConstants
 {
-    public class Constants
+    public class Constants1
     {
         /// <summary>
         /// Localhost

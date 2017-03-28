@@ -26,8 +26,8 @@ namespace Sj.Mg.Resource.Server
             {
                 ClientId = "FHIR-Resource1",
                 //IntrospectionHttpHandler = AppConstants.Constants.in
-                Authority = AppConstants.Constants.Sts,
-                ClientSecret = AppConstants.Constants.ClientSecret,
+                Authority = CliLib.Utils.Common.Sts,
+                ClientSecret = CliLib.Utils.Common.ClientSecret,
                 PreserveAccessToken = true,
                 RequiredScopes = new[]
                 {

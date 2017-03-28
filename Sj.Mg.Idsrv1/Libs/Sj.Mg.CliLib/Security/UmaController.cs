@@ -22,7 +22,7 @@ namespace Sj.Mg.CliLib.Security
             {
                 client.SetBearerToken(token);
                 var actkn = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(token);
-                var data = client.GetStringAsync(@"https://localhost:44305/Service/RptToken").Result;
+                var data = client.GetStringAsync(Utils.Common.StsRptTknEndpoint).Result;
                 basetkn = data.Replace("\"", "");
             }
             catch (Exception exp)

@@ -59,7 +59,7 @@ namespace Sj.Mg.CliLib.Security
                     jo.SelectToken("rptkn")["permissions"] = JArray.FromObject(perms);
                     //jo["rptkn"] =   perms;
                     httpClient.SetBearerToken(Utils.TokenHelper.CreateJwt(jo.ToString()));
-                    var url = "https://localhost:44305/Service/PermTkt";
+                    var url = Utils.Common.StsPermTktEndpoint;
                     if (actionContext.RequestContext.RouteData.Values.ContainsKey("ids"))
                         url = url + "/" + actionContext.RequestContext.RouteData.Values["ids"].ToString();
                     var tt = httpClient.GetAsync(url).Result;

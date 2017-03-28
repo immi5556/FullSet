@@ -8,13 +8,13 @@ namespace Sj.Mg.Idsrv1.Controllers
 {
     public class UmaController : Controller
     {
-        [Route(AppConstants.Constants.UmaDiscoveryConfiguration)]
+        [Route(CliLib.Utils.Common.UmaDiscoveryConfiguration)]
         public JsonResult Index()
         {
             return Json(new Models.UmaWellKnownConfig()
             {
                 version = "1.0.0",
-                issuer = AppConstants.Constants.IssuerUri,
+                issuer = CliLib.Utils.Common.IssuerUri,
                 pat_profiles_supported = new List<string>()
                 {
                     "bearer"
@@ -35,14 +35,14 @@ namespace Sj.Mg.Idsrv1.Controllers
                 {
                     "authorization_code"
                 },
-                dynamic_client_endpoint = AppConstants.Constants.UmaDynClientEndPoint,
-                rpt_endpoint = AppConstants.Constants.UmaRptEndPoint,
-                permission_registration_endpoint = AppConstants.Constants.UmaResourceSetEndPoint,
-                resource_set_registration_endpoint = AppConstants.Constants.UmaResourceSetEndPoint,
-                introspection_endpoint = AppConstants.Constants.StsIntrospectionEndPoint,
+                dynamic_client_endpoint = CliLib.Utils.Common.UmaDynClientEndPoint,
+                rpt_endpoint = CliLib.Utils.Common.UmaRptEndPoint,
+                permission_registration_endpoint = CliLib.Utils.Common.UmaResourceSetEndPoint,
+                resource_set_registration_endpoint = CliLib.Utils.Common.UmaResourceSetEndPoint,
+                introspection_endpoint = CliLib.Utils.Common.StsIntrospectionEndPoint,
                 requesting_party_claims_endpoint = "TBD",
-                authorization_endpoint = AppConstants.Constants.StsAuthorizationEndpoint,
-                token_endpoint = AppConstants.Constants.StsTokenEndpoint
+                authorization_endpoint = CliLib.Utils.Common.StsAuthorizationEndpoint,
+                token_endpoint = CliLib.Utils.Common.StsTokenEndpoint
             }, JsonRequestBehavior.AllowGet);
         }
 

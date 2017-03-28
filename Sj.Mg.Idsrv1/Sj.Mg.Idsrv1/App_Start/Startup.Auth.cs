@@ -65,9 +65,9 @@ namespace Sj.Mg.Idsrv1
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
             {
-                Authority = AppConstants.Constants.Sts,
+                Authority = CliLib.Utils.Common.Sts,
                 ClientId = "IdSrv1",
-                RedirectUri = AppConstants.Constants.Sts + "/scopes",
+                RedirectUri = CliLib.Utils.Common.Sts + "/scopes",
                 ResponseType = "id_token",
 
                 SignInAsAuthenticationType = "Cookies"

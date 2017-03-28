@@ -26,7 +26,7 @@ namespace Sj.Mg.Client.Controllers
             {
                 client.SetBearerToken(token);
                 var actkn = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(token);
-                var data = await client.GetStringAsync(@"https://localhost:44305/Service/RptToken");
+                var data = await client.GetStringAsync(CliLib.Utils.Common.StsRptTknEndpoint);
                 basetkn = data.Replace("\"", "");
                 client.SetBearerToken(basetkn);
             }
@@ -36,9 +36,7 @@ namespace Sj.Mg.Client.Controllers
             }
             try
             {
-                //var data = await client.GetStringAsync(@"https://localhost:44306/Api/Account");
-                //dyn.Acct1 = JsonConvert.DeserializeObject<List<Hl7.Fhir.Model.Account>>(data);
-                dyn.Acct1 = Execute<List<Hl7.Fhir.Model.Account>>(@"https://localhost:44306/Api/Account", basetkn);
+                dyn.Acct1 = Execute<List<Hl7.Fhir.Model.Account>>(CliLib.Utils.Common.ReApiAccount, basetkn);
             }
             catch (Exception exp)
             {
@@ -54,9 +52,7 @@ namespace Sj.Mg.Client.Controllers
             }
             try
             {
-                //var data1 = await client.GetStringAsync(@"https://localhost:44306/Api/Medication");
-                //dyn.Medi1 = JsonConvert.DeserializeObject<List<Hl7.Fhir.Model.Medication>>(data1);
-                dyn.Medi1 = Execute<List<Hl7.Fhir.Model.Medication>>(@"https://localhost:44306/Api/Medication", basetkn);
+                dyn.Medi1 = Execute<List<Hl7.Fhir.Model.Medication>>(CliLib.Utils.Common.ReApiMedication, basetkn);
             }
             catch (Exception exp)
             {
@@ -72,9 +68,7 @@ namespace Sj.Mg.Client.Controllers
             }
             try
             {
-                //var data2 = await client.GetStringAsync(@"https://localhost:44306/Api/Patient");
-                //dyn.Pati1 = JsonConvert.DeserializeObject<List<dynamic>>(data2);
-                dyn.Pati1 = Execute<List<dynamic>>(@"https://localhost:44306/Api/Patient", basetkn);
+                dyn.Pati1 = Execute<List<dynamic>>(CliLib.Utils.Common.ReApiPatient, basetkn);
             }
             catch (Exception exp)
             {
@@ -90,9 +84,7 @@ namespace Sj.Mg.Client.Controllers
             }
             try
             {
-                //var data3 = await client.GetStringAsync(@"https://localhost:44306/Api/Observation");
-                //dyn.Obsr1 = JsonConvert.DeserializeObject<List<Hl7.Fhir.Model.Observation>>(data3);
-                dyn.Obsr1 = Execute<List<Hl7.Fhir.Model.Observation>>(@"https://localhost:44306/Api/Observation", basetkn);
+                dyn.Obsr1 = Execute<List<Hl7.Fhir.Model.Observation>>(CliLib.Utils.Common.ReApiObservation, basetkn);
             }
             catch (Exception exp)
             {
@@ -383,7 +375,7 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult ReqData(Sj.Mg.CliLib.Model.Params.ReqParam para)
         {
             var basetkn = GetEmptyRptToken();
-            var acct = Execute<List<Hl7.Fhir.Model.Account>>(@"https://localhost:44306/Api/Account/" + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+            var acct = Execute<List<Hl7.Fhir.Model.Account>>(CliLib.Utils.Common.ReApiAccount + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
             return Json(acct, JsonRequestBehavior.AllowGet);
         }
 
@@ -392,7 +384,7 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult GetAccount(string id)
         {
             var basetkn = GetEmptyRptToken();
-            var acct = Execute<List<Hl7.Fhir.Model.Account>>(@"https://localhost:44306/Api/Account/" + id, basetkn);
+            var acct = Execute<List<Hl7.Fhir.Model.Account>>(CliLib.Utils.Common.ReApiAccount + id, basetkn);
             return Json(acct, JsonRequestBehavior.AllowGet);
         }
         T ExecuteProc<T>(string url, string basetkn)
@@ -463,7 +455,7 @@ namespace Sj.Mg.Client.Controllers
                 Sj.Mg.CliLib.Model.permission perms = rtk.ToObject<Sj.Mg.CliLib.Model.permission>();
                 perms.ticket = ptkt;
                 actkn["rptkn"] = JObject.FromObject(perms);
-                var http = (HttpWebRequest)WebRequest.Create("https://localhost:44305/Service/ValidatePermTkt");
+                var http = (HttpWebRequest)WebRequest.Create(CliLib.Utils.Common.StsPermTktValidEndpoint);
                 http.ContentType = "application/json";
                 http.Headers.Add("Authorization", "Bearer " + Sj.Mg.CliLib.Utils.TokenHelper.CreateJwt(actkn.ToString()));
                 http.Accept = "application/json";

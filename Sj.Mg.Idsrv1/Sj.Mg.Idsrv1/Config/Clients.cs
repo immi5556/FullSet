@@ -23,11 +23,11 @@ namespace Sj.Mg.Idsrv1.Config
                     AllowAccessToAllScopes = true,
                     RedirectUris = new List<string>
                     {
-                        AppConstants.Constants.ReClientMvc
+                        CliLib.Utils.Common.ReClientMvc
                     },
                     PostLogoutRedirectUris = new List<string>()
                     {
-                        AppConstants.Constants.ReClientMvc
+                        CliLib.Utils.Common.ReClientMvc
                     },
                     IncludeJwtId = true,
                     AllowRememberConsent = false,
@@ -65,13 +65,13 @@ namespace Sj.Mg.Idsrv1.Config
                     RedirectUris = new List<string>
                     {
                         //AppConstants.Constants.ReClientMvcStsCallback
-                        AppConstants.Constants.ReApi
+                        CliLib.Utils.Common.ReApi
                     },           
 
                     // client secret
                     ClientSecrets = new List<Secret>()
                     {
-                        new Secret(AppConstants.Constants.ClientSecret.Sha256())
+                        new Secret(CliLib.Utils.Common.ClientSecret.Sha256())
                     }
                 },
                 new Client
@@ -134,11 +134,11 @@ namespace Sj.Mg.Idsrv1.Config
                     AllowAccessToAllScopes = true,
                     RedirectUris = new List<string>
                     {
-                        AppConstants.Constants.Sts + "/scopes",
+                        CliLib.Utils.Common.Sts + "/scopes",
                     },
                     PostLogoutRedirectUris = new List<string>()
                     {
-                        AppConstants.Constants.ReClientMvc
+                        CliLib.Utils.Common.ReClientMvc
                     },
                     IncludeJwtId = true,
                     AllowRememberConsent = false

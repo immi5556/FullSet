@@ -471,10 +471,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AppConstants\AppConstants.csproj">
-      <Project>{40bbc226-7781-4ad4-8ccb-0ad21740db6b}</Project>
-      <Name>AppConstants</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{fb9e026e-bab3-498a-a954-b93b05c146a5}</Project>
       <Name>Core</Name>

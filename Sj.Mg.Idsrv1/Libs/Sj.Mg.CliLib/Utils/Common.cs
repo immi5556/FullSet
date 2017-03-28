@@ -17,10 +17,29 @@ namespace Sj.Mg.CliLib.Utils
         public const string StsOrigin = "https://localhost:44305";
 
 
+        public const string ReApiAccount = ReApi + "Api/Account/";
+        public const string ReApiObservation = ReApi + "Api/Observation/";
+        public const string ReApiPatient = ReApi + "Api/Patient/";
+        public const string ReApiMedication = ReApi + "Api/Medication/";
+
         public const string ClientSecret = "myrandomclientsecret";
 
+        public const string StsIntrospectionEndPoint = Sts + "/connect/introspect";
+        public const string StsAuthorizationEndpoint = Sts + "/connect/authorize";
+
         public const string Sts = StsOrigin + "/core";
-        public const string StsTokenEndpoint = Sts + "/connect/token";
+        public const string StsTokenEndpoint = StsOrigin + "/connect/token";
+        public const string StsPermTktEndpoint = StsOrigin + "/Service/PermTkt";
+        public const string StsPermTktValidEndpoint = StsOrigin + "/Service/ValidatePermTkt";
+        public const string StsRptTknEndpoint = StsOrigin + "/Service/RptToken";
+
+        public const string UmaProtectionPermEndPoint = StsOrigin + "/Protection/PremissionTicket";
+        public const string UmaProtectionRptEndPoint = StsOrigin + "/Protection/RptToken";
+        public const string UmaResourceSetEndPoint = StsOrigin + "/Resource/ResourceGet/{id}";
+        public const string UmaDynClientEndPoint = StsOrigin + "/Uma/ClientRegister";
+        public const string UmaRptEndPoint = StsOrigin + "/Protection/RptToken";
+
+        public const string UmaDiscoveryConfiguration = "core/.well-known/uma-configuration";
     }
 
     public static class AsyncHelper

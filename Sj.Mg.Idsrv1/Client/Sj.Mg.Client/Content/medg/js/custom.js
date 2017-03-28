@@ -162,14 +162,14 @@ var permission = (function () {
         var filterUl = $('<div class="providesAcc"></div>');
         $("#srchrest").append(filterUl);
         $("#searchEmail").val('');
-        $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>Releief Express</span></div>");
+        $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>" + selectedclient + "</span></div>");
         $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
         $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Confirm</button></div>");
     });
     $(document).on("click", "#conf-prov", function () {
         $.ajax({
-            url: "/provide/" + toemail + "/ReliefExpress/" + $("#selrsrc").val() + "/" + $("#selscpe").val(),
+            url: "/provide/" + toemail + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val(),
         })
         .done(function (data, textStatus, jqXHR) {
             //alert("Success: " + data);
@@ -191,7 +191,7 @@ var permission = (function () {
     });
     $(document).on("click", "#conf-req", function () {
         $.ajax({
-            url: "/request/" + toemail + "/ReliefExpress/" + $("#selrsrc").val() + "/" + $("#selscpe").val(),
+            url: "/request/" + toemail + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val(),
         })
         .done(function (data, textStatus, jqXHR) {
             //alert("Success: " + data);
@@ -274,14 +274,32 @@ var permission = (function () {
                         $(".viewSectionList").append($li);
 
                     } else if (scopeKeys == "Share") {
-                        $(".viewShareSectionList").append('<li> \
-                                                    \   <div class="listGrid"> \
-                                                    \   <h4>' + selectedclient + '</h4> \
-                                                    \   <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
-                                                    \   <h5>' + user + '</h5> \
-                                                    \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
-                                                    \   </div> \
-                                                        </li>');
+                        var $li = $("<li>");
+                        $li.append('<div class="listGrid"> \
+                                    \   <h4>' + selectedclient + '</h4> \
+                                    \   <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                    \   <h5>' + user + '</h5> \
+                                    \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
+                                    \   </div>');
+                        $li.data("scpdata", {
+                            client: selectedclient,
+                            resource: selectedresource,
+                            email: user,
+                            scope: scopeKeys
+                        });
+                        $li.on("click", function () {
+                            $.ajax({
+                                url: "/home/ReqData",
+                                type: "POST",
+                                data: $(this).data("scpdata")
+                            })
+                            .done(function (data, textStatus, jqXHR) {
+                                $("#data-disp").html("<pre>" + JSON.stringify(data, null, "\t") + "</pre>");
+                                $('.slideUp').trigger("click");
+                            })
+                            .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
+                        });
+                        $(".viewShareSectionList").append($li);
                     }
                 });
             }

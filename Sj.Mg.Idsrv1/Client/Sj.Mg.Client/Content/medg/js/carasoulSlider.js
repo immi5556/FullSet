@@ -58,6 +58,7 @@ var isMobile = {
                   if (selectedresource == "Diagnosis") {
                       selectedresource = "Diagnostics";
                   }
+                  $('.slideDown').trigger("click");
                   $(".categ-hdr").text(selectedresource);
                   permission.loaddata();
               });

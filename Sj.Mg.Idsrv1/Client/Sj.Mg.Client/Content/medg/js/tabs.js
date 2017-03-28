@@ -1,6 +1,7 @@
 var selectedclient = "ReliefExpress", selectedresource = "Demographic";
 $(document).on("click", ".subLi", function () {
     selectedclient = $(this).find("strong").text();
+    $('.slideDown').trigger("click");
     if (selectedclient == "Relief Express") {
         selectedclient = "ReliefExpress";
     }
