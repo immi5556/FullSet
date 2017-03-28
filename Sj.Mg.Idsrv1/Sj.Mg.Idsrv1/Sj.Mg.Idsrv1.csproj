@@ -344,7 +344,6 @@
     <Content Include="Content\medg\js\consent.js" />
     <Content Include="Content\medg\js\custom.js" />
     <Content Include="Content\medg\js\error.js" />
-    <Content Include="Content\medg\js\gbDataTable.js" />
     <Content Include="Content\medg\js\jquery.slimscroll.min.js" />
     <Content Include="Content\medg\js\loggedout.js" />
     <Content Include="Content\medg\js\login.js" />
