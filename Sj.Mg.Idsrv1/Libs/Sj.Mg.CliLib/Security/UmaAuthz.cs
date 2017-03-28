@@ -18,6 +18,8 @@ namespace Sj.Mg.CliLib.Security
         }
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
+            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                (s, cert, chain, sslPolicyErrors) => true;
             if (actionContext.Request.Headers.Authorization != null)
             {
                 var tte = actionContext.Request.Headers.Authorization.Parameter;

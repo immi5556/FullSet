@@ -15,6 +15,8 @@ namespace Sj.Mg.CliLib.Security
     {
         public string GetEmptyRptToken()
         {
+            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                (s, cert, chain, sslPolicyErrors) => true;
             var token = (User as ClaimsPrincipal).FindFirst("access_token").Value;
             string basetkn = "";
             var client = new HttpClient();
