@@ -266,6 +266,7 @@
     <Content Include="Content\app\login.html" />
     <Content Include="Content\app\logout.html" />
     <Content Include="Content\app\permissions.html" />
+    <Content Include="Content\banner2.gif" />
     <Content Include="Content\libs\angular\angular.1.2.13.js" />
     <Content Include="Content\libs\angular\angular.1.2.13.min.js" />
     <Content Include="Content\libs\bootstrap\css\bootstrap-theme.css" />
@@ -283,6 +284,7 @@
     <Content Include="Content\libs\encoder\encoder.min.js" />
     <Content Include="Content\libs\jquery\jquery-1.11.0.js" />
     <Content Include="Content\libs\jquery\jquery-1.11.0.min.js" />
+    <Content Include="Content\main.css" />
     <Content Include="Content\medg\css\bootstrap.css" />
     <Content Include="Content\medg\css\bootstrap.min.css" />
     <Content Include="Content\medg\css\font-awesome.min.css" />
