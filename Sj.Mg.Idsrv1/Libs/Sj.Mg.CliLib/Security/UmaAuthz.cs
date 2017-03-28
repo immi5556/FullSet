@@ -65,6 +65,8 @@ namespace Sj.Mg.CliLib.Security
                     var url = Utils.Common.StsPermTktEndpoint;
                     if (actionContext.RequestContext.RouteData.Values.ContainsKey("ids"))
                         url = url + "/" + actionContext.RequestContext.RouteData.Values["ids"].ToString();
+                    else
+                        url = url + "/123";
                     log.Info("url: " + url);
                     var tt = httpClient.GetAsync(url).Result;
                     var msg = tt.Content.ReadAsStringAsync().Result;
