@@ -40,7 +40,7 @@ namespace Sj.Mg.Client.Controllers
             }
             try
             {
-                dyn.Acct1 = Execute<List<Hl7.Fhir.Model.Account>>(CliLib.Utils.Common.ReApiAccount + "123", basetkn);
+                dyn.Acct1 = Execute(CliLib.Utils.Common.ReApiAccount + "123", basetkn);
             }
             catch (Exception exp)
             {
@@ -57,7 +57,8 @@ namespace Sj.Mg.Client.Controllers
             }
             try
             {
-                dyn.Medi1 = Execute<List<Hl7.Fhir.Model.Medication>>(CliLib.Utils.Common.ReApiMedication + "123", basetkn);
+                //dyn.Medi1 = Execute<List<Hl7.Fhir.Model.Medication>>(CliLib.Utils.Common.ReApiMedication + "123", basetkn);
+                dyn.Medi1 = Execute(CliLib.Utils.Common.ReApiMedication + "123", basetkn);
             }
             catch (Exception exp)
             {
@@ -74,7 +75,8 @@ namespace Sj.Mg.Client.Controllers
             }
             try
             {
-                dyn.Pati1 = Execute<List<dynamic>>(CliLib.Utils.Common.ReApiPatient, basetkn);
+                //dyn.Pati1 = Execute<List<dynamic>>(CliLib.Utils.Common.ReApiPatient, basetkn);
+                dyn.Pati1 = Execute(CliLib.Utils.Common.ReApiPatient, basetkn);
             }
             catch (Exception exp)
             {
@@ -91,7 +93,7 @@ namespace Sj.Mg.Client.Controllers
             }
             try
             {
-                dyn.Obsr1 = Execute<List<Hl7.Fhir.Model.Observation>>(CliLib.Utils.Common.ReApiObservation, basetkn);
+                dyn.Obsr1 = Execute(CliLib.Utils.Common.ReApiObservation, basetkn);
             }
             catch (Exception exp)
             {
@@ -492,10 +494,10 @@ namespace Sj.Mg.Client.Controllers
             var basetkn = GetEmptyRptToken();
             if (para.resource == "Demographic")
             {
-                var pats = Execute<List<Hl7.Fhir.Model.Patient>>(CliLib.Utils.Common.ReApiAccount + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                var pats = Execute(CliLib.Utils.Common.ReApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
                 return Json(pats, JsonRequestBehavior.AllowGet);
             }
-            var acct = Execute<List<Hl7.Fhir.Model.Account>>(CliLib.Utils.Common.ReApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+            var acct = Execute(CliLib.Utils.Common.ReApiAccount + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
             return Json(acct, JsonRequestBehavior.AllowGet);
         }
 
@@ -504,10 +506,10 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult GetAccount(string id)
         {
             var basetkn = GetEmptyRptToken();
-            var acct = Execute<List<Hl7.Fhir.Model.Account>>(CliLib.Utils.Common.ReApiAccount + id, basetkn);
+            var acct = Execute(CliLib.Utils.Common.ReApiAccount + id, basetkn);
             return Json(acct, JsonRequestBehavior.AllowGet);
         }
-        T ExecuteProc<T>(string url, string basetkn)
+        string ExecuteProc(string url, string basetkn)
         {
             string result = "";
             using (var client = new HttpClient())
@@ -534,10 +536,11 @@ namespace Sj.Mg.Client.Controllers
                     throw new UnauthorizedAccessException("Unauth exception 2..");
                 }
             }
-            return JsonConvert.DeserializeObject<T>(result);
+            //return JsonConvert.DeserializeObject<T>(result);
+            return result;
         }
 
-        T Execute<T>(string url, string basetkn)
+        string Execute(string url, string basetkn)
         {
             string result = "";
             using (var client = new HttpClient())
@@ -558,10 +561,11 @@ namespace Sj.Mg.Client.Controllers
             log.Info("Data Recieved" + result);
             string fintkn = ValidPermTkt(result, basetkn);
             if (fintkn != null)
-                return ExecuteProc<T>(url, fintkn.Replace("\"", ""));
+                return ExecuteProc(url, fintkn.Replace("\"", ""));
             //Execute<T>(url, fintkn.Replace("\"",""));
             //Execute<T>(url, Sj.Mg.CliLib.Utils.TokenHelper.CreateJwt(fintkn));
-            return  JsonConvert.DeserializeObject<T>(result);
+            //return  JsonConvert.DeserializeObject<T>(result);
+            return result;
         }
 
         string ValidPermTkt(string data, string basetkn)

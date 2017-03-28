@@ -268,7 +268,7 @@ var permission = (function () {
                                 data: $(this).data("scpdata")
                             })
                             .done(function (data, textStatus, jqXHR) {
-                                $("#data-disp").html("<pre>" + JSON.stringify(data, null, "\t") + "</pre>");
+                                $("#data-disp").html("<pre>" + JSON.stringify(JSON.parse(data), null, "\t") + "</pre>");
                                 $('.slideUp').trigger("click");
                             })
                             .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
@@ -296,7 +296,7 @@ var permission = (function () {
                                 data: $(this).data("scpdata")
                             })
                             .done(function (data, textStatus, jqXHR) {
-                                $("#data-disp").html("<pre>" + JSON.stringify(data, null, "\t") + "</pre>");
+                                $("#data-disp").html("<pre>" + JSON.stringify(JSON.parse(data), null, "\t") + "</pre>");
                                 $('.slideUp').trigger("click");
                             })
                             .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });

@@ -23,7 +23,7 @@ namespace Sj.Mg.Resource.Server.Controllers
         [HttpGet]
         public List<Hl7.Fhir.Model.Patient> GetPats(string ids)
         {
-            var id = System.Web.HttpUtility.UrlDecode(ids ?? "");
+            var id = System.Web.HttpUtility.UrlDecode(ids ?? "").Replace("^2E", ".");
             return Code.PatientManager.Get(id);
         }
         [CliLib.Security.UmaAuthz("Patient/Patient.Read", "Patient/Patient.*")]
