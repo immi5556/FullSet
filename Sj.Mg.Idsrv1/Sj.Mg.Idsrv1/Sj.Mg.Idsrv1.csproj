@@ -289,6 +289,7 @@
     <Content Include="Content\medg\css\bootstrap.min.css" />
     <Content Include="Content\medg\css\font-awesome.min.css" />
     <Content Include="Content\medg\css\fonts.css" />
+    <Content Include="Content\medg\css\main.css" />
     <Content Include="Content\medg\css\Site.css" />
     <Content Include="Content\medg\css\style.css" />
     <Content Include="Content\medg\fonts\fontawesome-webfont.svg" />
