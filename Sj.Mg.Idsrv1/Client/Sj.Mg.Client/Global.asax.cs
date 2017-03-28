@@ -22,6 +22,7 @@ namespace Sj.Mg.Client
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AntiForgeryConfig.UniqueClaimTypeIdentifier = System.IdentityModel.Claims.ClaimTypes.NameIdentifier;
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }
