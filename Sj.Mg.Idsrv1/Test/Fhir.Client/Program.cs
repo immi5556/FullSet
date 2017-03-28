@@ -1,5 +1,8 @@
 ﻿using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
+using Hl7.Fhir.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,13 +42,70 @@ namespace Fhir.Client
             ///Patients
             //InsertPats();
             //GetPats();
-            InsertDiagn();
+            //InsertDiagn();
+
+            //InsertPat();
+            SearchPats();
+
             Console.ReadKey();
+        }
+        static void SearchPats()
+        {
+            string str = "";
+            var client = new FhirClient(endpoint);
+            var query = new string[] { "identifier=bob@bob.co" };
+            var bundle = client.Search("Patient", query);
+            foreach (var entry in bundle.Entry)
+            {
+                Patient p = (Patient)entry.Resource;
+                str = str + p.Id + " " + p.Language + " " + "\r\n";
+            }
+
+            Console.WriteLine(str);
+        }
+        static void InsertPat()
+        {
+            string data = System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Patient_Sample.json");
+            var pt = (Patient)FhirParser.ParseFromJson(data);
+            var client = new FhirClient(endpoint);
+            var tt = FhirSerializer.SerializeResourceToJson(pt);
+            var ttx = FhirSerializer.SerializeResourceToXml(pt);
+            client.Create<Patient>(pt);
+
+            //var pt = new Patient()
+            //{
+            //    //Id = "SomeID--" + new Random().Next(1, 121212).ToString(),
+            //    Name = new List<HumanName>()
+            //    {
+            //        new HumanName()
+            //        {
+            //            Family = new string[] { "FamilyName" },
+            //            Given = new string[] { "GivenName1" }
+            //        },
+            //        new HumanName()
+            //        {
+            //            Given = new string[] { "GivenName" }
+
+            //        }
+            //    },
+            //    Address = Common.GetAddr()
+
+            //};
+            //var ttx = FhirSerializer.SerializeResourceToXml(pt);
         }
 
         static void InsertDiagn()
         {
-            var tt = Newtonsoft.Json.JsonConvert.DeserializeObject<Patient>(System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Patient_Sample.json"));
+            //FhirSerializer.
+
+            //var tt = Newtonsoft.Json.JsonConvert.DeserializeObject<Patient>(System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Patient_Sample.json"), new Newtonsoft.Json.JsonSerializerSettings()
+            //{
+            //    NullValueHandling = NullValueHandling.Ignore,
+            //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            //    ContractResolver = new CamelCasePropertyNamesContractResolver()
+            //});
+            //var tt1 = Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Patient_Sample.json"));
+            //var p1 = tt1.ToObject<Patient>();
         }
 
         static void GetObservetion()

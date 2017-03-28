@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Data\Obs_Sample.json" />
     <None Include="Data\Patient_Sample.json" />
     <None Include="packages.config" />
     <None Include="validation.xml.zip">
