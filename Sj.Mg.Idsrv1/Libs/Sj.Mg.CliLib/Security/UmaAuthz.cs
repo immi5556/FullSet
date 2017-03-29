@@ -39,7 +39,16 @@ namespace Sj.Mg.CliLib.Security
                 bool allow = false;
                 (AllowedScopes).ToList().ForEach(t =>
                 {
-                    JArray items = (JArray)scp;
+                    JArray items = null;
+                    try
+                    {
+                        items = (JArray)scp;
+                    }
+                    catch(InvalidCastException e)
+                    {
+                        items = new JArray();
+                        items.Add((JValue)scp);
+                    }
                     var tim = items.ToObject<string[]>();
                     foreach (string o in tim)
                     {

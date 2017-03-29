@@ -1,0 +1,72 @@
+INFO  2017-03-29 14:37:26,295 95662ms HomeController         Execute            - Data Recieved
+ERROR 2017-03-29 14:37:26,449 95816ms HomeController         MoveNext           - Account ErrorNewtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Path '', line 0, position 0.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Sj.Mg.Client.Controllers.HomeController.ValidPermTkt(String data, String basetkn) in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 574
+   at Sj.Mg.Client.Controllers.HomeController.Execute(String url, String basetkn) in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 562
+   at Sj.Mg.Client.Controllers.HomeController.<Index>d__1.MoveNext() in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 43
+INFO  2017-03-29 14:37:28,067 97434ms HomeController         Execute            - Data Recieved
+ERROR 2017-03-29 14:37:28,081 97448ms HomeController         MoveNext           - Medication ErrorNewtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Path '', line 0, position 0.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Sj.Mg.Client.Controllers.HomeController.ValidPermTkt(String data, String basetkn) in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 574
+   at Sj.Mg.Client.Controllers.HomeController.Execute(String url, String basetkn) in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 562
+   at Sj.Mg.Client.Controllers.HomeController.<Index>d__1.MoveNext() in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 61
+INFO  2017-03-29 14:37:28,999 98366ms HomeController         Execute            - Data Recieved
+ERROR 2017-03-29 14:37:29,018 98385ms HomeController         MoveNext           - Patient ErrorNewtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Path '', line 0, position 0.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Sj.Mg.Client.Controllers.HomeController.ValidPermTkt(String data, String basetkn) in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 574
+   at Sj.Mg.Client.Controllers.HomeController.Execute(String url, String basetkn) in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 562
+   at Sj.Mg.Client.Controllers.HomeController.<Index>d__1.MoveNext() in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 79
+INFO  2017-03-29 14:37:29,986 99353ms HomeController         Execute            - Data Recieved
+ERROR 2017-03-29 14:37:30,002 99369ms HomeController         MoveNext           - Observation ErrorNewtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Path '', line 0, position 0.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Sj.Mg.Client.Controllers.HomeController.ValidPermTkt(String data, String basetkn) in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 574
+   at Sj.Mg.Client.Controllers.HomeController.Execute(String url, String basetkn) in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 562
+   at Sj.Mg.Client.Controllers.HomeController.<Index>d__1.MoveNext() in D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Client\Sj.Mg.Client\Controllers\HomeController.cs:line 96
+INFO  2017-03-29 14:46:40,812 18786ms HomeController         Execute            - Data Recieved{"ticket":"58db7b789f22adb8ccea174d"}
+INFO  2017-03-29 14:47:04,901 42875ms HomeController         Execute            - Data Recieved{"ticket":"58db7b909f22adb8ccea174e"}
+INFO  2017-03-29 14:47:08,531 46505ms HomeController         Execute            - Data Recieved{"ticket":"58db7b949f22adb8ccea174f"}
+INFO  2017-03-29 14:47:11,503 49477ms HomeController         Execute            - Data Recieved{"ticket":"58db7b979f22adb8ccea1750"}
+INFO  2017-03-29 14:51:22,713 300687ms HomeController         Execute            - Data Recieved{"ticket":"58db7c8c9f22adb8ccea1751"}
+INFO  2017-03-29 14:52:35,036 373010ms HomeController         Execute            - Data Recieved{"ticket":"58db7cdb9f22adb8ccea1752"}
+INFO  2017-03-29 14:53:17,904 415878ms HomeController         Execute            - Data Recieved{"ticket":"58db7d059f22adb8ccea1753"}
+INFO  2017-03-29 14:59:38,272 70928ms HomeController         Execute            - Data Recieved{"ticket":"58db7e829f22ad77f017dca8"}
+INFO  2017-03-29 14:59:52,201 84858ms HomeController         Execute            - Data Recieved{"ticket":"58db7e909f22ad77f017dca9"}
+INFO  2017-03-29 14:59:57,436 90092ms HomeController         Execute            - Data Recieved{"ticket":"58db7e959f22ad77f017dcaa"}
+INFO  2017-03-29 15:00:03,099 95755ms HomeController         Execute            - Data Recieved{"ticket":"58db7e9b9f22ad77f017dcab"}
+INFO  2017-03-29 15:01:58,325 75101ms HomeController         Execute            - Data Recieved{"ticket":"58db7f0d9f22ad33844ac380"}
+INFO  2017-03-29 15:02:05,716 82492ms HomeController         Execute            - Data Recieved{"ticket":"58db7f159f22ad33844ac382"}
+INFO  2017-03-29 15:02:12,835 89611ms HomeController         Execute            - Data Recieved{"ticket":"58db7f1c9f22ad33844ac383"}
+INFO  2017-03-29 15:02:16,646 93422ms HomeController         Execute            - Data Recieved{"ticket":"58db7f209f22ad33844ac384"}
+INFO  2017-03-29 15:02:46,136 122912ms HomeController         Execute            - Data Recieved{"ticket":"58db7f3e9f22ad33844ac385"}
+INFO  2017-03-29 15:02:55,110 131886ms HomeController         Execute            - Data Recieved{"ticket":"58db7f479f22ad33844ac387"}
+INFO  2017-03-29 15:03:00,990 137766ms HomeController         Execute            - Data Recieved{"ticket":"58db7f4c9f22ad33844ac388"}
+INFO  2017-03-29 15:03:04,295 141071ms HomeController         Execute            - Data Recieved{"ticket":"58db7f509f22ad33844ac389"}
+INFO  2017-03-29 15:03:25,057 161833ms HomeController         Execute            - Data Recieved{"ticket":"58db7f659f22ad33844ac38a"}
+INFO  2017-03-29 15:03:26,310 163086ms HomeController         Execute            - Data Recieved{"ticket":"58db7f669f22ad33844ac38c"}
+INFO  2017-03-29 15:03:26,486 163262ms HomeController         Execute            - Data Recieved{"ticket":"58db7f669f22ad33844ac38d"}
+INFO  2017-03-29 15:03:27,271 164047ms HomeController         Execute            - Data Recieved{"ticket":"58db7f679f22ad33844ac38e"}
+INFO  2017-03-29 15:03:34,981 171757ms HomeController         Execute            - Data Recieved{"ticket":"58db7f6e9f22ad33844ac38f"}
+INFO  2017-03-29 15:03:51,731 188507ms HomeController         Execute            - Data Recieved{"ticket":"58db7f7f9f22ad33844ac391"}
+INFO  2017-03-29 15:05:55,651 21970ms HomeController         Execute            - Data Recieved{"ticket":"58db7ffb9f22ad6b947c74b6"}
+INFO  2017-03-29 15:06:13,291 39610ms HomeController         Execute            - Data Recieved{"ticket":"58db800d9f22ad6b947c74b7"}
+INFO  2017-03-29 15:07:29,844 14044ms HomeController         Execute            - Data Recieved{"ticket":"58db80599f22ad2528a38865"}
+INFO  2017-03-29 15:07:41,238 25439ms HomeController         Execute            - Data Recieved{"ticket":"58db80659f22ad2528a38866"}
+INFO  2017-03-29 15:07:42,263 26463ms HomeController         Execute            - Data Recieved{"ticket":"58db80669f22ad2528a38867"}
+INFO  2017-03-29 15:07:43,549 27750ms HomeController         Execute            - Data Recieved{"ticket":"58db80679f22ad2528a38868"}
+INFO  2017-03-29 15:07:52,201 36402ms HomeController         Execute            - Data Recieved{"ticket":"58db80709f22ad2528a38869"}
+INFO  2017-03-29 15:07:56,023 40223ms HomeController         Execute            - Data Recieved{"ticket":"58db80749f22ad2528a3886a"}
+INFO  2017-03-29 15:11:48,369 272569ms HomeController         Execute            - Data Recieved{"ticket":"58db815c9f22ad2528a3886b"}
+INFO  2017-03-29 15:54:41,346 13353ms HomeController         Execute            - Data Recieved{"ticket":"58db8b699f22ade04cf2dfee"}
+INFO  2017-03-29 15:55:16,427 17462ms HomeController         Execute            - Data Recieved{"ticket":"58db8b8c9f22aee04c445941"}
+INFO  2017-03-29 15:55:23,943 24977ms HomeController         Execute            - Data Recieved{"ticket":"58db8b939f22aee04c445942"}
+INFO  2017-03-29 15:55:29,258 30292ms HomeController         Execute            - Data Recieved{"ticket":"58db8b999f22aee04c445943"}
+INFO  2017-03-29 15:55:40,210 41245ms HomeController         Execute            - Data Recieved{"ticket":"58db8ba49f22aee04c445944"}
+INFO  2017-03-29 15:55:45,006 46040ms HomeController         Execute            - Data Recieved{"ticket":"58db8ba99f22aee04c445945"}
+INFO  2017-03-29 15:56:01,847 62881ms HomeController         Execute            - Data Recieved{"ticket":"58db8bb99f22aee04c445946"}
+INFO  2017-03-29 15:56:02,503 63538ms HomeController         Execute            - Data Recieved{"ticket":"58db8bba9f22aee04c445947"}
+INFO  2017-03-29 15:56:02,567 63602ms HomeController         Execute            - Data Recieved{"ticket":"58db8bba9f22aee04c445948"}
+INFO  2017-03-29 15:56:03,216 64250ms HomeController         Execute            - Data Recieved{"ticket":"58db8bbb9f22aee04c445949"}

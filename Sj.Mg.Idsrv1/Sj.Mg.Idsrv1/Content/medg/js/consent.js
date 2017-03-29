@@ -25,7 +25,7 @@
             $("#overCont").wrap('<form id="frmToSend" name="form" method="post" action="' + model.consentUrl + '"></form>');
             $("#frmToSend").append("<input type='hidden' name='" + model.antiForgery.name + "' value='" + model.antiForgery.value + "'>");
             (model.identityScopes || []).forEach(function (scope) {
-                var $scps = $('<li><label><input type="checkbox" name="scopes" id="scopes_' + scope.name + '" value="' + scope.name + '" /><span></span></label></li>');
+                var $scps = $('<li><label><input type="checkbox" checked name="scopes" id="scopes_' + scope.name + '" value="' + scope.name + '" /><span></span></label></li>');
                 if (model.selected) {
                     $scps.attr("checked", "checked");
                 }
@@ -42,7 +42,7 @@
                     $scps.find("label").append("<strong>" + scope.description + "</strong>");
             });
             (model.resourceScopes || []).forEach(function (scope) {
-                var $scps = $('<li><label><input type="checkbox" name="scopes" id="scopes_' + scope.name + '" value="' + scope.name + '" /><span></span></label></li>');
+                var $scps = $('<li><label><input type="checkbox" checked name="scopes" id="scopes_' + scope.name + '" value="' + scope.name + '" /><span></span></label></li>');
                 $scps.find("label").append("<strong>" + scope.displayName + "</strong>");
                 if (scope.description)
                     $scps.find("label").append("<strong> (" + scope.description + ")</strong>");

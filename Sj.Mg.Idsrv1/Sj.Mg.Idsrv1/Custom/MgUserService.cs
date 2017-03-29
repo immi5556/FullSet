@@ -1,4 +1,5 @@
-﻿using IdentityServer3.Core;
+﻿using Facebook;
+using IdentityServer3.Core;
 using IdentityServer3.Core.Extensions;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.Default;
@@ -118,7 +119,7 @@ namespace Sj.Mg.Idsrv1.Custom
         }
         protected static Newtonsoft.Json.Linq.JObject GetAdditionalFacebookClaims(Claim accessToken)
         {
-            var fb = new Facebook.FacebookClient(accessToken.Value);
+            var fb = new FacebookClient(accessToken.Value);
             var tt = fb.Get("me", new { fields = new[] { "email", "first_name", "last_name" } });
             return Newtonsoft.Json.Linq.JObject.FromObject(tt);
         }
