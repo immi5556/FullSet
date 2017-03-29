@@ -492,7 +492,7 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult ReqData(Sj.Mg.CliLib.Model.Params.ReqParam para)
         {
             var basetkn = GetEmptyRptToken();
-            if (para.resource == "Demographic")
+            if (para.resource == "Demographic" || para.resource == "Diagnostics")
             {
                 var pats = Execute(CliLib.Utils.Common.ReApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
                 return Json(pats, JsonRequestBehavior.AllowGet);

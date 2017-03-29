@@ -1638,11 +1638,11 @@ footer {
     height: 32px;
     border-radius: 4px;
 }
-.allowedUsr1 {
+.allowedUsr1, .patientData {
     width:100%;
     text-align:center;
 }
-.allowedUsr1 th,.allowedUsr1 td {
+.allowedUsr1 th,.allowedUsr1 td, .patientData th, .patientData td {
     border:1px solid #ccc;
     padding:6px 8px;
     text-overflow:ellipsis;
