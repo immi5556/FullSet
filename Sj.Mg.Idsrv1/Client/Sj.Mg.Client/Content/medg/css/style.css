@@ -1649,3 +1649,7 @@ footer {
     overflow:hidden;
     white-space:nowrap;
 }
+.noAccess {
+    text-align: center;
+    padding: 25px;
+}

@@ -161,6 +161,7 @@ var permission = (function () {
     $(document).on("click", ".pro-r", function () {
         toemail = $(this).data("emailto");
         $("#srchrest").html('');
+        $('.slideDown').trigger("click");
         var filterUl = $('<div class="providesAcc"></div>');
         $("#srchrest").append(filterUl);
         $("#searchEmail").val('');
@@ -175,9 +176,17 @@ var permission = (function () {
             url: "/provide/" + toemail + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val(),
         })
         .done(function (data, textStatus, jqXHR) {
-            //alert("Success: " + data);
-            alert("request sent Successfully");
+            $(".allowedUsr1 tbody").append('<tr><td>' + toemail + '</td><td>' + $("#selrsrc").val() + '</td><td><select class="accessType"><option value="Read" ' + ($("#selscpe").val() == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + ($("#selscpe").val() == "Share" ? "selected" : "") + '>Share</option></select></td><td><i class="fa fa-times-circle revokeAccess" aria-hidden="true"></i></td></tr>');
+            alert("provided your data Successfully");
             $("#srchrest").html('');
+            if ($(".allowedUsr1 tbody tr").length) {
+                $(".noAccess").hide();
+                $(".allowedUsr1").show();
+            } else {
+                $(".noAccess").show();
+                $(".allowedUsr1").hide();
+            }
+            popUpEvents();
         })
         .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
     });
@@ -270,6 +279,39 @@ var permission = (function () {
         });
     }
 
+    function popUpEvents() {
+        var previous;
+
+        $(".accessType").on('focus', function () {
+            previous = this.value;
+        }).change(function () {
+            $.ajax({
+                url: "/updaterequest/" + $(this).closest("tr").find('td:eq(0)').text() + "/" + selectedclient + "/" + $(this).closest("tr").find('td:eq(1)').text() + "/" + previous + "/" + $(this).val(),
+            })
+            .done(function (data, textStatus, jqXHR) {
+                //alert("Success: " + data);
+                alert("Access Level Changed Successfully.");
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
+        });
+        $(".revokeAccess").on("click", function () {
+            var $this = $(this);
+            $.ajax({
+                url: "/revokeaccess/" + $(this).closest("tr").find('td:eq(0)').text() + "/" + selectedclient + "/" + $(this).closest("tr").find('td:eq(1)').text() + "/" + $(this).closest("tr").find('.accessType').val(),
+            })
+            .done(function (data, textStatus, jqXHR) {
+                //alert("Success: " + data);
+                alert("Access Revoked Successfully.");
+                $this.closest("tr").remove();
+                if ($(".allowedUsr1 tbody tr").length == 0) {
+                    $(".noAccess").show();
+                    $(".allowedUsr1").hide();
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
+        });
+    }
+
     function loadData() {
         if (!myData) {
             return;
@@ -278,7 +320,7 @@ var permission = (function () {
         $(".viewSectionList").html('');
         $(".requestingSectionList").html('');
         $(".viewShareSectionList").html('');
-        $(".allowedUsr tbody").html('');
+        $(".allowedUsr1 tbody tr").remove('');
         if (data.RequestedUsers && data.RequestedUsers[selectedclient] && data.RequestedUsers[selectedclient][selectedresource]) {
             for (var scopeKeys in data.RequestedUsers[selectedclient][selectedresource]) {
                 (data.RequestedUsers[selectedclient][selectedresource][scopeKeys] || []).forEach(function (user) {
@@ -365,32 +407,17 @@ var permission = (function () {
                     });
                 }
             }
-            var previous;
-
-            $(".accessType").on('focus', function () {
-                previous = this.value;
-            }).change(function () {
-                $.ajax({
-                    url: "/updaterequest/" + $(this).closest("tr").find('td:eq(0)').text() + "/" + selectedclient + "/" + $(this).closest("tr").find('td:eq(1)').text() + "/" + previous + "/" + $(this).val(),
-                })
-                .done(function (data, textStatus, jqXHR) {
-                    //alert("Success: " + data);
-                    alert("Access Level Changed Successfully.");
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
-            });
-            $(".revokeAccess").on("click", function () {
-                var $this = $(this);
-                $.ajax({
-                    url: "/revokeaccess/" + $(this).closest("tr").find('td:eq(0)').text() + "/" + selectedclient + "/" + $(this).closest("tr").find('td:eq(1)').text() + "/" + $(this).closest("tr").find('.accessType').val(),
-                })
-                .done(function (data, textStatus, jqXHR) {
-                    //alert("Success: " + data);
-                    alert("Access Revoked Successfully.");
-                    $this.closest("tr").remove();
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
-            });
+            if ($(".allowedUsr1 tbody tr").length) {
+                $(".noAccess").hide();
+                $(".allowedUsr1").show();
+            } else {
+                $(".noAccess").show();
+                $(".allowedUsr1").hide();
+            }
+            popUpEvents();
+        } else {
+            $(".noAccess").show();
+            $(".allowedUsr1").hide();
         }
         loadPermission();
     }
