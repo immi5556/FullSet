@@ -68,29 +68,94 @@ var permission = (function () {
     }
 
     var populateMeds = function (data, user) {
+        var count = 0;
         (data || []).forEach(function (itm, idx) {
-            console.log(itm);
-            $('.slideUp').trigger("click");
-            $(".patientData").show();
-            $(".generalDetails").hide();
+            if (itm["Identifier"] && itm["Identifier"].length) {
+                if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
+                    console.log(itm);
+                    if (count == 0) {
+                        $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
+                        if (itm["DateAssertedElement"] && itm["DateAssertedElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Date Asserted</td><td>" + itm["DateAssertedElement"].Value + "</td></tr>");
+                        }
+                        if (itm["Effective"] && itm["Effective"].Value) {
+                            $(".patientData tbody").append("<tr><td>Date Effective</td><td>" + itm["Effective"].Value + "</td></tr>");
+                        }
+                        if (itm["InformationSource"] && itm["InformationSource"]["DisplayElement"] && itm["InformationSource"]["DisplayElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Display Info</td><td>" + itm["InformationSource"]["DisplayElement"].Value + "</td></tr>");
+                        } 
+                        if (itm["Medication"] && itm["Medication"]["ReferenceElement"] && itm["Medication"]["ReferenceElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Medication Ref.</td><td>" + itm["Medication"]["ReferenceElement"].Value + "</td></tr>");
+                        }
+                        if (itm["StatusElement"] && itm["StatusElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Status</td><td>" + itm["StatusElement"].Value + "</td></tr>");
+                        }
+                        count++;
+                        $('.slideUp').trigger("click");
+                        $(".patientData").show();
+                        $(".generalDetails").hide();
+                    }
+                }
+            }
         });
     }
 
     var populateObs = function (data, user) {
+        var count = 0;
         (data || []).forEach(function (itm, idx) {
-            console.log(itm);
-            $('.slideUp').trigger("click");
-            $(".patientData").show();
-            $(".generalDetails").hide();
+            if (itm["Identifier"] && itm["Identifier"].length) {
+                if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
+                    console.log(itm);
+                    if (count == 0) {
+                        $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
+                        if (itm["Effective"] && itm["Effective"].Value) {
+                            $(".patientData tbody").append("<tr><td>Effective Date</td><td>" + itm["Effective"].Value + "</td></tr>");
+                        }
+                        if (itm["Value"] && itm["Value"]["ValueElement"] && itm["Value"]["ValueElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Value</td><td>" + itm["Value"]["ValueElement"].Value + " "+((itm["Value"]["UnitElement"] && itm["Value"]["UnitElement"].Value) ? itm["Value"]["UnitElement"].Value : "") + "</td></tr>");
+                        }
+                        if (itm["StatusElement"] && itm["StatusElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Status</td><td>" + itm["StatusElement"].Value + "</td></tr>");
+                        }
+                        count++;
+                        $('.slideUp').trigger("click");
+                        $(".patientData").show();
+                        $(".generalDetails").hide();
+                    }
+                }
+            }
         });
     }
 
     var populateDiags = function (data, user) {
+        var count = 0;
         (data || []).forEach(function (itm, idx) {
-            console.log(itm);
-            $('.slideUp').trigger("click");
-            $(".patientData").show();
-            $(".generalDetails").hide();
+            if (itm["Identifier"] && itm["Identifier"].length) {
+                if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
+                    if (count == 0) {
+                        $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
+                        if (itm["Balance"] && itm["Balance"]["ValueElement"] && !isNaN(itm["Balance"]["ValueElement"].Value)) {
+                            $(".patientData tbody").append("<tr><td>Balance</td><td>" + itm["Balance"]["ValueElement"].Value + " " + ((itm["Balance"]["UnitElement"] && itm["Balance"]["UnitElement"].Value) ? itm["Balance"]["UnitElement"].Value : "") + "</td></tr>");
+                        }
+                        if (itm["Balance"] && itm["Balance"]["SystemElement"] && itm["Balance"]["SystemElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Balance System Unit</td><td>" + itm["Balance"]["SystemElement"].Value + "</td></tr>");
+                        }
+                        if (itm["DescriptionElement"] && itm["DescriptionElement"] && itm["DescriptionElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Description</td><td>" + itm["DescriptionElement"].Value + "</td></tr>");
+                        } 
+                        if (itm["NameElement"] && itm["NameElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Name</td><td>" + itm["NameElement"].Value + "</td></tr>");
+                        } 
+                        if (itm["StatusElement"] && itm["StatusElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Status</td><td>" + itm["StatusElement"].Value + "</td></tr>");
+                        }
+                        count++;
+                        $('.slideUp').trigger("click");
+                        $(".patientData").show();
+                        $(".generalDetails").hide();
+                    }
+                }
+            }
         });
     }
 
