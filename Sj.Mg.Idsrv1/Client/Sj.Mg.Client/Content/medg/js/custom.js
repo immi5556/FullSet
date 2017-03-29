@@ -85,6 +85,15 @@ var permission = (function () {
         });
     }
 
+    var populateDiags = function (data, user) {
+        (data || []).forEach(function (itm, idx) {
+            console.log(itm);
+            $('.slideUp').trigger("click");
+            $(".patientData").show();
+            $(".generalDetails").hide();
+        });
+    }
+
     function loadPermission() {
         $('body').gbLightbox({
             triggerElem: '.click',
@@ -343,7 +352,7 @@ var permission = (function () {
             populatePats(data, scp.email);
         }
         if (scp.resource == "Diagnostics") {
-            populatePats(data, scp.email);
+            populateDiags(data, scp.email);
         }
         if (scp.resource == "Medication") {
             populateMeds(data, scp.email);
