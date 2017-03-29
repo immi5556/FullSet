@@ -488,6 +488,36 @@ namespace Sj.Mg.Client.Controllers
         }
 
         [Authorize]
+        [Route("denyrequest/{toemail}/{toclient}/{toresrc}/{toscope}")]
+        public JsonResult DenyRequest(string toemail, string toclient, string toresrc, string toscope)
+        {
+            var un = User.Identity.Name;
+            var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
+            tt.ForEach(t =>
+            {
+                if (t.MyEmail == un)
+                {
+                    if (t.RequestedUsers.ContainsKey(toclient))
+                    {
+                        if (t.RequestedUsers[toclient].ContainsKey(toresrc))
+                        {
+                            if (t.RequestedUsers[toclient][toresrc].ContainsKey(toscope))
+                            {
+                                if (t.RequestedUsers[toclient][toresrc][toscope].Contains(toemail))
+                                {
+                                    //alreadyaccess = true;
+                                    t.RequestedUsers[toclient][toresrc][toscope].RemoveAt(t.RequestedUsers[toclient][toresrc][toscope].IndexOf(toemail));
+                                }
+                            }
+                        }
+                    }
+                    Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                }
+            });
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
         [HttpPost]
         public JsonResult ReqData(Sj.Mg.CliLib.Model.Params.ReqParam para)
         {

@@ -368,6 +368,18 @@ var permission = (function () {
                                                                     \   </li>');
                 });
             }
+            $(".clsUsr").on("click", function () {
+                var $this = $(this);
+                $.ajax({
+                    url: "/denyrequest/" + $(this).parent().find("h5").html() + "/ReliefExpress/" + $(this).parent().find(".resourcePro").html() + "/" + $(this).parent().find(".scopeKey").html()
+                })
+                .done(function (data, textStatus, jqXHR) {
+                    alert("Request denied successfully.");
+                    $this.parent().remove();
+                    $(".notification").html(Number($(".notification").html())-1);
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
+            });
         }
         if (data.AllowedUsers && data.AllowedUsers[selectedclient]) {
             for (var scopeKeys in data.AllowedUsers[selectedclient][selectedresource]) {
