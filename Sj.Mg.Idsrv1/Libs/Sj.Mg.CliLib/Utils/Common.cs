@@ -12,25 +12,25 @@ namespace Sj.Mg.CliLib.Utils
         /// <summary>
         /// Localhost
         /// </summary>
-        //public const string ReApi = "https://localhost:44306/";
-        //public const string ReApiStsCallback = "https://localhost:44306/home/stscallback";
-        //public const string ReClientMvc = "https://localhost:44383/";
-        //public const string ReClientMvcStsCallback = "https://localhost:44383/home/stscallback";
-        //public const string IssuerUri = "https://oidc.medgrotto.com/identity";
-        //public const string StsOrigin = "https://localhost:44305";
-        //public static Uri fhirendpoint = new Uri("http://localhost:49922/fhir");
+        public const string ReApi = "https://localhost:44306/";
+        public const string ReApiStsCallback = "https://localhost:44306/home/stscallback";
+        public const string ReClientMvc = "https://localhost:44383/";
+        public const string ReClientMvcStsCallback = "https://localhost:44383/home/stscallback";
+        public const string IssuerUri = "https://oidc.medgrotto.com/identity";
+        public const string StsOrigin = "https://localhost:44305";
+        public static Uri fhirendpoint = new Uri("http://localhost:49922/fhir");
         ////public static Uri fhirendpoint = new Uri("http://spark.furore.com/fhir");
 
         /// <summary>
         /// https
         /// </summary>
-        public const string ReApi = "https://oidc.medgrotto.com:9002/";
-        public const string ReApiStsCallback = "https://oidc.medgrotto.com:9002/home/stscallback";
-        public const string ReClientMvc = "https://oidc.medgrotto.com:9001/";
-        public const string ReClientMvcStsCallback = "https://oidc.medgrotto.com:9001/home/stscallback";
-        public const string IssuerUri = "https://oidc.medgrotto.com/identity";
-        public const string StsOrigin = "https://oidc.medgrotto.com:9011";
-        public static Uri fhirendpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
+        //public const string ReApi = "https://oidc.medgrotto.com:9002/";
+        //public const string ReApiStsCallback = "https://oidc.medgrotto.com:9002/home/stscallback";
+        //public const string ReClientMvc = "https://oidc.medgrotto.com:9001/";
+        //public const string ReClientMvcStsCallback = "https://oidc.medgrotto.com:9001/home/stscallback";
+        //public const string IssuerUri = "https://oidc.medgrotto.com/identity";
+        //public const string StsOrigin = "https://oidc.medgrotto.com:9011";
+        //public static Uri fhirendpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
 
         public const string ReApiAccount = ReApi + "Api/Account/";
         public const string ReApiObservation = ReApi + "Api/Observation/";
