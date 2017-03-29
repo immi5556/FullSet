@@ -14,8 +14,8 @@ namespace Fhir.Client
     class Program
     {
         //static Uri endpoint = new Uri("http://spark.furore.com/fhir");
-        static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
-        //static Uri endpoint = new Uri("http://localhost:49922/fhir");
+        //static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
+        static Uri endpoint = new Uri("http://localhost:49922/fhir");
         static void Main(string[] args)
         {
             System.Net.ServicePointManager.ServerCertificateValidationCallback =
