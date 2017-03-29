@@ -49,7 +49,8 @@ namespace Fhir.Client
             //InsObs();
             //GetObs();
 
-            InsMds(); 
+            //InsMds(); 
+            GetMds();
 
             //InsAct();
 
@@ -85,6 +86,19 @@ namespace Fhir.Client
                 med.Identifier[0].Value = t;
                 client.Create<MedicationStatement>(med);
             });
+        }
+        static void GetMds()
+        {
+            string str = "";
+            var client = new FhirClient(endpoint);
+            var query = new string[] { "identifier=bob@bob.co" };
+            var bundle = client.Search("MedicationStatement", query);
+            foreach (var entry in bundle.Entry)
+            {
+                MedicationStatement p = (MedicationStatement)entry.Resource;
+                str = str + p.Id + " " + p.Language + " " + "\r\n";
+            }
+            Console.WriteLine(str);
         }
         static void GetObs()
         {
