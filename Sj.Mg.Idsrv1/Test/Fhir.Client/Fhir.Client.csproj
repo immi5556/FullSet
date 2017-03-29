@@ -63,8 +63,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Data\Act_Sample.json" />
+    <None Include="Data\Act_Sample_1.json" />
+    <None Include="Data\Act_Sample_2.json" />
     <None Include="Data\Med_Sample.json" />
+    <None Include="Data\Med_Sample_1.json" />
+    <None Include="Data\Med_Sample_2.json" />
     <None Include="Data\Obs_Sample.json" />
+    <None Include="Data\Obs_Sample_1.json" />
+    <None Include="Data\Obs_Sample_2.json" />
     <None Include="Data\Patient_Sample.json" />
     <None Include="packages.config" />
     <None Include="validation.xml.zip">
