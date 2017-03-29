@@ -18,6 +18,14 @@ namespace Sj.Mg.Resource.Server.Controllers
         {
             return Code.MedicManager.Get(null);
         }
+        [Route("api/medication/{ids}")]
+        [CliLib.Security.UmaAuthz("Patient/Medication.Read")]
+        [HttpGet]
+        public List<Hl7.Fhir.Model.Medication> GetMeds(string ids)
+        {
+            var id = System.Web.HttpUtility.UrlDecode(ids ?? "").Replace("^2E", ".");
+            return Code.MedicManager.Get(id);
+        }
         [CliLib.Security.UmaAuthz("Patient/Medication.Write", "Patient/Medication.*")]
         [HttpPost]
         public void Post([FromBody]Hl7.Fhir.Model.Medication act)

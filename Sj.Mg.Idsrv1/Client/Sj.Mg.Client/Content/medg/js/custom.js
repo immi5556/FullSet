@@ -53,6 +53,24 @@ var permission = (function () {
         });
     }
 
+    var populateMeds = function (data, user) {
+        (data || []).forEach(function (itm, idx) {
+            console.log(itm);
+            $('.slideUp').trigger("click");
+            $(".patientData").show();
+            $(".generalDetails").hide();
+        });
+    }
+
+    var populateObs = function (data, user) {
+        (data || []).forEach(function (itm, idx) {
+            console.log(itm);
+            $('.slideUp').trigger("click");
+            $(".patientData").show();
+            $(".generalDetails").hide();
+        });
+    }
+
     function loadPermission() {
         $('body').gbLightbox({
             triggerElem: '.click',
@@ -286,10 +304,10 @@ var permission = (function () {
             populatePats(data, scp.email);
         }
         if (scp.resource == "Medication") {
-            populatePats(data, scp.email);
+            populateMeds(data, scp.email);
         }
         if (scp.resource == "Observation") {
-            populatePats(data, scp.email);
+            populateObs(data, scp.email);
         }
     }
 
