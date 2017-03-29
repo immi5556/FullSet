@@ -119,14 +119,14 @@ namespace Sj.Mg.Client.Controllers
         [Authorize]
         public ActionResult Secure()
         {
-            //var token1 = (User as ClaimsPrincipal).FindFirst("access_token").Value;
-            var token1 = (User as ClaimsPrincipal).FindFirst("id_token").Value;
-            ViewBag.FullName = (User as ClaimsPrincipal).FindFirst("given_name").Value + ", " + (User as ClaimsPrincipal).FindFirst("family_name").Value;
-            var jo = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(token1);
-            var token = (User as System.Security.Claims.ClaimsPrincipal);
-            foreach (var tt in token.Claims)
+            var prof = (User as ClaimsPrincipal);
+            var acctknn = prof.FindFirst("access_token") != null ? prof.FindFirst("access_token").Value : "";
+            var idtkn = prof.FindFirst("id_token") != null ? prof.FindFirst("id_token").Value : "";
+            var gname = prof.FindFirst("given_name") != null ? prof.FindFirst("given_name").Value : "";
+            var lname = prof.FindFirst("family_name") != null ? prof.FindFirst("family_name").Value : "";
+            if (!string.IsNullOrEmpty(gname) || !string.IsNullOrEmpty(lname))
             {
-                Console.WriteLine(tt.Value);
+                ViewBag.FullName = lname + ", " + gname;
             }
             return View();
         }

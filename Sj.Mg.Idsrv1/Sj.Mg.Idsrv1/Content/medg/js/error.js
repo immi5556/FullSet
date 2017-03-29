@@ -18,7 +18,7 @@
             var model = this.getModel();
             $("#error").text(model.errorMessage);
             $("#logout").append("<a href='" + model.logoutUrl + "'>logout</a>");
-            $("#site").append("<a href='" + model.siteUrl + "'>Home</a>");
+            $("#site").append("<a href='" + (model.siteUrl || '').replace('/core', '') + "'>Home</a>");
             $("#reqid").text(model.requestId);
         }
     };

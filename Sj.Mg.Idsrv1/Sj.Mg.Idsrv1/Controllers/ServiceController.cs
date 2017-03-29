@@ -127,7 +127,17 @@ namespace Sj.Mg.Idsrv1.Controllers
                     {
                         t1.scopes.ForEach(t2 =>
                         {
-                            ((Newtonsoft.Json.Linq.JArray)actkn.SelectToken("scope")).Add(t2);
+                            try
+                            {
+                                ((Newtonsoft.Json.Linq.JArray)actkn.SelectToken("scope")).Add(t2);
+                            }
+                            catch (InvalidCastException e)
+                            {
+                                var items = new Newtonsoft.Json.Linq.JArray();
+                                items.Add((Newtonsoft.Json.Linq.JValue)actkn.SelectToken("scope"));
+                                //items.Add(t2); //Stopping to provide acces denied
+                                actkn["scope"] = items;
+                            }
                         });
                     });
                 });
