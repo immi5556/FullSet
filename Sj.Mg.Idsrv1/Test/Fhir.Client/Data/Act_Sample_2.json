@@ -1,0 +1,38 @@
+﻿{
+  "resourceType": "Account",
+  "text": {
+    "status": "generated"
+  },
+  "identifier": [
+    {
+      "system": "urn:oid:0.1.2.3.4.5.6.7",
+      "value": "654321"
+    }
+  ],
+  "status": "active",
+  "type": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/v3/ActCode",
+        "code": "PBILLACCT",
+        "display": "patient billing account"
+      }
+    ],
+    "text": "patient"
+  },
+  "name": "Billing Claim for Saphire Kim Wong",
+  "subject": {
+    "reference": "Patient/example",
+    "display": "Saphire Kim Wong"
+  },
+  "balance": {
+    "value": -1075,
+    "unit": "USD",
+    "system": "urn:iso:std:iso:4217",
+    "code": "USD"
+  },
+  "owner": {
+    "reference": "Organization/hl7"
+  },
+  "description": "Consultant's Fee"
+}

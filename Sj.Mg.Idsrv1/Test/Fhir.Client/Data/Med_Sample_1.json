@@ -1,0 +1,75 @@
+﻿{
+  "resourceType": "MedicationStatement",
+  "text": {
+    "status": "generated"
+  },
+  "contained": [
+    {
+      "resourceType": "Medication",
+      "id": "med0309",
+      "code": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/ndfrt",
+            "code": "5023-136-12",
+            "display": "levonorgestrel IUD"
+          }
+        ]
+      },
+      "isBrand": true,
+      "package": {
+      }
+    }
+  ],
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://www.mirena-us.com/",
+      "value": "34245-343"
+    }
+  ],
+  "status": "active",
+  "medicationReference": {
+    "reference": "#prog0239"
+  },
+  "effectiveDateTime": "2016-01-13",
+  "dateAsserted": "2016-02-22",
+  "informationSource": {
+    "reference": "Patient/pat1",
+    "display": "Saphire Wong"
+  },
+  "note": [
+    {
+      
+    }
+  ],
+  "dosage": [
+    {
+      "text": "20 mcg/day",
+      "timing": {
+        "repeat": {
+          "frequency": 1,
+          "period": 1
+        }
+      },
+      "asNeededCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "934232",
+            "display": "Hormone Replacement Therapy"
+          }
+        ]
+      },
+      "route": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "382433",
+            "display": "Intrauterine"
+          }
+        ]
+      }
+    }
+  ]
+}

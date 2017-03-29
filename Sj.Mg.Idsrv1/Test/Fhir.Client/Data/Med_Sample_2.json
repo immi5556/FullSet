@@ -1,0 +1,75 @@
+﻿{
+  "resourceType": "MedicationStatement",
+  "text": {
+    "status": "generated"
+  },
+  "contained": [
+    {
+      "resourceType": "Medication",
+      "id": "med1234",
+      "code": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/ndfrt",
+            "code": "5243-836-99",
+            "display": "Carimune(R)"
+          }
+        ]
+      },
+      "isBrand": true,
+      "package": {
+      }
+    }
+  ],
+  "identifier": [
+    {
+      "use": "official",
+      "system": "http://www.healthline.com/health/autoimmune-disorders?m=0",
+      "value": "98211-323"
+    }
+  ],
+  "status": "active",
+  "medicationReference": {
+    "reference": "#aut9008"
+  },
+  "effectiveDateTime": "2015-08-13",
+  "dateAsserted": "2016-04-22",
+  "informationSource": {
+    "reference": "Patient/pat1",
+    "display": "Bob Smith"
+  },
+  "note": [
+    {
+      
+    }
+  ],
+  "dosage": [
+    {
+      "text": "400 to 800 mg/kg, IV, every 3 to 4 weeks",
+      "timing": {
+        "repeat": {
+          "frequency": 1,
+          "period": 1
+        }
+      },
+      "asNeededCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "342233",
+            "display": "Auto Immune Disorder"
+          }
+        ]
+      },
+      "route": {
+        "coding": [
+          {
+            "system": "https://www.drugs.com/dosage/immune-globulin-intravenous.html",
+            "code": "78654",
+            "display": "Intravenous"
+          }
+        ]
+      }
+    }
+  ]
+}

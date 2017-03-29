@@ -1,0 +1,73 @@
+﻿{
+  "resourceType": "Observation",
+  "text": {
+    "status": "generated"
+  },
+  "identifier": [
+    {
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/v2/0203",
+            "code": "MR"
+          }
+        ]
+      },
+      "system": "urn:oid:1.2.36.146.595.217.0.1",
+      "value": "alice@bob.co",
+      "period": {
+        "start": "2001-05-06"
+      },
+      "assigner": {
+        "display": "Acme Healthcare"
+      }
+    }
+  ],
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/observation-category",
+          "code": "imaging",
+          "display": "Imaging"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "24604-1",
+        "display": "Mammography"
+      },
+      {
+        "system": "http://loinc.org",
+        "code": "26175-0",
+        "display": "Bilateral Mammogram screening"
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "code": "71651007",
+        "display": "Radiographic procedure of chest"
+      },
+      {
+        "system": "http://acme.org/labs/clinical-codes",
+        "code": "imaging",
+        "display": "Imaging"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "effectiveDateTime": "2016-08-18",
+  "valueQuantity": {
+    "value": 4,
+    "unit": "birads",
+    "system": "http://unitsofmeasure.org",
+    "code": "[lb_av]"
+  }
+}

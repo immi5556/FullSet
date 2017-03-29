@@ -1,0 +1,73 @@
+﻿{
+  "resourceType": "Observation",
+  "text": {
+    "status": "generated"
+  },
+  "identifier": [
+    {
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/v2/0203",
+            "code": "MR"
+          }
+        ]
+      },
+      "system": "urn:oid:1.2.36.146.595.217.0.1",
+      "value": "alice@bob.co",
+      "period": {
+        "start": "2001-05-06"
+      },
+      "assigner": {
+        "display": "Acme Healthcare"
+      }
+    }
+  ],
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/observation-category",
+          "code": "vital-signs",
+          "display": "Vital Signs"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "62847-9",
+        "display": "Body mass index"
+      },
+      {
+        "system": "http://loinc.org",
+        "code": "39156-5",
+        "display": "BMI"
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "code": "'60621009",
+        "display": "Body mass index"
+      },
+      {
+        "system": "http://acme.org/labs/clinical-codes",
+        "code": "vital-signs",
+        "display": "Vital Signs"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "effectiveDateTime": "2016-08-18",
+  "valueQuantity": {
+    "value": 22,
+    "unit": "kg/m2",
+    "system": "http://unitsofmeasure.org",
+    "code": "[kg/m2]"
+  }
+}
