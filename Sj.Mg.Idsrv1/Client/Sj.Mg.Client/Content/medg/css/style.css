@@ -1653,3 +1653,103 @@ footer {
     text-align: center;
     padding: 25px;
 }
+
+.mailPop {
+  position: fixed;
+  left: 42%;
+  top: 50%;
+  display: none;
+  margin: -100px 0 0 -180px;
+  width: 580px;
+  text-align:center;
+  box-sizing:border-box;
+  padding: 15px 30px 0 30px;
+  z-index: 99999;
+  border-radius: 6px;
+  background: #ffffff;
+}
+.registerMail {
+    overflow:hidden;
+}
+.registerMail .mailPop {
+  display: block;
+}
+.mailPop h2 {
+  font: 400 25px/30px 'Droid Serif', serif;
+  margin: 2px 0 0 0;
+}
+.mailPop h2 span {
+    height:25px;
+    display:block;
+    padding:5px 0 0 0;
+}
+.mailPop h2 span.success {
+    background:url('../content/images/successIcon.png') no-repeat center top;
+    padding-top: 20px;
+}
+/*.mailPop h2 span.error {
+    background:url('../content/images/error.png') no-repeat center top;
+}*/
+/*.mailPop h2 img {
+  margin-right: 20px;
+}*/
+.mailPop .popUpContent {
+  width: 100%;
+  padding:5px 0px 20px 0;
+  color:#242323;
+}
+.popUpContent h3 {
+    color:#39425f;
+    font: 400 18px/30px 'Droid Serif', serif;
+    margin-top: 10px;
+}
+.popUpContent hr {
+    background:#d6d6d6;
+    margin: 10px 0;
+}
+.popUpContent p {
+   font: 400 15px/24px 'Droid Serif', serif;
+}
+.popUpContent h4 {
+    font: 700 18px/30px 'Droid Serif', serif;
+    margin-bottom: 0;
+}
+.popUpContent a {
+    color:#418e21;
+    text-decoration:none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+}
+
+.notNow {
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  clear:both;
+  margin:0 -30px;
+  font: 400 16px/40px 'Droid Serif', serif;
+  background: #39425f;
+  text-transform: uppercase;
+}
+.pageShadow {
+  position: fixed;
+  top: 0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  display: none;
+  background: rgba(0,0,0,0.5);
+}
+.registerMail .pageShadow,.errorPopUp .pageShadow {
+  display: block;
+  z-index: 9999;
+  background: rgba(0,0,0,0.9);
+}
+.successPopUp .pageShadow {
+  display: block;
+  z-index: 9999;
+  background: rgba(0,0,0,0.9);
+}
