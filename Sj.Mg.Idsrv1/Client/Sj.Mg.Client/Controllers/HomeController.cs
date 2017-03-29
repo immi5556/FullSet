@@ -492,13 +492,27 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult ReqData(Sj.Mg.CliLib.Model.Params.ReqParam para)
         {
             var basetkn = GetEmptyRptToken();
-            if (para.resource == "Demographic" || para.resource == "Diagnostics")
+            if (para.resource == "Demographic")
             {
                 var pats = Execute(CliLib.Utils.Common.ReApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
                 return Json(pats, JsonRequestBehavior.AllowGet);
             }
-            var acct = Execute(CliLib.Utils.Common.ReApiAccount + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
-            return Json(acct, JsonRequestBehavior.AllowGet);
+            if (para.resource == "Diagnostics")
+            {
+                var acts = Execute(CliLib.Utils.Common.ReApiAccount + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                return Json(acts, JsonRequestBehavior.AllowGet);
+            }
+            if (para.resource == "Medication")
+            {
+                var meds = Execute(CliLib.Utils.Common.ReApiMedication + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                return Json(meds, JsonRequestBehavior.AllowGet);
+            }
+            if (para.resource == "Observation")
+            {
+                var obs = Execute(CliLib.Utils.Common.ReApiObservation + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                return Json(obs, JsonRequestBehavior.AllowGet);
+            }
+            return Json("No Access Provided", JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]

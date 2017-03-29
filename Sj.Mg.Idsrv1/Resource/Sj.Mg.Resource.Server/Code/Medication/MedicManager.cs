@@ -14,7 +14,7 @@ namespace Sj.Mg.Resource.Server.Code
             List<Hl7.Fhir.Model.Medication> ret = new List<Hl7.Fhir.Model.Medication>();
             var client = new FhirClient(CliLib.Utils.Common.fhirendpoint);
 
-            var query = new string[] { "Language=" + (search ?? "") };
+            var query = new string[] { "identifier=" + (search ?? "") };
             Bundle bundle = null;
             if (string.IsNullOrEmpty(search))
             {

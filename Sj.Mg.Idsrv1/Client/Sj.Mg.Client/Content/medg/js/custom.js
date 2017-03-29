@@ -6,6 +6,70 @@ var permission = (function () {
 	});*/
     var reqUser = "", reqUserScope = "", reqUserResource = "";
     var myData, profileData;
+    var populatePats = function (data, user) {
+        (data || []).forEach(function (itm, idx) {
+            if (itm["Identifier"] && itm["Identifier"].length) {
+                if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
+                    $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
+                    var addr = "";
+                    if (itm["Address"] && itm["Address"] && itm["Address"] && itm["Address"].length) {
+                        if (itm["Address"][0]["TextElement"] && itm["Address"][0]["TextElement"].Value)
+                            addr += itm["Address"][0]["TextElement"].Value + ", ";
+                        if (itm["Address"][0]["DistrictElement"] && itm["Address"][0]["DistrictElement"].Value)
+                            addr += itm["Address"][0]["DistrictElement"].Value + ", ";
+                        if (itm["Address"][0]["CityElement"] && itm["Address"][0]["CityElement"].Value)
+                            addr += itm["Address"][0]["CityElement"].Value + ", ";
+                        if (itm["Address"][0]["StateElement"] && itm["Address"][0]["StateElement"].Value)
+                            addr += itm["Address"][0]["StateElement"].Value + ", ";
+                    }
+                    if (itm["Name"] && itm["Name"].length) {
+                        if (itm["Name"][0]["FamilyElement"] && itm["Name"][0]["FamilyElement"].length)
+                            $(".patientData tbody").append("<tr><td>Family Name</td><td>" + itm["Name"][0]["FamilyElement"][0].Value + "</td></tr>");
+                        if (itm["Name"][0]["GivenElement"] && itm["Name"][0]["GivenElement"].length) {
+                            var fullName = "";
+                            itm["Name"][0]["GivenElement"].forEach(function (item, index) {
+                                fullName += item.Value + " ";
+                            });
+                            if (fullName.length)
+                                $(".patientData tbody").append("<tr><td>Given Name</td><td>" + fullName.substring(0, fullName.length - 1) + "</td></tr>");
+                        }
+                    }
+                    if (addr.length) {
+                        $(".patientData tbody").append("<tr><td>Address</td><td>" + (addr.substring(0, addr.length - 2)) + "</td></tr>");
+                    }
+                    if (itm["Telecom"] && itm["Telecom"].length) {
+                        itm["Telecom"].forEach(function (item, index) {
+                            if (item["RankElement"] && item["RankElement"].Value == 1) {
+                                $(".patientData tbody").append("<tr><td>TelePhone No:</td><td>" + item["ValueElement"].Value + "</td></tr>");
+                            }
+                        });
+                    }
+                }
+            }
+
+            $('.slideUp').trigger("click");
+            $(".patientData").show();
+            $(".generalDetails").hide();
+        });
+    }
+
+    var populateMeds = function (data, user) {
+        (data || []).forEach(function (itm, idx) {
+            console.log(itm);
+            $('.slideUp').trigger("click");
+            $(".patientData").show();
+            $(".generalDetails").hide();
+        });
+    }
+
+    var populateObs = function (data, user) {
+        (data || []).forEach(function (itm, idx) {
+            console.log(itm);
+            $('.slideUp').trigger("click");
+            $(".patientData").show();
+            $(".generalDetails").hide();
+        });
+    }
 
     function loadPermission() {
         $('body').gbLightbox({
@@ -230,53 +294,21 @@ var permission = (function () {
         getAcct();
     });
 
-    function populateData(data, user) {
+    function populateData(data, scp) {
         $(".patientData tbody tr").remove();
         data = JSON.parse(data);
-        data.forEach(function (itm, idx) {
-            if (itm["Identifier"] && itm["Identifier"].length) {
-                if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
-                    $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
-                    var addr = "";
-                    if (itm["Address"] && itm["Address"] && itm["Address"] && itm["Address"].length) {
-                        if (itm["Address"][0]["TextElement"] && itm["Address"][0]["TextElement"].Value)
-                            addr += itm["Address"][0]["TextElement"].Value + ", ";
-                        if (itm["Address"][0]["DistrictElement"] && itm["Address"][0]["DistrictElement"].Value)
-                            addr += itm["Address"][0]["DistrictElement"].Value + ", ";
-                        if (itm["Address"][0]["CityElement"] && itm["Address"][0]["CityElement"].Value)
-                            addr += itm["Address"][0]["CityElement"].Value + ", ";
-                        if (itm["Address"][0]["StateElement"] && itm["Address"][0]["StateElement"].Value)
-                            addr += itm["Address"][0]["StateElement"].Value + ", ";
-                    }
-                    if (itm["Name"] && itm["Name"].length) {
-                        if (itm["Name"][0]["FamilyElement"] && itm["Name"][0]["FamilyElement"].length)
-                            $(".patientData tbody").append("<tr><td>Family Name</td><td>" + itm["Name"][0]["FamilyElement"][0].Value + "</td></tr>");
-                        if (itm["Name"][0]["GivenElement"] && itm["Name"][0]["GivenElement"].length) {
-                            var fullName = "";
-                            itm["Name"][0]["GivenElement"].forEach(function (item, index) {
-                                fullName += item.Value + " ";
-                            });
-                            if (fullName.length)
-                                $(".patientData tbody").append("<tr><td>Given Name</td><td>" + fullName.substring(0, fullName.length - 1) + "</td></tr>");
-                        }
-                    }
-                    if (addr.length) {
-                        $(".patientData tbody").append("<tr><td>Address</td><td>" + (addr.substring(0, addr.length - 2)) + "</td></tr>");
-                    }
-                    if (itm["Telecom"] && itm["Telecom"].length) {
-                        itm["Telecom"].forEach(function (item, index) {
-                            if (item["RankElement"] && item["RankElement"].Value == 1) {
-                                $(".patientData tbody").append("<tr><td>TelePhone No:</td><td>" + item["ValueElement"].Value + "</td></tr>");
-                            }
-                        });
-                    }
-                }
-            }
-            
-            $('.slideUp').trigger("click");
-            $(".patientData").show();
-            $(".generalDetails").hide();
-        });
+        if (scp.resource == "Demographic") {
+            populatePats(data, scp.email);
+        }
+        if (scp.resource == "Diagnostics") {
+            populatePats(data, scp.email);
+        }
+        if (scp.resource == "Medication") {
+            populateMeds(data, scp.email);
+        }
+        if (scp.resource == "Observation") {
+            populateObs(data, scp.email);
+        }
     }
 
     function popUpEvents() {
@@ -355,13 +387,14 @@ var permission = (function () {
                             scope: scopeKeys
                         });
                         $li.on("click", function () {
+                            var sdata = $(this).data("scpdata");
                             $.ajax({
                                 url: "/home/ReqData",
                                 type: "POST",
-                                data: $(this).data("scpdata")
+                                data: sdata
                             })
                             .done(function (data, textStatus, jqXHR) {
-                                populateData(data, user);
+                                populateData(data, sdata);
                             })
                             .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
                         });
@@ -382,15 +415,16 @@ var permission = (function () {
                             scope: scopeKeys
                         });
                         $li.on("click", function () {
+                            var sdata = $(this).data("scpdata");
                             $.ajax({
                                 url: "/home/ReqData",
                                 type: "POST",
-                                data: $(this).data("scpdata")
+                                data: sdata,
                             })
                             .done(function (data, textStatus, jqXHR) {
                                 //$("#data-disp").html("<pre>" + JSON.stringify(JSON.parse(data), null, "\t") + "</pre>");
                                 //$('.slideUp').trigger("click");
-                                populateData(data, user);
+                                populateData(data, sdata);
                             })
                             .fail(function (jqXHR, textStatus, errorThrown) { alert("Error"); });
                         });

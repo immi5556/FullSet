@@ -18,6 +18,14 @@ namespace Sj.Mg.Resource.Server.Controllers
         {
             return Code.ObsManager.Get(null);
         }
+        [Route("api/observation/{ids}")]
+        [CliLib.Security.UmaAuthz("Patient/Observation.Read")]
+        [HttpGet]
+        public List<Hl7.Fhir.Model.Observation> GetObs(string ids)
+        {
+            var id = System.Web.HttpUtility.UrlDecode(ids ?? "").Replace("^2E", ".");
+            return Code.ObsManager.Get(id);
+        }
         [CliLib.Security.UmaAuthz("Patient/Observation.Read", "Patient/Observation.*")]
         [HttpPost]
         public void Post([FromBody]Hl7.Fhir.Model.Observation act)
