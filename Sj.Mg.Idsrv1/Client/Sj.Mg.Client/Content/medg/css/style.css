@@ -738,14 +738,14 @@ footer {
     width:20px;
     height:20px;
     border-radius:6px;
-    background:red;
+    background:#ce2129;
     color:white;
     font-size:11px;
     text-align:center;
-    line-height:20px;
+    line-height:22px;
     display:inline-block;
     position:relative;
-    top:-3px;
+    top:-2px;
 }
 .scopesCls > div {
     padding:0 0 20px 23px;
@@ -793,7 +793,7 @@ footer {
     width:40%;
     height:25px;
     font-size:13px;
-    line-height:25px;
+    line-height:28px;
     color:#fff;
     display:inline-block;
     text-align:center;
@@ -809,7 +809,7 @@ footer {
 .providesAcc .provideRow {
     color:#333;
     font-size:14px;
-    padding:7px 10px;
+    padding:4px 10px;
 }
 .providesAcc .provideRow label {
     min-width:80px;
@@ -824,19 +824,27 @@ footer {
     font-size:13px;
     font-family: 'Cabin', sans-serif;
 }
+.providesAcc {
+    text-align:center;
+}
 .providesAcc button {
     width:40%;
     height:25px;
     font-size:13px;
     line-height:25px;
     color:#fff;
-    display:block;
+    display:inline-block;
     text-align:center;
     border-radius:6px;
-    margin:0 auto;
+    margin:0 5px;
     text-decoration:none;
     outline:none;
     background:#1e3665;
+    border: none;
+    cursor: pointer;
+}
+.providesAcc .reqCancel {
+    background:#ce2129;
 }
 .searchBar .sec-heading {
     margin-left: -10px;
@@ -1668,11 +1676,12 @@ footer {
 
 .mailPop {
   position: fixed;
-  left: 42%;
+  left: 50%;
   top: 50%;
   display: none;
-  margin: -100px 0 0 -180px;
-  width: 580px;
+  height:130px;
+  margin: -65px 0 0 -235px;
+  width: 470px;
   text-align:center;
   box-sizing:border-box;
   padding: 15px 30px 0 30px;
@@ -1723,7 +1732,7 @@ footer {
    font: 400 15px/24px 'Droid Serif', serif;
 }
 .popUpContent h4 {
-    font: 700 18px/30px 'Droid Serif', serif;
+    font: 700 22px/30px 'Droid Serif', serif;
     margin-bottom: 0;
 }
 .popUpContent a {
@@ -1740,7 +1749,10 @@ footer {
   color: #ffffff;
   cursor: pointer;
   clear:both;
-  margin:0 -30px;
+  width:120px;
+  display:block;
+  border-radius:25px;
+  margin:0 auto 0;
   font: 400 16px/40px 'Droid Serif', serif;
   background: #39425f;
   text-transform: uppercase;
@@ -1764,4 +1776,8 @@ footer {
   display: block;
   z-index: 9999;
   background: rgba(0,0,0,0.9);
+}
+.scopeUser {
+    color: blue;
+    font-weight: 600;
 }

@@ -75,75 +75,80 @@ $(document).on("click", ".subLi", function () {
 			}
 	    ]
 	},
-	{
-	    "tabName": "EHRs",
-	    "tabSub": [
-			{
-			    "subName": "Relief Express",
-			    "categories": [
-					{
-					    "icon": "/content/medg/images/serIcon1.png",
-					    "title": "Demographic"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon2.png",
-					    "title": "Diagnosis"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon3.png",
-					    "title": "Medication"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon4.png",
-					    "title": "Observation"
-					}
-			    ]
-			},
-			{
-			    "subName": "Neuro Care Partners",
-			    "categories": [
-					{
-					    "icon": "/content/medg/images/serIcon1.png",
-					    "title": "Demographic"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon2.png",
-					    "title": "Diagnosis"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon3.png",
-					    "title": "Medication"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon4.png",
-					    "title": "Observation"
-					}
-			    ]
-			}
-	    ]
-	},
+	//{
+	//    "tabName": "EHRs",
+	//    "tabSub": [
+	//		{
+	//		    "subName": "Relief Express",
+	//		    "categories": [
+	//				{
+	//				    "icon": "/content/medg/images/serIcon1.png",
+	//				    "title": "Demographic"
+	//				},
+	//				{
+	//				    "icon": "/content/medg/images/serIcon2.png",
+	//				    "title": "Diagnosis"
+	//				},
+	//				{
+	//				    "icon": "/content/medg/images/serIcon3.png",
+	//				    "title": "Medication"
+	//				},
+	//				{
+	//				    "icon": "/content/medg/images/serIcon4.png",
+	//				    "title": "Observation"
+	//				}
+	//		    ]
+	//		},
+	//		{
+	//		    "subName": "Neuro Care Partners",
+	//		    "categories": [
+	//				{
+	//				    "icon": "/content/medg/images/serIcon1.png",
+	//				    "title": "Demographic"
+	//				},
+	//				{
+	//				    "icon": "/content/medg/images/serIcon2.png",
+	//				    "title": "Diagnosis"
+	//				},
+	//				{
+	//				    "icon": "/content/medg/images/serIcon3.png",
+	//				    "title": "Medication"
+	//				},
+	//				{
+	//				    "icon": "/content/medg/images/serIcon4.png",
+	//				    "title": "Observation"
+	//				}
+	//		    ]
+	//		}
+	//    ]
+	//},
 	{
 	    "tabName": "Smart Apps",
 	    "tabSub": [
+            {
+                "subName": "FitNet",
+                "categories": [
+                    {
+                        "icon": "/content/medg/images/serIcon13.png",
+                        "title": "Fitness"
+                    }
+                ]
+            },
 			{
-			    "subName": "Relief Express",
+			    "subName": "Medtronic",
 			    "categories": [
 					{
-					    "icon": "/content/medg/images/serIcon1.png",
-					    "title": "Demographic"
+					    "icon": "/content/medg/images/serIcon12.png",
+					    "title": "Pacemaker"
 					}
 			    ]
 			},
 			{
-			    "subName": "Neuro Care Partners",
+			    "subName": "Mysugr",
 			    "categories": [
 					{
-					    "icon": "/content/medg/images/serIcon2.png",
-					    "title": "Diagnosis"
-					},
-					{
-					    "icon": "/content/medg/images/serIcon3.png",
-					    "title": "Medication"
+					    "icon": "/content/medg/images/serIcon11.png",
+					    "title": "Blood Sugar"
 					}
 			    ]
 			}

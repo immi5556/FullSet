@@ -7,8 +7,7 @@ var permission = (function () {
     var reqUser = "", reqUserScope = "", reqUserResource = "";
     var myData, profileData;
 
-    function showPopUp(header, content) {
-        $(".mailPop h2").html(header);
+    function showPopUp(content) {
         $(".popUpContent").html(content);
         $('body').addClass('registerMail');
         $('.popUp').on('click', function (e) {
@@ -169,7 +168,7 @@ var permission = (function () {
         });
 
         $(".requestingSectionList li").on("click", function () {
-            $(".scopesData").html("Click the checkbox to agree to give " + $(this).find(".scopeKey").text() + " access to " + $(this).find("h5").text());
+            $(".scopesData").html("Click the checkbox to agree to give " + ($(this).find(".scopeKey").text() == "Read" ? "View" : $(this).find(".scopeKey").text()) + " access to <span class='scopeUser'>" + $(this).find("h5").text()+"</span>");
             reqUser = $(this).find("h5").text();
             reqUserScope = $(this).find(".scopeKey").text();
             reqUserResource = $(this).find(".resourcePro").text();
@@ -192,16 +191,12 @@ var permission = (function () {
             url: "/provide/" + reqUser + "/ReliefExpress/" + reqUserResource + "/" + reqUserScope,
         })
         .done(function (data, textStatus, jqXHR) {
-            showPopUp('<span class="error">Request Response</span>', '<h4>Request Accepted Successfully.</h4>');
-            $(".mailPop h2").css("color", "green");
-            $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+            showPopUp('<h4>Your Request was sent successfully.</h4>');
             $(".popupShadow").click();
             getData();
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
-            showPopUp('<span class="error">Provide Request Response</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-            $(".mailPop h2").css("color", "red");
-            $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     })
 
@@ -312,9 +307,7 @@ var permission = (function () {
             });
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
-            showPopUp('<span class="error">Search User Response</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-            $(".mailPop h2").css("color", "red");
-            $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
         //.always(function (jqXHROrData, textStatus, jqXHROrErrorThrown) { alert("complete"); });
     }
@@ -326,11 +319,15 @@ var permission = (function () {
         var filterUl = $('<div class="providesAcc"></div>');
         $("#srchrest").append(filterUl);
         $("#searchEmail").val('');
+        $(filterUl).append("<div class='provideRow'><label>User:</label> <span>" + toemail + "</span></div>");
         $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>" + selectedclient + "</span></div>");
         $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Valid Till:</label><select id='timePeriod'><option value='hour'>1 Hour</option><option value='Day'>1 Day</option><option value='NoLimit'>No Time Limit</option></select></div>");
-        $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Confirm</button></div>");
+        $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Confirm</button><button class='reqCancel'>Cancel</button></div>");
+    });
+    $(document).on("click", ".reqCancel", function () {
+        $("#srchrest").html("");
     });
     $(document).on("click", "#conf-prov", function () {
         $.ajax({
@@ -338,9 +335,7 @@ var permission = (function () {
         })
         .done(function (data, textStatus, jqXHR) {
             $(".allowedUsr1 tbody").append('<tr><td>' + toemail + '</td><td>' + $("#selrsrc").val() + '</td><td><select class="accessType"><option value="Read" ' + ($("#selscpe").val() == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + ($("#selscpe").val() == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><i class="fa fa-times-circle " aria-hidden="true"></i></button></td></tr>');
-            showPopUp('<span class="error">Provide Data Response</span>', '<h4>Provided Your Data Successfully.</h4>');
-            $(".mailPop h2").css("color", "green");
-            $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+            showPopUp('<h4>Provided Your Data Successfully.</h4>');
             $("#srchrest").html('');
             if ($(".allowedUsr1 tbody tr").length) {
                 $(".noAccess").hide();
@@ -352,36 +347,32 @@ var permission = (function () {
             popUpEvents();
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
-            showPopUp('<span class="error">Provide Request Response</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-            $(".mailPop h2").css("color", "red");
-            $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     });
     $(document).on("click", ".req-r", function () {
         toemail = $(this).data("emailto");
         $("#srchrest").html('');
+        $('.slideDown').trigger("click");
         var filterUl = $('<div class="providesAcc"></div>');
         $("#srchrest").append(filterUl);
         $("#searchEmail").val('');
-        $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>Releief Express</span></div>");
+        $(filterUl).append("<div class='provideRow'><label>User:</label> <span>" + toemail + "</span></div>");
+        $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>Relief Express</span></div>");
         $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
-        $(filterUl).append("<div class='provideRow'><button id='conf-req'>Confirm</button></div>");
+        $(filterUl).append("<div class='provideRow'><button id='conf-req'>Confirm</button><button class='reqCancel'>Cancel</button></div>");
     });
     $(document).on("click", "#conf-req", function () {
         $.ajax({
             url: "/request/" + toemail + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val(),
         })
         .done(function (data, textStatus, jqXHR) {
-            showPopUp('<span class="error">Request Response</span>', '<h4>Request Sent Successfully.</h4>');
-            $(".mailPop h2").css("color", "green");
-            $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+            showPopUp('<h4>Request Sent Successfully.</h4>');
             $("#srchrest").html('');
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
-            showPopUp('<span class="error">Request Response</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-            $(".mailPop h2").css("color", "red");
-            $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     });
 
@@ -394,14 +385,10 @@ var permission = (function () {
             url: "/account/1233",
         })
         .done(function (data, textStatus, jqXHR) {
-            showPopUp('<span class="error">Get Data Response</span>', '<h4>Successfully fetched data</h4>');
-            $(".mailPop h2").css("color", "green");
-            $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+            showPopUp('<h4>Successfully fetched data</h4>');
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
-            showPopUp('<span class="error">Get Data Response</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-            $(".mailPop h2").css("color", "red");
-            $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
         //.always(function (jqXHROrData, textStatus, jqXHROrErrorThrown) { alert("complete"); });
     }
@@ -437,14 +424,10 @@ var permission = (function () {
                 url: "/updaterequest/" + $(this).closest("tr").find('td:eq(0)').text() + "/" + selectedclient + "/" + $(this).closest("tr").find('td:eq(1)').text() + "/" + previous + "/" + $(this).val(),
             })
             .done(function (data, textStatus, jqXHR) {
-                showPopUp('<span class="error">Update Request Response</span>', '<h4>Access Level Changed Successfully.</h4>');
-                $(".mailPop h2").css("color", "green");
-                $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+                showPopUp('<h4>Access Level Changed Successfully.</h4>');
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
-                showPopUp('<span class="error">Update Request Response</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-                $(".mailPop h2").css("color", "red");
-                $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+                showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
             });
         });
         $(".revokeAccess").on("click", function () {
@@ -453,9 +436,7 @@ var permission = (function () {
                 url: "/revokeaccess/" + $(this).closest("tr").find('td:eq(0)').text() + "/" + selectedclient + "/" + $(this).closest("tr").find('td:eq(1)').text() + "/" + $(this).closest("tr").find('.accessType').val(),
             })
             .done(function (data, textStatus, jqXHR) {
-                showPopUp('<span class="error">Revode Access Response</span>', '<h4>Access Revoked Successfully.</h4>');
-                $(".mailPop h2").css("color", "green");
-                $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+                showPopUp('<h4>Access Revoked Successfully.</h4>');
                 $this.closest("tr").remove();
                 if ($(".allowedUsr1 tbody tr").length == 0) {
                     $(".noAccess").show();
@@ -463,9 +444,7 @@ var permission = (function () {
                 }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
-                showPopUp('<span class="error">Revoke Access Response</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-                $(".mailPop h2").css("color", "red");
-                $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+                showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
             });
         });
     }
@@ -500,16 +479,12 @@ var permission = (function () {
                     url: "/denyrequest/" + $(this).parent().find("h5").html() + "/ReliefExpress/" + $(this).parent().find(".resourcePro").html() + "/" + $(this).parent().find(".scopeKey").html()
                 })
                 .done(function (data, textStatus, jqXHR) {
-                    showPopUp('<span class="error">Deny Access Response</span>', '<h4>Request denied successfully.</h4>');
-                    $(".mailPop h2").css("color", "green");
-                    $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+                    showPopUp('<h4>Your response was processed successfully.</h4>');
                     $this.parent().remove();
                     $(".notification").html(Number($(".notification").html())-1);
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
-                    showPopUp('<span class="error">Deny Access Response</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-                    $(".mailPop h2").css("color", "red");
-                    $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+                    showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
                 });
             });
         }
@@ -541,9 +516,7 @@ var permission = (function () {
                                 populateData(data, sdata);
                             })
                             .fail(function (jqXHR, textStatus, errorThrown) {
-                                showPopUp('<span class="error">Request Data</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-                                $(".mailPop h2").css("color", "red");
-                                $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+                                showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
                             });
                         });
                         $(".viewSectionList").append($li);
@@ -575,9 +548,7 @@ var permission = (function () {
                                 populateData(data, sdata);
                             })
                             .fail(function (jqXHR, textStatus, errorThrown) {
-                                showPopUp('<span class="error">Request Data</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-                                $(".mailPop h2").css("color", "red");
-                                $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+                                showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
                             });
                         });
                         $(".viewShareSectionList").append($li);
@@ -620,9 +591,7 @@ var permission = (function () {
             }
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
-            showPopUp('<span class="error">Request User Data Response</span>', '<h4>Error Occured or session expired. Try Again.</h4>');
-            $(".mailPop h2").css("color", "red");
-            $(".mailPop").css({ "max-height": "200px", "margin-top": "-100px" });
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     }
     getData();
