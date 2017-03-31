@@ -49,6 +49,14 @@
 		-webkit-text-size-adjust: none;
 	}
 
+    #header button {
+        padding: 0;
+    }
+    #header button a{
+        padding: 0 1.5em;
+        display: block;
+    }
+
 /* Box Model */
 
 	*, *:before, *:after {

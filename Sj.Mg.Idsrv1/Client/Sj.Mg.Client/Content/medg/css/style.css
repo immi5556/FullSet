@@ -442,6 +442,18 @@ footer {
 .smallWn {
 	bottom: 0;
 }
+#data-disp {
+    padding-bottom: 80px;
+}
+.revokeClose {
+    background-color: #ce212a;
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    height: 25px;
+    border-radius: 3px;
+    color: white;
+}
 .catagoryContent{
 	position: absolute;
 	left: 0;
@@ -1664,7 +1676,7 @@ footer {
   text-align:center;
   box-sizing:border-box;
   padding: 15px 30px 0 30px;
-  z-index: 99999;
+  z-index: 9999999;
   border-radius: 6px;
   background: #ffffff;
 }
@@ -1745,7 +1757,7 @@ footer {
 }
 .registerMail .pageShadow,.errorPopUp .pageShadow {
   display: block;
-  z-index: 9999;
+  z-index: 99999;
   background: rgba(0,0,0,0.9);
 }
 .successPopUp .pageShadow {

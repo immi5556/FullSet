@@ -785,6 +785,15 @@ footer {
     font-family: 'Cabin', sans-serif;
 	background: none !important;
 }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill
+    {
+      -webkit-text-fill-color: white;
+      -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+      transition: background-color 5000s ease-in-out 0s;
+    }
 .email::-webkit-input-placeholder,.psw::-webkit-input-placeholder {
   color: #fff;
 }
@@ -879,10 +888,11 @@ footer {
     border-radius: 6px;
     box-sizing:border-box;
     text-transform: uppercase;
-    border: 2px solid #e5898d;
+    border: 2px solid #ce212a;
     background: #ffffff;
+    box-shadow: 0 0 0 2px #1e3665;
 }
-.loginRow button::after {
+/*.loginRow button::after {
     content: '';
     position: absolute;
     width: 110px;
@@ -893,7 +903,7 @@ footer {
     border-radius: 8px;
     z-index: -1;
     background: #1e3665;
-}
+}*/
 .orRow {
 	float: left;
 	width: 30px;
@@ -965,7 +975,7 @@ footer {
     background-position: -100px -50px;
 }
 .socialMedia li a.twitter {
-    background-position: 0 0;
+    background-position: 0 -50px;
 }
 .socialMedia li a.facebook {
     background-position: 0 0;
