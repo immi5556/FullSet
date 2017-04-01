@@ -55,8 +55,8 @@ namespace Sj.Mg.Idsrv1.Config
                 new Scope()
                 {
                     Name = "uma_authorization",
-                    DisplayName = "Uma Authz",
-                    Description = "Uma authorization to enable AAT token to client",
+                    DisplayName = "UMA Authorization",
+                    Description = "to enable AAT token to client",
                     Type = ScopeType.Resource,
                     Claims = new List<ScopeClaim>()
                     {
