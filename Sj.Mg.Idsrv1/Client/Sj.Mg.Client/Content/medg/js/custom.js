@@ -15,6 +15,14 @@ var permission = (function () {
         });
         return;
     }
+    function showCnfrmtPopUp(content) {
+        $(".popUpContent1").html(content);
+        $('body').addClass('registerMail1');
+        $('.popUp').on('click', function (e) {
+            e.stopPropagation();
+        });
+        return;
+    }
     $('.registerMail .pageShadow,.notNow').on('click', function () {
         $('body').removeClass('registerMail');
     });
@@ -474,18 +482,27 @@ var permission = (function () {
                 });
             }
             $(".clsUsr").on("click", function () {
+                showCnfrmtPopUp('<h4>Are you sure you want to Deny access?</h4>');
                 var $this = $(this);
-                $.ajax({
-                    url: "/denyrequest/" + $(this).parent().find("h5").html() + "/ReliefExpress/" + $(this).parent().find(".resourcePro").html() + "/" + $(this).parent().find(".scopeKey").html()
-                })
-                .done(function (data, textStatus, jqXHR) {
-                    showPopUp('<h4>Your response was processed successfully.</h4>');
-                    $this.parent().remove();
-                    $(".notification").html(Number($(".notification").html())-1);
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
-                    showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                $(".ok").on("click", function () {
+                    $.ajax({
+                        url: "/denyrequest/" + $this.parent().find("h5").html() + "/ReliefExpress/" + $this.parent().find(".resourcePro").html() + "/" + $this.parent().find(".scopeKey").html()
+                    })
+                    .done(function (data, textStatus, jqXHR) {
+                        $('body').removeClass('registerMail1');
+                        showPopUp('<h4>Your response was processed successfully.</h4>');
+                        $this.parent().remove();
+                        $(".notification").html(((Number($(".notification").html()) - 1 <= 0) ? 0 : Number($(".notification").html())));
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        $('body').removeClass('registerMail1');
+                        showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                    });
                 });
+                $(".nocancel").on("click", function () {
+                    $('body').removeClass('registerMail1');
+                })
+                
             });
         }
         if (data.AllowedUsers && data.AllowedUsers[selectedclient]) {

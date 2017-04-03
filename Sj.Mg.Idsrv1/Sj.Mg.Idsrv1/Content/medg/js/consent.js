@@ -39,7 +39,7 @@
                     $scps.find("label").append("<strong> ! - IMportant</strong>");
                 }
                 if (scope.description)
-                    $scps.find("label").append("<strong>" + scope.description + "</strong>");
+                    $scps.find("label").append("<strong> - " + scope.description + "</strong>");
             });
             (model.resourceScopes || []).forEach(function (scope) {
                 var $scps = $('<li><label><input type="checkbox" checked name="scopes" id="scopes_' + scope.name + '" value="' + scope.name + '" /><span></span></label></li>');

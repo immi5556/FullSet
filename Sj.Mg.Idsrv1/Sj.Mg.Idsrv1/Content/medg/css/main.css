@@ -49,14 +49,33 @@
 		-webkit-text-size-adjust: none;
 	}
 
-    #header button {
+    #header  {
         padding: 0;
     }
-    #header button a{
+    #header a{
         padding: 0 1.5em;
         display: block;
+        border-radius: 4px;
+        height: 35px;
+        line-height: 35px;
+        padding: 0 15px;
+        text-decoration: none;
+        float: left;
+        color: white;
+        margin: 0 5px;
+        cursor: pointer;
     }
-
+    .btnsDiv {
+        float: right;
+        padding-top: 20px;
+        margin-right: 10px;
+    }
+    .signin {
+        background-color: #ce2129;
+    }
+    .signup {
+        background-color: #1d3665;
+    }
 /* Box Model */
 
 	*, *:before, *:after {
@@ -3426,14 +3445,13 @@
 
 		#header > .logo {
 			display: inline-block;
-			height: inherit;
 			left: 1.25em;
 			line-height: inherit;
 			margin: 0;
 			padding: 0;
 			position: absolute;
 			width: 105px;
-			top: 4px;
+			top: 16px;
 		}
 
 			#header > .logo a {

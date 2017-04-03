@@ -1674,7 +1674,7 @@ footer {
     padding: 25px;
 }
 
-.mailPop {
+.mailPop, .mailPop1 {
   position: fixed;
   left: 50%;
   top: 50%;
@@ -1689,22 +1689,22 @@ footer {
   border-radius: 6px;
   background: #ffffff;
 }
-.registerMail {
+.registerMail, .registerMail1 {
     overflow:hidden;
 }
-.registerMail .mailPop {
+.registerMail .mailPop, .registerMail1 .mailPop1 {
   display: block;
 }
-.mailPop h2 {
+.mailPop h2, .mailPop1 h2 {
   font: 400 25px/30px 'Droid Serif', serif;
   margin: 2px 0 0 0;
 }
-.mailPop h2 span {
+.mailPop h2 span, .mailPop1 h2 span {
     height:25px;
     display:block;
     padding:5px 0 0 0;
 }
-.mailPop h2 span.success {
+.mailPop h2 span.success, .mailPop1 h2 span.success {
     background:url('../content/images/successIcon.png') no-repeat center top;
     padding-top: 20px;
 }
@@ -1714,28 +1714,28 @@ footer {
 /*.mailPop h2 img {
   margin-right: 20px;
 }*/
-.mailPop .popUpContent {
+.mailPop .popUpContent, .mailPop1 .popUpContent1 {
   width: 100%;
   padding:5px 0px 20px 0;
   color:#242323;
 }
-.popUpContent h3 {
+.popUpContent h3, .popUpContent1 h3 {
     color:#39425f;
     font: 400 18px/30px 'Droid Serif', serif;
     margin-top: 10px;
 }
-.popUpContent hr {
+.popUpContent hr, .popUpContent1 hr {
     background:#d6d6d6;
     margin: 10px 0;
 }
-.popUpContent p {
+.popUpContent p, .popUpContent1 p {
    font: 400 15px/24px 'Droid Serif', serif;
 }
-.popUpContent h4 {
+.popUpContent h4, .popUpContent1 h4 {
     font: 700 22px/30px 'Droid Serif', serif;
     margin-bottom: 0;
 }
-.popUpContent a {
+.popUpContent a, .popUpContent1 a {
     color:#418e21;
     text-decoration:none;
     text-overflow: ellipsis;
@@ -1744,7 +1744,7 @@ footer {
     display: block;
 }
 
-.notNow {
+.notNow, .ok {
   text-align: center;
   color: #ffffff;
   cursor: pointer;
@@ -1757,7 +1757,23 @@ footer {
   background: #39425f;
   text-transform: uppercase;
 }
-.pageShadow {
+.ok {
+    display: inline-block;
+}
+.nocancel {
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  clear:both;
+  width:120px;
+  display:inline-block;
+  border-radius:25px;
+  margin:0 auto 0;
+  font: 400 16px/40px 'Droid Serif', serif;
+  background: red;
+  text-transform: uppercase;
+}
+.pageShadow, .pageShadow1 {
   position: fixed;
   top: 0;
   left:0;
@@ -1767,12 +1783,12 @@ footer {
   display: none;
   background: rgba(0,0,0,0.5);
 }
-.registerMail .pageShadow,.errorPopUp .pageShadow {
+.registerMail .pageShadow,.errorPopUp .pageShadow, .registerMail1 .pageShadow1,.errorPopUp1 .pageShadow1 {
   display: block;
   z-index: 99999;
   background: rgba(0,0,0,0.9);
 }
-.successPopUp .pageShadow {
+.successPopUp .pageShadow, .successPopUp1 .pageShadow1 {
   display: block;
   z-index: 9999;
   background: rgba(0,0,0,0.9);
@@ -1780,4 +1796,7 @@ footer {
 .scopeUser {
     color: blue;
     font-weight: 600;
+}
+.cnfBtns {
+    display: inline-block;
 }

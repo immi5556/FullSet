@@ -306,6 +306,9 @@
     <Content Include="Content\medg\images\secLogo1.png" />
     <Content Include="Content\medg\images\secLogo2.png" />
     <Content Include="Content\medg\images\serIcon1.png" />
+    <Content Include="Content\medg\images\serIcon11.png" />
+    <Content Include="Content\medg\images\serIcon12.png" />
+    <Content Include="Content\medg\images\serIcon13.png" />
     <Content Include="Content\medg\images\serIcon2.png" />
     <Content Include="Content\medg\images\serIcon3.png" />
     <Content Include="Content\medg\images\serIcon4.png" />
