@@ -1074,10 +1074,11 @@ footer {
 	max-width: 635px;
 	border-radius: 5px;
     border-color: #f1f1f1;
-    height: 200px !important;
+    max-height: 200px !important;
     top: 50% !important;
     left: 50% !important;
     margin: -100px 0 0 -317px;
+    padding-bottom: 10px;
 }
 
 .scrollSec {
@@ -1200,7 +1201,7 @@ footer {
 }
 .buttonsRow {
 	clear: both;
-	padding: 30px 0 40px;
+	padding: 30px 0 10px;
 	text-align: center;
 }
 .buttonsRow button {
@@ -1233,6 +1234,7 @@ footer {
 }
 .logoutScrn {
     /*font-family: 'nexa_boldregular';*/
+    padding: 0 25px;
 }
 
 /*Relief CSS Here*/

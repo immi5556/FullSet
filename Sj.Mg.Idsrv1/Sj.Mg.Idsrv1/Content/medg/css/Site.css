@@ -381,12 +381,13 @@ footer {
 	border-color: #6c6c6c;
 	background: #9e9d9d;
 }
-.lightbox-min {
+/*.lightbox-min {
 	border-radius: 5px;
 	border-color: #f1f1f1;
-}
+}*/
 /*lightbox css*/
 
+/*
 .closeIcon {
 	position: absolute;
 	right: 7px;
@@ -443,5 +444,5 @@ footer {
 	display: none;
 	background: rgba(0,0,0,0.8);
 	z-index: 9999;
-}
+}*/
 

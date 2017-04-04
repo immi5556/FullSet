@@ -200,7 +200,8 @@ $(document).on("click", ".subLi", function () {
                   $(subItems[0]).addClass('active');
                   
                   for(var x=0; x < item.length; x++ ){
-                      $(item[x]).on('click',function(){
+                      $(item[x]).on('click', function () {
+                          $('.carouselModule').hide();
                           $('.listItem').removeClass('active');
                           $('.subUl').removeClass('active');
                          openDropList(this);
@@ -223,9 +224,11 @@ $(document).on("click", ".subLi", function () {
                                   var vals = mydatas[y].tabSub[z].subName;
                                   
                                   if(thisVal == vals ){
-                                  	num++;
+                                      num++;
+                                      $('.carouselModule').show();
                                   	check(mydatas[y].tabSub[z].categories,num);
                                       //console.log( mydatas[y].tabSub[z].categories)
+                                  	return false;
                                   }
                               }
                           	}

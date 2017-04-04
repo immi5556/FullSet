@@ -1193,6 +1193,8 @@ footer {
 	text-align: center;
 	line-height: 25px;
 	text-decoration: none;
+    font-size: small;
+    line-height: 28px;
 	box-shadow: inset 0 0 5px rgba(85, 85, 85, 0.46); 
 }
 .lightbox {
@@ -1202,7 +1204,7 @@ footer {
     box-sizing: border-box;
     background: #fff;
     z-index: 99999;
-	overflow:auto;
+	overflow-y:auto;
 	width:90%;
 	display: none;
 	box-sizing: border-box;
@@ -1215,7 +1217,7 @@ footer {
 	max-width: 1140px;
 }
 .lightbox-allowedUsr {
-	max-width: 600px;
+	max-width: 700px;
 }
 #log-outPop.lightbox-min {
 	max-width: 635px;
@@ -1658,17 +1660,50 @@ footer {
     height: 32px;
     border-radius: 4px;
 }
+.allowedUsr1 {
+    border-radius: 4px;
+    overflow: hidden;
+    border-right:1px solid #ccc;
+}
 .allowedUsr1, .patientData {
     width:100%;
     text-align:center;
 }
 .allowedUsr1 th,.allowedUsr1 td, .patientData th, .patientData td {
-    border:1px solid #ccc;
+    border-left:1px solid #ccc;
     padding:6px 8px;
     text-overflow:ellipsis;
     overflow:hidden;
+    font-weight:400;
     white-space:nowrap;
 }
+.allowedUsr1 td {
+     border-bottom:1px solid #ccc;
+}
+.allowedUsr1 thead {
+    color:#fff;
+    background:#3b3b3b;
+}
+.allowedUsr1 tbody tr:nth-child(2n+1) {
+    background:#e7ecee;
+}
+.allowedUsr1 .accessType {
+    min-width:130px;
+    height:26px;
+    border:1px solid #ccc;
+    padding: 0 7px;
+    color:white;
+    border-radius:3px;
+    outline:none;
+    cursor:pointer;
+    background:#7a7a7a;
+}
+.lightbox-allowedUsr h2 {
+    text-align: center;
+    font-size: 19px;
+    padding-bottom: 10px;
+}
+
 .noAccess {
     text-align: center;
     padding: 25px;
@@ -1679,12 +1714,12 @@ footer {
   left: 50%;
   top: 50%;
   display: none;
-  height:150px;
+  max-height:150px;
   margin: -65px 0 0 -235px;
   width: 470px;
   text-align:center;
   box-sizing:border-box;
-  padding: 15px 30px 0 30px;
+  padding: 15px 30px 10px 30px;
   z-index: 9999999;
   border-radius: 6px;
   background: #ffffff;
