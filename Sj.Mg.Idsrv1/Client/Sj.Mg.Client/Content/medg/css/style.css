@@ -453,6 +453,11 @@ footer {
     height: 25px;
     border-radius: 3px;
     color: white;
+    vertical-align: middle;
+    outline: none;
+}
+.revokeClose img {
+    width: 25px;
 }
 .catagoryContent{
 	position: absolute;

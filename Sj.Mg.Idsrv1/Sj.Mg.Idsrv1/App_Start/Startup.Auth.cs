@@ -91,7 +91,7 @@ namespace Sj.Mg.Idsrv1
                 AuthenticationType = "Facebook",
                 SignInAsAuthenticationType = signInAsType,
                 AppId = "1909035272666825",
-                AppSecret = "1bba429b29e7cdb59e6d594e29ba717a",
+                AppSecret = "e29cd683ecbf9df1d5adf6fe35d9cc50",
                 Provider = new FacebookAuthenticationProvider()
                 {
                     OnAuthenticated = (context) =>
@@ -100,7 +100,6 @@ namespace Sj.Mg.Idsrv1
                         return Task.FromResult(0);
                     }
                 }
-
             };
             fb.Scope.Add("email");
             app.UseFacebookAuthentication(fb);
@@ -109,10 +108,44 @@ namespace Sj.Mg.Idsrv1
             {
                 AuthenticationType = "Twitter",
                 SignInAsAuthenticationType = signInAsType,
-                ConsumerKey = "N8r8w7PIepwtZZwtH066kMlmq",
-                ConsumerSecret = "df15L2x6kNI50E4PYcHS0ImBQlcGIt6huET8gQN41VFpUCwNjM"
+                ConsumerKey = "44ZSTIW0onsNqERkFv8LGOV9t",
+                ConsumerSecret = "wbTb6WcZz5yJbNBBtqYGILEuL4CPVadJmm6YPT1XnGl1WmpQ5g",
+                BackchannelCertificateValidator = new Microsoft.Owin.Security.CertificateSubjectKeyIdentifierValidator(new[]
+                {
+                    "A5EF0B11CEC04103A34A659048B21CE0572D7D47", // VeriSign Class 3 Secure Server CA - G2
+                    "0D445C165344C1827E1D20AB25F40163D8BE79A5", // VeriSign Class 3 Secure Server CA - G3
+                    "7FD365A7C2DDECBBF03009F34339FA02AF333133", // VeriSign Class 3 Public Primary Certification Authority - G5
+                    "39A55D933676616E73A761DFA16A7E59CDE66FAD", // Symantec Class 3 Secure Server CA - G4
+                    "5168FF90AF0207753CCCD9656462A212B859723B", //DigiCert SHA2 High Assurance Server C‎A 
+                    "B13EC36903F8BF4701D498261A0802EF63642BC3" //DigiCert High Assurance EV Root CA
+                })
+
             };
             app.UseTwitterAuthentication(twitter);
         }
     }
+    //public class TwitterImpl : Microsoft.Owin.Security.ISecureDataFormat<Microsoft.Owin.Security.Twitter.Messages.RequestToken>
+    //{
+    //    public TwitterImpl()
+    //    {
+    //        new Microsoft.Owin.Security.Twitter.Messages.RequestToken()
+    //        {
+    //            Token = "745933407834771457-Ak3yXrhpqdjf6tWC7hpk6zgxi307qg6",
+    //            TokenSecret = "4Fobwtkz1ReLSHeffyOwYIwDkvMoay7wh29gp5Vp0KzEk"
+    //        };
+    //    }
+    //    public string Protect(Microsoft.Owin.Security.Twitter.Messages.RequestToken data)
+    //    {
+    //        return data.Token;
+    //    }
+
+    //    public Microsoft.Owin.Security.Twitter.Messages.RequestToken Unprotect(string protectedText)
+    //    {
+    //        return new Microsoft.Owin.Security.Twitter.Messages.RequestToken()
+    //        {
+    //            Token = "745933407834771457-Ak3yXrhpqdjf6tWC7hpk6zgxi307qg6",
+    //            TokenSecret = "4Fobwtkz1ReLSHeffyOwYIwDkvMoay7wh29gp5Vp0KzEk"
+    //        };
+    //    }
+    //}
 }

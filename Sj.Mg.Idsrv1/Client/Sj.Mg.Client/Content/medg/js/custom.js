@@ -342,7 +342,7 @@ var permission = (function () {
             url: "/provide/" + toemail + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val(),
         })
         .done(function (data, textStatus, jqXHR) {
-            $(".allowedUsr1 tbody").append('<tr><td>' + toemail + '</td><td>' + $("#selrsrc").val() + '</td><td><select class="accessType"><option value="Read" ' + ($("#selscpe").val() == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + ($("#selscpe").val() == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><i class="fa fa-times-circle " aria-hidden="true"></i></button></td></tr>');
+            $(".allowedUsr1 tbody").append('<tr><td>' + toemail + '</td><td>' + $("#selrsrc").val() + '</td><td><select class="accessType"><option value="Read" ' + ($("#selscpe").val() == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + ($("#selscpe").val() == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><img src="/Content/medg/images/revoke1.png" alt="revoke"></button></td></tr>');
             showPopUp('<h4>Provided Your Data Successfully.</h4>');
             $("#srchrest").html('');
             if ($(".allowedUsr1 tbody tr").length) {
@@ -577,7 +577,7 @@ var permission = (function () {
             for (var selectedresourceVal in data.MyDetailsSharedWith[selectedclient]) {
                 for (var scopeKeys in data.MyDetailsSharedWith[selectedclient][selectedresourceVal]) {
                     (data.MyDetailsSharedWith[selectedclient][selectedresourceVal][scopeKeys] || []).forEach(function (user) {
-                        $(".allowedUsr1 tbody").append('<tr><td>' + user + '</td><td>' + selectedresourceVal + '</td><td><select class="accessType"><option value="Read" ' + (scopeKeys == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + (scopeKeys == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><i class="fa fa-times-circle " aria-hidden="true"></i></button></td></tr>');
+                        $(".allowedUsr1 tbody").append('<tr><td>' + user + '</td><td>' + selectedresourceVal + '</td><td><select class="accessType"><option value="Read" ' + (scopeKeys == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + (scopeKeys == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><img src="/Content/medg/images/revoke1.png" alt="revoke"></button></td></tr>');
                     });
                 }
             }

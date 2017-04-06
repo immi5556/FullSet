@@ -53,13 +53,14 @@ var isMobile = {
 
           for(var i=0; i < myCarouselData.length; i++){
               var list = $('<li><img src="' + myCarouselData[i].icon + '"><span>' + myCarouselData[i].title + '</span></li>');
-              list.on("click", function () {
+              list.on("click", function (item, index) {
                   selectedresource = $(this).find("span").text();
                   if (selectedresource == "Diagnosis") {
                       selectedresource = "Diagnostics";
                   }
                   $('.slideDown').trigger("click");
                   $(".categ-hdr").text(selectedresource);
+                  $(".generalDetails").text(myCarouselData[myCarouselData.findIndex(x => x.title == selectedresource)].description);
                   permission.loaddata();
               });
             sliderUL.append(list);

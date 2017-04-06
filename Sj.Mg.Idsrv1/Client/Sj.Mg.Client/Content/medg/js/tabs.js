@@ -36,19 +36,23 @@ $(document).on("click", ".subLi", function () {
 			    "categories": [
 					{
 					    "icon": "/content/medg/images/serIcon1.png",
-					    "title": "Demographic"
+					    "title": "Demographic",
+					    "description": "Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information."
 					},
 					{
 					    "icon": "/content/medg/images/serIcon2.png",
-					    "title": "Diagnosis"
+					    "title": "Diagnostics",
+					    "description": "A diagnostic report is the set of information that is typically provided by a diagnostic service when investigations are complete. The information includes a mix of atomic results, text reports, images, and codes. The mix varies depending on the nature of the diagnostic procedure, and sometimes on the nature of the outcomes for a particular investigation."
 					},
 					{
 					    "icon": "/content/medg/images/serIcon3.png",
-					    "title": "Medication"
+					    "title": "Medication",
+					    "description": "Medication can include the form of the drug and the ingredient (or ingredients), as well as how it is packaged. The medication will include the ingredient(s) and their strength(s) and the package can include the amount (for example, number of tablets, volume, etc.) that is contained in a particular container (for example, 100 capsules of Amoxicillin 500mg per bottle)"
 					},
 					{
 					    "icon": "/content/medg/images/serIcon4.png",
-					    "title": "Observation"
+					    "title": "Observation",
+					    "description": "Observations are a central element in healthcare, used to support diagnosis, monitor progress, determine baselines and patterns and even capture demographic characteristics. Uses for the Observation resource include Vital Signs, Personal characteristics of the Patient, Devices measurements, Physical exam findings, etc."
 					}
 			    ]
 			},
@@ -57,19 +61,23 @@ $(document).on("click", ".subLi", function () {
 			    "categories": [
 					{
 					    "icon": "/content/medg/images/serIcon1.png",
-					    "title": "Demographic"
+					    "title": "Demographic",
+					    "description": "Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information."
 					},
 					{
 					    "icon": "/content/medg/images/serIcon2.png",
-					    "title": "Diagnosis"
+					    "title": "Diagnostics",
+					    "description": "A diagnostic report is the set of information that is typically provided by a diagnostic service when investigations are complete. The information includes a mix of atomic results, text reports, images, and codes. The mix varies depending on the nature of the diagnostic procedure, and sometimes on the nature of the outcomes for a particular investigation."
 					},
 					{
 					    "icon": "/content/medg/images/serIcon3.png",
-					    "title": "Medication"
+					    "title": "Medication",
+					    "description": "Medication can include the form of the drug and the ingredient (or ingredients), as well as how it is packaged. The medication will include the ingredient(s) and their strength(s) and the package can include the amount (for example, number of tablets, volume, etc.) that is contained in a particular container (for example, 100 capsules of Amoxicillin 500mg per bottle)"
 					},
 					{
 					    "icon": "/content/medg/images/serIcon4.png",
-					    "title": "Observation"
+					    "title": "Observation",
+					    "description": "Observations are a central element in healthcare, used to support diagnosis, monitor progress, determine baselines and patterns and even capture demographic characteristics. Uses for the Observation resource include Vital Signs, Personal characteristics of the Patient, Devices measurements, Physical exam findings, etc."
 					}
 			    ]
 			}
@@ -130,7 +138,8 @@ $(document).on("click", ".subLi", function () {
                 "categories": [
                     {
                         "icon": "/content/medg/images/serIcon13.png",
-                        "title": "Fitness"
+                        "title": "Fitness",
+                        "description": ""
                     }
                 ]
             },
@@ -139,7 +148,8 @@ $(document).on("click", ".subLi", function () {
 			    "categories": [
 					{
 					    "icon": "/content/medg/images/serIcon12.png",
-					    "title": "Pacemaker"
+					    "title": "Pacemaker",
+                        "description": ""
 					}
 			    ]
 			},
@@ -148,7 +158,8 @@ $(document).on("click", ".subLi", function () {
 			    "categories": [
 					{
 					    "icon": "/content/medg/images/serIcon11.png",
-					    "title": "Blood Sugar"
+					    "title": "Blood Sugar",
+                        "description": ""
 					}
 			    ]
 			}

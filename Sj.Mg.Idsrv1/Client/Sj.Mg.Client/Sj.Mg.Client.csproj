@@ -301,6 +301,7 @@
     <Content Include="Content\medg\images\reliefSignlogo.png" />
     <Content Include="Content\medg\images\relief_api.png" />
     <Content Include="Content\medg\images\resourceLogo1.png" />
+    <Content Include="Content\medg\images\revoke1.png" />
     <Content Include="Content\medg\images\re_icc.jpg" />
     <Content Include="Content\medg\images\searchIcon.png" />
     <Content Include="Content\medg\images\secLogo1.png" />
