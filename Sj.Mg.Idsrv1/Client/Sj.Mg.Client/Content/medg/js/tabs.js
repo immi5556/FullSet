@@ -154,7 +154,7 @@ $(document).on("click", ".subLi", function () {
 			    ]
 			},
 			{
-			    "subName": "Mysugr",
+			    "subName": "mySugr",
 			    "categories": [
 					{
 					    "icon": "/content/medg/images/serIcon11.png",
