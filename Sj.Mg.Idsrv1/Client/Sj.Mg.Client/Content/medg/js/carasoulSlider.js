@@ -67,7 +67,10 @@ var isMobile = {
           };
 
           var listItems = $(sliderUL).find('li');
-          $(listItems[0]).addClass('active');
+          $(document).on("ready", function () {
+              $(listItems[0]).addClass('active');
+          })
+          
 
           for(var x=0; x < listItems.length; x++){
             $(listItems[x]).on('click',function(){

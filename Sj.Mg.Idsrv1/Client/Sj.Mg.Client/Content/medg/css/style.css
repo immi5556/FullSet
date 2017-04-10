@@ -860,6 +860,18 @@ footer {
     position: relative;
      margin-top: 5px;
 }
+.btnGroup {
+    clear: both;
+    padding: 13px 0;
+    text-align: center;
+    overflow: hidden;
+    margin-top: 10px;
+    /* padding: 0 45px 15px; */
+    border-radius: 0 0 5px 5px;
+    background: #12214e;
+    margin-right: -25px;
+    margin-left: -25px;
+}
 /*.requestingSectionList {
     display: none;
 }*/
@@ -1791,10 +1803,10 @@ footer {
   clear:both;
   width:120px;
   display:block;
-  border-radius:25px;
+  border-radius:6px;
   margin:0 auto 0;
   font: 400 16px/40px 'Droid Serif', serif;
-  background: #39425f;
+  background: #19810b;
   text-transform: uppercase;
 }
 .ok {

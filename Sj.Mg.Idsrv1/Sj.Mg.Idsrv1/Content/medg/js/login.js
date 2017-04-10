@@ -25,7 +25,7 @@
                     $("#externaprovider").append('<li><a href="' + item.href + '" class="facebook"></a></li>');
                 }
                 if (((item.text || "").toLowerCase().indexOf("twitter") > -1)) {
-                    $("#externaprovider").append('<li style="display:none;><a href="' + item.href + '" class="twitter"></a></li>');
+                    $("#externaprovider").append('<li style="display:none;"><a href="' + item.href + '" class="twitter"></a></li>');
                 }
             });
         },

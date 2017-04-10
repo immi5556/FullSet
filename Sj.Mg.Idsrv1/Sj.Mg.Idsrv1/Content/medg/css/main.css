@@ -1617,7 +1617,7 @@
 	}
 
 	body, input, select, textarea {
-		font-family: "Scope One", serif;
+		font-family: 'Cabin', sans-serif;
 		font-size: 13pt;
 		font-weight: 300;
 		line-height: 1.65;
@@ -1781,7 +1781,6 @@
 	code {
 		border-radius: 4px;
 		border: solid 1px;
-		font-family: "Courier New", monospace;
 		font-size: 0.9em;
 		margin: 0 0.25em;
 		padding: 0.25em 0.65em;
@@ -1789,7 +1788,6 @@
 
 	pre {
 		-webkit-overflow-scrolling: touch;
-		font-family: "Courier New", monospace;
 		font-size: 0.9em;
 		margin: 0 0 2em 0;
 	}
@@ -1989,7 +1987,7 @@
 	input[type="button"],
 	button,
 	.button {
-		background-color: #CC0000;
+		background-color: #ce2129;
 		color: #fff !important;
 	}
 
@@ -1998,7 +1996,7 @@
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: #CC0000;
+			background-color: #ce2129;
 		}
 
 		input[type="submit"]:active,
@@ -2272,7 +2270,6 @@
 		.select-wrapper:before {
 			-moz-osx-font-smoothing: grayscale;
 			-webkit-font-smoothing: antialiased;
-			font-family: FontAwesome;
 			font-style: normal;
 			font-weight: normal;
 			text-transform: none !important;
@@ -2336,7 +2333,6 @@
 			input[type="radio"] + label:before {
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
-				font-family: FontAwesome;
 				font-style: normal;
 				font-weight: normal;
 				text-transform: none !important;
@@ -2471,7 +2467,6 @@
 		.icon:before {
 			-moz-osx-font-smoothing: grayscale;
 			-webkit-font-smoothing: antialiased;
-			font-family: FontAwesome;
 			font-style: normal;
 			font-weight: normal;
 			text-transform: none !important;
@@ -2925,7 +2920,7 @@
 
 		.wrapper.style1 {
 			background-color: #fafafa;
-			color: #999999;
+			color: #251e1e;
 		}
 
 			.wrapper.style1 input, .wrapper.style1 select, .wrapper.style1 textarea {
@@ -2970,7 +2965,7 @@
 			.wrapper.style1 input[type="button"],
 			.wrapper.style1 button,
 			.wrapper.style1 .button {
-				background-color: #CC0000;
+				background-color: #ce2129;
 				color: #fff !important;
 			}
 
@@ -3108,7 +3103,7 @@
 			}
 
 			.wrapper.style1 header p {
-				color: #bfbfbf;
+				color: #251e1e;
 			}
 
 			.wrapper.style1 table tbody tr {
@@ -3136,7 +3131,7 @@
 			}
 
 		.wrapper.style2 {
-			background-color: #CC0000;
+			background-color: #ce2129;
 			color: #ffffff;
 		}
 
@@ -3183,7 +3178,7 @@
 			.wrapper.style2 button,
 			.wrapper.style2 .button {
 				background-color: #fff;
-				color: #CC0000 !important;
+				color: #ce2129 !important;
 			}
 
 				.wrapper.style2 input[type="submit"].alt,
@@ -3431,7 +3426,7 @@
 
 	#header {
 		background: rgba(237, 237, 237, 0.9);
-		color: #CC0000;
+		color: #ce2129;
 		cursor: default;
 		height: 78px;
 		left: 0;
@@ -3456,7 +3451,7 @@
 
 			#header > .logo a {
 				font-size: 1.25em;
-				color: #CC0000;
+				color: #ce2129;
 			}
 			#header > .logo img {
 				width:100%;
@@ -3466,7 +3461,7 @@
 			
 
 				#header > .logo a:hover {
-					color: #CC0000;
+					color: #ce2129;
 				}
 
 			#header > .logo span {
@@ -3488,7 +3483,7 @@
 		}
 
 			#header > a:hover {
-				color: #CC0000;
+				color: #ce2129;
 			}
 
 			#header > a[href="#menu"] {
@@ -3500,7 +3495,6 @@
 					content: "";
 					-moz-osx-font-smoothing: grayscale;
 					-webkit-font-smoothing: antialiased;
-					font-family: FontAwesome;
 					font-style: normal;
 					font-weight: normal;
 					text-transform: none !important;
@@ -3566,7 +3560,7 @@
 		
 		$header.alt {
 			background: rgba(237, 237, 237, 0.9);
-			color: #CC0000;
+			color: #ce2129;
 			cursor: default;
 			height: 78px;
 			left: 0;
@@ -3670,7 +3664,7 @@
 					}
 
 					#menu > ul.links > li:hover {
-						color: #CC0000;
+						color: #ce2129;
 					}
 
 					#menu > ul.links > li:first-child > a:not(.button) {
@@ -3703,7 +3697,6 @@
 				content: "";
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
-				font-family: FontAwesome;
 				font-style: normal;
 				font-weight: normal;
 				text-transform: none !important;
@@ -3714,7 +3707,7 @@
 			}
 
 			#menu .close:hover {
-				color: #CC0000;
+				color: #ce2129;
 			}
 
 			@media screen and (max-width: 736px) {
@@ -3931,7 +3924,7 @@
 		}
 
 		#footer .copyright {
-			color: #bfbfbf;
+			color: #251e1e;
 			font-size: 0.9em;
 			margin: 0 0 2em 0;
 			padding: 0;

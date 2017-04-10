@@ -1192,7 +1192,7 @@ footer {
 /*Logout CSS Here*/
 
 .logoutScrn h2 {
-	padding: 10px 0 0;
+	padding: 10px 0;
 	color: #12214e;
 	text-align: center;
 	font-size: 18px;
@@ -1201,8 +1201,17 @@ footer {
 }
 .buttonsRow {
 	clear: both;
-	padding: 30px 0 10px;
-	text-align: center;
+    padding: 20px 0;
+    text-align: center;
+    overflow: hidden;
+    margin-top: 10px;
+    border-radius: 0 0 5px 5px;
+    background: #12214e;
+    margin-right: -25px;
+    margin-left: -25px;
+}
+.logoutGrp {
+    margin-bottom: -11px;
 }
 .buttonsRow button {
 	display: inline-block;

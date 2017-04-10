@@ -1,4 +1,5 @@
 var selectedclient = "ReliefExpress", selectedresource = "Demographic";
+var oldDiv;
 $(document).on("click", ".subLi", function () {
     selectedclient = $(this).find("strong").text();
     $('.slideDown').trigger("click");
@@ -200,8 +201,8 @@ $(document).on("click", ".subLi", function () {
 			  	}
 
 			     temp += '</ul>';
-			  	 tabMenuSection.html(temp);
-                  
+			     tabMenuSection.html(temp);
+
                   var item = $('.tabMenu').find('.listItem');
                   var subList = $('.tabMenu').find('.subUl');
                   var subItems = $(subList[0]).find('li');
@@ -210,12 +211,17 @@ $(document).on("click", ".subLi", function () {
                   $(subList[0]).addClass('active');
                   $(subItems[0]).addClass('active');
                   
-                  for(var x=0; x < item.length; x++ ){
+                  for (var x = 0; x < item.length; x++) {
+                      oldDiv = item[0];
                       $(item[x]).on('click', function () {
-                          $('.carouselModule').hide();
-                          $('.listItem').removeClass('active');
-                          $('.subUl').removeClass('active');
-                         openDropList(this);
+                          if (oldDiv != this) {
+                              oldDiv = this;
+                              $('.carouselModule').hide();
+                              $('.listItem').removeClass('active');
+                              $('.subUl').removeClass('active');
+                              $('.subLi').removeClass('active');
+                              openDropList(this);
+                          }
                           
                       });
                   };
@@ -226,6 +232,14 @@ $(document).on("click", ".subLi", function () {
                       $(subDropItems[x]).on('click',function(){
                           var num = 0;
                           var thisVal = $(this).text();
+                          selectedclient = thisVal;
+                          $('.slideDown').trigger("click");
+                          if (selectedclient == "Relief Express") {
+                              selectedclient = "ReliefExpress";
+                          }
+                          else if (selectedclient == "Neuro Care Partners") {
+                              selectedclient = "NeuroCarePartners";
+                          }
                           var thisParentVal = $(this).closest('.listItem').find('a').text();
                           $('.subLi').removeClass('active');
                           $(this).addClass('active');
