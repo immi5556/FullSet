@@ -12,5 +12,7 @@ namespace Sj.Mg.Idsrv1.Models
         public string First { get; set; }
         [Required]
         public string Last { get; set; }
+        [Required]
+        public string Email { get; set; }
     }
 }

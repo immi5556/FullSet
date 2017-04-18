@@ -17,11 +17,24 @@
         <header>
             <div class="container">
                 <a href="#" id="logo"><img src="/Content/medg/images/logo.png"></a>
-                <ul class="hNav">
-                    <li><a href="#" style="padding: 6px 8px;border-radius: 7px;"><i class="fa fa-user userName" aria-hidden="true">@ViewBag.FullName</i></a></li>
-                    <li><a href="#" class="click"  data-id="#ChangeScope"><i class="fa fa-users" aria-hidden="true"></i></a></li>
-                    <li><a class="logout" href="/home/Signout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
-                </ul>
+                <h2>Simple. Secure. Seamless.<span>Personal Health Record</span></h2>
+                <div class="right">
+                    <ul class="hNav">
+                        <!--<li><select class="viewType"><option value="provider">Provider</option><option value="proxy">Proxy</option><option value="own">Own</option></select></li>-->
+                        <li><a href="#"><i class="fa fa-user userName" aria-hidden="true"></i></a></li>
+                        <!--<li><a href="#" class="click"  data-id="#ChangeScope"><i class="fa fa-users" aria-hidden="true"></i></a></li>-->
+                        <li><a class="logout" href="/home/Signout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                    </ul>
+                    <div class="usrName">@ViewBag.FullName</div>
+                    <div class="provider">
+                        <div class="providerLabel">Viewing as <label class="labelText viewType">Provider</label></div>
+                        <ul class="providerList">
+                            <li>Provider</li>
+                            <li>Proxy</li>
+                            <li>My View</li>
+                        </ul>
+                    </div>
+                </div>
                 <!-- <div class="hamberMenu">
                     <span></span>
                     <span></span>
@@ -32,7 +45,41 @@
         <div class="main">
             <div class="container">
                 <div class="contentLeft">
-                    <div class="viewSection">
+                    <div class="tabModule">
+                        <div class="tabSection"></div>
+                    </div>
+                    <div class="tabModuleSelectData"></div>
+                    <div class="viewShareSection">
+					    <h2 class="sec-heading">Data Preview</h2>
+					    <div class="reportBlock">
+						    <div class="catagoryDetails">
+                                
+                                <div class="catagoryContent">
+                                    <div class="category-display">
+                                        <h3 class="categ-hdr"><!--Demographic--></h3>
+                                        <div id="data-disp">
+                                            <span class="generalDetails">
+                                                <!--Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information.-->
+                                            </span>
+                            
+                                            <table style="display: none;" class="patientData" cellspacing="0" cellpadding="0">
+                                                  <thead>
+                                                      <tr>
+                                                          <th style="width: 15%;">Specification</th>
+                                                          <th></th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                  
+                                                  </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+					    </div>
+					</div>
+                    <!--<div class="viewSection">
                         <h2 class="sec-heading">View </h2>
                         <ul class="viewSectionList userList">
                             
@@ -43,11 +90,17 @@
                         <ul class="viewShareSectionList userList">
                             
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="contentRight">
                     <h2 class="sec-heading" style="cursor: pointer;">Requesting Access <span class="notification">0</span></h2>
                     <ul class="requestingSectionList userList">
+                    </ul>
+                    <h2 class="sec-heading viewBlock">View Only</h2>
+                    <ul class="viewSectionList userList viewUserList">
+                    </ul>
+                    <h2 class="sec-heading shareBlock">View &amp; Share</h2>
+                    <ul class="viewShareSectionList userList viewUserList">
                     </ul>
                     <div class="searchBar">
                         <h2 class="sec-heading" style="cursor: pointer;">Find and Share</h2>
@@ -61,45 +114,22 @@
                     </div>
                 </div>
             </div>
-            <div class="catagoryDetails">
-                <div class="arrowCntrl">
-                    <span class="slideUp"></span>
-                    <span class="slideDown"></span>
-                </div>
-                <div class="catagoryContent">
-                    <div class="container category-display">
-                        <h3 class="categ-hdr">Demographic</h3>
-                        <div id="data-disp">
-                            <span class="generalDetails">
-                                Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information.
-                            </span>
-                            
-                            <table style="display: none;" class="patientData" cellspacing="0" cellpadding="0">
-                                  <thead>
-                                      <tr>
-                                          <th style="width: 15%;">Specification</th>
-                                          <th></th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                  
-                                  </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="push"></div>
     </div>
     <footer>
-        <div class="tabModule">
-            <div class="container">
-                <div class="tabSection"></div>
-            </div>
-            <div class="carouselModule"></div>
+        <div class="container">
+            <span class="copyright">Copyright © 2017 </span>
+            <ul class="socialM">
+                <li class="yahoo"><a href="#">yahoo</a></li>
+                <li class="Instagram"><a href="#">Instagram</a></li>
+                <li class="facebook"><a href="#">facebook</a></li>
+                <li class="twitter"><a href="#">twitter</a></li>
+                <li class="google"><a href="#">google</a></li>
+                <li class="hotmail"><a href="#">hotmail</a></li>
+            </ul>
         </div>
-    </footer>
+	</footer>
     
     <div class="lightbox lightbox-allowedUsr" id="ChangeScope">
         <div class="scrollSec">
@@ -111,6 +141,7 @@
                       <thead>
                           <tr>
                               <th>User</th>
+                              <th>Relation</th>
                               <th>Resource</th>
                               <th>Access</th>
                               <th>Revoke Access</th>

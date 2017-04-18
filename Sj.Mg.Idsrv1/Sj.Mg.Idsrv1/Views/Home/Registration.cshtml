@@ -12,37 +12,49 @@
 </head>
 <body>
     <div class="loginMain">
-        <div class="container loginScreen">
-            <a href="#" class="loginLogo" style="width: 110px;"><img src="~/Content/medg/images/login-logo.png" /></a>
-            <div class="registerSec">
-                <h2><a class="btnHome" href="/"><i class="fa fa-home" aria-hidden="true" style="padding-right: 5px;"></i>Home</a>Welcome to MedGrotto!</h2>
-                <form method="post">
-                    <div class="reg-row">
-                        <label for="First">First Name</label>
-                        <input type="text" name="firstName" class="form-control firstName">
-                    </div>
-                    <div class="reg-row">
-                        <label for="First">Last Name</label>
-                        <input type="text" name="lastName" class="form-control lastName">
-                    </div>
-                    <div class="reg-row">
-                        <label for="First">Email</label>
-                        <input type="email" name="email" class="form-control emailVal">
-                    </div>
-                    <div class="reg-row">
-                        <label for="First">Phone Number</label>
-                        <input type="number" name="phoneNumber" class="form-control phoneNumber">
-                    </div>
-                    <div class="reg-row">
-                        <label for="First">Password</label>
-                        <input type="password" name="password" class="form-control password">
-                    </div>
-                    <div class="reg-row">
-                        <button class="registerBtn" onclick="return CreateUser()">Sign Up</button>
-                        <div class="errorMessage"></div>
-                    </div>
-                </form>
+        <div class="loginScreen1">
+            <div class="container">
+                <a href="#" class="loginLogo" style="width: 110px;"><img src="~/Content/medg/images/login-logo.png" /></a>
             </div>
+        </div>
+        <div class="registerSec">
+            <div class="regHead">
+                <div class="container">
+                    <h2><a class="btnHome" href="/"><i class="fa fa-home" aria-hidden="true" style="padding-right: 5px;"></i></a>Welcome to MedGrotto!</h2>
+                </div>
+            </div>
+            
+            <form class="regForm" method="post">
+                <div class="reg-row">
+                    <!--<label for="First">First Name</label>-->
+                    <input type="text" placeholder="First Name" name="firstName" class="form-control firstName">
+                </div>
+                <div class="reg-row">
+                    <!--<label for="First">Last Name</label>-->
+                    <input type="text" placeholder="Last Name" name="lastName" class="form-control lastName">
+                </div>
+                <div class="reg-row">
+                    <!--<label for="First">Email</label>-->
+                    <input type="email" placeholder="Email" name="email" class="form-control emailVal">
+                </div>
+                <div class="reg-row">
+                    <!--<label for="First">Phone Number</label>-->
+                    <input type="text" placeholder="Phone Number" name="phoneNumber" class="form-control phoneNumber">
+                </div>
+                <div class="reg-row">
+                    <!--<label for="First">Password</label>-->
+                    <input type="password" placeholder="Password" name="password" class="form-control password">
+                </div>
+                <div class="reg-row">
+                    <!--<label for="First">Password</label>-->
+                    <input type="checkbox" name="role" class="form-control role" value="">Are you a doctor?
+                </div>
+                
+                <div class="reg-row">
+                    <button class="registerBtn" onclick="return CreateUser()">Register</button>
+                    <div class="errorMessage"></div>
+                </div>
+            </form>
         </div>
         <div class="loginPush"></div>
     </div>
@@ -173,7 +185,7 @@
 		})();
 
 		function CreateUser() {
-		    if (!$('.firstName').val() || !$('.lastName').val() || !$('.emailVal').val() || !$('.phoneNumber').val() || $('.phoneNumber').val().length != 10 || !$('.password').val())
+		    if (!$('.firstName').val() || !$('.lastName').val() || !$('.emailVal').val() || !$('.phoneNumber').val() || isNaN($('.phoneNumber').val()) || $('.phoneNumber').val().length != 10 || !$('.password').val())
 		    {
 		        $(".errorMessage").html("Enter All Fields.");
 		        $(".errorMessage").css("color", "red");
@@ -183,7 +195,8 @@
 		            'lastName': $('.lastName').val(),
 		            'email': $('.emailVal').val(),
 		            'password': $('.password').val(),
-		            'phoneNumber': $('.phoneNumber').val()
+		            'phoneNumber': $('.phoneNumber').val(),
+		            'provider': $('.role').is(":checked")
 		        };
 
 		        $.ajax({

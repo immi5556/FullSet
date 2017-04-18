@@ -64,6 +64,10 @@ namespace Sj.Mg.Idsrv1.Custom
             {
                 email = context.ExternalIdentity.Claims.First(x => x.Type == Constants.ClaimTypes.Email).Value;
             }
+            if (context.ExternalIdentity.Provider == "Twitter")
+            {
+                email = context.ExternalIdentity.Claims.First(x => x.Type == Constants.ClaimTypes.Name).Value;
+            }
 
             Dictionary<string, object> filter = new Dictionary<string, object>();
             //filter.Add("Provider", context.ExternalIdentity.Provider);
@@ -137,7 +141,7 @@ namespace Sj.Mg.Idsrv1.Custom
             return Task.FromResult(0);
         }
 
-        public string addUser(string firstName, string lastName, string password, string email, string phoneNumber)
+        public string addUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider)
         {
             var database = BaseMongo.GetDatabase();
             var collection = database.GetCollection<BsonDocument>("Users");
@@ -147,7 +151,7 @@ namespace Sj.Mg.Idsrv1.Custom
             var response = collection.Find(filter).ToList();
             if (response.Count == 0)
             {
-                var newUser = GetUser(firstName, lastName, password, email, phoneNumber);
+                var newUser = GetUser(firstName, lastName, password, email, phoneNumber, provider);
                 MongoManage.Insert<CustomUser>(newUser, "Users");
                 //Users.Add(newUser);
                 return "success";
@@ -158,25 +162,28 @@ namespace Sj.Mg.Idsrv1.Custom
             }
         }
 
-        public CustomUser GetUser(string firstName, string lastName, string password, string email, string phoneNumber)
+        public CustomUser GetUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider)
         {
-            return new CustomUser
+             CustomUser ab = new CustomUser
             {
-                Subject = Guid.NewGuid().ToString(),
+                //Subject = Guid.NewGuid().ToString(),
+                Subject = email,
                 Username = email,
                 Password = password,
                 AcceptedEula = false,
                 Provider = null,
                 ProviderID = null,
                 IsRegistered = false,
+                IsProvider = provider,
                 Claims = new List<Claim>()
                         {
-                            new Claim(Constants.ClaimTypes.Name, "Alice Smith"),
+                            new Claim(Constants.ClaimTypes.Name, firstName+" "+lastName),
                             new Claim(Constants.ClaimTypes.GivenName, firstName),
                             new Claim(Constants.ClaimTypes.FamilyName, lastName),
                             new Claim(Constants.ClaimTypes.Email, email),
                         }
             };
+            return ab;
         }
     }
 }

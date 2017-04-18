@@ -13,6 +13,8 @@ using Microsoft.Owin.Security.Twitter;
 using Serilog;
 using Microsoft.Owin.Security.OpenIdConnect;
 using System.Threading.Tasks;
+using Owin.Security.Providers.Yahoo;
+using Microsoft.Owin.Security.MicrosoftAccount;
 
 namespace Sj.Mg.Idsrv1
 {
@@ -122,6 +124,25 @@ namespace Sj.Mg.Idsrv1
 
             };
             app.UseTwitterAuthentication(twitter);
+
+            var microsoft = new MicrosoftAccountAuthenticationOptions
+            {
+                AuthenticationType = "Microsoft",
+                SignInAsAuthenticationType = signInAsType,
+                ClientId = "e097d6e4-7be5-4792-872f-956c0a07ea1d",
+                ClientSecret = "LimpeO70gK3XJsyucMU5G9d"
+            };
+
+            app.UseMicrosoftAccountAuthentication(microsoft);
+
+            var yahoo = new YahooAuthenticationOptions
+            {
+                AuthenticationType = "Yahoo",
+                SignInAsAuthenticationType = signInAsType,
+                ConsumerKey = "dj0yJmk9bEJLVHB3NllaNWcxJmQ9WVdrOVdXOXViMEZLTnpnbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0yNg--",
+                ConsumerSecret = "385fe1f34413fda6f37697148026481874c90c4d"
+            };
+            app.UseYahooAuthentication(yahoo);
         }
     }
     //public class TwitterImpl : Microsoft.Owin.Security.ISecureDataFormat<Microsoft.Owin.Security.Twitter.Messages.RequestToken>

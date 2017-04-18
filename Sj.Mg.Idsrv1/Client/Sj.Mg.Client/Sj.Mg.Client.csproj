@@ -310,10 +310,15 @@
     <Content Include="Content\medg\images\serIcon11.png" />
     <Content Include="Content\medg\images\serIcon12.png" />
     <Content Include="Content\medg\images\serIcon13.png" />
+    <Content Include="Content\medg\images\serIcon1Active.png" />
     <Content Include="Content\medg\images\serIcon2.png" />
+    <Content Include="Content\medg\images\serIcon2Active.png" />
     <Content Include="Content\medg\images\serIcon3.png" />
+    <Content Include="Content\medg\images\serIcon3Active.png" />
     <Content Include="Content\medg\images\serIcon4.png" />
+    <Content Include="Content\medg\images\serIcon4Active.png" />
     <Content Include="Content\medg\images\socialicons.png" />
+    <Content Include="Content\medg\images\socialIcons1.png" />
     <Content Include="Content\medg\images\twitter.jpg" />
     <Content Include="Content\medg\images\twitter.png" />
     <Content Include="Content\medg\images\userIcon.png" />

@@ -730,19 +730,26 @@ footer {
 }
 /*Login CSS Here*/
 .login {
-	background: url(../images/loginBg.jpg) repeat-x left top;
+	background: url(../images/bg-reg.png) repeat-x left top;
 }
 .loginMain {
 	min-height: 100%;
 	margin-bottom: -40px;
 }
 .loginScreen {
-	padding-top: 40px;
+	padding-top: 20px;
+}
+.loginScreen1 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: rgba(255, 255, 255, 0.64);
+    overflow: hidden;
 }
 .loginLogo {
 	margin: auto;
 	display: block;
 	width: 163px;
+    float: left;
 }
 .loginSection {
 	clear: both;
@@ -782,9 +789,16 @@ footer {
 	font-size: 15px;
 	line-height: 50px;
 	border: none;
-    font-family: 'Cabin', sans-serif;
 	background: none !important;
 }
+    .regForm input:-webkit-autofill,
+    .regForm input:-webkit-autofill:hover, 
+    .regForm input:-webkit-autofill:focus,
+    .regForm input:-webkit-autofill
+    {
+      -webkit-text-fill-color: #000;
+    }
+
     input:-webkit-autofill,
     input:-webkit-autofill:hover, 
     input:-webkit-autofill:focus,
@@ -977,6 +991,12 @@ footer {
 .socialMedia li a.twitter {
     background-position: 0 -50px;
 }
+.socialMedia li a.microsoft {
+    background-position: -47px -48px;
+}
+.socialMedia li a.yahoo {
+    background-position: -99px 1px;
+}
 .socialMedia li a.facebook {
     background-position: 0 0;
 }
@@ -986,7 +1006,7 @@ footer {
 .loginFooter {
 	text-align: center;
 	line-height: 40px;
-	color: #1e3665;
+	color: #fff;
 	font-size: 13px;
 	clear: both;
 	/*font-family: 'nexa_boldregular';*/
@@ -1121,15 +1141,20 @@ footer {
 
 .registerSec {
 	clear: both;
-	padding: 40px 0 0;
 }
-.registerSec h2 {
-	color: #1e3665;
-	font-size: 18px;
-	margin-bottom: 30px;
-	text-align: center;
-	line-height: 35px;
-	background: #c7c5c5;
+.regHead {
+    position: relative;
+    color: #fff;
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 35px;
+    background: #1e3665;
+}
+.regHead h2 {
+    font-size: 18px;
+}
+.regHead .container {
+    position: relative;
 }
 .reg-row {
 	clear: both;
@@ -1151,12 +1176,38 @@ footer {
 	line-height: 37px;
 	padding: 0 10px;
 	font-size: 13px;
-	font-family: arial;
 	border-radius: 4px;
 	color: #fff;
 	border: none;
 	outline: none;
 	background: #1e3665;
+}
+.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #000;
+}
+.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #000;
+   opacity:  1;
+}
+.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #000;
+   opacity:  1;
+}
+.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #000;
+}		
+.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]{
+	display: inline-block;
+	width: 290px;
+	height: 37px;
+	line-height: 37px;
+	padding: 0 10px;
+	font-size: 13px;
+	border-radius: 4px;
+	color: #000;
+	border: none;
+	outline: none;
+	background: rgba(255,255, 255,0.4);
 }
 .reg-row input[type="text"], input[type="password"], input[type="number"]{
 	display: inline-block;
@@ -1165,7 +1216,6 @@ footer {
 	line-height: 37px;
 	padding: 0 10px;
 	font-size: 13px;
-	font-family: arial;
 	border-radius: 4px;
 	color: #fff;
 	border: none;
@@ -1179,7 +1229,7 @@ footer {
 	cursor: pointer;
 	color: #ffffff;
 	margin-top: 12px;
-    margin-left: 120px;
+    /*margin-left: 120px;*/
 	/*font-family: 'nexa_boldregular';*/
 	border-radius: 6px;
 	font-size: 15px;
@@ -1517,19 +1567,11 @@ footer {
 	background: #f2f2f2;
 }
 .btnHome {
-    width: 75px;
-    height: 28px;
-    border-radius: 3px;
     color: #fff;
-    text-decoration: none;
-    text-align: center;
     cursor: pointer;
-    font-size: 14px;
-    text-transform: capitalize;
-    display: inline-block;
-    background: #1e3665;
-    line-height: 29px;
-    margin: 3px 0 0 6px;
-    font-weight: 400;
-    float:left; 
+    font-size: 20px;
+    line-height: 32px;
+    position: absolute;
+    left: 0;
+    top: 3px;
 }

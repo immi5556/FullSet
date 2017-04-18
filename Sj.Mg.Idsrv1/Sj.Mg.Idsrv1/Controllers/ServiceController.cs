@@ -58,10 +58,10 @@ namespace Sj.Mg.Idsrv1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(string firstName, string lastName, string password, string email, string phoneNumber)
+        public ActionResult Registration(string firstName, string lastName, string password, string email, string phoneNumber, bool provider)
         {
             MgUserService temp = new MgUserService();
-            string result = temp.addUser(firstName, lastName, password, email, phoneNumber);
+            string result = temp.addUser(firstName, lastName, password, email, phoneNumber, provider);
             return Json(result);
         }
         public JsonResult RptToken() //From CLient - Empty RPT

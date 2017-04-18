@@ -22,10 +22,16 @@
                     $("#externaprovider").append('<li><a href="' + item.href + '" class="gmail"></a></li>');
                 }
                 if (((item.text || "").toLowerCase().indexOf("facebook") > -1)) {
-                    $("#externaprovider").append('<li><a href="' + item.href + '" class="facebook"></a></li>');
+                    $("#externaprovider").append('<li style="display: none;"><a href="' + item.href + '" class="facebook"></a></li>');
                 }
                 if (((item.text || "").toLowerCase().indexOf("twitter") > -1)) {
-                    $("#externaprovider").append('<li style="display:none;"><a href="' + item.href + '" class="twitter"></a></li>');
+                    $("#externaprovider").append('<li><a href="' + item.href + '" class="twitter"></a></li>');
+                }
+                if (((item.text || "").toLowerCase().indexOf("microsoft") > -1)) {
+                    $("#externaprovider").append('<li style="display: none;"><a href="' + item.href + '" class="microsoft"></a></li>');
+                }
+                if (((item.text || "").toLowerCase().indexOf("yahoo") > - 1)) {
+                    $("#externaprovider").append('<li style="display: none;"><a href="' + item.href + '" class="yahoo"></a></li>');
                 }
             });
         },

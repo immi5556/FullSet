@@ -24,6 +24,10 @@
                         <input type="text" name="Last" class="form-control" />
                     </div>
                     <div class="reg-row">
+                        <label for="First">Email</label>
+                        <input type="text" name="Email" class="form-control" />
+                    </div>
+                    <div class="reg-row">
                         <button class="registerBtn">Register</button>
                     </div>
                 </form>
@@ -36,6 +40,10 @@
                         <div class="reg-row">
                             <label for="Last">Last Name</label>
                             @Html.TextBoxFor(x => x.Last, new { @class = "form-control" })
+                        </div>
+                        <div class="reg-row">
+                            <label for="Email">Email</label>
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
                         </div>
                         <div class="reg-row">
                             <button class="registerBtn">Register</button>

@@ -5,7 +5,8 @@ var permission = (function () {
 		tabCont:".tabContSec"
 	});*/
     var reqUser = "", reqUserScope = "", reqUserResource = "";
-    var myData, profileData;
+    var myData, profileData, provider = false;
+    var data;
 
     function showPopUp(content) {
         $(".popUpContent").html(content);
@@ -79,7 +80,6 @@ var permission = (function () {
         (data || []).forEach(function (itm, idx) {
             if (itm["Identifier"] && itm["Identifier"].length) {
                 if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
-                    console.log(itm);
                     if (count == 0) {
                         $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
                         if (itm["DateAssertedElement"] && itm["DateAssertedElement"].Value) {
@@ -101,6 +101,7 @@ var permission = (function () {
                         $('.slideUp').trigger("click");
                         $(".patientData").show();
                         $(".generalDetails").hide();
+                        //$('.reportBlock').css("background", "#fff");
                     }
                 }
             }
@@ -157,7 +158,7 @@ var permission = (function () {
                             $(".patientData tbody").append("<tr><td>Status</td><td>" + itm["StatusElement"].Value + "</td></tr>");
                         }
                         count++;
-                        $('.slideUp').trigger("click");
+                        //$('.slideUp').trigger("click");
                         $(".patientData").show();
                         $(".generalDetails").hide();
                     }
@@ -178,6 +179,7 @@ var permission = (function () {
         $(".requestingSectionList li").on("click", function () {
             $(".scopesData").html("Click the checkbox to agree to give " + ($(this).find(".scopeKey").text() == "Read" ? "View" : $(this).find(".scopeKey").text()) + " access to <span class='scopeUser'>" + $(this).find("h5").text()+"</span>");
             reqUser = $(this).find("h5").text();
+            reqUserRelation = $(this).find(".usrRel").text();
             reqUserScope = $(this).find(".scopeKey").text();
             reqUserResource = $(this).find(".resourcePro").text();
             $(".scopeInput").attr("checked", false);
@@ -196,10 +198,10 @@ var permission = (function () {
 
     $(".requestAgreed").on("click", function () {
         $.ajax({
-            url: "/provide/" + reqUser + "/ReliefExpress/" + reqUserResource + "/" + reqUserScope,
+            url: "/provide/" + reqUser + "/ReliefExpress/" + reqUserResource + "/" + reqUserScope + "/" + reqUserRelation,
         })
         .done(function (data, textStatus, jqXHR) {
-            showPopUp('<h4>Your Request was sent successfully.</h4>');
+            showPopUp('<h4>Your Response was sent successfully.</h4>');
             $(".popupShadow").click();
             getData();
         })
@@ -227,33 +229,65 @@ var permission = (function () {
     secHeight();
 
     function secHeight() {
-        var Wh = $(window).height() - 270;
-        if (Wh > 300) {
-            $('.contentRight').height(Wh - 20);
-            var Hh = Wh / 2;
-            $('.viewSectionList').height(Hh - 50);
-            $('.viewShareSectionList').height(Hh - 50);
-            $('.requestingSectionList').height(Wh - 95);
-            reqBlockHeight = $('.requestingSectionList').height();
-        } else {
-            $('.contentRight').css({
-                "height": 310 + 'px'
-            });
-            $('.viewSection').css({
-                "height": 150 + 'px'
-            });
-            $('.viewShareSection').css({
-                "height": 150 + 'px'
-            });
-            $('.viewShareSectionList').css({
-                "height": 110 + 'px'
-            });
-            $('.requestingSectionList').css({
-                "height": 190 + 'px'
-            });
-            reqBlockHeight = $('.requestingSectionList').height();
-        }
+        var Wh = $(window).height() - 170;
+        $('.contentRight').height(Wh);
+        var Hh = (Wh - 115) / 2;
+        $('.tabModuleSelectData').height(Hh);
+        $('.reportBlock').height(Hh - 40);
+        $('.listGridUL').height(Hh - 15);
+        //var Wh = $(window).height() - 270;
+        //if (Wh > 300) {
+        //    $('.contentRight').height(Wh - 20);
+        //    var Hh = Wh / 2;
+        //    $('.viewSectionList').height(Hh - 50);
+        //    $('.viewShareSectionList').height(Hh - 50);
+        //    $('.requestingSectionList').height(Wh - 95);
+        //    reqBlockHeight = $('.requestingSectionList').height();
+        //} else {
+        //    $('.contentRight').css({
+        //        "height": 310 + 'px'
+        //    });
+        //    $('.viewSection').css({
+        //        "height": 150 + 'px'
+        //    });
+        //    $('.viewShareSection').css({
+        //        "height": 150 + 'px'
+        //    });
+        //    $('.viewShareSectionList').css({
+        //        "height": 110 + 'px'
+        //    });
+        //    $('.requestingSectionList').css({
+        //        "height": 190 + 'px'
+        //    });
+        //    reqBlockHeight = $('.requestingSectionList').height();
+        //}
     };
+
+    $('.providerLabel').on('click', function () {
+        $('.providerList').slideToggle();
+    });
+
+    $('.providerList li').on('click', function () {
+        $('.providerList').slideUp();
+        $('.labelText').text($(this).text());
+        if ($('.labelText').text().toLowerCase() == "provider") {
+            setProviderData();
+            $(".providerLabel").text("Viewing as <label class='labelText viewType'>Provider</label>");
+            $('.labelText').text("Provider");
+            $(".viewBlock").text("Users who have given me View Only access");
+            $(".shareBlock").text("Users who have given me View & Share access");
+        } else if ($('.labelText').text().toLowerCase() == "proxy") {
+            setProxyData();
+            $(".providerLabel").html("Viewing as <label class='labelText viewType'>Proxy</label>");
+            $(".viewBlock").text("Users who have given me View Only access");
+            $(".shareBlock").text("Users who have given me View & Share access");
+        } else if ($('.labelText').text().toLowerCase() == "my view") {
+            setOwnData();
+            $(".providerLabel").html("My View<label class='labelText viewType'></label>");
+            $(".viewBlock").text("Users I have given View Only access");
+            $(".shareBlock").text("Users I have given View & Share access");
+        }
+    })
 
     $('.slideUp').on('click', function () {
         $('.catagoryDetails').css({
@@ -281,7 +315,7 @@ var permission = (function () {
     });
 
     $('.contentRight .sec-heading').on('click', function () {
-        $('.searchRow,.slimScrollDiv').slideUp();
+        $('.searchRow,.slimScrollDiv,.userList').slideUp();
         $('.sec-heading').removeClass('active');
         var nextItem = $(this).next();
         if ($(nextItem).is(':visible')) {
@@ -293,9 +327,9 @@ var permission = (function () {
         $("#srchrest").html('');
         $("#searchEmail").val("");
     })
-    $('.requestingSectionList').slimScroll({
-        "height": reqBlockHeight
-    });
+    //$('.requestingSectionList').slimScroll({
+    //    "height": reqBlockHeight
+    //});
     $('.slimScrollDiv').hide();
 
     var srchUser = function (srch) {
@@ -328,6 +362,7 @@ var permission = (function () {
         $("#srchrest").append(filterUl);
         $("#searchEmail").val('');
         $(filterUl).append("<div class='provideRow'><label>User:</label> <span>" + toemail + "</span></div>");
+        $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>" + selectedclient + "</span></div>");
         $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
@@ -339,10 +374,10 @@ var permission = (function () {
     });
     $(document).on("click", "#conf-prov", function () {
         $.ajax({
-            url: "/provide/" + toemail + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val(),
+            url: "/provide/" + toemail + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val(),
         })
         .done(function (data, textStatus, jqXHR) {
-            $(".allowedUsr1 tbody").append('<tr><td>' + toemail + '</td><td>' + $("#selrsrc").val() + '</td><td><select class="accessType"><option value="Read" ' + ($("#selscpe").val() == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + ($("#selscpe").val() == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><img src="/Content/medg/images/revoke1.png" alt="revoke"></button></td></tr>');
+            $(".allowedUsr1 tbody").append('<tr><td>' + toemail + '</td><td>' + $("#userRelation").val() + '</td><td>' + $("#selrsrc").val() + '</td><td><select class="accessType"><option value="Read" ' + ($("#selscpe").val() == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + ($("#selscpe").val() == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><img src="/Content/medg/images/revoke1.png" alt="revoke"></button></td></tr>');
             showPopUp('<h4>Provided Your Data Successfully.</h4>');
             $("#srchrest").html('');
             if ($(".allowedUsr1 tbody tr").length) {
@@ -364,8 +399,9 @@ var permission = (function () {
         $('.slideDown').trigger("click");
         var filterUl = $('<div class="providesAcc"></div>');
         $("#srchrest").append(filterUl);
-        $("#searchEmail").val('');
+        $("#searchEmail").val(''); 
         $(filterUl).append("<div class='provideRow'><label>User:</label> <span>" + toemail + "</span></div>");
+        $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>Relief Express</span></div>");
         $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Diagnostics</option><option>Demographic</option><option>Medication</option><option>Observation</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
@@ -373,7 +409,7 @@ var permission = (function () {
     });
     $(document).on("click", "#conf-req", function () {
         $.ajax({
-            url: "/request/" + toemail + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val(),
+            url: "/request/" + toemail + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val(),
         })
         .done(function (data, textStatus, jqXHR) {
             showPopUp('<h4>Request Sent Successfully.</h4>');
@@ -423,33 +459,75 @@ var permission = (function () {
     }
 
     function popUpEvents() {
-        var previous;
-
-        $(".accessType").on('focus', function () {
-            previous = this.value;
-        }).change(function () {
+        var previous, next, user, resourceType, relation, $this;
+        
+        $(".switchSec").on("click", function () {
+            $this = $(this);
+            previous = $(this).parent().find(".accessLevel").text();
+            user = $(this).parent().find("h5").text();
+            resourceType = $(this).parent().find(".resourcePro").text();
+            relation = $(this).parent().find(".relationType").text();
+            if (previous == "View") {
+                previous = "Read";
+                next = "Share";
+            } else {
+                previous = "Share";
+                next = "Read";
+            }
             $.ajax({
-                url: "/updaterequest/" + $(this).closest("tr").find('td:eq(0)').text() + "/" + selectedclient + "/" + $(this).closest("tr").find('td:eq(1)').text() + "/" + previous + "/" + $(this).val(),
+                url: "/updaterequest/" + user + "/" + selectedclient + "/" + resourceType + "/" + previous + "/" + next + "/" + relation,
             })
             .done(function (data, textStatus, jqXHR) {
                 showPopUp('<h4>Access Level Changed Successfully.</h4>');
+                $this.closest("li").remove();
+                var $li = $("<li>");
+                if (next == "Share") {
+                    $li.append('<div class="listGrid"> \
+                                        \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                        \ <div class="gridHeadings"> \
+                                        \ <h5>' + user + '</h5> \
+                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \ <div class="switchSec">Switch to View Only<i class="fa fa-exchange" aria-hidden="true"></i></div> \
+                                        \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
+                                        \   <div style="display:none;" class="resourcePro">' + resourceType + '</div> \
+                                        \   <div style="display:none;" class="accessLevel">Share</div> \
+                                        \   <div style="display:none;" class="relationType">' + relation + '</div> \
+                                        \   </div>');
+                    $(".viewShareSectionList").append($li);
+                } else {
+                    $li.append('<div class="listGrid"> \
+                                        \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                        \ <div class="gridHeadings"> \
+                                        \ <h5>' + user + '</h5> \
+                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \ <div class="switchSec">Switch to View &amp; Share <i class="fa fa-exchange" aria-hidden="true"></i></div> \
+                                        \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
+                                        \   <div style="display:none;" class="resourcePro">' + resourceType + '</div> \
+                                        \   <div style="display:none;" class="accessLevel">View</div> \
+                                        \   <div style="display:none;" class="relationType">' + relation + '</div> \
+                                        \   </div>');
+                    $(".viewSectionList").append($li);
+                }
+                popUpEvents();
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
             });
         });
-        $(".revokeAccess").on("click", function () {
+        $(".r_access").on("click", function () {
             var $this = $(this);
+            var accessLvl = $(this).parent().find(".accessLevel").text();
+            if (accessLvl == "View") {
+                accessLvl = "Read";
+            } else {
+                accessLvl = "Share";
+            }
             $.ajax({
-                url: "/revokeaccess/" + $(this).closest("tr").find('td:eq(0)').text() + "/" + selectedclient + "/" + $(this).closest("tr").find('td:eq(1)').text() + "/" + $(this).closest("tr").find('.accessType').val(),
+                url: "/revokeaccess/" + $(this).parent().find("h5").text() + "/" + selectedclient + "/" + $(this).parent().find(".resourcePro").text() + "/" + accessLvl,
             })
             .done(function (data, textStatus, jqXHR) {
                 showPopUp('<h4>Access Revoked Successfully.</h4>');
-                $this.closest("tr").remove();
-                if ($(".allowedUsr1 tbody tr").length == 0) {
-                    $(".noAccess").show();
-                    $(".allowedUsr1").hide();
-                }
+                $this.closest("li").remove();
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
@@ -457,28 +535,294 @@ var permission = (function () {
         });
     }
 
+    function setNoView() {
+        if ($(".viewSectionList li").length == 0) {
+            var $li = $("<li class='noListTile'>");
+            $li.append('<p style="padding: 10px 0;font-size: 15px; color: #333;">No Records Present.</p>');
+            $(".viewSectionList").append($li);
+        }
+        if ($(".viewShareSectionList li").length == 0) {
+            var $li = $("<li>");
+            $li.append('<p style="padding: 10px 0;font-size: 15px; color: #333;">No Records Present.</p>');
+            $(".viewShareSectionList").append($li);
+        }
+    }
+
+    function setProviderData() {
+        $(".viewSectionList").html('');
+        $(".viewShareSectionList").html('');
+        if (data.AllowedUsers && data.AllowedUsers[selectedclient]) {
+            for (var scopeKeys in data.AllowedUsers[selectedclient][selectedresource]) {
+                (data.AllowedUsers[selectedclient][selectedresource][scopeKeys] || []).forEach(function (user) {
+                    if (user["relation"] == "Doctor") {
+                        if (scopeKeys == "Read") {
+                            var $li = $("<li>");
+                            $li.append('<div class="listGrid"> \
+                                        \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                        \ <div class="gridHeadings"> \
+                                        \ <h5>' + user["user"] + '</h5> \
+                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
+                                        \   </div>');
+                            $li.data("scpdata", {
+                                client: selectedclient,
+                                resource: selectedresource,
+                                email: user["user"],
+                                scope: scopeKeys
+                            });
+                            $li.on("click", function () {
+                                var sdata = $(this).data("scpdata");
+                                $.ajax({
+                                    url: "/home/ReqData",
+                                    type: "POST",
+                                    data: sdata
+                                })
+                                .done(function (data, textStatus, jqXHR) {
+                                    populateData(data, sdata);
+                                })
+                                .fail(function (jqXHR, textStatus, errorThrown) {
+                                    showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                                });
+                            });
+                            $(".viewSectionList").append($li);
+
+                        } else if (scopeKeys == "Share") {
+                            var $li = $("<li>");
+
+                            $li.append('<div class="listGrid"> \
+                                        \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                        \ <div class="gridHeadings"> \
+                                        \ <h5>' + user["user"] + '</h5> \
+                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
+                                        \   </div>');
+                            $li.data("scpdata", {
+                                client: selectedclient,
+                                resource: selectedresource,
+                                email: user["user"],
+                                scope: scopeKeys
+                            });
+                            $li.on("click", function () {
+                                var sdata = $(this).data("scpdata");
+                                $.ajax({
+                                    url: "/home/ReqData",
+                                    type: "POST",
+                                    data: sdata,
+                                })
+                                .done(function (data, textStatus, jqXHR) {
+                                    //$("#data-disp").html("<pre>" + JSON.stringify(JSON.parse(data), null, "\t") + "</pre>");
+                                    //$('.slideUp').trigger("click");
+                                    populateData(data, sdata);
+                                })
+                                .fail(function (jqXHR, textStatus, errorThrown) {
+                                    showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                                });
+                            });
+                            $(".viewShareSectionList").append($li);
+                        }
+                    }
+                });
+            }
+        }
+        setNoView();
+    }
+
+    function setProxyData() {
+        $(".viewSectionList").html('');
+        $(".viewShareSectionList").html('');
+        if (data.AllowedUsers && data.AllowedUsers[selectedclient]) {
+            for (var scopeKeys in data.AllowedUsers[selectedclient][selectedresource]) {
+                (data.AllowedUsers[selectedclient][selectedresource][scopeKeys] || []).forEach(function (user) {
+                    if (user["relation"] != "Doctor") {
+                        if (scopeKeys == "Read") {
+                            var $li = $("<li>");
+                            $li.append('<div class="listGrid"> \
+                                        \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                        \ <div class="gridHeadings"> \
+                                        \ <h5>' + user["user"] + '</h5> \
+                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
+                                        \   </div>');
+                            $li.data("scpdata", {
+                                client: selectedclient,
+                                resource: selectedresource,
+                                email: user["user"],
+                                scope: scopeKeys
+                            });
+                            $li.on("click", function () {
+                                var sdata = $(this).data("scpdata");
+                                $.ajax({
+                                    url: "/home/ReqData",
+                                    type: "POST",
+                                    data: sdata
+                                })
+                                .done(function (data, textStatus, jqXHR) {
+                                    populateData(data, sdata);
+                                })
+                                .fail(function (jqXHR, textStatus, errorThrown) {
+                                    showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                                });
+                            });
+                            $(".viewSectionList").append($li);
+
+                        } else if (scopeKeys == "Share") {
+                            var $li = $("<li>");
+                            $li.append('<div class="listGrid"> \
+                                        \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                        \ <div class="gridHeadings"> \
+                                        \ <h5>' + user["user"] + '</h5> \
+                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
+                                        \   </div>');
+                            $li.data("scpdata", {
+                                client: selectedclient,
+                                resource: selectedresource,
+                                email: user["user"],
+                                scope: scopeKeys
+                            });
+                            $li.on("click", function () {
+                                var sdata = $(this).data("scpdata");
+                                $.ajax({
+                                    url: "/home/ReqData",
+                                    type: "POST",
+                                    data: sdata,
+                                })
+                                .done(function (data, textStatus, jqXHR) {
+                                    //$("#data-disp").html("<pre>" + JSON.stringify(JSON.parse(data), null, "\t") + "</pre>");
+                                    //$('.slideUp').trigger("click");
+                                    populateData(data, sdata);
+                                })
+                                .fail(function (jqXHR, textStatus, errorThrown) {
+                                    showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                                });
+                            });
+                            $(".viewShareSectionList").append($li);
+                        }
+                    }
+                });
+            }
+        }
+        setNoView();
+    }
+
+    function setOwnData() {
+        $(".viewSectionList").html('');
+        $(".viewShareSectionList").html('');
+        //var $li = $("<li>");
+        //$li.append('<div class="listGrid"> \
+        //                                \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+        //                                \ <h5>Yours</h5> \
+        //                                \ <strong>' + selectedclient + '</strong> \
+        //                                \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
+        //                                \   </div>');
+        //$(".viewShareSectionList").append($li);
+        if (data.MyDetailsSharedWith && data.MyDetailsSharedWith[selectedclient]) {
+            for (var scopeKeys in data.MyDetailsSharedWith[selectedclient][selectedresource]) {
+                (data.MyDetailsSharedWith[selectedclient][selectedresource][scopeKeys] || []).forEach(function (user) {
+                        if (scopeKeys == "Read") {
+                            var $li = $("<li>"); 
+                            $li.append('<div class="listGrid"> \
+                                        \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                        \ <div class="gridHeadings"> \
+                                        \ <h5>' + user["user"] + '</h5> \
+                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \ <div class="switchSec">Switch to View &amp; Share <i class="fa fa-exchange" aria-hidden="true"></i></div> \
+                                        \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
+                                        \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
+                                        \   <div style="display:none;" class="accessLevel">View</div> \
+                                        \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
+                                        \   </div>');
+                            //$li.data("scpdata", {
+                            //    client: selectedclient,
+                            //    resource: selectedresource,
+                            //    email: user["user"],
+                            //    scope: scopeKeys
+                            //});
+                            //$li.on("click", function () {
+                            //    var sdata = $(this).data("scpdata");
+                            //    $.ajax({
+                            //        url: "/home/ReqData",
+                            //        type: "POST",
+                            //        data: sdata
+                            //    })
+                            //    .done(function (data, textStatus, jqXHR) {
+                            //        populateData(data, sdata);
+                            //    })
+                            //    .fail(function (jqXHR, textStatus, errorThrown) {
+                            //        showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                            //    });
+                            //});
+                            $(".viewSectionList").append($li);
+
+                        } else if (scopeKeys == "Share") {
+                            var $li = $("<li>");
+                            $li.append('<div class="listGrid"> \
+                                        \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                        \ <div class="gridHeadings"> \
+                                        \ <h5>' + user["user"] + '</h5> \
+                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \ <div class="switchSec">Switch to View Only <i class="fa fa-exchange" aria-hidden="true"></i></div> \
+                                        \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
+                                        \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
+                                        \   <div style="display:none;" class="accessLevel">Share</div> \
+                                        \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
+                                        \   </div>');
+                            //$li.data("scpdata", {
+                            //    client: selectedclient,
+                            //    resource: selectedresource,
+                            //    email: user["user"],
+                            //    scope: scopeKeys
+                            //});
+                            //$li.on("click", function () {
+                            //    var sdata = $(this).data("scpdata");
+                            //    $.ajax({
+                            //        url: "/home/ReqData",
+                            //        type: "POST",
+                            //        data: sdata,
+                            //    })
+                            //    .done(function (data, textStatus, jqXHR) {
+                            //        //$("#data-disp").html("<pre>" + JSON.stringify(JSON.parse(data), null, "\t") + "</pre>");
+                            //        //$('.slideUp').trigger("click");
+                            //        populateData(data, sdata);
+                            //    })
+                            //    .fail(function (jqXHR, textStatus, errorThrown) {
+                            //        showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                            //    });
+                            //});
+                            $(".viewShareSectionList").append($li);
+                        }
+                    });
+            }
+            popUpEvents();
+        }
+        setNoView();
+    }
+
     function loadData() {
         if (!myData) {
             return;
         }
-        var data = myData;
+        data = myData;
         $(".viewSectionList").html('');
         $(".requestingSectionList").html('');
         $(".viewShareSectionList").html('');
         $(".allowedUsr1 tbody tr").remove('');
+        $(".patientData").hide();
         if (data.RequestedUsers && data.RequestedUsers[selectedclient] && data.RequestedUsers[selectedclient][selectedresource]) {
             for (var scopeKeys in data.RequestedUsers[selectedclient][selectedresource]) {
                 (data.RequestedUsers[selectedclient][selectedresource][scopeKeys] || []).forEach(function (user) {
                     $(".requestingSectionList").append('<li> \
-                                                                    \ <strong class="clsUsr">x</strong>\
-                                                                    \ <div class="click listGrid"  data-id="#requests-id"> \
-                                                                    \  <h4>' + selectedclient + '</h4> \
-                                                                    \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div>\
-                                                                    \ <h5>' + user + '</h5>\
-                                                                    \ <p> This user is requesting you to <em class="scopeKey" >' + scopeKeys + '</em> your data.</p>\
-                                                                    \ </div>\
-                                                                    \ <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
-                                                                    \   </li>');
+                                                        \ <div class="listGrid"> \
+                                                        \ <strong class="clsUsr">x</strong> \
+                                                        \ <div class="click" data-id="#requests-id"> \
+                                                        \ <h4>' + selectedclient + '</h4> \
+                                                        \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
+                                                        \ <h5>' + user["user"] + '</h5> \
+                                                        \ <p> This user is requesting you to <em class="scopeKey" >' + scopeKeys + '</em> your data.</p> \
+                                                        \ <span class="usrRel" style="display:none;">'+ user["relation"] + '</span> \
+                                                        \ <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
+                                                        \ </div> </div>\
+                                                        \   </li>');
                 });
             }
             $(".clsUsr").on("click", function () {
@@ -502,99 +846,70 @@ var permission = (function () {
                 $(".nocancel").on("click", function () {
                     $('body').removeClass('registerMail1');
                 })
-                
+
             });
         }
-        if (data.AllowedUsers && data.AllowedUsers[selectedclient]) {
-            for (var scopeKeys in data.AllowedUsers[selectedclient][selectedresource]) {
-                (data.AllowedUsers[selectedclient][selectedresource][scopeKeys] || []).forEach(function (user) {
-                    if (scopeKeys == "Read") {
-                        var $li = $("<li>");
-                        $li.append('<div class="listGrid"> \
-                                    \   <h4>' + selectedclient + '</h4> \
-                                    \   <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
-                                    \   <h5>' + user + '</h5> \
-                                    \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
-                                    \   </div>');
-                        $li.data("scpdata", {
-                            client: selectedclient,
-                            resource: selectedresource,
-                            email: user,
-                            scope: scopeKeys
-                        });
-                        $li.on("click", function () {
-                            var sdata = $(this).data("scpdata");
-                            $.ajax({
-                                url: "/home/ReqData",
-                                type: "POST",
-                                data: sdata
-                            })
-                            .done(function (data, textStatus, jqXHR) {
-                                populateData(data, sdata);
-                            })
-                            .fail(function (jqXHR, textStatus, errorThrown) {
-                                showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-                            });
-                        });
-                        $(".viewSectionList").append($li);
-
-                    } else if (scopeKeys == "Share") {
-                        var $li = $("<li>");
-                        $li.append('<div class="listGrid"> \
-                                    \   <h4>' + selectedclient + '</h4> \
-                                    \   <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
-                                    \   <h5>' + user + '</h5> \
-                                    \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
-                                    \   </div>');
-                        $li.data("scpdata", {
-                            client: selectedclient,
-                            resource: selectedresource,
-                            email: user,
-                            scope: scopeKeys
-                        });
-                        $li.on("click", function () {
-                            var sdata = $(this).data("scpdata");
-                            $.ajax({
-                                url: "/home/ReqData",
-                                type: "POST",
-                                data: sdata,
-                            })
-                            .done(function (data, textStatus, jqXHR) {
-                                //$("#data-disp").html("<pre>" + JSON.stringify(JSON.parse(data), null, "\t") + "</pre>");
-                                //$('.slideUp').trigger("click");
-                                populateData(data, sdata);
-                            })
-                            .fail(function (jqXHR, textStatus, errorThrown) {
-                                showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-                            });
-                        });
-                        $(".viewShareSectionList").append($li);
-                    }
-                });
-            }
-        }
-        if (data.MyDetailsSharedWith && data.MyDetailsSharedWith[selectedclient]) {
-            for (var selectedresourceVal in data.MyDetailsSharedWith[selectedclient]) {
-                for (var scopeKeys in data.MyDetailsSharedWith[selectedclient][selectedresourceVal]) {
-                    (data.MyDetailsSharedWith[selectedclient][selectedresourceVal][scopeKeys] || []).forEach(function (user) {
-                        $(".allowedUsr1 tbody").append('<tr><td>' + user + '</td><td>' + selectedresourceVal + '</td><td><select class="accessType"><option value="Read" ' + (scopeKeys == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + (scopeKeys == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><img src="/Content/medg/images/revoke1.png" alt="revoke"></button></td></tr>');
-                    });
-                }
-            }
-            if ($(".allowedUsr1 tbody tr").length) {
-                $(".noAccess").hide();
-                $(".allowedUsr1").show();
+        if (provider) {
+            if ($('.labelText').text().toLowerCase() == "provider") {
+                setProviderData();
+                $(".viewBlock").text("Users who have given me View Only access");
+                $(".shareBlock").text("Users who have given me View & Share access");
+            } else if ($('.labelText').text().toLowerCase() == "proxy") {
+                setProxyData();
+                $(".viewBlock").text("Users who have given me View Only access");
+                $(".shareBlock").text("Users who have given me View & Share access");
             } else {
-                $(".noAccess").show();
-                $(".allowedUsr1").hide();
+                setOwnData();
+                $(".viewBlock").text("Users I have given View Only access");
+                $(".shareBlock").text("Users I have given View & Share access");
             }
-            popUpEvents();
         } else {
-            $(".noAccess").show();
-            $(".allowedUsr1").hide();
+            if ($('.labelText').text().toLowerCase() == "proxy") {
+                setProxyData();
+                $(".viewBlock").text("Users who have given me View Only access");
+                $(".shareBlock").text("Users who have given me View & Share access");
+            } else {
+                setOwnData();
+                $(".viewBlock").text("Users I have given View Only access");
+                $(".shareBlock").text("Users I have given View & Share access");
+            }
         }
+        
+        
+        //if (data.MyDetailsSharedWith && data.MyDetailsSharedWith[selectedclient]) {
+        //    for (var selectedresourceVal in data.MyDetailsSharedWith[selectedclient]) {
+        //        for (var scopeKeys in data.MyDetailsSharedWith[selectedclient][selectedresourceVal]) {
+        //            (data.MyDetailsSharedWith[selectedclient][selectedresourceVal][scopeKeys] || []).forEach(function (user) {
+        //                $(".allowedUsr1 tbody").append('<tr><td>' + user["user"] + '</td><td>' + user["relation"] + '</td><td>' + selectedresourceVal + '</td><td><select class="accessType"><option value="Read" ' + (scopeKeys == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + (scopeKeys == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><img src="/Content/medg/images/revoke1.png" alt="revoke"></button></td></tr>');
+        //            });
+        //        }
+        //    }
+        //    if ($(".allowedUsr1 tbody tr").length) {
+        //        $(".noAccess").hide();
+        //        $(".allowedUsr1").show();
+        //    } else {
+        //        $(".noAccess").show();
+        //        $(".allowedUsr1").hide();
+        //    }
+        //    popUpEvents();
+        //} else {
+        //    $(".noAccess").show();
+        //    $(".allowedUsr1").hide();
+        //}
         loadPermission();
     }
+    $(document).on("ready", function () {
+        $(".listGridUL li:nth-child(1)").click();
+    });
+    //$(".viewType").on("change", function () {
+    //    if ($(this).val() == "provider") {
+    //        setProviderData();
+    //    } else if ($(this).val() == "proxy") {
+    //        setProxyData();
+    //    } else if ($(this).val() == "own") {
+    //        setOwnData();
+    //    }
+    //});
 
     function getData() {
         $.ajax({
@@ -611,8 +926,27 @@ var permission = (function () {
             showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     }
-    getData();
-
+    function getUserData() {
+        $.ajax({
+            url: "/userdata",
+        })
+        .done(function (data, textStatus, jqXHR) {
+            if (data.length) {
+                if (data[0] && data[0].IsProvider) {
+                    provider = data[0].IsProvider;
+                } else {
+                    //$(".viewType option[value='provider']").remove();
+                    $(".providerList li:nth-child(1)").remove();
+                    $('.labelText').text("Proxy");
+                }
+                getData();
+            }
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+        });
+    }
+    getUserData();
     return {
         loaddata: loadData,
         loadperm: loadPermission

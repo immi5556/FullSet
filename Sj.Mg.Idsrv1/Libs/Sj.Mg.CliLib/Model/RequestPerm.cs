@@ -10,17 +10,23 @@ namespace Sj.Mg.CliLib.Model
     {
         public RequestPerm()
         {
-            AllowedUsers = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>();
-            RequestedUsers = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>();
-            MyDetailsSharedWith = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>();
+            AllowedUsers = new Dictionary<string, Dictionary<string, Dictionary<string, List<UserData>>>>();
+            RequestedUsers = new Dictionary<string, Dictionary<string, Dictionary<string, List<UserData>>>>();
+            MyDetailsSharedWith = new Dictionary<string, Dictionary<string, Dictionary<string, List<UserData>>>>();
         }
         [MongoDB.Bson.Serialization.Attributes.BsonId]
         [Newtonsoft.Json.JsonIgnore]
         [MongoDB.Bson.Serialization.Attributes.BsonElement("id")]
         public MongoDB.Bson.ObjectId Id { get; set; }
         public string MyEmail { get; set;  }
-        public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> AllowedUsers { get; set; }
-        public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> RequestedUsers { get; set; }
-        public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> MyDetailsSharedWith { get; set; }
+        public Dictionary<string, Dictionary<string, Dictionary<string, List<UserData>>>> AllowedUsers { get; set; }
+        public Dictionary<string, Dictionary<string, Dictionary<string, List<UserData>>>> RequestedUsers { get; set; }
+        public Dictionary<string, Dictionary<string, Dictionary<string, List<UserData>>>> MyDetailsSharedWith { get; set; }
+    }
+
+    public class UserData
+    {
+        public string user { get; set; }
+        public string relation { get; set; }
     }
 }
