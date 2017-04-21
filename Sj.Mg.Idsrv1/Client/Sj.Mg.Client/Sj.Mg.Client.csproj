@@ -308,8 +308,11 @@
     <Content Include="Content\medg\images\secLogo2.png" />
     <Content Include="Content\medg\images\serIcon1.png" />
     <Content Include="Content\medg\images\serIcon11.png" />
+    <Content Include="Content\medg\images\serIcon11Active.png" />
     <Content Include="Content\medg\images\serIcon12.png" />
+    <Content Include="Content\medg\images\serIcon12Active.png" />
     <Content Include="Content\medg\images\serIcon13.png" />
+    <Content Include="Content\medg\images\serIcon13Active.png" />
     <Content Include="Content\medg\images\serIcon1Active.png" />
     <Content Include="Content\medg\images\serIcon2.png" />
     <Content Include="Content\medg\images\serIcon2Active.png" />

@@ -234,6 +234,8 @@ $(document).on("click", ".subLi", function () {
                               $('.subUl').removeClass('active');
                               $('.subLi').removeClass('active');
                               openDropList(this);
+                              if (permission && permission.clearData())
+                                permission.clearData();
                           }
                           
                       });
@@ -270,7 +272,8 @@ $(document).on("click", ".subLi", function () {
                               }
                           	}
                           }
-                        
+                          if (permission && permission.clearData())
+                              permission.clearData();
                           
                       });
                   };
@@ -278,33 +281,37 @@ $(document).on("click", ".subLi", function () {
                   function tabGridData(myCarouselData) {
                       $(listGridUL).html('');
                       for (var i = 0; i < myCarouselData.length; i++) {
-                          var list = $('<li data-defaultImg="' + myCarouselData[i].icon + '"><img data-active="' + myCarouselData[i].activeIcon + '" src="' + myCarouselData[i].icon + '"><span>' + myCarouselData[i].title + '</span></li>');
+                          var list = $('<li data-defaultImg="' + myCarouselData[i].icon + '"><div class="gridImgSec"><span class="gridTitle">' + myCarouselData[i].title + '</span><img data-active="' + myCarouselData[i].activeIcon + '" src="' + myCarouselData[i].icon + '"></div><div class="shareBtns"><div><span style="display:none" class="btn btn-share">Share</span><span style="display:none" class="btn btn-view">View</span><span style="display:none" class="btn btn-request">Request</span></div></div></li>');
                           listGridUL.append(list);
                       };
                       var listItems = $(listGridUL).find('li');
-                      $(listItems[0]).addClass('active');
-                      var activeIcon = $(listItems[1]).find('img').attr('data-active');
+                      //$(listItems[0]).addClass('active');
+                      //var activeIcon = $(listItems[1]).find('img').attr('data-active');
                       //$(listItems[1]).find('img').attr('src', activeIcon);
                       for (var x = 0; x < listItems.length; x++) {
                           $(listItems[x]).on('click', function () {
-                              $(listItems).removeClass('active');
-                              for (var y = 0; y < listItems.length; y++) {
-                                  var defaultIcon = $(listItems[y]).attr('data-defaultImg');
-                                  $(listItems[y]).find('img').attr('src', defaultIcon);
-                              }
-                              $(this).addClass('active');
-                              var activeIcon = $(this).find('img').attr('data-active');
-                              $(this).find('img').attr('src', activeIcon);
+                              if (!$(this).hasClass("active")) {
+                                  $(listItems).removeClass('active');
+                                  for (var y = 0; y < listItems.length; y++) {
+                                      var defaultIcon = $(listItems[y]).attr('data-defaultImg');
+                                      $(listItems[y]).find('img').attr('src', defaultIcon);
+                                  }
+                                  $(this).addClass('active');
+                                  var activeIcon = $(this).find('img').attr('data-active');
+                                  $(this).find('img').attr('src', activeIcon);
 
-                              selectedresource = $(this).find("span").text();
-                              if (selectedresource == "Diagnosis") {
-                                  selectedresource = "Diagnostics";
+                                  selectedresource = $(this).find(".gridTitle").text();
+                                  if (selectedresource == "Diagnosis") {
+                                      selectedresource = "Diagnostics";
+                                  }
+                                  //$(".categ-hdr").text(selectedresource);
+                                  //$(".generalDetails").text(myCarouselData[myCarouselData.findIndex(x => x.title == selectedresource)].description);
+                                  permission.loaddata();
                               }
-                              //$(".categ-hdr").text(selectedresource);
-                              //$(".generalDetails").text(myCarouselData[myCarouselData.findIndex(x => x.title == selectedresource)].description);
-                              permission.loaddata();
                           });
                       }
+                      if (permission && permission.loaddata())
+                          listItems[0].click();
                   }
 
 			  }

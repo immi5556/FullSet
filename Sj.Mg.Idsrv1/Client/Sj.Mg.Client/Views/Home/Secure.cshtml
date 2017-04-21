@@ -17,7 +17,7 @@
         <header>
             <div class="container">
                 <a href="#" id="logo"><img src="/Content/medg/images/logo.png"></a>
-                <h2>Simple. Secure. Seamless.<span>Personal Health Record</span></h2>
+                <h2><span class="mainHead">Simple. <strong>Secure.</strong> Seamless.</span><span>Personal Health Record</span></h2>
                 <div class="right">
                     <ul class="hNav">
                         <!--<li><select class="viewType"><option value="provider">Provider</option><option value="proxy">Proxy</option><option value="own">Own</option></select></li>-->
@@ -93,14 +93,14 @@
                     </div>-->
                 </div>
                 <div class="contentRight">
-                    <h2 class="sec-heading" style="cursor: pointer;">Requesting Access <span class="notification">0</span></h2>
-                    <ul class="requestingSectionList userList">
-                    </ul>
                     <h2 class="sec-heading viewBlock">View Only</h2>
                     <ul class="viewSectionList userList viewUserList">
                     </ul>
                     <h2 class="sec-heading shareBlock">View &amp; Share</h2>
                     <ul class="viewShareSectionList userList viewUserList">
+                    </ul>
+                    <h2 class="sec-heading" style="cursor: pointer;">Pending Requests <span class="notification">0</span></h2>
+                    <ul class="requestingSectionList userList">
                     </ul>
                     <div class="searchBar">
                         <h2 class="sec-heading" style="cursor: pointer;">Find and Share</h2>
@@ -165,8 +165,12 @@
                             <p>
                                 <label>
                                     <!--<input data-ng-model="patientSigned" class="ng-pristine ng-untouched ng-valid" type="checkbox"> <span data-ng-bind-html="org.ppn.signOff" class="ng-binding"><strong>By checking this box and clicking the button below, you acknowledge receipt of this notice.  To print this notice, click here <a href="#">hardcopy</a>.  You may also contact our office to request a printed copy.</strong></span>-->
-                                    <span><strong>Check the scopes tab for complete request details.</strong></span>
-                                    <button class="hidden-print requestAgreed" data-ng-disabled="!patientSigned" data-role="sign-agreement" data-ng-click="signAgreement()" disabled="disabled">I agree, continue</button>
+                                    
+                                    <div style="text-align: center; padding-bottom: 10px;">
+                                        <button class="hidden-print requestAgreed" data-ng-disabled="!patientSigned" data-role="sign-agreement" data-ng-click="signAgreement()" disabled="disabled">Grant Request</button>
+                                        <button class="hidden-print requestDeny">Deny Request</button>
+                                    </div>
+                                    <span style="display: block; text-align: center;"><strong>Check the scopes tab for complete request details.</strong></span>
                                 </label>
                             </p>
 
