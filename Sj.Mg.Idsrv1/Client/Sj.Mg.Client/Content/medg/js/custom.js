@@ -360,7 +360,7 @@ var permission = (function () {
             var filterUl = $('<ul/>');
             $("#srchrest").append(filterUl);
             (data || []).forEach(function (item) {
-                $(filterUl).append("<li><span>" + item.Subject + "</span> <div class='provideRow'><a data-emailto=" + item.Subject + " class='req-r' href='javascript:void(0);'>Request</a><a data-emailto=" + item.Subject + " class='pro-r' href='javascript:void(0);'>Provide</a></div></li>")
+                $(filterUl).append("<li><span>" + item.Subject + "</span> <div class='provideRow'><a data-emailto=" + item.Subject + " class='req-r' href='javascript:void(0);'>Request</a><a data-emailto=" + item.Subject + " class='pro-r' href='javascript:void(0);'>Share</a></div></li>")
             });
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
@@ -382,7 +382,7 @@ var permission = (function () {
         $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Demographic</option><option>Diagnostics</option><option>Medication</option><option>Observation</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Valid Till:</label><select id='timePeriod'><option value='hour'>1 Hour</option><option value='Day'>1 Day</option><option value='NoLimit'>No Time Limit</option></select></div>");
-        $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Provide</button><button class='reqCancel'>Cancel</button></div>");
+        $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Share</button><button class='reqCancel'>Cancel</button></div>");
     });
     $(document).on("click", ".reqCancel", function () {
         $("#srchrest").html("");
@@ -393,7 +393,7 @@ var permission = (function () {
         })
         .done(function (data, textStatus, jqXHR) {
             $(".allowedUsr1 tbody").append('<tr><td>' + $("#selUsr").text() + '</td><td>' + $("#userRelation").val() + '</td><td>' + $("#selrsrc").val() + '</td><td><select class="accessType"><option value="Read" ' + ($("#selscpe").val() == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + ($("#selscpe").val() == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><img src="/Content/medg/images/revoke1.png" alt="revoke"></button></td></tr>');
-            showPopUp('<h4>Provided Your Data Successfully.</h4>');
+            showPopUp('<h4>Shared Your Data Successfully.</h4>');
             $("#srchrest").html('');
             if ($(".allowedUsr1 tbody tr").length) {
                 $(".noAccess").hide();
@@ -686,7 +686,7 @@ var permission = (function () {
                         if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy")
                             $this.find(".btn-request").text("Request");
                         else
-                            $this.find(".btn-request").text("Provide");
+                            $this.find(".btn-request").text("Share");
                     }
                 } else {
                     var userExist = false;
@@ -710,7 +710,7 @@ var permission = (function () {
                         if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy")
                             $this.find(".btn-request").text("Request");
                         else
-                            $this.find(".btn-request").text("Provide");
+                            $this.find(".btn-request").text("Share");
                     }
                 }
             });
@@ -1146,7 +1146,7 @@ var permission = (function () {
 
             if ($(this).text() != "Request") {
                 $(filterUl).append("<div class='provideRow'><label>Valid Till:</label><select id='timePeriod'><option value='hour'>1 Hour</option><option value='Day'>1 Day</option><option value='NoLimit'>No Time Limit</option></select></div>");
-                $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Provide</button><button class='reqCancel'>Cancel</button></div>");
+                $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Share</button><button class='reqCancel'>Cancel</button></div>");
             } else {
                 $(filterUl).append("<div class='provideRow'><button id='conf-req'>Request</button><button class='reqCancel'>Cancel</button></div>");
             }
