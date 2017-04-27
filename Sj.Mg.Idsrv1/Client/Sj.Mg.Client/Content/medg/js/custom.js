@@ -66,6 +66,12 @@ var permission = (function () {
                             }
                         });
                     }
+                    if (itm["BirthDateElement"] && itm["BirthDateElement"].Value) {
+                        $(".patientData tbody").append("<tr><td>Birthdate:</td><td>" + itm["BirthDateElement"].Value + "</td></tr>");
+                    }
+                    if (itm["LanguageElement"] && itm["LanguageElement"].Value) {
+                        $(".patientData tbody").append("<tr><td>Language:</td><td>" + itm["LanguageElement"].Value + "</td></tr>");
+                    }
                 }
             }
 
@@ -97,6 +103,9 @@ var permission = (function () {
                         if (itm["StatusElement"] && itm["StatusElement"].Value) {
                             $(".patientData tbody").append("<tr><td>Status</td><td>" + itm["StatusElement"].Value + "</td></tr>");
                         }
+                        if (itm["LanguageElement"] && itm["LanguageElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Language</td><td>" + itm["LanguageElement"].Value + "</td></tr>");
+                        }
                         count++;
                         $('.slideUp').trigger("click");
                         $(".patientData").show();
@@ -113,7 +122,6 @@ var permission = (function () {
         (data || []).forEach(function (itm, idx) {
             if (itm["Identifier"] && itm["Identifier"].length) {
                 if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
-                    console.log(itm);
                     if (count == 0) {
                         $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
                         if (itm["Effective"] && itm["Effective"].Value) {
@@ -124,6 +132,12 @@ var permission = (function () {
                         }
                         if (itm["StatusElement"] && itm["StatusElement"].Value) {
                             $(".patientData tbody").append("<tr><td>Status</td><td>" + itm["StatusElement"].Value + "</td></tr>");
+                        }
+                        if (itm["CommentsElement"] && itm["CommentsElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Comments</td><td>" + itm["CommentsElement"].Value + "</td></tr>");
+                        }
+                        if (itm["LanguageElement"] && itm["LanguageElement"].Value) {
+                            $(".patientData tbody").append("<tr><td>Language</td><td>" + itm["LanguageElement"].Value + "</td></tr>");
                         }
                         count++;
                         $('.slideUp').trigger("click");
@@ -659,6 +673,7 @@ var permission = (function () {
             $(".btn-view").hide();
             $(".btn-share").hide();
             $(".btn-request").hide();
+            $(".shareBtns").hide();
         } else {
             $(".listGridUL li").each(function (index, item) {
                 var $this = $(this);
@@ -666,6 +681,7 @@ var permission = (function () {
                 $this.find(".btn-view").hide();
                 $this.find(".btn-share").hide();
                 $this.find(".btn-request").hide();
+                $(".shareBtns").hide();
                 if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy") {
                     if (data && data.AllowedUsers && data.AllowedUsers[selectedclient] && data.AllowedUsers[selectedclient][$this.find(".gridTitle").text()]) {
                         for (var scopeKeys in data.AllowedUsers[selectedclient][$this.find(".gridTitle").text()]) {
@@ -673,9 +689,11 @@ var permission = (function () {
                                 if (user["user"] == selectedUser) {
                                     if (scopeKeys == "Read") {
                                         $this.find(".btn-view").show();
+                                        $(".shareBtns").show();
                                     } else {
                                         $this.find(".btn-view").show();
                                         $this.find(".btn-share").show();
+                                        $(".shareBtns").show();
                                     }
                                 }
                             });
@@ -683,10 +701,13 @@ var permission = (function () {
                     }
                     if (!$this.find(".btn-view").is(":visible") && !$this.find(".btn-share").is(":visible")) {
                         $this.find(".btn-request").css("display", "block");
-                        if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy")
+                        if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy") {
                             $this.find(".btn-request").text("Request");
-                        else
+                            $(".shareBtns").show();
+                        } else {
                             $this.find(".btn-request").text("Share");
+                            $(".shareBtns").show();
+                        }
                     }
                 } else {
                     var userExist = false;
@@ -707,10 +728,13 @@ var permission = (function () {
                     }
                     if (!userExist) {
                         $this.find(".btn-request").show();
-                        if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy")
+                        if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy") {
                             $this.find(".btn-request").text("Request");
-                        else
+                            $(".shareBtns").show();
+                        } else {
                             $this.find(".btn-request").text("Share");
+                            $(".shareBtns").show();
+                        }
                     }
                 }
             });

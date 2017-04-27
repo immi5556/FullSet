@@ -26,11 +26,11 @@ namespace Sj.Mg.Resource.Server.Controllers
             var id = System.Web.HttpUtility.UrlDecode(ids ?? "").Replace("^2E", ".");
             return Code.ObsManager.Get(id);
         }
-        [CliLib.Security.UmaAuthz("Patient/Observation.Read", "Patient/Observation.*")]
+        //[CliLib.Security.UmaAuthz("Patient/Observation.Read", "Patient/Observation.*")]
         [HttpPost]
-        public void Post([FromBody]Hl7.Fhir.Model.Observation act)
+        public bool Post(Hl7.Fhir.Model.Observation act)
         {
-            Console.WriteLine();
+            return Code.ObsManager.update(act);
         }
     }
 }

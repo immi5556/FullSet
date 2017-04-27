@@ -281,7 +281,7 @@ $(document).on("click", ".subLi", function () {
                   function tabGridData(myCarouselData) {
                       $(listGridUL).html('');
                       for (var i = 0; i < myCarouselData.length; i++) {
-                          var list = $('<li data-defaultImg="' + myCarouselData[i].icon + '"><div class="gridImgSec"><span class="gridTitle">' + myCarouselData[i].title + '</span><img data-active="' + myCarouselData[i].activeIcon + '" src="' + myCarouselData[i].icon + '"></div><div class="shareBtns"><div><span style="display:none" class="btn btn-share">Share</span><span style="display:none" class="btn btn-view">View</span><span style="display:none" class="btn btn-request">Request</span></div></div></li>');
+                          var list = $('<li data-defaultImg="' + myCarouselData[i].icon + '"><div class="gridImgSec"><span class="gridTitle">' + myCarouselData[i].title + '</span><img data-active="' + myCarouselData[i].activeIcon + '" src="' + myCarouselData[i].icon + '"></div><div class="shareBtns" style="display:none"><div><span style="display:none" class="btn btn-share">Share</span><span style="display:none" class="btn btn-view">View</span><span style="display:none" class="btn btn-request">Request</span></div></div></li>');
                           listGridUL.append(list);
                       };
                       var listItems = $(listGridUL).find('li');

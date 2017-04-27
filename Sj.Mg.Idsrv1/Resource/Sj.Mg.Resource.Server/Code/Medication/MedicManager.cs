@@ -9,6 +9,9 @@ namespace Sj.Mg.Resource.Server.Code
 {
     public class MedicManager
     {
+        //static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
+        static Uri endpoint = new Uri("http://localhost:49922/fhir");
+
         public static List<Hl7.Fhir.Model.MedicationStatement> GetStatement(string search)
         {
             List<Hl7.Fhir.Model.MedicationStatement> ret = new List<Hl7.Fhir.Model.MedicationStatement>();
@@ -33,6 +36,23 @@ namespace Sj.Mg.Resource.Server.Code
             }
 
             return ret;
+        }
+
+        public static bool Update(MedicationStatement data)
+        {
+            var client = new FhirClient(endpoint);
+            var query = new string[] { "identifier=" + data.Id };
+            var bundle = client.Search("MedicationStatement", query);
+            MedicationStatement p = new MedicationStatement();
+            foreach (var entry in bundle.Entry)
+            {
+                p = (MedicationStatement)entry.Resource;
+                p.Language = data.Language;
+                p.DateAsserted = data.DateAsserted;
+
+                client.Update<Hl7.Fhir.Model.MedicationStatement>(p);
+            }
+            return true;
         }
     }
 }

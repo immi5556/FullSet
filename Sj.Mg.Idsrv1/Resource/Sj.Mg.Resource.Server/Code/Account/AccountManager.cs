@@ -9,6 +9,9 @@ namespace Sj.Mg.Resource.Server.Code
 {
     public class AccountManager
     {
+        //static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
+        static Uri endpoint = new Uri("http://localhost:49922/fhir");
+
         public static List<Hl7.Fhir.Model.Account> Get()
         {
             return Get("");
@@ -47,6 +50,24 @@ namespace Sj.Mg.Resource.Server.Code
             }
             return ret;
         }
+
+        public static bool update(Account data)
+        {
+            var client = new FhirClient(endpoint);
+            var query = new string[] { "identifier=" + data.Id };
+            var bundle = client.Search("Account", query);
+            Account p = new Account();
+            foreach (var entry in bundle.Entry)
+            {
+                p = (Account)entry.Resource;
+                p.Description = data.Description;
+                p.Status = data.Status;
+
+                client.Update<Hl7.Fhir.Model.Account>(p);
+            }
+            return true;
+        }
+
         public static void Insert(string name, string status)
         {
             Insert(name, status, null, null);

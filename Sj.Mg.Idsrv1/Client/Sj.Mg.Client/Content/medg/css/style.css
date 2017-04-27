@@ -511,6 +511,7 @@ header .right {
     margin-top: 6px;
     display: table;
     width: 100%;
+    border:3px solid #12214e;
 }
 .shareBtns > div {
     display: table-row;
@@ -523,24 +524,22 @@ header .right {
     height: 20px;
     text-align: center;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
     color: #fff;
-    padding-top: 5px;
+    font-weight:700;
+    padding-top: 3px;
 }
 .shareBtns .btn-view {
     color: #12214e;
     background: #fff;
-    border: 1px solid #8e8383;
 }
 .shareBtns .btn-share {
     color: #fff;
     background: #12214e;
-    border: 1px solid #8e8383;
 }
 .shareBtns .btn-request {
     color: #12214e;
     background: #fff;
-    border: 1px solid #8e8383;
 }
 /*.listGridUL li.active span {
     color: white;
@@ -554,7 +553,12 @@ header .right {
     font-size: 14px;
     text-align: center;
     line-height: 33px;
+    font-weight:700;
 }
+.listGridUL li.active .gridTitle {
+    color:#fff;
+}
+
 .viewUserList .select .listGrid {
     position: relative;
     border-color: #ce2129;
@@ -575,7 +579,7 @@ header .right {
 footer {
 	position: relative;
     line-height: 50px;
-	background: url(../images/carasoulBg.jpg) repeat-x left bottom;
+	background: #12214e;
 }
 .copyright {
     float: left;
@@ -1056,6 +1060,7 @@ footer {
     display: none;
     position: relative;
      margin-top: 5px;
+     margin-right:10px;
 }
 .btnGroup {
     clear: both;
@@ -1819,15 +1824,15 @@ footer {
     overflow: hidden;
     border-right:1px solid #ccc;
 }
-.allowedUsr1, .patientData {
+.allowedUsr1, .patientData, .patientData1, .patientData2, .patientData3 {
     width:100%;
     text-align:center;
 }
-.patientData {
+.patientData, .patientData1, .patientData2, .patientData3 {
     border-top:1px solid #ccc;
     background: #fff;
 }
-.allowedUsr1 th,.allowedUsr1 td, .patientData th, .patientData td {
+.allowedUsr1 th,.allowedUsr1 td, .patientData th, .patientData td, .patientData1 th, .patientData1 td, .patientData2 th, .patientData2 td, .patientData3 th, .patientData3 td {
     border-left:1px solid #ccc;
     padding:6px 8px;
     text-overflow:ellipsis;
@@ -1835,7 +1840,7 @@ footer {
     font-weight:400;
     white-space:nowrap;
 }
-.allowedUsr1 td, .patientData th, .patientData td {
+.allowedUsr1 td, .patientData th, .patientData td, .patientData1 td, .patientData2 td, .patientData3 td {
      border-bottom:1px solid #ccc;
 }
 .allowedUsr1 thead {

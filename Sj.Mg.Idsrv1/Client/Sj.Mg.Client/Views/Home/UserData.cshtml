@@ -1,0 +1,528 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/css?family=Scope+One&amp;subset=latin-ext" rel="stylesheet">
+    <link href="~/Content/medg/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/Content/medg/css/style.css">
+</head>
+<body>
+    <div class="container-fluid" style="padding: 20px;">
+    <h2 style="text-align: center;">@ViewBag.FullName</h2>
+    <span style="display: none;" class="userEmail">@ViewBag.Email</span>
+    <div style="padding: 20px 0;overflow: hidden;">
+        <h3 style="display: inline-block;margin:0;">Observation Data</h3>
+        <button value="Update Data" class="btn btn-info pull-right addScope updateData" data-toggle="modal" data-target="#myModal">Update Data</button>
+    </div>
+    
+    <div>
+        <table style="display: none; border-right:1px solid #ccc" class="patientData" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;text-align: center;font-weight: 600;">Specification</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                                  
+                </tbody>
+        </table>
+    </div>
+
+    <div style="padding: 20px 0;overflow: hidden;">
+        <h3 style="display: inline-block;margin:0;">Demographic Data</h3>
+        <button value="Update Data" class="btn btn-info pull-right addScope updateDemographicData" data-toggle="modal" data-target="#myModal1">Update Data</button>
+    </div>
+    
+    <div>
+        <table style="display: none; border-right:1px solid #ccc;" class="patientData1" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;text-align: center;font-weight: 600;">Specification</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                                  
+                </tbody>
+        </table>
+    </div>
+
+    <div style="padding: 20px 0;overflow: hidden;">
+        <h3 style="display: inline-block;margin:0;">Patient Data</h3>
+        <button value="Update Data" class="btn btn-info pull-right addScope updatePatientData" data-toggle="modal" data-target="#myModal2">Update Data</button>
+    </div>
+    
+    <div>
+        <table style="display: none; border-right:1px solid #ccc;" class="patientData2" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;text-align: center;font-weight: 600;">Specification</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                                  
+                </tbody>
+        </table>
+    </div>
+
+    <div style="padding: 20px 0;overflow: hidden;">
+        <h3 style="display: inline-block;margin:0;">Medication Data</h3>
+        <button value="Update Data" class="btn btn-info pull-right addScope updateMedicationData" data-toggle="modal" data-target="#myModal3">Update Data</button>
+    </div>
+    
+    <div>
+        <table style="display: none; border-right:1px solid #ccc;" class="patientData3" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;text-align: center;font-weight: 600;">Specification</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                                  
+                </tbody>
+        </table>
+    </div>
+    <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Observation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            <div class="form-group">
+                                <label for="usr">User:</label>
+                                <input type="text" class="form-control user" disabled="disabled" value="@ViewBag.Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Comments:</label>
+                                <input type="text" class="form-control obs1">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Language:</label>
+                                <input type="text" class="form-control obs2">
+                            </div>
+                            <button class="btn btn-primary addObs" onclick="return addData()">Submit & Close</button>
+                            <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
+                        </form>
+                    </div>
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-danger popup" data-dismiss="modal">Close</button>
+                    </div>-->
+                </div>
+                </div>
+            </div>
+                <!-- Modal -->
+        <div id="myModal1" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Diagnostic</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            <div class="form-group">
+                                <label for="usr">User:</label>
+                                <input type="text" class="form-control user" disabled="disabled" value="@ViewBag.Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Description:</label>
+                                <input type="text" class="form-control diag1">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Status:</label>
+                                <input type="text" class="form-control diag2">
+                            </div>
+                            <button class="btn btn-primary addDiag" onclick="return addData1()">Submit & Close</button>
+                            <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
+                        </form>
+                    </div>
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-danger popup" data-dismiss="modal">Close</button>
+                    </div>-->
+                </div>
+
+            </div>
+        </div>
+          <!-- Modal -->
+        <div id="myModal2" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Patient</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            <div class="form-group">
+                                <label for="usr">User:</label>
+                                <input type="text" class="form-control user" disabled="disabled" value="@ViewBag.Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Language:</label>
+                                <input type="text" class="form-control pat1">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Birth date:</label>
+                                <input type="text" class="form-control pat2" placeholder="YYYY-MM-DD">
+                            </div>
+                            <button class="btn btn-primary addDiag" onclick="return addData2()">Submit & Close</button>
+                            <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
+                        </form>
+                    </div>
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-danger popup" data-dismiss="modal">Close</button>
+                    </div>-->
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="myModal3" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Medication</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            <div class="form-group">
+                                <label for="usr">User:</label>
+                                <input type="text" class="form-control user" disabled="disabled" value="@ViewBag.Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Language:</label>
+                                <input type="text" class="form-control med1">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Date Asserted:</label>
+                                <input type="text" class="form-control med2" placeholder="YYYY-MM-DD">
+                            </div>
+                            <button class="btn btn-primary addMed" onclick="return addData3()">Submit & Close</button>
+                            <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
+                        </form>
+                    </div>
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-danger popup" data-dismiss="modal">Close</button>
+                    </div>-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/content/medg/js/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        var obsData, diaData, patData, accData;
+
+        var populateMeds = function (data, user) {
+            var count = 0;
+            (data || []).forEach(function (itm, idx) {
+                if (itm["Identifier"] && itm["Identifier"].length) {
+                    if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
+                        if (count == 0) {
+                            medData = itm;
+                            $(".patientData3 tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
+                            if (itm["DateAssertedElement"] && itm["DateAssertedElement"].Value) {
+                                $(".patientData3 tbody").append("<tr><td>Date Asserted</td><td>" + itm["DateAssertedElement"].Value + "</td></tr>");
+                            }
+                            if (itm["Effective"] && itm["Effective"].Value) {
+                                $(".patientData3 tbody").append("<tr><td>Date Effective</td><td>" + itm["Effective"].Value + "</td></tr>");
+                            }
+                            if (itm["InformationSource"] && itm["InformationSource"]["DisplayElement"] && itm["InformationSource"]["DisplayElement"].Value) {
+                                $(".patientData3 tbody").append("<tr><td>Display Info</td><td>" + itm["InformationSource"]["DisplayElement"].Value + "</td></tr>");
+                            }
+                            if (itm["Medication"] && itm["Medication"]["ReferenceElement"] && itm["Medication"]["ReferenceElement"].Value) {
+                                $(".patientData3 tbody").append("<tr><td>Medication Ref.</td><td>" + itm["Medication"]["ReferenceElement"].Value + "</td></tr>");
+                            }
+                            if (itm["StatusElement"] && itm["StatusElement"].Value) {
+                                $(".patientData3 tbody").append("<tr><td>Status</td><td>" + itm["StatusElement"].Value + "</td></tr>");
+                            }
+                            if (itm["LanguageElement"] && itm["LanguageElement"].Value) {
+                                $(".patientData3 tbody").append("<tr><td>Language</td><td>" + itm["LanguageElement"].Value + "</td></tr>");
+                            }
+                            count++;
+                            $(".patientData3").show();
+                            $(".updateMedicationData").on("click", function () {
+                                $(".med1").val((medData["LanguageElement"] && medData["LanguageElement"].Value) ? medData["LanguageElement"].Value : "");
+                                $(".med2").val((medData["DateAssertedElement"] && medData["DateAssertedElement"].Value) ? medData["DateAssertedElement"].Value : "");
+                            });
+                        }
+                    }
+                }
+            });
+        }
+
+        var populatePats = function (data, user) {
+            (data || []).forEach(function (itm, idx) {
+                if (itm["Identifier"] && itm["Identifier"].length) {
+                    patData = itm;
+                    if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
+                        $(".patientData2 tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
+                        var addr = "";
+                        if (itm["Address"] && itm["Address"] && itm["Address"] && itm["Address"].length) {
+                            if (itm["Address"][0]["TextElement"] && itm["Address"][0]["TextElement"].Value)
+                                addr += itm["Address"][0]["TextElement"].Value + ", ";
+                            if (itm["Address"][0]["DistrictElement"] && itm["Address"][0]["DistrictElement"].Value)
+                                addr += itm["Address"][0]["DistrictElement"].Value + ", ";
+                            if (itm["Address"][0]["CityElement"] && itm["Address"][0]["CityElement"].Value)
+                                addr += itm["Address"][0]["CityElement"].Value + ", ";
+                            if (itm["Address"][0]["StateElement"] && itm["Address"][0]["StateElement"].Value)
+                                addr += itm["Address"][0]["StateElement"].Value + ", ";
+                        }
+                        if (itm["Name"] && itm["Name"].length) {
+                            if (itm["Name"][0]["FamilyElement"] && itm["Name"][0]["FamilyElement"].length)
+                                $(".patientData2 tbody").append("<tr><td>Family Name</td><td>" + itm["Name"][0]["FamilyElement"][0].Value + "</td></tr>");
+                            if (itm["Name"][0]["GivenElement"] && itm["Name"][0]["GivenElement"].length) {
+                                var fullName = "";
+                                itm["Name"][0]["GivenElement"].forEach(function (item, index) {
+                                    fullName += item.Value + " ";
+                                });
+                                if (fullName.length)
+                                    $(".patientData2 tbody").append("<tr><td>Given Name</td><td>" + fullName.substring(0, fullName.length - 1) + "</td></tr>");
+                            }
+                        }
+                        if (addr.length) {
+                            $(".patientData2 tbody").append("<tr><td>Address</td><td>" + (addr.substring(0, addr.length - 2)) + "</td></tr>");
+                        }
+                        if (itm["Telecom"] && itm["Telecom"].length) {
+                            itm["Telecom"].forEach(function (item, index) {
+                                if (item["RankElement"] && item["RankElement"].Value == 1) {
+                                    $(".patientData2 tbody").append("<tr><td>TelePhone No:</td><td>" + item["ValueElement"].Value + "</td></tr>");
+                                }
+                            });
+                        }
+                        if (itm["BirthDateElement"] && itm["BirthDateElement"].Value) {
+                            $(".patientData2 tbody").append("<tr><td>Birthdate:</td><td>" + itm["BirthDateElement"].Value + "</td></tr>");
+                        } 
+                        if (itm["LanguageElement"] && itm["LanguageElement"].Value) {
+                            $(".patientData2 tbody").append("<tr><td>Language:</td><td>" + itm["LanguageElement"].Value + "</td></tr>");
+                        }
+                        $(".patientData2").show();
+                        $(".updatePatientData").on("click", function () {
+                            $(".pat1").val((patData["LanguageElement"] && patData["LanguageElement"].Value) ? patData["LanguageElement"].Value : "");
+                            $(".pat2").val((patData["BirthDateElement"] && patData["BirthDateElement"].Value) ? patData["BirthDateElement"].Value : "");
+                        });
+                    }
+                }
+            });
+            getData("ReliefExpress", "Medication", $(".userEmail").text(), "Read");
+        }
+
+        var populateDiags = function (data, user) {
+            var count = 0;
+            (data || []).forEach(function (itm, idx) {
+                if (itm["Identifier"] && itm["Identifier"].length) {
+                    if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
+                        if (count == 0) {
+                            diaData = itm;
+                            $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
+                            if (itm["Balance"] && itm["Balance"]["ValueElement"] && !isNaN(itm["Balance"]["ValueElement"].Value)) {
+                                $(".patientData1 tbody").append("<tr><td>Balance</td><td>" + itm["Balance"]["ValueElement"].Value + " " + ((itm["Balance"]["UnitElement"] && itm["Balance"]["UnitElement"].Value) ? itm["Balance"]["UnitElement"].Value : "") + "</td></tr>");
+                            }
+                            if (itm["Balance"] && itm["Balance"]["SystemElement"] && itm["Balance"]["SystemElement"].Value) {
+                                $(".patientData1 tbody").append("<tr><td>Balance System Unit</td><td>" + itm["Balance"]["SystemElement"].Value + "</td></tr>");
+                            }
+                            if (itm["DescriptionElement"] && itm["DescriptionElement"] && itm["DescriptionElement"].Value) {
+                                $(".patientData1 tbody").append("<tr><td>Description</td><td>" + itm["DescriptionElement"].Value + "</td></tr>");
+                            }
+                            if (itm["NameElement"] && itm["NameElement"].Value) {
+                                $(".patientData1 tbody").append("<tr><td>Name</td><td>" + itm["NameElement"].Value + "</td></tr>");
+                            }
+                            if (itm["StatusElement"] && itm["StatusElement"].Value) {
+                                $(".patientData1 tbody").append("<tr><td>Status</td><td>" + itm["StatusElement"].Value + "</td></tr>");
+                            }
+                            count++;
+                            $(".patientData1").show();
+                            $(".updateDemographicData").on("click", function () {
+                                $(".diag1").val((diaData["DescriptionElement"] && diaData["DescriptionElement"].Value) ? diaData["DescriptionElement"].Value : "");
+                                $(".diag2").val((diaData["StatusElement"] && diaData["StatusElement"].Value) ? diaData["StatusElement"].Value : "");
+                            });
+                        }
+                    }
+                }
+            });
+            getData("ReliefExpress", "Demographic", $(".userEmail").text(), "Read");
+        }
+
+        var populateObs = function (data, user) {
+            $(".patientData tbody tr").remove();
+            var count = 0;
+            (data || []).forEach(function (itm, idx) {
+                if (itm["Identifier"] && itm["Identifier"].length) {
+                    if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == user) {
+                        if (count == 0) {
+                            obsData = itm;
+                            $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
+                            //if (itm["IdElement"] && itm["IdElement"].Value) {
+                            //    $(".patientData tbody").append("<tr><td>Id</td><td>" + itm["IdElement"].Value + "</td></tr>");
+                            //}
+                            if (itm["Effective"] && itm["Effective"].Value) {
+                                $(".patientData tbody").append("<tr><td>Effective Date</td><td>" + itm["Effective"].Value + "</td></tr>");
+                            }
+                            if (itm["Value"] && itm["Value"]["ValueElement"] && itm["Value"]["ValueElement"].Value) {
+                                $(".patientData tbody").append("<tr><td>Value</td><td>" + itm["Value"]["ValueElement"].Value + " " + ((itm["Value"]["UnitElement"] && itm["Value"]["UnitElement"].Value) ? itm["Value"]["UnitElement"].Value : "") + "</td></tr>");
+                            }
+                            if (itm["StatusElement"] && itm["StatusElement"].Value) {
+                                $(".patientData tbody").append("<tr><td>Status</td><td>" + itm["StatusElement"].Value + "</td></tr>");
+                            } 
+                            if (itm["CommentsElement"] && itm["CommentsElement"].Value) {
+                                $(".patientData tbody").append("<tr><td>Comments</td><td>" + itm["CommentsElement"].Value + "</td></tr>");
+                            }
+                            if (itm["LanguageElement"] && itm["LanguageElement"].Value) {
+                                $(".patientData tbody").append("<tr><td>Language</td><td>" + itm["LanguageElement"].Value + "</td></tr>");
+                            } 
+                            count++;
+                            $(".patientData").show();
+                            $(".updateData").on("click", function () {
+                                $(".obs1").val((obsData["CommentsElement"] && obsData["CommentsElement"].Value) ? obsData["CommentsElement"].Value : "");
+                                $(".obs2").val(( obsData["LanguageElement"] && obsData["LanguageElement"].Value) ? obsData["LanguageElement"].Value : "");
+                            });
+                        }
+                    }
+                }
+            });
+            getData("ReliefExpress", "Diagnostics", $(".userEmail").text(), "Read");
+        }
+
+        function populateData(data, scp) {
+            data = JSON.parse(data);
+            if (scp.resource == "Demographic") {
+                populatePats(data, scp.email);
+            }
+            if (scp.resource == "Diagnostics") {
+                populateDiags(data, scp.email);
+            }
+            if (scp.resource == "Medication") {
+                populateMeds(data, scp.email);
+            }
+            if (scp.resource == "Observation") {
+                populateObs(data, scp.email);
+            }
+        }
+
+        function getData(client, resource, email, scope) {
+            var sdata = {
+                client: client,
+                resource: resource,
+                email: email,
+                scope: scope
+            };
+            $.ajax({
+                url: "/home/ReqData",
+                type: "POST",
+                data: sdata
+            })
+            .done(function (data, textStatus, jqXHR) {
+                populateData(data, sdata);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                //alert('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+            });
+        }
+        getData("ReliefExpress", "Observation", $(".userEmail").text(), "Read");
+
+        function addData3() {
+            var sdata = {
+                language: $(".med1").val(),
+                email: $(".userEmail").text(),
+                dateAss: $(".med2").val()
+            };
+            $.ajax({
+                url: "/home/updatemed",
+                type: "POST",
+                data: sdata
+            })
+            .done(function (data, textStatus, jqXHR) {
+                //populateMeds(data, sdata.email);
+                window.location.reload();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                //alert('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                window.location.reload();
+            });
+        }
+
+        function addData2() {
+            var sdata = {
+                language: $(".pat1").val(),
+                birthday: $(".pat2").val(),
+                email: $(".userEmail").text()
+            };
+            $.ajax({
+                url: "/home/updatedemographic",
+                type: "POST",
+                data: sdata
+            })
+            .done(function (data, textStatus, jqXHR) {
+                //populatePats(data, sdata.email);
+                window.location.reload();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                //alert('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                window.location.reload();
+            });
+        }
+
+        function addData1() {
+            var sdata = {
+                description: $(".diag1").val(),
+                status: $(".diag2").val(),
+                email: $(".userEmail").text()
+            };
+            
+            $.ajax({
+                url: "/home/updatediag",
+                type: "POST",
+                data: sdata
+            })
+            .done(function (data, textStatus, jqXHR) {
+                //populateDiags(data, sdata.email);
+                window.location.reload();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                //alert('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                window.location.reload();
+            });
+        }
+
+        
+        function addData() {
+            var sdata = {
+                comment: $(".obs1").val(),
+                language: $(".obs2").val(),
+                email: $(".userEmail").text()
+                //id: obsData["IdElement"].Value
+            };
+            $.ajax({
+                url: "/home/updateobs",
+                type: "POST",
+                data: sdata
+            })
+            .done(function (data, textStatus, jqXHR) {
+                //populateObs(data, sdata.email);
+                window.location.reload();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                //alert('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                window.location.reload();
+            });
+        }
+    </script>
+    
+</body>
+</html>

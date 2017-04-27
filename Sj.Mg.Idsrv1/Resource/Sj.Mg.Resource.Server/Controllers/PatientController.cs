@@ -26,11 +26,11 @@ namespace Sj.Mg.Resource.Server.Controllers
             var id = System.Web.HttpUtility.UrlDecode(ids ?? "").Replace("^2E", ".");
             return Code.PatientManager.Get(id);
         }
-        [CliLib.Security.UmaAuthz("Patient/Patient.Read", "Patient/Patient.*")]
+        //[CliLib.Security.UmaAuthz("Patient/Patient.Read", "Patient/Patient.*")]
         [HttpPost]
-        public void Post([FromBody]Hl7.Fhir.Model.Observation act)
+        public bool Post([FromBody]Hl7.Fhir.Model.Patient act)
         {
-            Console.WriteLine();
+            return Code.PatientManager.Update(act);
         }
     }
 }

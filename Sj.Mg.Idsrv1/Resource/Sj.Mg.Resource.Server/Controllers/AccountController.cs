@@ -28,11 +28,11 @@ namespace Sj.Mg.Resource.Server.Controllers
             return Code.AccountManager.Get();
         }
 
-        [CliLib.Security.UmaAuthz("Patient/Account.Write", "Patient/Account.*")]
+        //[CliLib.Security.UmaAuthz("Patient/Account.Write", "Patient/Account.*")]
         [HttpPost]
-        public void Post([FromBody]Hl7.Fhir.Model.Account act)
+        public bool Post([FromBody]Hl7.Fhir.Model.Account act)
         {
-            Console.WriteLine();
+            return Code.AccountManager.update(act);
         }
     }
 }

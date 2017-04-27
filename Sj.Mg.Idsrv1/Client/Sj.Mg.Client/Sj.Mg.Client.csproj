@@ -381,6 +381,7 @@
     <None Include="Project_Readme.html" />
     <Content Include="Views\Home\Secure.cshtml" />
     <None Include="Properties\PublishProfiles\wewe.pubxml" />
+    <Content Include="Views\Home\UserData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Sj.Mg.Mongo\Sj.Mg.Mongo.csproj">

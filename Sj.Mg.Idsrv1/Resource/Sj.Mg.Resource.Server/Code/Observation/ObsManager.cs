@@ -9,6 +9,9 @@ namespace Sj.Mg.Resource.Server.Code
 {
     public class ObsManager
     {
+        //static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
+        static Uri endpoint = new Uri("http://localhost:49922/fhir");
+
         public static List<Hl7.Fhir.Model.Observation> Get(string search)
         {
             List<Hl7.Fhir.Model.Observation> ret = new List<Hl7.Fhir.Model.Observation>();
@@ -32,6 +35,23 @@ namespace Sj.Mg.Resource.Server.Code
             }
 
             return ret;
+        }
+
+        public static bool update(Hl7.Fhir.Model.Observation data)
+        {
+            var client = new FhirClient(endpoint);
+            var query = new string[] { "identifier="+data.Id };
+            var bundle = client.Search("Observation", query);
+            Observation p = new Observation();
+            foreach (var entry in bundle.Entry)
+            {
+                p = (Observation)entry.Resource;
+                p.Language = data.Language;
+                p.Comments = data.Comments;
+
+                client.Update<Hl7.Fhir.Model.Observation>(p);
+            }
+            return true;
         }
     }
 }

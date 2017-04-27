@@ -134,6 +134,23 @@ namespace Sj.Mg.Client.Controllers
         }
 
         [Authorize]
+        public ActionResult UserData()
+        {
+            var prof = (User as ClaimsPrincipal);
+            var name = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
+            var acctknn = prof.FindFirst("access_token") != null ? prof.FindFirst("access_token").Value : "";
+            var idtkn = prof.FindFirst("id_token") != null ? prof.FindFirst("id_token").Value : "";
+            var gname = prof.FindFirst("given_name") != null ? prof.FindFirst("given_name").Value : "";
+            var lname = prof.FindFirst("family_name") != null ? prof.FindFirst("family_name").Value : "";
+            if (!string.IsNullOrEmpty(gname) || !string.IsNullOrEmpty(lname))
+            {
+                ViewBag.FullName = lname + ", " + gname;
+                ViewBag.Email = name;
+            }
+            return View();
+        }
+
+        [Authorize]
         [Route("permissionsData")]
         public JsonResult PermissionsData()
         {
@@ -778,6 +795,104 @@ namespace Sj.Mg.Client.Controllers
         {
             Request.GetOwinContext().Authentication.SignOut();
             return Redirect("/");
+        }
+
+        public JsonResult updateobs(string comment, string language, string email)
+        {
+            var token = (User as ClaimsPrincipal).FindFirst("access_token").Value;
+            string basetkn = "";
+            var client = new HttpClient();
+            try
+            {
+                client.SetBearerToken(token);
+                var actkn = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(token);
+                //var obs = Execute(CliLib.Utils.Common.ReApiObservation + HttpUtility.UrlEncode(email).Replace(".", "^2E"), basetkn);
+                Hl7.Fhir.Model.Observation dataModel = new Hl7.Fhir.Model.Observation();
+                dataModel.Comments = comment;
+                dataModel.Id = email;
+                dataModel.Language = language;
+                using (HttpResponseMessage response = client.PostAsJsonAsync(CliLib.Utils.Common.ReApiObservation, dataModel).Result)
+                return Json("success");
+            }
+            catch (Exception exp)
+            {
+                log.Error("RptTknEndpoint Error" + exp.ToString());
+                Console.WriteLine(exp.ToString());
+                return Json("failed");
+            }  
+        }
+        
+        public JsonResult updatediag(string description, string status, string email)
+        {
+            var token = (User as ClaimsPrincipal).FindFirst("access_token").Value;
+            string basetkn = "";
+            var client = new HttpClient();
+            try
+            {
+                client.SetBearerToken(token);
+                var actkn = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(token);
+                Hl7.Fhir.Model.Account dataModel = new Hl7.Fhir.Model.Account();
+                dataModel.Description = description;
+                dataModel.Id = email;
+                dataModel.Status = status;
+                using (HttpResponseMessage response = client.PostAsJsonAsync(CliLib.Utils.Common.ReApiAccount, dataModel).Result)
+                    return Json("success");
+            }
+            catch (Exception exp)
+            {
+                log.Error("RptTknEndpoint Error" + exp.ToString());
+                Console.WriteLine(exp.ToString());
+                return Json("failed");
+            }
+        }
+
+        public JsonResult updatedemographic(string language, string birthday, string email)
+        {
+            var token = (User as ClaimsPrincipal).FindFirst("access_token").Value;
+            string basetkn = "";
+            var client = new HttpClient();
+            try
+            {
+                client.SetBearerToken(token);
+                var actkn = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(token);
+                Hl7.Fhir.Model.Patient dataModel = new Hl7.Fhir.Model.Patient();
+                dataModel.Language = language;
+                dataModel.Id = email;
+                dataModel.BirthDate = birthday;
+                using (HttpResponseMessage response = client.PostAsJsonAsync(CliLib.Utils.Common.ReApiPatient, dataModel).Result)
+                    return Json("success");
+            }
+            catch (Exception exp)
+            {
+                log.Error("RptTknEndpoint Error" + exp.ToString());
+                Console.WriteLine(exp.ToString());
+                return Json("failed");
+            }
+        }
+
+        public JsonResult updatemed(string language, string email, string dateAss)
+        {
+            var token = (User as ClaimsPrincipal).FindFirst("access_token").Value;
+            string basetkn = "";
+            var client = new HttpClient();
+            try
+            {
+                client.SetBearerToken(token);
+                var actkn = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(token);
+                Hl7.Fhir.Model.MedicationStatement dataModel = new Hl7.Fhir.Model.MedicationStatement();
+                dataModel.Language = language;
+                dataModel.Id = email;
+                dataModel.DateAsserted = dateAss;
+
+                using (HttpResponseMessage response = client.PostAsJsonAsync(CliLib.Utils.Common.ReApiMedication, dataModel).Result)
+                    return Json("success");
+            }
+            catch (Exception exp)
+            {
+                log.Error("RptTknEndpoint Error" + exp.ToString());
+                Console.WriteLine(exp.ToString());
+                return Json("failed");
+            }
         }
     }
 }
