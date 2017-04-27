@@ -13,9 +13,6 @@
     <link href="/Content/medg/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="myLoadingbar">
-		<div class="cssload-spin-box"></div>
-	</div>
     <div class="mainContent">
         <header>
             <div class="container">
@@ -29,6 +26,7 @@
                         <li><a class="logout" href="/home/Signout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
                     </ul>
                     <div class="usrName">@ViewBag.FullName</div>
+                    <div class="usrEmail" style="display: none;">@ViewBag.Email</div>
                     <div class="provider">
                         <div class="providerLabel">Viewing as <label class="labelText viewType">Provider</label></div>
                         <ul class="providerList">
@@ -55,6 +53,9 @@
                     <div class="viewShareSection">
 					    <h2 class="sec-heading">Data Preview</h2>
 					    <div class="reportBlock">
+                            <div class="myLoadingbar">
+		                        <div class="cssload-spin-box"></div>
+	                        </div>
 						    <div class="catagoryDetails">
                                 
                                 <div class="catagoryContent">

@@ -1971,12 +1971,12 @@ footer {
   background: #ce2129;
   text-transform: uppercase;
 }
-.loadingHome .myLoadingbar, .loadingHome .pageShadow {
+.loadingHome .myLoadingbar {
   display: block;
 }
 .myLoadingbar {
   display: none;
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   left: 0;

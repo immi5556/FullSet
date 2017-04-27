@@ -681,7 +681,7 @@ var permission = (function () {
                 $this.find(".btn-view").hide();
                 $this.find(".btn-share").hide();
                 $this.find(".btn-request").hide();
-                $(".shareBtns").hide();
+                $this.find(".shareBtns").hide();
                 if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy") {
                     if (data && data.AllowedUsers && data.AllowedUsers[selectedclient] && data.AllowedUsers[selectedclient][$this.find(".gridTitle").text()]) {
                         for (var scopeKeys in data.AllowedUsers[selectedclient][$this.find(".gridTitle").text()]) {
@@ -689,11 +689,11 @@ var permission = (function () {
                                 if (user["user"] == selectedUser) {
                                     if (scopeKeys == "Read") {
                                         $this.find(".btn-view").show();
-                                        $(".shareBtns").show();
+                                        $this.find(".shareBtns").show();
                                     } else {
                                         $this.find(".btn-view").show();
                                         $this.find(".btn-share").show();
-                                        $(".shareBtns").show();
+                                        $this.find(".shareBtns").show();
                                     }
                                 }
                             });
@@ -703,10 +703,10 @@ var permission = (function () {
                         $this.find(".btn-request").css("display", "block");
                         if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy") {
                             $this.find(".btn-request").text("Request");
-                            $(".shareBtns").show();
+                            $this.find(".shareBtns").show();
                         } else {
                             $this.find(".btn-request").text("Share");
-                            $(".shareBtns").show();
+                            $this.find(".shareBtns").show();
                         }
                     }
                 } else {
@@ -730,10 +730,15 @@ var permission = (function () {
                         $this.find(".btn-request").show();
                         if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy") {
                             $this.find(".btn-request").text("Request");
-                            $(".shareBtns").show();
+                            $this.find(".shareBtns").show();
                         } else {
                             $this.find(".btn-request").text("Share");
-                            $(".shareBtns").show();
+                            $this.find(".shareBtns").show();
+                        }
+                    } else {
+                        if ($('.labelText').text().toLowerCase() != "provider" && $('.labelText').text().toLowerCase() != "proxy") {
+                            $this.find(".btn-view").show();
+                            $this.find(".shareBtns").show();
                         }
                     }
                 }
@@ -1130,13 +1135,21 @@ var permission = (function () {
             $("body").addClass("loadingHome");
             var resor = $(this).closest("li").find(".gridTitle").text();
             var scope = ($(this).closest("li").find(".btn-share").is(":visible") ? "Share" : "View");
-
-            var sdata = {
-                client: selectedclient,
-                resource: resor,
-                email: selectedUser,
-                scope: scope
-            };
+            if ($('.providerLabel').text().toLowerCase() == "my view") {
+                var sdata = {
+                    client: selectedclient,
+                    resource: resor,
+                    email: $(".usrEmail").text(),
+                    scope: "Share"
+                };
+            } else {
+                var sdata = {
+                    client: selectedclient,
+                    resource: resor,
+                    email: selectedUser,
+                    scope: scope
+                };
+            }
             $.ajax({
                 url: "/home/ReqData",
                 type: "POST",
@@ -1150,6 +1163,7 @@ var permission = (function () {
                 $("body").removeClass("loadingHome");
                 showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
             });
+            return false;
         });
 
         $(".btn-request").on("click", function () {

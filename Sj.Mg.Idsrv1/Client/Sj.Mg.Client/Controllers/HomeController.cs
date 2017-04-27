@@ -122,6 +122,7 @@ namespace Sj.Mg.Client.Controllers
         public ActionResult Secure()
         {
             var prof = (User as ClaimsPrincipal);
+            var name = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
             var acctknn = prof.FindFirst("access_token") != null ? prof.FindFirst("access_token").Value : "";
             var idtkn = prof.FindFirst("id_token") != null ? prof.FindFirst("id_token").Value : "";
             var gname = prof.FindFirst("given_name") != null ? prof.FindFirst("given_name").Value : "";
@@ -129,6 +130,7 @@ namespace Sj.Mg.Client.Controllers
             if (!string.IsNullOrEmpty(gname) || !string.IsNullOrEmpty(lname))
             {
                 ViewBag.FullName = lname + ", " + gname;
+                ViewBag.Email = name;
             }
             return View();
         }
