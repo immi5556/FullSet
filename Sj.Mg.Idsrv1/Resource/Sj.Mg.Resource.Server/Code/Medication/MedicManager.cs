@@ -9,8 +9,8 @@ namespace Sj.Mg.Resource.Server.Code
 {
     public class MedicManager
     {
-        //static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
-        static Uri endpoint = new Uri("http://localhost:49922/fhir");
+        static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
+        //static Uri endpoint = new Uri("http://localhost:49922/fhir");
 
         public static List<Hl7.Fhir.Model.MedicationStatement> GetStatement(string search)
         {
