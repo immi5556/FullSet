@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Hl7.Fhir.Model;
+using MongoDB.Bson;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sj.Mg.CliLib.Model;
@@ -848,7 +849,7 @@ namespace Sj.Mg.Client.Controllers
             }
         }
 
-        public JsonResult updatedemographic(string language, string birthday, string email)
+        public JsonResult updatedemographic(string familyName, string givenName, string birthday, string email)
         {
             var token = (User as ClaimsPrincipal).FindFirst("access_token").Value;
             string basetkn = "";
@@ -858,9 +859,21 @@ namespace Sj.Mg.Client.Controllers
                 client.SetBearerToken(token);
                 var actkn = Sj.Mg.CliLib.Utils.TokenHelper.DecodeAndWrite(token);
                 Hl7.Fhir.Model.Patient dataModel = new Hl7.Fhir.Model.Patient();
-                dataModel.Language = language;
                 dataModel.Id = email;
                 dataModel.BirthDate = birthday;
+                dataModel.Name = new List<HumanName>()
+                {
+                    new HumanName()
+                    {
+                        Family = new string[] { familyName },
+                        Given = new string[] { givenName }
+                    },
+                    new HumanName()
+                    {
+                        Given = new string[] { givenName }
+
+                    }
+                };
                 using (HttpResponseMessage response = client.PostAsJsonAsync(CliLib.Utils.Common.ReApiPatient, dataModel).Result)
                     return Json("success");
             }

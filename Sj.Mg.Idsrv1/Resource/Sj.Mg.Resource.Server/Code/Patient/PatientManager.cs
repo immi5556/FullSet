@@ -44,8 +44,8 @@ namespace Sj.Mg.Resource.Server.Code
             foreach (var entry in bundle.Entry)
             {
                 p = (Patient)entry.Resource;
-                p.Language = data.Language;
                 p.BirthDate = data.BirthDate;
+                p.Name = data.Name;
 
                 client.Update<Hl7.Fhir.Model.Patient>(p);
             }

@@ -97,7 +97,7 @@
                         <h4 class="modal-title">Add Observation</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="POST">
+                        <form>
                             <div class="form-group">
                                 <label for="usr">User:</label>
                                 <input type="text" class="form-control user" disabled="disabled" value="@ViewBag.Email">
@@ -130,7 +130,7 @@
                         <h4 class="modal-title">Add Diagnostic</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="POST">
+                        <form>
                             <div class="form-group">
                                 <label for="usr">User:</label>
                                 <input type="text" class="form-control user" disabled="disabled" value="@ViewBag.Email">
@@ -164,14 +164,18 @@
                         <h4 class="modal-title">Add Demographic</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="POST">
+                        <form>
                             <div class="form-group">
                                 <label for="usr">User:</label>
                                 <input type="text" class="form-control user" disabled="disabled" value="@ViewBag.Email">
                             </div>
                             <div class="form-group">
-                                <label for="usr">Language:</label>
+                                <label for="usr">Family Name:</label>
                                 <input type="text" class="form-control pat1">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Given Name:</label>
+                                <input type="text" class="form-control pat3">
                             </div>
                             <div class="form-group">
                                 <label for="usr">Birth date:</label>
@@ -199,7 +203,7 @@
                         <h4 class="modal-title">Add Medication</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="POST">
+                        <form>
                             <div class="form-group">
                                 <label for="usr">User:</label>
                                 <input type="text" class="form-control user" disabled="disabled" value="@ViewBag.Email">
@@ -314,7 +318,24 @@
                         }
                         $(".patientData2").show();
                         $(".updateDemographicData").on("click", function () {
-                            $(".pat1").val((patData["LanguageElement"] && patData["LanguageElement"].Value) ? patData["LanguageElement"].Value : "");
+                            var itm = patData;
+                            if (itm["Name"] && itm["Name"].length) {
+                                if (itm["Name"][0]["FamilyElement"] && itm["Name"][0]["FamilyElement"].length) {
+                                    $(".patientData2 tbody").append("<tr><td>Family Name</td><td>" + itm["Name"][0]["FamilyElement"][0].Value + "</td></tr>");
+                                    $(".pat1").val(itm["Name"][0]["FamilyElement"][0].Value);
+                                }
+                                if (itm["Name"][0]["GivenElement"] && itm["Name"][0]["GivenElement"].length) {
+                                    var fullName = "";
+                                    itm["Name"][0]["GivenElement"].forEach(function (item, index) {
+                                        fullName += item.Value + " ";
+                                    });
+                                    if (fullName.length) {
+                                        $(".patientData2 tbody").append("<tr><td>Given Name</td><td>" + fullName.substring(0, fullName.length - 1) + "</td></tr>");
+                                        $(".pat3").val(fullName.substring(0, fullName.length - 1));
+                                    }
+                                }
+                            }
+                            
                             $(".pat2").val((patData["BirthDateElement"] && patData["BirthDateElement"].Value) ? patData["BirthDateElement"].Value : "");
                         });
                     }
@@ -459,7 +480,8 @@
 
         function updateDemographic() {
             var sdata = {
-                language: $(".pat1").val(),
+                familyName: $(".pat1").val(),
+                givenName: $(".pat3").val(),
                 birthday: $(".pat2").val(),
                 email: $(".userEmail").text()
             };
