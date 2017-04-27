@@ -1127,6 +1127,7 @@ var permission = (function () {
 
     function libtns() {
         $(".btn-view").on("click", function () {
+            $("body").addClass("loadingHome");
             var resor = $(this).closest("li").find(".gridTitle").text();
             var scope = ($(this).closest("li").find(".btn-share").is(":visible") ? "Share" : "View");
 
@@ -1143,8 +1144,10 @@ var permission = (function () {
             })
             .done(function (data, textStatus, jqXHR) {
                 populateData(data, sdata);
+                $("body").removeClass("loadingHome");
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
+                $("body").removeClass("loadingHome");
                 showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
             });
         });
