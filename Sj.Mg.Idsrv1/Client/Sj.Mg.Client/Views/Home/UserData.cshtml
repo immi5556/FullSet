@@ -13,7 +13,7 @@
     <span style="display: none;" class="userEmail">@ViewBag.Email</span>
     <div style="padding: 20px 0;overflow: hidden;">
         <h3 style="display: inline-block;margin:0;">Observation Data</h3>
-        <button value="Update Data" class="btn btn-info pull-right addScope updateData" data-toggle="modal" data-target="#myModal">Update Data</button>
+        <button value="Update Data" class="btn btn-info pull-right addScope updateData" data-toggle="modal" data-target="#myModal">Update Observation Data</button>
     </div>
     
     <div>
@@ -31,8 +31,8 @@
     </div>
 
     <div style="padding: 20px 0;overflow: hidden;">
-        <h3 style="display: inline-block;margin:0;">Demographic Data</h3>
-        <button value="Update Data" class="btn btn-info pull-right addScope updateDemographicData" data-toggle="modal" data-target="#myModal1">Update Data</button>
+        <h3 style="display: inline-block;margin:0;">Diagnostic Data</h3>
+        <button value="Update Data" class="btn btn-info pull-right addScope updateDiagnosticData" data-toggle="modal" data-target="#myModal1">Update Diagnostic Data</button>
     </div>
     
     <div>
@@ -50,8 +50,8 @@
     </div>
 
     <div style="padding: 20px 0;overflow: hidden;">
-        <h3 style="display: inline-block;margin:0;">Patient Data</h3>
-        <button value="Update Data" class="btn btn-info pull-right addScope updatePatientData" data-toggle="modal" data-target="#myModal2">Update Data</button>
+        <h3 style="display: inline-block;margin:0;">Demographic Data</h3>
+        <button value="Update Data" class="btn btn-info pull-right addScope updateDemographicData" data-toggle="modal" data-target="#myModal2">Update Demographic Data</button>
     </div>
     
     <div>
@@ -70,7 +70,7 @@
 
     <div style="padding: 20px 0;overflow: hidden;">
         <h3 style="display: inline-block;margin:0;">Medication Data</h3>
-        <button value="Update Data" class="btn btn-info pull-right addScope updateMedicationData" data-toggle="modal" data-target="#myModal3">Update Data</button>
+        <button value="Update Data" class="btn btn-info pull-right addScope updateMedicationData" data-toggle="modal" data-target="#myModal3">Update Medication Data</button>
     </div>
     
     <div>
@@ -110,7 +110,7 @@
                                 <label for="usr">Language:</label>
                                 <input type="text" class="form-control obs2">
                             </div>
-                            <button class="btn btn-primary addObs" onclick="return addData()">Submit & Close</button>
+                            <button class="btn btn-primary addObs" onclick="return updateObservation()">Submit</button>
                             <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
                         </form>
                     </div>
@@ -143,7 +143,7 @@
                                 <label for="usr">Status:</label>
                                 <input type="text" class="form-control diag2">
                             </div>
-                            <button class="btn btn-primary addDiag" onclick="return addData1()">Submit & Close</button>
+                            <button class="btn btn-primary addDiag" onclick="return updateDiagnostic()">Submit</button>
                             <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
                         </form>
                     </div>
@@ -161,7 +161,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add Patient</h4>
+                        <h4 class="modal-title">Add Demographic</h4>
                     </div>
                     <div class="modal-body">
                         <form method="POST">
@@ -177,7 +177,7 @@
                                 <label for="usr">Birth date:</label>
                                 <input type="text" class="form-control pat2" placeholder="YYYY-MM-DD">
                             </div>
-                            <button class="btn btn-primary addDiag" onclick="return addData2()">Submit & Close</button>
+                            <button class="btn btn-primary addDiag" onclick="return updateDemographic()">Submit</button>
                             <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
                         </form>
                     </div>
@@ -212,7 +212,7 @@
                                 <label for="usr">Date Asserted:</label>
                                 <input type="text" class="form-control med2" placeholder="YYYY-MM-DD">
                             </div>
-                            <button class="btn btn-primary addMed" onclick="return addData3()">Submit & Close</button>
+                            <button class="btn btn-primary addMed" onclick="return addData3()">Submit</button>
                             <div class="errorMessage" style="padding-top: 10px; color:green;"></div>
                         </form>
                     </div>
@@ -313,7 +313,7 @@
                             $(".patientData2 tbody").append("<tr><td>Language:</td><td>" + itm["LanguageElement"].Value + "</td></tr>");
                         }
                         $(".patientData2").show();
-                        $(".updatePatientData").on("click", function () {
+                        $(".updateDemographicData").on("click", function () {
                             $(".pat1").val((patData["LanguageElement"] && patData["LanguageElement"].Value) ? patData["LanguageElement"].Value : "");
                             $(".pat2").val((patData["BirthDateElement"] && patData["BirthDateElement"].Value) ? patData["BirthDateElement"].Value : "");
                         });
@@ -348,7 +348,7 @@
                             }
                             count++;
                             $(".patientData1").show();
-                            $(".updateDemographicData").on("click", function () {
+                            $(".updateDiagnosticData").on("click", function () {
                                 $(".diag1").val((diaData["DescriptionElement"] && diaData["DescriptionElement"].Value) ? diaData["DescriptionElement"].Value : "");
                                 $(".diag2").val((diaData["StatusElement"] && diaData["StatusElement"].Value) ? diaData["StatusElement"].Value : "");
                             });
@@ -457,7 +457,7 @@
             });
         }
 
-        function addData2() {
+        function updateDemographic() {
             var sdata = {
                 language: $(".pat1").val(),
                 birthday: $(".pat2").val(),
@@ -478,7 +478,7 @@
             });
         }
 
-        function addData1() {
+        function updateDiagnostic() {
             var sdata = {
                 description: $(".diag1").val(),
                 status: $(".diag2").val(),
@@ -501,7 +501,7 @@
         }
 
         
-        function addData() {
+        function updateObservation() {
             var sdata = {
                 comment: $(".obs1").val(),
                 language: $(".obs2").val(),

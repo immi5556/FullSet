@@ -1133,6 +1133,18 @@ var permission = (function () {
     function libtns() {
         $(".btn-view").on("click", function () {
             $("body").addClass("loadingHome");
+            $(".listGridUL li").removeClass("active");
+            $(this).closest("li").addClass("active");
+            $(".listGridUL li").each(function () {
+                var imgPath = $(this).closest("li").find("img").attr("src");
+                
+                if (imgPath.substring((imgPath.length - 10), (imgPath.length - 4)) == "Active") {
+                    console.log(imgPath.substring(0, (imgPath.length - 10)) + imgPath.substring((imgPath.length - 10), (imgPath.length)));
+                    $(this).closest("li").find("img").attr("src", imgPath.substring(0, (imgPath.length - 10))+imgPath.substring((imgPath.length - 4), (imgPath.length)));
+                }
+            });
+            var imgPath = $(this).closest("li").find("img").attr("src");
+            $(this).closest("li").find("img").attr("src", imgPath.substring(0, (imgPath.length - 4)) + "Active" + imgPath.substring((imgPath.length - 4), imgPath.length));
             var resor = $(this).closest("li").find(".gridTitle").text();
             var scope = ($(this).closest("li").find(".btn-share").is(":visible") ? "Share" : "View");
             if ($('.providerLabel').text().toLowerCase() == "my view") {
