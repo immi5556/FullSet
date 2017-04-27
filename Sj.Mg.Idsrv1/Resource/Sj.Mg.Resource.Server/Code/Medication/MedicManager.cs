@@ -9,8 +9,6 @@ namespace Sj.Mg.Resource.Server.Code
 {
     public class MedicManager
     {
-        static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
-        //static Uri endpoint = new Uri("http://localhost:49922/fhir");
 
         public static List<Hl7.Fhir.Model.MedicationStatement> GetStatement(string search)
         {
@@ -40,7 +38,7 @@ namespace Sj.Mg.Resource.Server.Code
 
         public static bool Update(MedicationStatement data)
         {
-            var client = new FhirClient(endpoint);
+            var client = new FhirClient(CliLib.Utils.Common.fhirendpoint);
             var query = new string[] { "identifier=" + data.Id };
             var bundle = client.Search("MedicationStatement", query);
             MedicationStatement p = new MedicationStatement();

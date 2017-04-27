@@ -9,9 +9,6 @@ namespace Sj.Mg.Resource.Server.Code
 {
     public class AccountManager
     {
-        static Uri endpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
-        //static Uri endpoint = new Uri("http://localhost:49922/fhir");
-
         public static List<Hl7.Fhir.Model.Account> Get()
         {
             return Get("");
@@ -53,7 +50,7 @@ namespace Sj.Mg.Resource.Server.Code
 
         public static bool update(Account data)
         {
-            var client = new FhirClient(endpoint);
+            var client = new FhirClient(CliLib.Utils.Common.fhirendpoint);
             var query = new string[] { "identifier=" + data.Id };
             var bundle = client.Search("Account", query);
             Account p = new Account();
