@@ -6,7 +6,7 @@ html,body{
 	height: 100%;
 }
 body{
-	font-family: 'Scope One', serif;
+	font-family: 'Cabin', sans-serif;
 }
 
 .form-row {
@@ -730,20 +730,23 @@ footer {
 }
 /*Login CSS Here*/
 .login {
-	background: url(../images/bg-reg.png) repeat-x left top;
+	background: url(../images/loginBg.jpg) repeat-x left top;
 }
 .loginMain {
 	min-height: 100%;
 	margin-bottom: -40px;
+    background: url(../images/bg-reg.jpg) no-repeat left top;
+    background-size: cover;
 }
 .loginScreen {
 	padding-top: 20px;
 }
 .loginScreen1 {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 5px;
     background: rgba(255, 255, 255, 0.64);
     overflow: hidden;
+    border-bottom: 3px solid white;
 }
 .loginLogo {
 	margin: auto;
@@ -1182,21 +1185,21 @@ footer {
 	outline: none;
 	background: #1e3665;
 }
-.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    #000;
+.regForm .reg-row  textarea, .regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]::-webkit-input-placeholder, .regForm textarea::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #1e3665;
 }
-.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:    #000;
+.regForm .reg-row  textarea, .regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]:-moz-placeholder, .regForm textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #1e3665;
    opacity:  1;
 }
-.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:    #000;
+.regForm .reg-row  textarea, .regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]::-moz-placeholder, .regForm textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #1e3665;
    opacity:  1;
 }
-.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]:-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color:    #000;
+.regForm .reg-row  textarea, .regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]:-ms-input-placeholder, .regForm textarea:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #1e3665;
 }		
-.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder]{
+.regForm .reg-row input[type="text"], .regForm input[type="password"], .regForm input[type="number"], .regForm input[placeholder], .regForm .reg-row textarea,.regForm input[type="text"]{
 	display: inline-block;
 	width: 290px;
 	height: 37px;
@@ -1204,10 +1207,18 @@ footer {
 	padding: 0 10px;
 	font-size: 13px;
 	border-radius: 4px;
-	color: #000;
+	color: #1e3665;
 	border: none;
 	outline: none;
+    font-family: 'Cabin', sans-serif;
 	background: rgba(255,255, 255,0.4);
+    border: 2px solid rgba(255,255,255,0.5);
+}
+.regForm .reg-row  textarea {
+    height: 80px;
+    line-height: 20px;
+    font-size: 14px;
+    font-family: 'Cabin', sans-serif;
 }
 .reg-row input[type="text"], input[type="password"], input[type="number"]{
 	display: inline-block;
@@ -1574,4 +1585,120 @@ footer {
     position: absolute;
     left: 0;
     top: 3px;
+}
+.questionBlock {
+    width: 310px;
+    margin: auto;
+    font-size: 13px;
+    border-radius: 4px;
+    color: #000;
+    border: none;
+    outline: none;
+    margin-top:20px;
+    box-sizing:border-box;
+    background: rgba(255,255, 255,0.4);
+}
+.questionBlock ul {
+    overflow:hidden;
+    overflow-y: auto;
+    padding:0 10px;
+}
+.slimScrollDiv {
+    padding-bottom:10px;
+}
+.questionBlock ul li {
+    padding:10px 0 0 0;
+}
+.questionBlock ul li p, .challengePart p{
+    color: #000;
+    font-size:13px;
+    line-height:20px;
+}
+.questionBlock ul li input {
+    width: 100% !important;
+    box-sizing:border-box;
+    padding: 0 10px;
+    height:30px !important;
+    line-height:30px !important;
+    background: #fff !important;
+}
+.questionBlock h3 {
+    color:#1e3665;
+    font-size:14px;
+    line-height:28px;
+    padding: 0 10px;
+}
+.challengePart {
+    margin: 0;
+    font-size: 13px;
+    border-radius: 4px;
+    color: #000;
+    margin-top:10px;
+}
+.challengePart p {
+    line-height:26px;
+    font-size: 15px;
+    padding-bottom:5px;
+    margin-left: -65px;
+}
+.challengePart input[type="text"] {
+    width: 200px;
+    height: 30px;
+    padding: 0 10px;
+    line-height: 30px;
+    box-sizing: border-box;
+    font-size: 13px;
+    border-radius: 4px;
+    color: #000;
+    outline:none;
+    border:1px solid #ccc;
+}
+
+.challengePart button {
+    width: 60px;
+    height: 30px;
+    padding: 0;
+    line-height: 28px;
+    box-sizing: border-box;
+    font-size: 13px;
+    border-radius: 4px;
+    color: #fff;
+    outline:none;
+    text-align:center;
+    border:1px solid #ccc;
+    background:#ce2129;
+    cursor:pointer;
+}
+.errorMsg {
+    color: red;
+    padding-top: 5px;
+    margin-left: -65px;
+}
+.extrnlReg {
+    width: 290px;
+    position: relative;
+    left: 60px;
+    background: none;
+}
+.extrnlReg h3 {
+    color: #000;
+    font-size: 16px;
+    line-height: 28px;
+    padding: 0 10px;
+}
+.extrnlReg ul li input {
+    color: #fff;
+    height: 37px !important;
+    line-height: 37px !important;
+    border-color: #1e3665 !important;
+    border-radius: 3px !important;
+    background: #1e3665 !important;
+}
+
+.extrnlReg ul{
+    padding-bottom: 10px !important;
+}
+.errorMessage {
+    color: #fcfffc;
+    padding: 10px 0;
 }

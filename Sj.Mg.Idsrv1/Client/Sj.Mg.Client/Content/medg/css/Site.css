@@ -38,7 +38,7 @@ textarea {
 	margin-bottom: 30px;
 	text-align: center;
 	line-height: 35px;
-	font-family: 'nexa_boldregular';
+	font-family: 'Cabin', sans-serif;
 	background: #f2f2f2;
 }
 .reg-row {
@@ -52,7 +52,7 @@ textarea {
 	color: #ce2129;
 	font-size: 16px;
 	line-height: 37px;
-	font-family: 'nexa_boldregular';
+	font-family: 'Cabin', sans-serif;
 }
 .reg-row input[type="text"]{
 	display: inline-block;
@@ -61,7 +61,7 @@ textarea {
 	line-height: 37px;
 	padding: 0 10px;
 	font-size: 13px;
-	font-family: arial;
+	font-family: 'Cabin', sans-serif;
 	border-radius: 4px;
 	color: #fff;
 	border: none;
@@ -75,7 +75,7 @@ textarea {
 	cursor: pointer;
 	color: #ffffff;
 	margin-top: 12px;
-	font-family: 'nexa_boldregular';
+	font-family: 'Cabin', sans-serif;
 	border-radius: 6px;
 	font-size: 15px;
 	outline: none;
@@ -96,7 +96,7 @@ footer {
     color: #1e3665;
     font-size: 13px;
     clear: both;
-    font-family: 'nexa_boldregular';
+    font-family: 'Cabin', sans-serif;
 }
 .loginFooter, .loginPush {
     height: 40px;
@@ -190,7 +190,7 @@ footer {
 	position: relative;
 	color: #102649;
 	font-size: 13px;
-	font-family: arial;
+	font-family: 'Cabin', sans-serif;
 	padding-left: 19px;
 }
 .reChk {
@@ -227,7 +227,7 @@ footer {
 	float: right;
     font-size: 13px;
     margin: 0 108px 0 0;
-    font-family: arial;
+    font-family: 'Cabin', sans-serif;
     text-decoration: none;
     color: #102649;
 }
@@ -246,7 +246,7 @@ footer {
 	font-size: 11px;
 	text-align: center;
 	line-height: 29px;
-	font-family: arial;
+	font-family: 'Cabin', sans-serif;
 	text-transform: uppercase;
 	border-bottom: 3px solid #185b2e;
 	background: #1c7c3d;
@@ -264,7 +264,7 @@ footer {
 	width: 30px;
 	height: 30px;
 	font-size: 12px;
-	font-family: 'nexa_boldregular';
+	font-family: 'Cabin', sans-serif;
 	text-align: center;
 	line-height: 30px;
 	color: #fff;
@@ -308,7 +308,7 @@ footer {
 	color: #1e3665;
 	font-size: 13px;
 	clear: both;
-	font-family: 'nexa_boldregular';
+	font-family: 'Cabin', sans-serif;
 }
 .Error {
 	position: absolute;
@@ -323,7 +323,7 @@ footer {
 	line-height: 22px;
 	font-size: 12px;
 	margin-top: -6px;
-	font-family: arial;
+	font-family: 'Cabin', sans-serif;
 	background: #dee2e9;
 }
 .Error::before{
@@ -344,7 +344,7 @@ footer {
     white-space: nowrap;
     color: #fff;
     font-size: 14px;
-    font-family: arial;
+    font-family: 'Cabin', sans-serif;
     border-radius: 4px;
     padding: 10px;
     background: #c52d26;
@@ -359,7 +359,7 @@ footer {
 	text-align: center;
 	font-size: 18px;
 	line-height: 30px;
-	font-family: 'nexa_boldregular';
+	font-family: 'Cabin', sans-serif;
 }
 .buttonsRow {
 	clear: both;
@@ -375,7 +375,7 @@ footer {
 	color: #fff;
 	font-size: 13px;
 	cursor: pointer;
-	font-family: 'nexa_boldregular';
+	font-family: 'Cabin', sans-serif;
 	border-radius: 4px;
 	border: none;
 	margin: 0 10px;
@@ -421,7 +421,7 @@ footer {
 	display: none;
 	box-sizing: border-box;
 	border:5px solid #585858;
-	font-family: 'Droid Serif', serif; 
+	font-family: 'Cabin', sans-serif;
 	transition: all 0.5s ease-in;
 	background: #fff;
 }

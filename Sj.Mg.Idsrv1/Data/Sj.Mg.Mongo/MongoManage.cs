@@ -70,5 +70,11 @@ namespace Sj.Mg.Mongo
             var toins = db.GetCollection<Sj.Mg.CliLib.Model.RequestPerm>("ReqPerms");
             toins.FindOneAndReplace<Sj.Mg.CliLib.Model.RequestPerm>(f => f.MyEmail == data.MyEmail, data);
         }
+        public static void ReplaceUserByUserName(Sj.Mg.CliLib.Model.CustomUser data)
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            var toins = db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users");
+            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.CustomUser>(f => f.Username == data.Username, data);
+        }
     }
 }

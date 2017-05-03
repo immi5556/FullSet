@@ -1038,7 +1038,7 @@ var permission = (function () {
                                                             \ <h4>' + selectedclient + '</h4> \
                                                             \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                                             \ <h5>' + user["user"] + '</h5> \
-                                                            \ <p> This user is requesting you for <em class="resourceKey" >' + resourceKey + '</em> resource to <em class="scopeKey" >' + (scopeKeys == "Read" ? "View" : "Share" )+ '</em> your data.</p> \
+                                                            \ <p> This user has requested you to <em class="scopeKey" >' + (scopeKeys == "Read" ? "View" : "Share") + '</em> your <em class="resourceKey" >' + resourceKey + '</em> data.</p> \
                                                             \ <span class="usrRel" style="display:none;">'+ user["relation"] + '</span> \
                                                             \ <div style="display:none;" class="resourcePro">' + resourceKey + '</div> \
                                                             \ </div> </div>\
@@ -1230,6 +1230,7 @@ var permission = (function () {
             url: "/userdata",
         })
         .done(function (data, textStatus, jqXHR) {
+            console.log(data);
             if (data.length) {
                 if (data[0] && data[0].IsProvider) {
                     provider = data[0].IsProvider;

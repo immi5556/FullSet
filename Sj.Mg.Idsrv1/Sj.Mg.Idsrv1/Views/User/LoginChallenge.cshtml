@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>MG Login  Challenge</title>
+    <meta charset="utf-8" />
+    <link href="../../Content/medg/css/style.css" rel="stylesheet" />
+    <link href="../../Content/medg/css/fonts.css" rel="stylesheet" />
+    <link href="../../Content/medg/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&amp;subset=latin-ext,vietnamese" rel="stylesheet">
+</head>
+<body>
+    <div class="lightbox lightbox-min" id="log-outPop" style="display:block; max-width: 500px;">
+        <div class="scrollSec logoutScrn" style="text-align: center;">
+            <h2>Medgrotto Login Challenge</h2>
+            <h5 style="font-weight:normal;">Answer the following question to confirm Authentication</h5>
+            <div id="user" style="display:none;">@ViewBag.user</div>
+            <div class="challengePart">
+                <form method="post">
+                    <p class="question"></p>
+                    <input type="text" class="ans">
+                    <button id="submit" name="button" value="Submit">Submit</button>
+                </form>
+            </div>
+            <div class="errorMsg"></div>
+        </div>
+    </div>
+    <div class="popupShadow" style="display:block"></div>
+
+    <script id='modelJson' type='application/json'>
+        {model}
+    </script>
+    <script type="text/javascript" src="/Content/medg/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/content/libs/encoder/encoder.min.js"></script>
+    <script type="text/javascript">
+        var userData;
+
+        function displayRandomQuestion() {
+            if (userData.Questions) {
+                var questions = [];
+                userData.Questions.forEach(function (item) {
+                    if (item.Ans) {
+                        questions.push(item.Ques);
+                    }
+                });
+                $(".question").html(questions[Math.floor(Math.random() * ((questions.length - 1) - 0)) + 0]);
+            }
+        }
+
+        $("#submit").on("click", function () {
+            if ($(".ans").val().length) {
+                var resultFound = false;
+                userData.Questions.forEach(function (item) {
+                    if (item.Ques == $(".question").text() && item.Ans == $(".ans").val()) {
+                        $(".errorMsg").html("");
+                        resultFound =  true;
+                    }
+                });
+                if(resultFound)
+                    return true;
+                else {
+                    $(".errorMsg").html("Invalid Answer");
+                    return false;
+                }
+            } else {
+                $(".errorMsg").html("Enter answer and submit");
+                return false;
+            }
+        });
+
+        function getUserData() {
+            $.ajax({
+                url: "/Service/GetUserData",
+                type: "post",
+                data: {"user": $("#user").text()}
+            })
+            .done(function (data, textStatus, jqXHR) {
+                if (data.length) {
+                    userData = data[0];
+                    displayRandomQuestion();
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                //showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+            });
+        }
+        getUserData();
+    </script>
+</body>
+</html>

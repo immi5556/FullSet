@@ -784,6 +784,17 @@ namespace IdentityServer3.Core
             public const string Json = "json";
         }
 
+        public static class Questions
+        {
+            public const string Question1 = "What was the make and model of your first car?";
+            public const string Question2 = "In what city or town does your nearest sibling live?";
+            public const string Question3 = "What was your favorite subject in school?";
+            public const string Question4 = "What was the name of the area you lived in as a child?";
+            public const string Question5 = "What is your favorite fantasy character?";
+            public const string Question6 = "What was your first phone number?";
+            public const string Question7 = "What was your favorite vacation spot as a child?";
+        }
+
         public static IEnumerable<string> AllowedProofKeyAlgorithms = new[]
         {
             OidcConstants.Algorithms.Asymmetric.RS256,

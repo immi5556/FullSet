@@ -20,6 +20,7 @@ namespace Sj.Mg.CliLib.Model
         public string Subject { get; set; }
         public string Provider { get; set; }
         public string ProviderID { get; set; }
+        public string Address { get; set; }
         public bool IsRegistered { get; set; }
         public bool IsProvider { get; set; }
         List<CustomClaim> _custClaim = new List<CustomClaim>();
@@ -52,6 +53,7 @@ namespace Sj.Mg.CliLib.Model
         }
 
         List<Claim> _claims = new List<Claim>();
+        public List<Question> Questions { get; set; }
         [Newtonsoft.Json.JsonIgnore]
         public List<Claim> Claims
         {
@@ -64,5 +66,13 @@ namespace Sj.Mg.CliLib.Model
                 _claims = value;
             }
         }
+
+        
+    }
+
+    public class Question
+    {
+        public string Ques { get;set; }
+        public string Ans { get; set; }
     }
 }

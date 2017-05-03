@@ -7,6 +7,7 @@
     <link href="../../Content/medg/css/style.css" rel="stylesheet" />
     <link href="../../Content/medg/css/fonts.css" rel="stylesheet" />
     <link href="../../Content/medg/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&amp;subset=latin-ext,vietnamese" rel="stylesheet">
 </head>
 <body>
     <div class="loginMain">
@@ -26,6 +27,43 @@
                     <div class="reg-row">
                         <label for="First">Email</label>
                         <input type="text" name="Email" class="form-control" />
+                    </div>
+                    <div class="reg-row">
+                        <label for="First">Password</label>
+                        <input type="password" name="Password" class="form-control" />
+                    </div>
+                    <div class="questionBlock extrnlReg">
+                        <h3>Answer at least 3 questions</h3>
+                        <ul>
+                            <li>
+                                <p>1) What was the make and model of your first car?</p>
+                                <div><input type="text" name="Ans1"></div>
+                            </li>
+                            <li>
+                                <p>2) In what city or town does your nearest sibling live?</p>
+                                <div><input type="text" name="Ans2"></div>
+                            </li>
+                            <li>
+                                <p>3) What was your favorite subject in school?</p>
+                                <div><input type="text" name="Ans3"></div>
+                            </li>
+                            <li>
+                                <p>4) What was the name of the area you lived in as a child?</p>
+                                <div><input type="text" name="Ans4"></div>
+                            </li>
+                            <li>
+                                <p>5) What is your favorite fantasy character?</p>
+                                <div><input type="text" name="Ans5"></div>
+                            </li>
+                            <li>
+                                <p>6) What was your first phone number?</p>
+                                <div><input type="text" name="Ans6"></div>
+                            </li>
+                            <li>
+                                <p>7) What was your favorite vacation spot as a child?</p>
+                                <div><input type="text" name="Ans7"></div>
+                            </li>
+                        </ul>
                     </div>
                     <div class="reg-row">
                         <button class="registerBtn">Register</button>
@@ -55,8 +93,12 @@
     </div>
     <div class="loginFooter">All rights reserved &copy; 2017 Terms and conditions</div>
     <script src="~/Content/medg/js/jquery-1.12.4.min.js"></script>
+    <script src="/Content/medg/js/jquery.slimscroll.min.js"></script>
     <script>
         $(".loginMain").closest("body").addClass("login");
+        $('.questionBlock ul').slimScroll({
+            "height": "230px"
+        });
     </script>
 </body>
 </html>

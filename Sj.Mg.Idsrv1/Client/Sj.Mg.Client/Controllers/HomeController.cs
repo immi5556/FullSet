@@ -166,6 +166,7 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult GetUserData()
         {
             List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(User.Identity.Name);
+            
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
 

@@ -398,6 +398,7 @@
     <Content Include="Content\medg\images\bagScreen.jpg" />
     <Content Include="Content\medg\images\banner.jpg" />
     <Content Include="Content\medg\images\banner2.gif" />
+    <Content Include="Content\medg\images\bg-reg.jpg" />
     <Content Include="Content\medg\images\bg-reg.png" />
     <Content Include="Content\medg\images\bg.jpg" />
     <Content Include="Content\medg\images\blipcare.png" />
@@ -463,6 +464,7 @@
     <Content Include="Content\MgUi\Login.html" />
     <Content Include="Content\MgUi\Logout.html" />
     <Content Include="Content\MgUi\Permissions.html" />
+    <Content Include="Content\MgUi\TwoWayAuth.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -556,6 +558,7 @@
     <Content Include="Views\User\Eula.cshtml" />
     <Content Include="Views\Permission\Index.cshtml" />
     <Content Include="Views\Home\Registration.cshtml" />
+    <Content Include="Views\User\LoginChallenge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

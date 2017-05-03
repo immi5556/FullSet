@@ -58,12 +58,21 @@ namespace Sj.Mg.Idsrv1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(string firstName, string lastName, string password, string email, string phoneNumber, bool provider)
+        public ActionResult GetUserData(string user)
+        {
+            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(user);
+
+            return Json(gg, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Registration(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
         {
             MgUserService temp = new MgUserService();
-            string result = temp.addUser(firstName, lastName, password, email, phoneNumber, provider);
+            string result = temp.addUser(firstName, lastName, password, email, phoneNumber, provider, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7);
             return Json(result);
         }
+
         public JsonResult RptToken() //From CLient - Empty RPT
         {
             try

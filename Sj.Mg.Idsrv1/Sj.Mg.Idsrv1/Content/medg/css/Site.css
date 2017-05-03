@@ -59,7 +59,7 @@ textarea {
 	line-height: 37px;
 	padding: 0 10px;
 	font-size: 13px;
-	font-family: arial;
+	font-family: 'Cabin', sans-serif;
 	border-radius: 4px;
 	color: #fff;
 	border: none;
@@ -186,7 +186,7 @@ footer {
 	position: relative;
 	color: #102649;
 	font-size: 13px;
-	font-family: arial;
+	font-family: 'Cabin', sans-serif;
 	padding-left: 19px;
 }
 .reChk {
@@ -223,7 +223,7 @@ footer {
 	float: right;
     font-size: 13px;
     margin: 0 108px 0 0;
-    font-family: arial;
+    font-family: 'Cabin', sans-serif;
     text-decoration: none;
     color: #102649;
 }
@@ -242,7 +242,7 @@ footer {
 	font-size: 11px;
 	text-align: center;
 	line-height: 29px;
-	font-family: arial;
+	font-family: 'Cabin', sans-serif;
 	text-transform: uppercase;
 	border-bottom: 3px solid #185b2e;
 	background: #1c7c3d;
@@ -317,7 +317,7 @@ footer {
 	line-height: 22px;
 	font-size: 12px;
 	margin-top: -6px;
-	font-family: arial;
+	font-family: 'Cabin', sans-serif;
 	background: #dee2e9;
 }
 .Error::before{
@@ -338,7 +338,7 @@ footer {
     white-space: nowrap;
     color: #fff;
     font-size: 14px;
-    font-family: arial;
+    font-family: 'Cabin', sans-serif;
     border-radius: 4px;
     padding: 10px;
     background: #c52d26;

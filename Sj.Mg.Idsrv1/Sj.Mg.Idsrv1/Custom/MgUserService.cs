@@ -32,16 +32,17 @@ namespace Sj.Mg.Idsrv1.Custom
             //var user = Users.SingleOrDefault(x => x.Username == context.UserName && x.Password == context.Password);
             if (user != null)
             {
-                if (user.AcceptedEula)
+                if (user.Questions != null)
                 {
-                    context.AuthenticateResult = new AuthenticateResult(user.Subject, user.Username);
+                    context.AuthenticateResult = new AuthenticateResult("~/loginchallenge", user.Subject, user.Username);
+                    //context.AuthenticateResult = new AuthenticateResult(user.Subject, user.Username);
                 }
                 else
                 {
                     context.AuthenticateResult = new AuthenticateResult("~/eula", user.Subject, user.Username);
                 }
             }
-
+            
             return Task.FromResult(0);
         }
         public override Task AuthenticateExternalAsync(ExternalAuthenticationContext context)
@@ -141,7 +142,7 @@ namespace Sj.Mg.Idsrv1.Custom
             return Task.FromResult(0);
         }
 
-        public string addUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider)
+        public string addUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
         {
             var database = BaseMongo.GetDatabase();
             var collection = database.GetCollection<BsonDocument>("Users");
@@ -151,7 +152,7 @@ namespace Sj.Mg.Idsrv1.Custom
             var response = collection.Find(filter).ToList();
             if (response.Count == 0)
             {
-                var newUser = GetUser(firstName, lastName, password, email, phoneNumber, provider);
+                var newUser = GetUser(firstName, lastName, password, email, phoneNumber, provider, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7);
                 MongoManage.Insert<CustomUser>(newUser, "Users");
                 //Users.Add(newUser);
                 return "success";
@@ -162,7 +163,7 @@ namespace Sj.Mg.Idsrv1.Custom
             }
         }
 
-        public CustomUser GetUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider)
+        public CustomUser GetUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
         {
              CustomUser ab = new CustomUser
             {
@@ -175,14 +176,53 @@ namespace Sj.Mg.Idsrv1.Custom
                 ProviderID = null,
                 IsRegistered = false,
                 IsProvider = provider,
+                Address = address,
                 Claims = new List<Claim>()
-                        {
-                            new Claim(Constants.ClaimTypes.Name, firstName+" "+lastName),
-                            new Claim(Constants.ClaimTypes.GivenName, firstName),
-                            new Claim(Constants.ClaimTypes.FamilyName, lastName),
-                            new Claim(Constants.ClaimTypes.Email, email),
-                        }
-            };
+                {
+                    new Claim(Constants.ClaimTypes.Name, firstName+" "+lastName),
+                    new Claim(Constants.ClaimTypes.GivenName, firstName),
+                    new Claim(Constants.ClaimTypes.FamilyName, lastName),
+                    new Claim(Constants.ClaimTypes.Email, email),
+                },
+                CustomClaims = new List<CustomClaim>()
+                {
+                    new CustomClaim(Constants.ClaimTypes.Name, email),
+                    new CustomClaim(Constants.ClaimTypes.GivenName, firstName),
+                    new CustomClaim(Constants.ClaimTypes.FamilyName, lastName),
+                    new CustomClaim(Constants.ClaimTypes.Email, email)
+                },
+                 Questions = new List<Question>()
+                {
+                    new Question() {
+                        Ques = Constants.Questions.Question1,
+                        Ans = ans1
+                    },
+                    new Question() {
+                        Ques = Constants.Questions.Question2,
+                        Ans = ans2
+                    },
+                    new Question() {
+                        Ques = Constants.Questions.Question3,
+                        Ans = ans3
+                    },
+                    new Question() {
+                        Ques = Constants.Questions.Question4,
+                        Ans = ans4
+                    },
+                    new Question() {
+                        Ques = Constants.Questions.Question5,
+                        Ans = ans5
+                    },
+                    new Question() {
+                        Ques = Constants.Questions.Question6,
+                        Ans = ans6
+                    },
+                    new Question() {
+                        Ques = Constants.Questions.Question7,
+                        Ans = ans7
+                    },
+                }
+             };
             return ab;
         }
     }

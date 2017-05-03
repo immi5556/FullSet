@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{siteName}</title>
+    <meta charset="utf-8" />
+    <link href="/content/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/content/app/app.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/content/medg/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/content/medg/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&amp;subset=latin-ext,vietnamese" rel="stylesheet">
+</head>
+<body>
+    <div class="lightboxrelief relief-min">
+        <div class="scrollSec">
+            <h2>{siteName}</span></h2>
+            <h3><span>Two Way Authentication.</span></h3>
+            <div>
+                <p class="question"></p>
+                <input type="text" class="ans">
+            </div>
+        </div>
+    </div>
+    <div class="popupShadow" style="display:block"></div>
+
+    <script id='modelJson' type='application/json'>
+        {model}
+    </script>
+    <script type="text/javascript" src="/Content/medg/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/content/libs/encoder/encoder.min.js"></script>
+    <script type="text/javascript">
+        function getUserData() {
+            $.ajax({
+                url: "/userdata",
+            })
+            .done(function (data, textStatus, jqXHR) {
+                console.log(data);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                //showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+            });
+        }
+        getUserData();
+    </script>
+</body>
+</html>

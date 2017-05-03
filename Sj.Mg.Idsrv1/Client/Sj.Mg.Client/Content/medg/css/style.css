@@ -6,7 +6,7 @@ html,body{
 	height: 100%;
 }
 body{
-	font-family: 'Scope One', serif;
+	font-family: 'Cabin', sans-serif;
 }
 .form-row {
     clear: both;
@@ -1028,7 +1028,7 @@ footer {
     height:25px;
     width:130px;
     font-size:13px;
-    font-family: 'Scope One', serif;
+    font-family: 'Cabin', sans-serif;
 }
 .providesAcc {
     text-align:center;
@@ -1155,7 +1155,7 @@ footer {
 	font-size: 15px;
 	line-height: 50px;
 	border: none;
-    font-family: 'Scope One', serif;
+    font-family: 'Cabin', sans-serif;
 	background: none !important;
 }
 .email::-webkit-input-placeholder,.psw::-webkit-input-placeholder {
@@ -2246,4 +2246,13 @@ footer {
 }
 .providerList li:first-child {
     border: none;
+}
+.titl-heading {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 15px;
+}
+header .container {
+    position: relative;
 }
