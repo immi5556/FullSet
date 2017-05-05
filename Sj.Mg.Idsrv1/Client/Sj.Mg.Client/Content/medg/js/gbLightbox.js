@@ -34,7 +34,6 @@
           currentElement = $(this).attr('data-id');
           curElemWid = $(currentElement).outerWidth();
           curElemHih = $(currentElement).outerHeight();
-          console.log($(curElemHih))
           openLightbox(this);
           responsive();
           $(shadowbx).fadeIn();

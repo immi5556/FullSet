@@ -511,6 +511,7 @@ header .right {
     margin-top: 6px;
     display: table;
     width: 100%;
+    box-sizing: border-box;
     border:3px solid #12214e;
 }
 .shareBtns > div {
@@ -520,7 +521,7 @@ header .right {
     display: table-cell;
     border: none;
     outline: none;
-    line-height: 20px;
+    line-height: 17px;
     height: 20px;
     text-align: center;
     cursor: pointer;
@@ -580,6 +581,7 @@ footer {
 	position: relative;
     line-height: 50px;
 	background: #12214e;
+    z-index:9;
 }
 .copyright {
     float: left;
@@ -1388,7 +1390,7 @@ footer {
 	border-radius: 40px;
 	cursor: pointer;
 	text-align: center;
-	line-height: 29px;
+	line-height: 26px;
 	text-decoration: none;
 	box-shadow: inset 0 0 5px rgba(85, 85, 85, 0.46); 
 }
@@ -2255,4 +2257,124 @@ footer {
 }
 header .container {
     position: relative;
+}
+#challengeQuestion .noAccess {
+    padding: 10px 0;
+}
+.questionForm {
+    text-align: center;
+}
+.questionForm h3 {
+    padding-bottom:10px;
+}
+.questionForm input[type="text"]{
+	display: inline-block;
+	width: 210px;
+	height: 37px;
+	line-height: 37px;
+	padding: 0 10px;
+	font-size: 13px;
+	border-radius: 4px;
+	color: #fff;
+	border: none;
+	outline: none;
+	background: #1e3665;
+}
+.questionForm input[type="button"] {
+	width: 100px;
+	height: 40px;
+	border: none;
+	cursor: pointer;
+	color: #ffffff;
+	margin-top: 12px;
+	border-radius: 6px;
+	font-size: 15px;
+	outline: none;
+	background: #ce2129;
+}
+ .questionForm span{
+    display: block;
+    color: red;
+    padding-top: 5px; 
+ }
+ .addSec {
+    position: absolute;
+    right: 0;
+    top: 75px;
+    z-index: 9;
+}
+.clsTab {
+    position: absolute;
+    right: -11px;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    color: #fff;
+    text-align: center;
+    line-height: 11px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 12px;
+    background: red;
+}
+.clsGrid {
+    position: absolute;
+    right: -6px;
+    top: -4px;
+    width: 12px;
+    height: 12px;
+    color: #fff;
+    text-align: center;
+    line-height: 10px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 12px;
+    background: red;
+}
+.addTab {
+    position: relative;
+    color: white;
+    display: inline-block;
+    height: 18px;
+    padding: 10px 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background: #12214e;
+}
+.addCatagory {
+    right: -31px;
+}
+.addCatagory .addTab {
+    transform: rotate(-90deg);
+}
+.addCatagory .tabInptRow {
+    left: -128px;
+}
+.tabInptRow.show {
+    display: block;
+}
+.tabInptRow {
+    position: absolute;
+    left: -159px;
+    top: 0;
+    width: 156px;
+    display: none;
+}
+.tabName {
+    width: 120px;
+    height: 36px;
+    background: #fff;
+    outline: none;
+    padding: 0 5px;
+    color: #333;
+    border: 1px solid #ccc;
+}
+.tabInptRow button {
+    width: 24px;
+    height: 37px;
+    text-align: center;
+    line-height: 36px;
+    border: none;
+    color: #fff;
+    background: #333;
 }

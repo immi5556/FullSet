@@ -5,6 +5,8 @@ using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.Default;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Sj.Mg.CliLib.Model;
 using Sj.Mg.Mongo;
 using Sj.Mg.Mongo.Data;
@@ -14,6 +16,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace Sj.Mg.Idsrv1.Custom
 {
@@ -154,7 +157,15 @@ namespace Sj.Mg.Idsrv1.Custom
             {
                 var newUser = GetUser(firstName, lastName, password, email, phoneNumber, provider, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7);
                 MongoManage.Insert<CustomUser>(newUser, "Users");
-                //Users.Add(newUser);
+                Dictionary<string, object> filter1 = new Dictionary<string, object>();
+                filter1.Add("Subject", email);
+                var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter1, "Users");
+                CustomUser user = (tt == null || tt.Count == 0) ? null : tt[0];
+                if(user != null)
+                {
+                    UserClientsList data = GetUserClients(user.Id, email);
+                    MongoManage.Insert<UserClientsList>(data, "UsersClientsData");
+                }
                 return "success";
             }
             else
@@ -224,6 +235,17 @@ namespace Sj.Mg.Idsrv1.Custom
                 }
              };
             return ab;
+        }
+
+        public UserClientsList GetUserClients(ObjectId id, string email)
+        {
+            string data = System.IO.File.ReadAllText(@"E:\Vamsi\Medgrotto\FullSet\Sj.Mg.Idsrv1\Sj.Mg.Idsrv1\Content\medg\js\tabsData.json");
+            var obj= JsonConvert.DeserializeObject<List<UserClientsData>>(data);
+            UserClientsList userClnts = new UserClientsList();
+            userClnts.userId = id.ToString();
+            userClnts.email = email;
+            userClnts.UserClientsData = obj;
+            return userClnts;
         }
     }
 }

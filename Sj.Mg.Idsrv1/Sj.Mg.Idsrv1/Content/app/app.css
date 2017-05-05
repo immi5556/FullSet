@@ -190,7 +190,7 @@ body {
 	max-width: 636px;
 	box-sizing: border-box;
 	border:5px solid #f1f1f1;
-	font-family: arial; 
+	font-family: 'Cabin', sans-serif;
 	transition: all 0.5s ease-in;
 	border-radius: 5px;
 	background: #fff;
@@ -261,7 +261,7 @@ body {
 	display: none;
 	box-sizing: border-box;
 	border:5px solid #585858;
-	font-family: 'Droid Serif', serif; 
+	font-family: 'Cabin', sans-serif;
 	transition: all 0.5s ease-in;
 	background: #fff;
 }

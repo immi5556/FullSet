@@ -48,9 +48,14 @@
             <div class="container">
                 <div class="contentLeft">
                     <div class="tabModule">
+                        <div class="addSec"><span class="tabInptRow"><input type="text" class="tabName" name="" autofocus="autofocus"><button class="enterTab">Go</button></span><span class="addTab">+</span></div>
                         <div class="tabSection"></div>
                     </div>
-                    <div class="tabModuleSelectData"></div>
+                    <div class="tabModuleSelectData">
+                        <div class="addSec addCatagory">
+                            <span class="tabInptRow"><input type="text" class="tabName" name="" autofocus="autofocus"><button class="createGrid">Go</button></span><span class="addTab">Add Catagory</span>
+                        </div>
+                    </div>
                     <div class="viewShareSection">
 					    <h2 class="sec-heading">Data Preview</h2>
 					    <div class="reportBlock">
@@ -392,8 +397,23 @@
             <div class="nocancel">No</div>
         </div>
   	</div>
+    <input type="button" class="click qustionPop" style="display:none;" value="popup" data-id="#challengeQuestion" />
+    <div class="lightbox lightbox-allowedUsr" id="challengeQuestion">
+        <div class="scrollSec">
+            <a href="#" class="closeIcon">X</a>
+             <h2>Challenge Question</h2>
+             <p class="noAccess"></p>
+             <div class="questionForm">
+                 <h3></h3>
+                  <input type="text" >
+                 <input type="button" value="Submit">
+                 <span></span>
+            </div>
+        </div>
+    </div>
     <div class="pageShadow1"></div>
     <div class="popupShadow"></div>
+    
     <script id='modelJson' type='application/json'>
         
     </script>

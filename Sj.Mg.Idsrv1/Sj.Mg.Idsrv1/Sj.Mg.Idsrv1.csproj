@@ -526,6 +526,7 @@
     <Content Include="Content\medg\fonts\nexa_bold-webfont.woff" />
     <Content Include="Content\medg\fonts\nexa_bold-webfont.woff2" />
     <Content Include="log4net.config" />
+    <Content Include="Content\medg\js\tabsData.json" />
     <None Include="Properties\PublishProfiles\wewe.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

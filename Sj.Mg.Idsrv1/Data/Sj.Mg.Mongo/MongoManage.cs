@@ -45,6 +45,17 @@ namespace Sj.Mg.Mongo
             var db = Data.BaseMongo.GetDatabase();
             return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => _.Subject.ToLower().Contains((srch ?? "").ToLower())).ToList();
         }
+        public static List<Sj.Mg.CliLib.Model.UserClientsList> SearchUserClients(string srch)
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            return db.GetCollection<Sj.Mg.CliLib.Model.UserClientsList>("UsersClientsData").Find(_ => _.email.ToLower().Contains((srch ?? "").ToLower())).ToList();
+        }
+        public static void UpdateUserClients(Sj.Mg.CliLib.Model.UserClientsList data)
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            var toins = db.GetCollection<Sj.Mg.CliLib.Model.UserClientsList>("UsersClientsData");
+            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.UserClientsList>(f => f.email == data.email, data);
+        }
         public static void ReplaceUser(Sj.Mg.CliLib.Model.CustomUser data)
         {
             var db = Data.BaseMongo.GetDatabase();

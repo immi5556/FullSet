@@ -6,7 +6,9 @@ var permission = (function () {
 	});*/
     var reqUser = "", reqUserScope = "", reqUserResource = "";
     var myData, profileData, provider = false;
-    var data, selectedUser, selectedUserRelation, activateClass = false;
+    var data, selectedUser, selectedUserRelation, activateClass = false, challengeQuestion = false;
+    var question = [], answer = [], selectedQuestion = -1;
+    var viewBtn;
 
     function showPopUp(content) {
         $(".popUpContent").html(content);
@@ -27,6 +29,75 @@ var permission = (function () {
     $('.registerMail .pageShadow,.notNow').on('click', function () {
         $('body').removeClass('registerMail');
     });
+    $(".questionForm input[type='button']").on("click", function () {
+        if (answer[selectedQuestion] == $(".questionForm input[type='text']").val()) {
+            challengeQuestion = true;
+            $(".closeIcon").click();
+            viewBtn.click();
+            $(".qustionPop").hide();
+            $("body").removeClass("loadingHome");
+        } else {
+            $("body").removeClass("loadingHome");
+            $(".questionForm span").text("Wrong Answer.");
+            $(".qustionPop").hide();
+        }
+    });
+    $(".popupShadow").on('click', function () {
+        $("body").removeClass("loadingHome");
+    });
+    $(document).on('click', ".closeIcon", function () {
+        $("body").removeClass("loadingHome");
+    });
+    function setChallengeQuestion(data) {
+        question = [], answer = [];
+        (data || []).forEach(function (itm, idx) {
+            if (itm["Identifier"] && itm["Identifier"].length) {
+                if (itm["Identifier"][0]["ValueElement"] && itm["Identifier"][0]["ValueElement"].Value == $(".usrEmail").text()) {
+                    if (itm["BirthDateElement"] && itm["BirthDateElement"].Value) {
+                        question.push("What is your Date Of Birth?");
+                        answer.push(itm["BirthDateElement"].Value);
+                    }
+                    if (itm["Telecom"] && itm["Telecom"].length) {
+                        itm["Telecom"].forEach(function (item, index) {
+                            if (item["RankElement"] && item["RankElement"].Value == 1) {
+                                question.push("What phone number have you used to register with "+selectedclient +"?");
+                                answer.push(item["ValueElement"].Value);
+                            }
+                        });
+                    }
+                    if (itm["Name"] && itm["Name"].length) {
+                        if (itm["Name"][0]["FamilyElement"] && itm["Name"][0]["FamilyElement"].length) {
+                            question.push("What is your last name?");
+                            answer.push(itm["Name"][0]["FamilyElement"][0].Value);
+                        }
+                    }
+                    if (itm["Address"] && itm["Address"] && itm["Address"] && itm["Address"].length) {
+                        if (itm["Address"][0]["StateElement"] && itm["Address"][0]["StateElement"].Value) {
+                            question.push("What state did you mention when registering with "+selectedclient +"?");
+                            answer.push(itm["Address"][0]["StateElement"].Value);
+                        } else if (itm["Address"][0]["CityElement"] && itm["Address"][0]["CityElement"].Value) {
+                            question.push("What city did you mention when registering with " + selectedclient + "?");
+                            answer.push(itm["Address"][0]["CityElement"].Value);
+                        }
+                    }
+                }
+            }
+        });
+        if (question.length) {
+            selectedQuestion = Math.floor(Math.random() * ((question.length-1) - 0)) + 0;
+            $(".qustionPop").show();
+            $(".qustionPop").click();
+            $("#challengeQuestion .noAccess").text("We want to verify that you are indeed " + $(".usrName").text());
+            $(".questionForm h3").text(question[selectedQuestion]);
+            $(".questionForm span").text("");
+        } else {
+            challengeQuestion = true;
+            $(".closeIcon").click();
+            viewBtn.click();
+            $(".qustionPop").hide();
+            $("body").removeClass("loadingHome");
+        }
+    }
 
     var populatePats = function (data, user) {
         (data || []).forEach(function (itm, idx) {
@@ -240,11 +311,9 @@ var permission = (function () {
         });
     });
 
-    $(".tabModule").myTabs({
-        mydata: '/content/medg/js/tabData.json',
-        tabNav: '.tabSection',
-        carousel: '.carouselModule'
-    });
+    
+
+    
 
 
 
@@ -310,7 +379,7 @@ var permission = (function () {
             $(".providerLabel").html("Viewing as <label class='labelText viewType'>Proxy</label>");
             $(".viewBlock").text("Users who have given me View Only access");
             $(".shareBlock").text("Users who have given me View & Share access");
-        } else if ($('.labelText').text().toLowerCase() == "my view") {
+        } else {
             setOwnData();
             $(".providerLabel").html("My View<label class='labelText viewType'></label>");
             $(".viewBlock").text("Users I have given View Only access");
@@ -592,6 +661,7 @@ var permission = (function () {
     }
 
     function setUIFunc() {
+        selectedUser = "";
         if ($(".viewSectionList li").length != 0) {
             $(".viewSectionList li").each(function (index, item) {
                 if (index == 0 && !$(".viewSectionList li:nth-child(1)").hasClass("listGrid")) {
@@ -627,7 +697,6 @@ var permission = (function () {
                                         resourceType = temp;
                                         selectedUser = user["user"];
                                         selectedUserRelation = user["relation"];
-                                        //$this.click();
                                     }
                                 });
                             }
@@ -641,7 +710,6 @@ var permission = (function () {
                                         resourceType = temp;
                                         selectedUser = user["user"];
                                         selectedUserRelation = user["relation"];
-                                        //$this.click();
                                     }
                                 });
                             }
@@ -654,7 +722,6 @@ var permission = (function () {
                                     resourceType = temp;
                                     selectedUser = user["user"];
                                     selectedUserRelation = user["relation"];
-                                    //$this.click();
                                 });
                             }
                         }
@@ -669,11 +736,15 @@ var permission = (function () {
                 $(".listGridUL li").removeClass("active");
                 activateClass = true;
             }
-            
-            $(".btn-view").hide();
+            if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
+                $(".btn-view").show();
+                $(".shareBtns").show();
+            } else {
+                $(".btn-view").hide();
+                $(".shareBtns").hide();
+            }
             $(".btn-share").hide();
             $(".btn-request").hide();
-            $(".shareBtns").hide();
         } else {
             $(".listGridUL li").each(function (index, item) {
                 var $this = $(this);
@@ -682,6 +753,13 @@ var permission = (function () {
                 $this.find(".btn-share").hide();
                 $this.find(".btn-request").hide();
                 $this.find(".shareBtns").hide();
+                if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
+                    $this.find(".btn-view").show();
+                    $this.find(".shareBtns").show();
+                } else {
+                    $this.find(".btn-view").hide();
+                    $this.find(".shareBtns").hide();
+                }
                 if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy") {
                     if (data && data.AllowedUsers && data.AllowedUsers[selectedclient] && data.AllowedUsers[selectedclient][$this.find(".gridTitle").text()]) {
                         for (var scopeKeys in data.AllowedUsers[selectedclient][$this.find(".gridTitle").text()]) {
@@ -706,6 +784,7 @@ var permission = (function () {
                             $this.find(".shareBtns").show();
                         } else {
                             $this.find(".btn-request").text("Share");
+                            $this.find(".btn-request").css({color: "#fff",background:"#12214e"});
                             $this.find(".shareBtns").show();
                         }
                     }
@@ -715,12 +794,6 @@ var permission = (function () {
                         for (var scopeKeys in data.MyDetailsSharedWith[selectedclient][$this.find(".gridTitle").text()]) {
                             (data.MyDetailsSharedWith[selectedclient][$this.find(".gridTitle").text()][scopeKeys] || []).forEach(function (user) {
                                 if (user["user"] == selectedUser) {
-                                    //if (scopeKeys == "Read") {
-                                    //    $this.find(".btn-view").show();
-                                    //} else {
-                                    //    $this.find(".btn-view").show();
-                                    //    $this.find(".btn-share").show();
-                                    //}
                                     userExist = true;
                                 }
                             });
@@ -733,6 +806,7 @@ var permission = (function () {
                             $this.find(".shareBtns").show();
                         } else {
                             $this.find(".btn-request").text("Share");
+                            $this.find(".btn-request").css({ color: "#fff" , background: "#12214e" });
                             $this.find(".shareBtns").show();
                         }
                     } else {
@@ -1132,49 +1206,55 @@ var permission = (function () {
 
     function libtns() {
         $(".btn-view").on("click", function () {
+            viewBtn = $(this);
             $("body").addClass("loadingHome");
-            $(".listGridUL li").removeClass("active");
-            $(this).closest("li").addClass("active");
-            $(".listGridUL li").each(function () {
+            if (challengeQuestion) {
+                $(".popupShadow").hide();
+                $(".listGridUL li").removeClass("active");
+                $(this).closest("li").addClass("active");
+                $(".listGridUL li").each(function () {
+                    var imgPath = $(this).closest("li").find("img").attr("src");
+
+                    if (imgPath.substring((imgPath.length - 10), (imgPath.length - 4)) == "Active") {
+                        console.log(imgPath.substring(0, (imgPath.length - 10)) + imgPath.substring((imgPath.length - 10), (imgPath.length)));
+                        $(this).closest("li").find("img").attr("src", imgPath.substring(0, (imgPath.length - 10)) + imgPath.substring((imgPath.length - 4), (imgPath.length)));
+                    }
+                });
                 var imgPath = $(this).closest("li").find("img").attr("src");
-                
-                if (imgPath.substring((imgPath.length - 10), (imgPath.length - 4)) == "Active") {
-                    console.log(imgPath.substring(0, (imgPath.length - 10)) + imgPath.substring((imgPath.length - 10), (imgPath.length)));
-                    $(this).closest("li").find("img").attr("src", imgPath.substring(0, (imgPath.length - 10))+imgPath.substring((imgPath.length - 4), (imgPath.length)));
+                $(this).closest("li").find("img").attr("src", imgPath.substring(0, (imgPath.length - 4)) + "Active" + imgPath.substring((imgPath.length - 4), imgPath.length));
+                var resor = $(this).closest("li").find(".gridTitle").text();
+                var scope = ($(this).closest("li").find(".btn-share").is(":visible") ? "Share" : "View");
+                if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
+                    var sdata = {
+                        client: selectedclient,
+                        resource: resor,
+                        email: $(".usrEmail").text(),
+                        scope: "Share"
+                    };
+                } else {
+                    var sdata = {
+                        client: selectedclient,
+                        resource: resor,
+                        email: selectedUser,
+                        scope: scope
+                    };
                 }
-            });
-            var imgPath = $(this).closest("li").find("img").attr("src");
-            $(this).closest("li").find("img").attr("src", imgPath.substring(0, (imgPath.length - 4)) + "Active" + imgPath.substring((imgPath.length - 4), imgPath.length));
-            var resor = $(this).closest("li").find(".gridTitle").text();
-            var scope = ($(this).closest("li").find(".btn-share").is(":visible") ? "Share" : "View");
-            if ($('.providerLabel').text().toLowerCase() == "my view") {
-                var sdata = {
-                    client: selectedclient,
-                    resource: resor,
-                    email: $(".usrEmail").text(),
-                    scope: "Share"
-                };
+                $.ajax({
+                    url: "/home/ReqData",
+                    type: "POST",
+                    data: sdata
+                })
+                .done(function (data, textStatus, jqXHR) {
+                    populateData(data, sdata);
+                    $("body").removeClass("loadingHome");
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    $("body").removeClass("loadingHome");
+                    showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+                });
             } else {
-                var sdata = {
-                    client: selectedclient,
-                    resource: resor,
-                    email: selectedUser,
-                    scope: scope
-                };
+                getDemographicData();
             }
-            $.ajax({
-                url: "/home/ReqData",
-                type: "POST",
-                data: sdata
-            })
-            .done(function (data, textStatus, jqXHR) {
-                populateData(data, sdata);
-                $("body").removeClass("loadingHome");
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                $("body").removeClass("loadingHome");
-                showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-            });
             return false;
         });
 
@@ -1230,7 +1310,6 @@ var permission = (function () {
             url: "/userdata",
         })
         .done(function (data, textStatus, jqXHR) {
-            console.log(data);
             if (data.length) {
                 if (data[0] && data[0].IsProvider) {
                     provider = data[0].IsProvider;
@@ -1246,7 +1325,60 @@ var permission = (function () {
             showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     }
+    function getUserClients() {
+        var sdata = {
+            email: $(".usrEmail").text()
+        };
+        $.ajax({
+            url: "/home/GetUserClientsData",
+            type: "POST",
+            data: sdata
+        })
+        .done(function (data, textStatus, jqXHR) {
+            if (data) {
+                $(".tabModule").myTabs({
+                    mydata: data,
+                    tabNav: '.tabSection',
+                    carousel: '.carouselModule'
+                });
+            } else {
+                $(".tabModule").myTabs({
+                    mydata: 'tabData.json',
+                    tabNav: '.tabSection',
+                    carousel: '.carouselModule'
+                });
+            }
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+        });
+    }
+
     getUserData();
+    getUserClients();
+    
+    function getDemographicData() {
+        console.log(selectedclient);
+        var sdata = {
+            client: selectedclient,
+            resource: "Demographic",
+            email: $(".usrEmail").text(),
+            scope: "Share"
+        };
+
+        $.ajax({
+            url: "/home/ReqData",
+            type: "POST",
+            data: sdata
+        })
+        .done(function (data, textStatus, jqXHR) {
+            setChallengeQuestion(JSON.parse(data));
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            challengeQuestion = true;
+        });
+    }
+
     return {
         loaddata: loadData,
         loadperm: loadPermission,

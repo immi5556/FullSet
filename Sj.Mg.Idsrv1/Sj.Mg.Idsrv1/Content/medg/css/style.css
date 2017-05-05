@@ -143,7 +143,6 @@ header {
 	clear: both;
 }
 .sec-heading {
-	/*font-family: 'nexa_boldregular';*/
 	font-size: 16px;
 	line-height: 35px;
 	padding: 0 15px;
@@ -188,7 +187,6 @@ header {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	color: #fff;
-	/*font-family: 'nexa_boldregular';*/
 	font-size: 13px;
 	text-align: center;
 	margin: -6px 0 0 0;
@@ -270,7 +268,6 @@ header {
 	width: 18px;
 	height: 18px;
 	border-radius: 40px;
-	/*font-family: 'nexa_boldregular';*/
 	text-align: center;
 	line-height: 18px;
 	color: #fff;
@@ -289,7 +286,6 @@ header {
 	color: #13224f;
 	font-size: 14px;
 	box-sizing: border-box;
-	/*font-family: arial;*/
 	font-weight: 700;
 	border: none;
     border-radius:3px;
@@ -341,7 +337,6 @@ header {
 	text-align: center;
 	padding: 0 58px 0 30px;
 	margin-left: 11px;
-	/*font-family: 'nexa_boldregular';*/
 	line-height: 38px;
 	text-decoration: none;
 	background: url(../images/menuNormalRight1.png) no-repeat right top;
@@ -376,7 +371,6 @@ background: url(../images/menuActiveLeft1.png) no-repeat left top;
 	display: block;
 	line-height: 27px;
 	color: #fff;
-	/*font-family: 'nexa_boldregular';*/
 	font-size: 13px;
 	font-weight: 400;
 }
@@ -561,7 +555,6 @@ footer {
 .tabContSec {
 	display: none;
 	clear: both;
-	/*font-family: arial;*/
 	padding: 20px 0 0 0;
 	border: 1px solid #ddd;
 }
@@ -844,7 +837,6 @@ footer {
 	position: relative;
 	color: #102649;
 	font-size: 13px;
-	/*font-family: arial;*/
 	padding-left: 19px;
 }
 .reChk {
@@ -881,7 +873,6 @@ footer {
 	float: right;
     font-size: 13px;
     margin: 0 108px 0 0;
-    /*font-family: arial;*/
     text-decoration: none;
     color: #102649;
 }
@@ -934,7 +925,6 @@ footer {
 	width: 30px;
 	height: 30px;
 	font-size: 12px;
-	/*font-family: 'nexa_boldregular';*/
 	text-align: center;
 	line-height: 30px;
 	color: #fff;
@@ -1012,7 +1002,6 @@ footer {
 	color: #fff;
 	font-size: 13px;
 	clear: both;
-	/*font-family: 'nexa_boldregular';*/
 }
 .Error {
 	position: absolute;
@@ -1028,7 +1017,6 @@ footer {
 	line-height: 22px;
 	font-size: 12px;
 	margin-top: -6px;
-	/*font-family: arial;*/
 	background: #dee2e9;
 }
 .Error::before{
@@ -1049,7 +1037,6 @@ footer {
     white-space: nowrap;
     color: #fff;
     font-size: 14px;
-    /*font-family: arial;*/
     border-radius: 4px;
     padding: 10px;
     background: #c52d26;
@@ -1086,7 +1073,6 @@ footer {
 	display: none;
 	box-sizing: border-box;
 	border:5px solid #585858;
-	/*font-family: 'Droid Serif', serif;*/ 
 	transition: all 0.5s ease-in;
 	background: #fff;
 }
@@ -1170,7 +1156,6 @@ footer {
 	color: #ce2129;
 	font-size: 16px;
 	line-height: 37px;
-	/*font-family: 'nexa_boldregular';*/
 }
 .emailVal {
     display: inline-block;
@@ -1241,7 +1226,6 @@ footer {
 	color: #ffffff;
 	margin-top: 12px;
     /*margin-left: 120px;*/
-	/*font-family: 'nexa_boldregular';*/
 	border-radius: 6px;
 	font-size: 15px;
 	outline: none;
@@ -1258,7 +1242,6 @@ footer {
 	text-align: center;
 	font-size: 18px;
 	line-height: 30px;
-	/*font-family: 'nexa_boldregular';*/
 }
 .buttonsRow {
 	clear: both;
@@ -1283,7 +1266,6 @@ footer {
 	color: #fff;
 	font-size: 13px;
 	cursor: pointer;
-	/*font-family: 'nexa_boldregular';*/
 	border-radius: 4px;
 	border: none;
 	margin: 0 10px;
@@ -1303,7 +1285,6 @@ footer {
     overflow: hidden;
 }
 .logoutScrn {
-    /*font-family: 'nexa_boldregular';*/
     padding: 0 25px;
 }
 
@@ -1406,7 +1387,6 @@ footer {
 	max-width: 636px;
 	box-sizing: border-box;
 	border:5px solid #f1f1f1;
-	/*font-family: arial;*/ 
 	transition: all 0.5s ease-in;
 	border-radius: 5px;
 	background: #fff;
@@ -1519,7 +1499,6 @@ footer {
   font-size: 12px;
   line-height: normal;
   text-align: center;
-  /*font-family: 'nexa_boldregular';*/
   color: #fff;
 }
 .prevBtn,.nextBtn {
@@ -1558,7 +1537,6 @@ footer {
 	color: #12214e;
 	font-size: 17px;
 	line-height: 35px;
-	/*font-family: arial;*/
 	font-weight: 700;
 	display: block;
 	text-align: right;
@@ -1574,7 +1552,6 @@ footer {
 	box-sizing: border-box;
 	border-radius: 4px;
 	border:1px solid #12214e;
-	/*font-family: arial;*/
 	background: #f2f2f2;
 }
 .btnHome {

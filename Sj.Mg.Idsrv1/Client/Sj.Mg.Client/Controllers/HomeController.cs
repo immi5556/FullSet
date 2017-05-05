@@ -170,6 +170,15 @@ namespace Sj.Mg.Client.Controllers
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
 
+        //[Authorize]
+        //[Route("userClientsData")]
+        //public JsonResult GetUserClientData()
+        //{
+        //    List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(User.Identity.Name);
+
+        //    return Json(gg, JsonRequestBehavior.AllowGet);
+        //}
+
         [Authorize]
         [Route("user/{id}")]
         public JsonResult SearchUser(string id)
@@ -699,6 +708,26 @@ namespace Sj.Mg.Client.Controllers
                 return Json(obs, JsonRequestBehavior.AllowGet);
             }
             return Json("No Access Provided", JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult GetUserClientsData(string email)
+        {
+            List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(email);
+
+            return Json(gg, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult UpdateUserClientsData(UserClientsList data)
+        {
+            List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(data.email);
+            gg[0].UserClientsData = data.UserClientsData;
+            Sj.Mg.Mongo.MongoManage.UpdateUserClients(gg[0]);
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
