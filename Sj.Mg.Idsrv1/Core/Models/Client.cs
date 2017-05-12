@@ -24,6 +24,10 @@ namespace IdentityServer3.Core.Models
     /// </summary>
     public class Client
     {
+        [MongoDB.Bson.Serialization.Attributes.BsonId]
+        [Newtonsoft.Json.JsonIgnore]
+        [MongoDB.Bson.Serialization.Attributes.BsonElement("id")]
+        public MongoDB.Bson.ObjectId Id { get; set; }
         /// <summary>
         /// Specifies if client is enabled (defaults to true)
         /// </summary>

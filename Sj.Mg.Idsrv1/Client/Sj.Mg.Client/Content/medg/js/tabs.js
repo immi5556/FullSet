@@ -16,21 +16,24 @@ $(document).on("click", ".subLi", function () {
 		var defaults = {
 		    mydata: '/content/medg/js/tabData.json',
 			tabNav:'.tabSection',
-			carousel:'.carouselModule'
+			carousel: '.carouselModule',
+            clients: []
 		},
 		set = $.extend({},defaults,opt);
 
 		return this.each(function(){
-			var $this = $(this),
+		    var $this = $(this),
 				tabMenu = $('<ul class="tabMenu"></ul>'),
 				subUl = $('<ul class="subUl"></ul>'),
-				temp='',
+				temp = '',
 				mytabData,
 				tabMenuSection = $this.find(set.tabNav),
                 listGridUL = $('<ul class="listGridUL"></ul>'),
+                clientsName = [],
                 carasoulData;
 			this.selectedTab;
 			this.selectedTabSub;
+
 			$('.tabModuleSelectData').append(listGridUL);
 			var tabData = [
                               {
@@ -135,8 +138,10 @@ $(document).on("click", ".subLi", function () {
                                   ]
                               }
 			            ];
-
-			
+			set.clients.forEach(function (item, index) {
+			    if (item && item.ClientName)
+			        clientsName.push(item.ClientName);
+			});
 			if (set.mydata.length && set.mydata[0].email) {
 			    templateDesign(set.mydata[0].UserClientsData);
 			} else {
@@ -180,27 +185,29 @@ $(document).on("click", ".subLi", function () {
                               $('.subLi').removeClass('active');
                               openDropList(this);
                               selectedTab = $(this).text();
+                              $(".addCatagory").hide();
                               if (permission && permission.clearData())
                                 permission.clearData();
                           }
-                          
                       });
                   };
                   addTabfn(mydatas);
                   tabGridData(mydatas[0].Clients[0].UserScopes);
                   
                   for(var x=0; x < subDropItems.length; x++ ){
-                      $(subDropItems[x]).on('click',function(){
+                      $(subDropItems[x]).on('click', function () {
+                          $(".addCatagory").show();
                           var num = 0;
                           var thisVal = $(this).find('strong').text();
                           selectedTabSub = thisVal;
                           selectedclient = thisVal;
-                          if (selectedclient == "Relief Express") {
-                              selectedclient = "ReliefExpress";
-                          }
-                          else if (selectedclient == "Neuro Care Partners") {
-                              selectedclient = "NeuroCarePartners";
-                          }
+                          //if (selectedclient == "Relief Express") {
+                          //    selectedclient = "ReliefExpress";
+                          //}
+                          //else if (selectedclient == "Neuro Care Partners") {
+                          //    selectedclient = "NeuroCarePartners";
+                          //}
+                          selectedclient.replace(" ", "");
                           var thisParentVal = $(this).closest('.listItem').find('a').text();
                           $('.subLi').removeClass('active');
                           $(this).addClass('active');
@@ -212,65 +219,21 @@ $(document).on("click", ".subLi", function () {
                                       if(thisVal == vals ){
                                           num++;
                                           tabGridData(mydatas[y].Clients[z].UserScopes);
-                                  	    return false;
+                                  	       
                                       }
                                   }
                           	}
                           }
+                          gridListDropDown(mydatas);
                           if (permission && permission.clearData())
                               permission.clearData();
-                          
+                          return false;
                       });
                   };
-                  
-                  function tabGridData(myCarouselData) {
-                      $(listGridUL).html('');
-                      for (var i = 0; i < myCarouselData.length; i++) {
-                          var list = $('<li data-defaultImg="' + myCarouselData[i].icon + '"><small class="clsGrid">x</small><div class="gridImgSec"><span class="gridTitle">' + myCarouselData[i].scopeName + '</span><img data-active="' + myCarouselData[i].activeIcon + '" src="' + myCarouselData[i].icon + '"></div><div class="shareBtns" style="display:none"><div><span style="display:none" class="btn btn-share">Share</span><span style="display:none" class="btn btn-view" >View</span><span style="display:none" class="btn btn-request">Request</span></div></div></li>');
-                          listGridUL.append(list);
-                      };
-                      var listItems = $(listGridUL).find('li');
-                      for (var x = 0; x < listItems.length; x++) {
-                          $(listItems[x]).on('click', function () {
-                              if (!$(this).hasClass("active")) {
-                                    $(listItems).removeClass('active');
-                                    for (var y = 0; y < listItems.length; y++) {
-                                        var defaultIcon = $(listItems[y]).attr('data-defaultImg');
-                                        $(listItems[y]).find('img').attr('src', defaultIcon);
-                                    }
-                                    $(this).addClass('active');
-                                    var activeIcon = $(this).find('img').attr('data-active');
-                                    $(this).find('img').attr('src', activeIcon);
 
-                                    selectedresource = $(this).find(".gridTitle").text();
-                                    if (selectedresource == "Diagnosis") {
-                                        selectedresource = "Diagnostics";
-                                    }
-                                    permission.loaddata();
-                              }
-                          });
-                      }
-                      if (permission && permission.loaddata())
-                          listItems[0].click();
-                  }
-
-                  closeTabs(mydatas);
-                  closeGrids(mydatas);
-                  function addTabfn(mytabData) {
-                      $('.addSec').on('click', function (e) {
-                          e.stopPropagation();
-                      });
-                      $('.addTab').on('click', function () {
-
-                          if (!$('.tabInptRow').is(':visible')) {
-                              $(this).closest('.addSec').find('.tabInptRow').addClass('show');
-                          } else {
-                              $('.tabInptRow').removeClass('show');
-                          }
-                      });
-                      var tabField = $('.tabName');
-                      $('.enterTab').on('click', function () {
-                          var fieldVal = $(tabField).val();
+                  function createNewTab(listItems, mytabData) {
+                      $(listItems).on('click', function () {
+                          var fieldVal = $(this).text();
                           if (fieldVal == '' || fieldVal == ' ' || fieldVal === undefined)
                               return alert('Please add Text Empty Tab Not Allowed');
                           if (mytabData.join().toLowerCase().indexOf(fieldVal.toLowerCase()) !== -1)
@@ -278,15 +241,19 @@ $(document).on("click", ".subLi", function () {
 
                           var obj = {
                               "clientName": fieldVal,
-                              "UserScopes": [
-                                      {
+                              "UserScopes": []
+                          };
+                          set.clients.forEach(function (item, index) {
+                              if (item.ClientName == fieldVal) {
+                                  item.AllowedScopes.forEach(function (scopesItem, scopesIndex) {
+                                      obj.UserScopes.push({
                                           "icon": "/content/medg/images/serIcon1.png",
                                           "activeIcon": "/content/medg/images/serIcon1Active.png",
-                                          "scopeName": "Demographic"
-                                      }
-                              ]
-                          };
-
+                                          "scopeName": scopesItem
+                                      });
+                                  });
+                              }
+                          });
                           mytabData.forEach(function (item, ind) {
                               if (item.clientTypeName == selectedTab) {
                                   item.Clients.push(obj);
@@ -323,16 +290,87 @@ $(document).on("click", ".subLi", function () {
                                   closeGrids(mytabData);
                               }
                           })
-                          $(tabField).val('');
+                          //$(tabField).val('');
                           closeTabs(mytabData);
-
+                          tabListDropDown(mytabData);
                       });
+                  }
 
-                      closeGrids(mytabData);
+			      //TabListDropDown 
+                  function tabListDropDown(mytabData) {
+                      var newdata = [];
+                      var dropListTempArray = [];
+                      var dropListTemp = '';
+                      var clients = clientsName;
+                      var listLength = $('.subUl').find('li');
+                      for (var x = 0; x < listLength.length; x++) {
+                          dropListTempArray.push($(listLength[x]).find('strong').text());
+                      }
+                      dropListTemp += '<ul class="tabListItems" id="tabListItems">';
+                      for (var z = 0; z < clients.length; z++) {
+                          if (dropListTempArray.indexOf(clients[z]) !== -1) {
+                          } else {
+                              newdata.push(clients[z]);
+                          }
+                      };
+                      for (var i = 0; i < newdata.length; i++) {
+                          dropListTemp += '<li>' + newdata[i] + '</li>';
+                      };
+                      dropListTemp += '</ul>'
 
-                      $('.createGrid').on('click', function () {
+                      if (newdata.length > 0) {
+                          $('#tabListDropDown').html(dropListTemp);
+                      } else {
+                          $('#tabListDropDown').html("<span>No items</span>");
+                      }
+
+                      var listItems = $('#tabListItems').find('li');
+                      createNewTab(listItems, mytabData);
+                  };
+
+			      //TabListDropDown 
+                  function gridListDropDown(mytabData) {
+                      var newdata = [];
+                      var dropListTempArray = [];
+                      var dropListTemp = '';
+                      var scopeNames = [];
+                      set.clients.forEach(function (item, index) {
+                          if (item.ClientName == selectedTabSub) {
+                              scopeNames = item.AllowedScopes;
+                          }
+                      });
+                      var clients = scopeNames;
+                      var listLength = $('.listGridUL').find('li');
+                      for (var x = 0; x < listLength.length; x++) {
+                          dropListTempArray.push($(listLength[x]).find('.gridTitle').text());
+                      }
+                      dropListTemp += '<ul class="tabListItems" id="gridListItems">';
+                      for (var z = 0; z < clients.length; z++) {
+                          if (dropListTempArray.indexOf(clients[z]) !== -1) {
+                          } else {
+                              newdata.push(clients[z]);
+                          }
+                      };
+                      for (var i = 0; i < newdata.length; i++) {
+                          dropListTemp += '<li>' + newdata[i] + '</li>';
+                      };
+                      dropListTemp += '</ul>'
+
+                      if (newdata.length > 0) {
+                          $('#gridListDropDown').html(dropListTemp);
+                      } else {
+                          $('#gridListDropDown').html("<span>No items</span>");
+                      }
+
+                      var listItems = $('#gridListItems').find('li');
+                      createNewGrid(listItems, mytabData);
+                      return false;
+                  };
+
+                  function createNewGrid(listItems, mytabData) {
+                      $(listItems).on('click', function () {
                           if (selectedTabSub) {
-                              var fieldVal = $(tabField[1]).val();
+                              var fieldVal = $(this).text();
                               if (fieldVal == '' || fieldVal == ' ' || fieldVal === undefined)
                                   return alert('Please add Text Empty Tab Not Allowed');
                               if (mytabData.join().toLowerCase().indexOf(fieldVal.toLowerCase()) !== -1)
@@ -369,15 +407,139 @@ $(document).on("click", ".subLi", function () {
                                       });
                                   }
                               });
+                              gridListDropDown(mytabData);
                               closeGrids(mytabData);
-                              $(tabField).val('');
                               $('.tabInptRow').removeClass('show');
                           } else {
                               alert("No client selected");
                           }
                       });
+                      return false;
+                  }
+
+			      //close Tab
+                  function closeTabs(mytabData) {
+                      $('.clsTab').on('click', function () {
+                          $(this).closest('li').remove();
+                          var indVal = $(this).closest('li').find('strong').text();
+                          if ($(this).closest('li').hasClass("active")) {
+                              $(".listGridUL li").remove();
+                              selectedTabSub = "";
+                          }
+                          if (mytabData.join().toLocaleLowerCase().indexOf(indVal.toLocaleLowerCase() == -1)) {
+                              for (var y = 0; y < mytabData.length; y++) {
+                                  if (selectedTab == mytabData[y].clientTypeName) {
+                                      for (var z = 0; z < mytabData[y].Clients.length; z++) {
+                                          var vals = mytabData[y].Clients[z].clientName;
+
+                                          if (indVal == vals) {
+                                              mytabData[y].Clients.splice(z, 1);
+                                              if (set.mydata.length && set.mydata[0].email) {
+                                                  set.mydata[0].UserClientsData = mytabData;
+                                                  updateDB(set.mydata);
+                                              }
+                                              tabListDropDown(mytabData);
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                          $('.tabInptRow').removeClass('show');
+                      })
+                  };
+
+                  function closeGrids(mytabData) {
+                      $('.clsGrid').on('click', function () {
+                          $(this).closest('li').remove();
+                          var indVal = $(this).closest('li').find('.gridImgSec').find('span').text();
+
+                          for (var y = 0; y < mytabData.length; y++) {
+                              if (selectedTab == mytabData[y].clientTypeName) {
+                                  for (var z = 0; z < mytabData[y].Clients.length; z++) {
+                                      var vals = mytabData[y].Clients[z].clientName;
+
+                                      if (selectedTabSub == vals) {
+                                          if (mytabData[y].Clients[z].UserScopes.join().toLocaleLowerCase().indexOf(indVal.toLocaleLowerCase() == -1)) {
+                                              for (var i = 0; i < mytabData[y].Clients[z].UserScopes.length; i++) {
+                                                  if (mytabData[y].Clients[z].UserScopes[i].scopeName === indVal) {
+                                                      mytabData[y].Clients[z].UserScopes.splice(i, 1);
+                                                      if (set.mydata.length && set.mydata[0].email) {
+                                                          set.mydata[0].UserClientsData = mytabData;
+                                                          updateDB(set.mydata);
+                                                      }
+                                                  }
+                                              };
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                          $('.tabInptRow').removeClass('show');
+                          gridListDropDown(mytabData);
+                      })
+                  };
+
+                  function openDropList(_this) {
+                      var dropUl = $(_this).closest('li').find('.subUl');
+                      $(_this).closest('li').addClass('active');
+                      dropUl.addClass('active');
 
                   };
+                  
+                  function tabGridData(myCarouselData) {
+                      $(listGridUL).html('');
+                      for (var i = 0; i < myCarouselData.length; i++) {
+                          var list = $('<li data-defaultImg="' + myCarouselData[i].icon + '"><small class="clsGrid">x</small><div class="gridImgSec"><span class="gridTitle">' + myCarouselData[i].scopeName + '</span><img data-active="' + myCarouselData[i].activeIcon + '" src="' + myCarouselData[i].icon + '"></div><div class="shareBtns" style="display:none"><div><span style="display:none" class="btn btn-share">Share</span><span style="display:none" class="btn btn-view" >View</span><span style="display:none" class="btn btn-request">Request</span></div></div></li>');
+                          listGridUL.append(list);
+                      };
+                      var listItems = $(listGridUL).find('li');
+                      for (var x = 0; x < listItems.length; x++) {
+                          $(listItems[x]).on('click', function () {
+                              if (!$(this).hasClass("active")) {
+                                    $(listItems).removeClass('active');
+                                    for (var y = 0; y < listItems.length; y++) {
+                                        var defaultIcon = $(listItems[y]).attr('data-defaultImg');
+                                        $(listItems[y]).find('img').attr('src', defaultIcon);
+                                    }
+                                    $(this).addClass('active');
+                                    var activeIcon = $(this).find('img').attr('data-active');
+                                    $(this).find('img').attr('src', activeIcon);
+
+                                    selectedresource = $(this).find(".gridTitle").text();
+                                    if (selectedresource == "Diagnosis") {
+                                        selectedresource = "Diagnostics";
+                                    }
+                                    permission.loaddata();
+                              }
+                          });
+                          secHeight();
+                          closeGrids(mydatas);
+                      }
+                      gridListDropDown(mydatas);
+                      if (permission && permission.loaddata())
+                          listItems[0].click();
+                  }
+
+                  closeTabs(mydatas);
+                  closeGrids(mydatas);
+                  function addTabfn(mytabData) {
+                      $('.addSec').on('click', function (e) {
+                          e.stopPropagation();
+                      });
+                      $('.addTab').on('click', function () {
+
+                          if (!$('.tabInptRow').is(':visible')) {
+                              $(this).closest('.addSec').find('.tabInptRow').addClass('show');
+                          } else {
+                              $('.tabInptRow').removeClass('show');
+                          }
+                      });
+                      closeGrids(mytabData);
+                      tabListDropDown(mytabData);
+                      gridListDropDown(mytabData);
+                  };
+
+			      
 
                   var updateDB = function (data) {
                         $.ajax({
@@ -402,100 +564,17 @@ $(document).on("click", ".subLi", function () {
                       return;
                   }
 
+                  function secHeight() {
+                      var Wh = $(window).height() - 170;
+                      $('.contentRight').height(Wh);
+                      var Hh = (Wh - 115) / 2;
+                      $('.tabModuleSelectData').height(Hh);
+                      $('.reportBlock').height(Hh - 40);
+                      $('.listGridUL').height(Hh - 15);
+                  };
 			  }
 
 		});
-        
-	    //close Tab
-		function closeTabs(mytabData) {
-		    $('.clsTab').on('click', function () {
-		        $(this).closest('li').remove();
-		        var indVal = $(this).closest('li').find('strong').text();
-		        if ($(this).closest('li').hasClass("active")) {
-		            $(".listGridUL li").remove();
-		            selectedTabSub = "";
-		        }
-		        if (mytabData.join().toLocaleLowerCase().indexOf(indVal.toLocaleLowerCase() == -1)) {
-		            for (var y = 0; y < mytabData.length; y++) {
-		                if (selectedTab == mytabData[y].clientTypeName) {
-		                    for (var z = 0; z < mytabData[y].Clients.length; z++) {
-		                        var vals = mytabData[y].Clients[z].clientName;
-
-		                        if (indVal == vals) {
-		                            mytabData[y].Clients.splice(z, 1);
-		                            if (set.mydata.length && set.mydata[0].email) {
-		                                set.mydata[0].UserClientsData = mytabData;
-		                                updateDB(set.mydata);
-		                            }
-		                        }
-		                    }
-		                }
-		            }
-		        }
-		    })
-		};
-
-		function closeGrids(mytabData) {
-		    $('.clsGrid').on('click', function () {
-		        $(this).closest('li').remove();
-		        var indVal = $(this).closest('li').find('.gridImgSec').find('span').text();
-
-		        for (var y = 0; y < mytabData.length; y++) {
-		            if (selectedTab == mytabData[y].clientTypeName) {
-		                for (var z = 0; z < mytabData[y].Clients.length; z++) {
-		                    var vals = mytabData[y].Clients[z].clientName;
-
-		                    if (selectedTabSub == vals) {
-		                        if (mytabData[y].Clients[z].UserScopes.join().toLocaleLowerCase().indexOf(indVal.toLocaleLowerCase() == -1)) {
-		                            for (var i = 0; i < mytabData[y].Clients[z].UserScopes.length; i++) {
-		                                if (mytabData[y].Clients[z].UserScopes[i].scopeName === indVal) {
-		                                    mytabData[y].Clients[z].UserScopes.splice(i, 1);
-		                                    if (set.mydata.length && set.mydata[0].email) {
-		                                        set.mydata[0].UserClientsData = mytabData;
-		                                        updateDB(set.mydata);
-		                                    }
-		                                }
-		                            };
-		                        }
-		                    }
-		                }
-		            }
-		        }
-		        
-
-		    })
-		};
-
-        function openDropList(_this){
-            var dropUl = $(_this).closest('li').find('.subUl');
-            $(_this).closest('li').addClass('active');
-            dropUl.addClass('active');
-           
-        };
-
-        function updateDB(data) {
-            $.ajax({
-                url: "/home/UpdateUserClientsData",
-                type: "POST",
-                data: data[0]
-            })
-            .done(function (data, textStatus, jqXHR) {
-                //console.log(data);
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-            });
-        }
-
-        function showPopUp(content) {
-            $(".popUpContent").html(content);
-            $('body').addClass('registerMail');
-            $('.popUp').on('click', function (e) {
-                e.stopPropagation();
-            });
-            return;
-        }
-
 	}
 
 })(jQuery)

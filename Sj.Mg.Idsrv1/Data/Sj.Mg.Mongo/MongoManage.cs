@@ -40,6 +40,12 @@ namespace Sj.Mg.Mongo
             return db.GetCollection<Sj.Mg.CliLib.Model.permission>(tbl).Find(_ => _.Id == new ObjectId(_id)).ToList();
         }
 
+        public static List<IdentityServer3.Core.Models.Client> SelectClients(string tbl)
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            return db.GetCollection<IdentityServer3.Core.Models.Client>(tbl).Find(ClientId => true).ToList();
+        }
+
         public static List<Sj.Mg.CliLib.Model.CustomUser> SearchUser(string srch)
         {
             var db = Data.BaseMongo.GetDatabase();

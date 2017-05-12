@@ -8,7 +8,7 @@ var permission = (function () {
     var myData, profileData, provider = false;
     var data, selectedUser, selectedUserRelation, activateClass = false, challengeQuestion = false;
     var question = [], answer = [], selectedQuestion = -1;
-    var viewBtn;
+    var viewBtn, clients, userClients = [];
 
     function showPopUp(content) {
         $(".popUpContent").html(content);
@@ -310,12 +310,6 @@ var permission = (function () {
             showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     });
-
-    
-
-    
-
-
 
     $(window).resize(function () {
         secHeight()
@@ -1295,7 +1289,6 @@ var permission = (function () {
             if (data.length) {
                 myData = data[0];
                 loadData();
-                //loadPermission();
             } else {
                 myData = [];
                 loadData();
@@ -1307,7 +1300,8 @@ var permission = (function () {
     }
     function getUserData() {
         $.ajax({
-            url: "/userdata",
+            url: "/home/GetUserData",
+            type: "POST"
         })
         .done(function (data, textStatus, jqXHR) {
             if (data.length) {
@@ -1320,11 +1314,58 @@ var permission = (function () {
                 }
                 getData();
             }
+            getUserClients();
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     }
+
+    function getClients() {
+        $.ajax({
+            url: "/home/GetClients",
+            type: "POST"
+        })
+        .done(function (data, textStatus, jqXHR) {
+            if (data.length > 0) {
+                clients = data;
+            }
+            if (userClients.length > 0) {
+                $(".tabModule").myTabs({
+                    mydata: userClients,
+                    tabNav: '.tabSection',
+                    carousel: '.carouselModule',
+                    clients: clients
+                });
+            } else {
+                $(".tabModule").myTabs({
+                    mydata: 'tabData.json',
+                    tabNav: '.tabSection',
+                    carousel: '.carouselModule',
+                    clients: clients
+                });
+            }
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+        });
+        //$.ajax({
+        //    url: idsvPath+"Service/GetClients",
+        //    type: "post",
+        //    success: function (d) {
+        //        clients = d;
+        //        d.forEach(function (item, index) {
+        //            console.log(item);
+        //            //if (item.AllowAccessToAllScopes) {
+        //            //    $(".clientsTable tbody").append("<tr><td style='cursor: pointer;'><a onclick='editClient(" + index + ")'>" + item.ClientId + "</a></td><td>" + item.ClientName + "</td><td>" + scopesValues.join(", ") + "</td></tr>");
+        //            //} else {
+        //            //    $(".clientsTable tbody").append("<tr><td style='cursor: pointer;'><a onclick='editClient(" + index + ")'>" + item.ClientId + "</a></td><td>" + item.ClientName + "</td><td>" + item.AllowedScopes.join(", ") + "</td></tr>");
+        //            //}
+        //        });
+        //    }
+        //});
+    };
+
     function getUserClients() {
         var sdata = {
             email: $(".usrEmail").text()
@@ -1335,19 +1376,8 @@ var permission = (function () {
             data: sdata
         })
         .done(function (data, textStatus, jqXHR) {
-            if (data) {
-                $(".tabModule").myTabs({
-                    mydata: data,
-                    tabNav: '.tabSection',
-                    carousel: '.carouselModule'
-                });
-            } else {
-                $(".tabModule").myTabs({
-                    mydata: 'tabData.json',
-                    tabNav: '.tabSection',
-                    carousel: '.carouselModule'
-                });
-            }
+            userClients = data;
+            getClients();
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
@@ -1355,10 +1385,8 @@ var permission = (function () {
     }
 
     getUserData();
-    getUserClients();
     
     function getDemographicData() {
-        console.log(selectedclient);
         var sdata = {
             client: selectedclient,
             resource: "Demographic",

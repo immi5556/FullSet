@@ -385,6 +385,10 @@
     <Content Include="Views\Home\UserData.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{fb9e026e-bab3-498a-a954-b93b05c146a5}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\Sj.Mg.Mongo\Sj.Mg.Mongo.csproj">
       <Project>{69a5f51d-fefe-4216-b8ed-8f656fbb8375}</Project>
       <Name>Sj.Mg.Mongo</Name>

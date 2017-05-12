@@ -14,6 +14,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http.Cors;
 using System.Web.Mvc;
+using Sj.Mg.Mongo.Data;
+using IdentityServer3.Core.Models;
+using MongoDB.Driver;
+using Sj.Mg.Mongo;
 
 namespace Sj.Mg.Client.Controllers
 {
@@ -21,6 +25,7 @@ namespace Sj.Mg.Client.Controllers
     public class HomeController : CliLib.Security.UmaController
     {
         log4net.ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
+
         [Authorize]
         public async Task<ActionResult> Index()
         {
@@ -162,7 +167,7 @@ namespace Sj.Mg.Client.Controllers
         }
 
         [Authorize]
-        [Route("userdata")]
+        [HttpPost]
         public JsonResult GetUserData()
         {
             List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(User.Identity.Name);
@@ -170,14 +175,13 @@ namespace Sj.Mg.Client.Controllers
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
 
-        //[Authorize]
-        //[Route("userClientsData")]
-        //public JsonResult GetUserClientData()
-        //{
-        //    List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(User.Identity.Name);
-
-        //    return Json(gg, JsonRequestBehavior.AllowGet);
-        //}
+        [Authorize]
+        [HttpPost]
+        public JsonResult GetClients()
+        {
+            var _lstclients = MongoManage.SelectClients("Clients");
+            return Json(_lstclients, JsonRequestBehavior.AllowGet);
+        }
 
         [Authorize]
         [Route("user/{id}")]
@@ -738,6 +742,7 @@ namespace Sj.Mg.Client.Controllers
             var acct = Execute(CliLib.Utils.Common.ReApiAccount + id, basetkn);
             return Json(acct, JsonRequestBehavior.AllowGet);
         }
+
         string ExecuteProc(string url, string basetkn)
         {
             string result = "";

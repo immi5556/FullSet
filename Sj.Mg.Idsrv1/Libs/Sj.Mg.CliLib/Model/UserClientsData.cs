@@ -20,10 +20,10 @@ namespace Sj.Mg.CliLib.Model
     public class UserClientsData
     {
         public string clientTypeName { get; set; }
-        public List<Clients> Clients { get; set; }
+        public List<Client> Clients { get; set; }
     }
 
-    public class Clients
+    public class Client
     {
         public string clientName { get; set; }
         public List<UserScopes> UserScopes { get; set; }

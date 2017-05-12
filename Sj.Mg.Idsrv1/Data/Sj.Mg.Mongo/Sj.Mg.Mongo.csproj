@@ -73,6 +73,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{fb9e026e-bab3-498a-a954-b93b05c146a5}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libs\Sj.Mg.CliLib\Sj.Mg.CliLib.csproj">
       <Project>{eb2046aa-3456-453a-bd0d-811f6497b867}</Project>
       <Name>Sj.Mg.CliLib</Name>
