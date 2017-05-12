@@ -11,17 +11,17 @@ namespace Test.Mongo
 {
     public class program
     {
-        public static void Main()
-        {
-            //Insert();
-            //SelectDict();
-            //SelectFilt();
-            //Update();
-            PopulateUsers();
-            //PopulateResource();
-            PopulateAddlUsers();
-            Console.ReadKey();
-        }
+        //public static void Main()
+        //{
+        //    //Insert();
+        //    //SelectDict();
+        //    //SelectFilt();
+        //    //Update();
+        //    PopulateUsers();
+        //    //PopulateResource();
+        //    PopulateAddlUsers();
+        //    Console.ReadKey();
+        //}
         static void SelectFilt()
         {
             var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(GetCustomer(), "Users");

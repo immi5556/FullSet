@@ -43,17 +43,17 @@ namespace Fhir.Client
             //InsertPats();
             //GetPats();
             //InsertDiagn();
-            //InsertPat();
+            InsertPat();
             //SearchPats();
 
-            //InsObs();
+            InsObs();
             //GetObs();
 
             //InsMds(); 
-            GetMds();
+            //GetMds();
 
             //InsAct();
-
+            Console.WriteLine("Completed...");
             Console.ReadKey();
         }
         static void InsAct()
@@ -146,7 +146,7 @@ namespace Fhir.Client
         }
         static void InsertPat()
         {
-            string data = System.IO.File.ReadAllText(@"E:\Vamsi\Medgrotto\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Patient_Sample1.json");
+            string data = System.IO.File.ReadAllText(@"D:\Immi\Projects\HeartWG\Openid\openid_dotnet\git_src\FullSet\Sj.Mg.Idsrv1\Test\Fhir.Client\Data\Patient_Sample.json");
             var pt = (Patient)FhirParser.ParseFromJson(data);
             var client = new FhirClient(endpoint);
             (new List<string>()
