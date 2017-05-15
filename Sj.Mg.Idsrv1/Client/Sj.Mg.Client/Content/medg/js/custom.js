@@ -47,6 +47,7 @@ var permission = (function () {
     });
     $(document).on('click', ".closeIcon", function () {
         $("body").removeClass("loadingHome");
+        $(".qustionPop").hide();
     });
     function setChallengeQuestion(data) {
         question = [], answer = [];
@@ -1412,6 +1413,7 @@ var permission = (function () {
             setChallengeQuestion(JSON.parse(data));
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
+            $(".qustionPop").hide();
             showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     }
