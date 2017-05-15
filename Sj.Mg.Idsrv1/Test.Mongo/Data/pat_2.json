@@ -1,0 +1,42 @@
+[
+  {
+    "email": "mgemailb76@medgrotto.com",
+    "departmentid": "164",
+    "homephone": "4844844848",
+    "portalaccessgiven": false,
+    "driverslicense": false,
+    "address2": "Mgadd2ca0",
+    "zip": "75023",
+    "guarantoraddresssameaspatient": false,
+    "portaltermsonfile": false,
+    "status": "active",
+    "lastname": "Zztest",
+    "city": "MGCITYH2K",
+    "privacyinformationverified": false,
+    "primarydepartmentid": "164",
+    "balances": [
+      {
+        "balance": 0,
+        "departmentlist": "62,142,164",
+        "providergroupid": 2,
+        "cleanbalance": true
+      }
+    ],
+    "emailexists": true,
+    "patientphoto": false,
+    "mobilephone": "4844844848",
+    "hasmobile": true,
+    "registrationdate": "05/12/2017",
+    "firstname": "Mgfnpia",
+    "guarantorcountrycode": "USA",
+    "state": "TX",
+    "patientid": "29493",
+    "dob": "11/11/1979",
+    "guarantorrelationshiptopatient": "1",
+    "address1": "Mgadd18mp",
+    "countrycode": "USA",
+    "consenttotext": false,
+    "countrycode3166": "US",
+    "guarantorcountrycode3166": "US"
+  }
+]

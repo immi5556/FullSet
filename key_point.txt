@@ -1,0 +1,11 @@
+https://developer.athenahealth.com/docs - 
+	un / pw: immi / July03)#
+
+Preview API 1
+	Key: cezsucv9zy2k3uu464qmkf4z
+	Application: mg
+	Key: cezsucv9zy2k3uu464qmkf4z
+	Secret: bHZfSdakTnCNmVH
+
+
+https://api.athenahealth.com/preview1/195900/appointments/1/notes
