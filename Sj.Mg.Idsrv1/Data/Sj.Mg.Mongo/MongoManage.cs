@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using IdentityServer3.Core.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
@@ -87,6 +88,14 @@ namespace Sj.Mg.Mongo
             var toins = db.GetCollection<Sj.Mg.CliLib.Model.RequestPerm>("ReqPerms");
             toins.FindOneAndReplace<Sj.Mg.CliLib.Model.RequestPerm>(f => f.MyEmail == data.MyEmail, data);
         }
+
+        public static void ReplaceClient(Client data)
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            var toins = db.GetCollection<Client>("Clients");
+            toins.FindOneAndReplace<Client>(f => f.ClientId == data.ClientId, data);
+        }
+
         public static void ReplaceUserByUserName(Sj.Mg.CliLib.Model.CustomUser data)
         {
             var db = Data.BaseMongo.GetDatabase();

@@ -189,7 +189,7 @@ namespace Sj.Mg.Idsrv1.Config
 
         public string addNewClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
-            var newClient = GetClient(clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
+            var newClient = GetClient("", clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
             _lstclients.Add(newClient);
             MongoManage.Insert<Client>(newClient, "Clients");
             return "Success";
@@ -197,24 +197,21 @@ namespace Sj.Mg.Idsrv1.Config
 
         public string updateClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
-            var newClient = GetClient(clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
+            var newClient = GetClient("", clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
             
             var i = 0;
             foreach (var document in _lstclients)
             {
                 if (document.ClientId == clientId)
                 {
+                    newClient.Id = _lstclients[i].Id;
                     _lstclients[i] = newClient;
                     break;
                 }
                 i++;
             }
-            var database = BaseMongo.GetDatabase();
-            var collection = database.GetCollection<BsonDocument>("Clients");
 
-            var filter = Builders<BsonDocument>.Filter.Eq("ClientId", clientId);
-
-            collection.ReplaceOneAsync(filter, newClient.ToBsonDocument());
+            Mongo.MongoManage.ReplaceClient(newClient);
 
             return "success";
         }
@@ -230,14 +227,14 @@ namespace Sj.Mg.Idsrv1.Config
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        var newScope = GetClient(document["ClientId"].ToString(), document["ClientName"].ToString(), document["Flow"].ToString(), document["AllowedScopes"].AsBsonArray.ToArray(), document["RedirectUris"].ToString(), document["PostLogoutRedirectUris"].ToString(), document["IncludeJwtId"].ToBoolean(), document["AllowRememberConsent"].ToBoolean(), document["AllowAccessToAllScopes"].ToBoolean(), document["Enabled"].ToBoolean());
+                        var newScope = GetClient(document["_id"].ToString(), document["ClientId"].ToString(), document["ClientName"].ToString(), document["Flow"].ToString(), document["AllowedScopes"].AsBsonArray.ToArray(), document["RedirectUris"].ToString(), document["PostLogoutRedirectUris"].ToString(), document["IncludeJwtId"].ToBoolean(), document["AllowRememberConsent"].ToBoolean(), document["AllowAccessToAllScopes"].ToBoolean(), document["Enabled"].ToBoolean());
                         _lstclients.Add(newScope);
                     }
                 }
             }
         }
 
-        static Client GetClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
+        static Client GetClient(string id, string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
             List<string> scopes = new List<string>();
             foreach (var document in allowedScopes)
@@ -246,6 +243,7 @@ namespace Sj.Mg.Idsrv1.Config
             }
             return new Client
             {
+                Id = ((id.Length > 0) ? ObjectId.Parse(id) : new ObjectId()),
                 Enabled = enable,
                 ClientId = clientId,
                 ClientName = clientName,

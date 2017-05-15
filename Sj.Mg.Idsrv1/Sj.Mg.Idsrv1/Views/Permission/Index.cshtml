@@ -230,6 +230,7 @@
         $('form').removeAttr('action');
         $('form').removeAttr('action');
         var clients, scopes, scopesValues = [], currentClientIndex = -1;
+        var allowedScopes = [];
 
         function clearScopeFields() {
             $('.name').val(""),
@@ -453,7 +454,7 @@
         };
 
         function clientData() {
-            var allowedScopes = [];
+            allowedScopes = [];
             $("input:checkbox[name=clientScopeValue]:checked").each(function () {
                 allowedScopes.push($(this).val());
             });
@@ -481,7 +482,8 @@
                 type: "post",
                 data: formData,
                 success: function (d) {
-                    if (d == "success") {
+                    if (d == "Success") {
+                        $(".clientErrorMessage").html("Successfully Inserted.");
                         clients.push({
                             'ClientId': $('.clientId').val(),
                             'ClientName': $('.clientName').val(),
@@ -498,7 +500,6 @@
                         } else {
                             $(".clientsTable tbody").append("<tr><td>" + $('.clientId').val() + "</td><td>" + $('.clientName').val() + "</td><td>" + allowedScopes.join(", ") + "</td></tr>");
                         }
-                        $(".clientErrorMessage").html("Successfully Inserted.");
                     } else {
                         $(".clientErrorMessage").html("Error occured try again.");
                         $(".clientErrorMessage").css("color", "red");
