@@ -2311,6 +2311,7 @@ header .container {
      z-index:8;
  }
 .clsTab {
+    display:none;
     position: absolute;
     right: -11px;
     top: 0;
@@ -2325,6 +2326,7 @@ header .container {
     background: red;
 }
 .clsGrid {
+    display:none;
     position: absolute;
     right: -6px;
     top: -4px;
@@ -2338,38 +2340,71 @@ header .container {
     font-size: 12px;
     background: red;
 }
+.showCloseTabs .clsGrid,.showCloseTabs .clsTab {
+    display:block;
+    
+}
 .addTab {
     position: relative;
     color: white;
     display: inline-block;
-    height: 18px;
+    height: 40px;
+    width:40px;
+    line-height:20px;
+    box-sizing:border-box;
+    font-size:30px;
+    text-align:center;
     padding: 10px 5px;
     cursor: pointer;
     text-decoration: none;
-    background: #12214e;
+    background: #1e3665;
 }
-.addCatagory {
-    /*right: -31px;*/
+.showClsTab {
+    position: relative;
+    color: white;
+    display: inline-block;
+    height: 40px;
+    width:40px;
+    line-height:20px;
+    box-sizing:border-box;
+    font-size:30px;
+    text-align:center;
+    padding: 10px 5px;
+    cursor: pointer;
+    margin-right:5px;
+    text-decoration: none;
+    background: #ce2129;   
 }
-.addCatagory .addTab {
-    /*transform: rotate(-90deg);*/
+.addTab,.showClsTab {
+    font-weight: 700;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; 
+     -khtml-user-select: none; 
+       -moz-user-select: none;
+        -ms-user-select: none; 
+            user-select: none; 
+}
+
+.showClsTab.active,.addTab.active {
+    box-shadow:inset 0 0 0 3px #fff;
 }
 .addCatagory .tabInptRow {
-    /*left: -128px;*/
+    left: -156px;
 }
 .tabInptRow.show {
     display: block;
 }
 .tabInptRow {
     position: absolute;
-    left: -159px;
+    left: -114px;
     top: 0;
     width: 156px;
     display: none;
+    z-index:9;
 }
 .tabName {
     width: 100%;
-    height: 36px;
+    height: 40px;
     background: #fff;
     outline: none;
     padding: 0 5px;

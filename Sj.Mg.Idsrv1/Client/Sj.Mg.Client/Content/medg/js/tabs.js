@@ -207,7 +207,7 @@ $(document).on("click", ".subLi", function () {
                           //else if (selectedclient == "Neuro Care Partners") {
                           //    selectedclient = "NeuroCarePartners";
                           //}
-                          selectedclient.replace(" ", "");
+                          selectedclient = selectedclient.replace(" ", "");
                           var thisParentVal = $(this).closest('.listItem').find('a').text();
                           $('.subLi').removeClass('active');
                           $(this).addClass('active');
@@ -246,9 +246,26 @@ $(document).on("click", ".subLi", function () {
                           set.clients.forEach(function (item, index) {
                               if (item.ClientName == fieldVal) {
                                   item.AllowedScopes.forEach(function (scopesItem, scopesIndex) {
+                                      var imgPath = "", imgPathActive = "";
+                                      if (scopesItem.toLocaleLowerCase().indexOf("demographic") > -1) {
+                                          imgPath = "/content/medg/images/serIcon1.png";
+                                          imgPathActive = "/content/medg/images/serIcon1Active.png";
+                                      } else if (scopesItem.toLocaleLowerCase().indexOf("diagnostics") > -1) {
+                                          imgPath = "/content/medg/images/serIcon2.png";
+                                          imgPathActive = "/content/medg/images/serIcon2Active.png";
+                                      } else if (scopesItem.toLocaleLowerCase().indexOf("medication") > -1) {
+                                          imgPath = "/content/medg/images/serIcon3.png";
+                                          imgPathActive = "/content/medg/images/serIcon3Active.png";
+                                      } else if (scopesItem.toLocaleLowerCase().indexOf("observation") > -1) {
+                                          imgPath = "/content/medg/images/serIcon4.png";
+                                          imgPathActive = "/content/medg/images/serIcon4Active.png";
+                                      } else {
+                                          imgPath = "/content/medg/images/serIcon1.png";
+                                          imgPathActive = "/content/medg/images/serIcon1Active.png";
+                                      }
                                       obj.UserScopes.push({
-                                          "icon": "/content/medg/images/serIcon1.png",
-                                          "activeIcon": "/content/medg/images/serIcon1Active.png",
+                                          "icon": imgPath,
+                                          "activeIcon": imgPathActive,
                                           "scopeName": scopesItem
                                       });
                                   });
@@ -265,6 +282,7 @@ $(document).on("click", ".subLi", function () {
                           });
 
                           $('.tabInptRow').removeClass('show');
+                          $('.addTab').removeClass('active');
                           var subUL = $('.subUl.active');
                           var newLI = $('<li class="subLi"><small class="clsTab">x</small><strong>' + fieldVal + '</strong></li>');
                           $(subUL).append(newLI);
@@ -410,6 +428,7 @@ $(document).on("click", ".subLi", function () {
                               gridListDropDown(mytabData);
                               closeGrids(mytabData);
                               $('.tabInptRow').removeClass('show');
+                              $('.addTab').removeClass('active');
                           } else {
                               alert("No client selected");
                           }
@@ -445,6 +464,7 @@ $(document).on("click", ".subLi", function () {
                               }
                           }
                           $('.tabInptRow').removeClass('show');
+                          $('.addTab').removeClass('active');
                       })
                   };
 
@@ -475,6 +495,7 @@ $(document).on("click", ".subLi", function () {
                               }
                           }
                           $('.tabInptRow').removeClass('show');
+                          $('.addTab').removeClass('active');
                           gridListDropDown(mytabData);
                       })
                   };
@@ -530,8 +551,10 @@ $(document).on("click", ".subLi", function () {
 
                           if (!$('.tabInptRow').is(':visible')) {
                               $(this).closest('.addSec').find('.tabInptRow').addClass('show');
+                              $(this).closest('.addTab').addClass('active');
                           } else {
                               $('.tabInptRow').removeClass('show');
+                              $('.addTab').removeClass('active');
                           }
                       });
                       closeGrids(mytabData);

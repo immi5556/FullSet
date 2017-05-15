@@ -319,6 +319,11 @@ var permission = (function () {
 
     secHeight();
 
+    $('.showClsTab').on('click', function () {
+        $('body').toggleClass('showCloseTabs');
+        $(this).toggleClass('active');
+    });
+
     function secHeight() {
         var Wh = $(window).height() - 170;
         $('.contentRight').height(Wh);
@@ -362,6 +367,8 @@ var permission = (function () {
         $('.providerList').slideUp();
         $('.labelText').text($(this).text());
         clearData();
+        $(".addTab").hide();
+        $(".showClsTab").hide();
         if ($('.labelText').text().toLowerCase() == "provider") {
             setProviderData();
             $(".providerLabel").html("Viewing as <label class='labelText viewType'>Provider</label>");
@@ -374,6 +381,8 @@ var permission = (function () {
             $(".viewBlock").text("Users who have given me View Only access");
             $(".shareBlock").text("Users who have given me View & Share access");
         } else {
+            $(".addTab").show();
+            $(".showClsTab").show();
             setOwnData();
             $(".providerLabel").html("My View<label class='labelText viewType'></label>");
             $(".viewBlock").text("Users I have given View Only access");
@@ -1403,7 +1412,7 @@ var permission = (function () {
             setChallengeQuestion(JSON.parse(data));
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
-            challengeQuestion = true;
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     }
 
