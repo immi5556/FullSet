@@ -800,7 +800,12 @@ namespace Sj.Mg.Client.Controllers
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-
+                    Console.WriteLine("");
+                }
+                else
+                {
+                    var responseContent = response.Content;
+                    result = responseContent.ReadAsStringAsync().Result;
                 }
             }
             log.Info("Data Recieved" + result);

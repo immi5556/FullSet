@@ -12,7 +12,7 @@ namespace Sj.Mg.CliLib.Utils
         /// <summary>
         /// Localhost
         /// </summary>
-        public const string ReAethenaApi = "https://localhost:58964/";
+        public const string ReAethenaApi = "https://localhost:44384/";
         public const string ReApi = "https://localhost:44306/";
         public const string ReApiStsCallback = "https://localhost:44306/home/stscallback";
         public const string ReClientMvc = "https://localhost:44383/";

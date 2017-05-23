@@ -1246,7 +1246,7 @@ var permission = (function () {
     //});
 
     function libtns() {
-        $(".btn-view").on("click", function () {
+        $(".btn-view").off("click").on("click", function () {
             $(document).click();
             
             viewBtn = $(this);
