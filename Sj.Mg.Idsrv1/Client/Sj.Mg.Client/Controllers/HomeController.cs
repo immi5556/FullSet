@@ -691,6 +691,10 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult ReqData(Sj.Mg.CliLib.Model.Params.ReqParam para)
         {
             var basetkn = GetEmptyRptToken();
+            if (para.client == "")
+            {
+
+            }
             if (para.resource == "Demographic")
             {
                 var pats = Execute(CliLib.Utils.Common.ReApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);

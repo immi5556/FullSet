@@ -76,6 +76,24 @@ namespace Sj.Mg.Idsrv1.Config
                 },
                 new Client
                 {
+                     ClientId = "Athena-RS",
+                     ClientName = "Athena - Resource Server Api (Authorization Code)",
+                     //Flow = Flows.ClientCredentials,
+                     Flow = Flows.Hybrid,
+                     AllowAccessToAllScopes = true,
+                    RedirectUris = new List<string>
+                    {
+                        CliLib.Utils.Common.ReAethenaApi
+                    },           
+
+                    // client secret
+                    ClientSecrets = new List<Secret>()
+                    {
+                        new Secret(CliLib.Utils.Common.ClientSecret.Sha256())
+                    }
+                },
+                new Client
+                {
                     ClientId = "mvc.owin.hybrid",
                     ClientName = "Mvc Sample Client",
                     Flow = Flows.Hybrid,
