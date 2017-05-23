@@ -30,18 +30,18 @@ namespace Sj.Mg.Idsrv1.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
+        public ActionResult AddClient(string clientId, string clientName, string flow, string clientType, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
             Clients ab = new Clients();
-            string result = ab.addNewClient(clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
+            string result = ab.addNewClient(clientId, clientName, flow, clientType, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
             return Json(result);
         }
 
         [HttpPost]
-        public ActionResult UpdateClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
+        public ActionResult UpdateClient(string clientId, string clientName, string flow, string clientType, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
             Clients ab = new Clients();
-            string result = ab.updateClient(clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
+            string result = ab.updateClient(clientId, clientName, flow, clientType, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
             return Json(result);
         }
 

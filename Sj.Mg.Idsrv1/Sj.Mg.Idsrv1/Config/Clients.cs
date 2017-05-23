@@ -205,17 +205,17 @@ namespace Sj.Mg.Idsrv1.Config
             return nc;
         }
 
-        public string addNewClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
+        public string addNewClient(string clientId, string clientName, string flow, string clientType, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
-            var newClient = GetClient("", clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
+            var newClient = GetClient("", clientId, clientName, flow, clientType, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
             _lstclients.Add(newClient);
             MongoManage.Insert<Client>(newClient, "Clients");
             return "Success";
         }
 
-        public string updateClient(string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
+        public string updateClient(string clientId, string clientName, string flow, string clientType, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
-            var newClient = GetClient("", clientId, clientName, flow, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
+            var newClient = GetClient("", clientId, clientName, flow, clientType, allowedScopes, redirectUris, postLogoutRedirectUris, includeJwtId, allowRememberConsent, allowAccessToAllScopes, enable);
             
             var i = 0;
             foreach (var document in _lstclients)
@@ -245,14 +245,15 @@ namespace Sj.Mg.Idsrv1.Config
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        var newScope = GetClient(document["_id"].ToString(), document["ClientId"].ToString(), document["ClientName"].ToString(), document["Flow"].ToString(), document["AllowedScopes"].AsBsonArray.ToArray(), document["RedirectUris"].ToString(), document["PostLogoutRedirectUris"].ToString(), document["IncludeJwtId"].ToBoolean(), document["AllowRememberConsent"].ToBoolean(), document["AllowAccessToAllScopes"].ToBoolean(), document["Enabled"].ToBoolean());
+                        string clientType = document.Contains("ClientType") ? document["ClientType"].ToString() : "";
+                        var newScope = GetClient(document["_id"].ToString(), document["ClientId"].ToString(), document["ClientName"].ToString(), document["Flow"].ToString(), clientType, document["AllowedScopes"].AsBsonArray.ToArray(), document["RedirectUris"].ToString(), document["PostLogoutRedirectUris"].ToString(), document["IncludeJwtId"].ToBoolean(), document["AllowRememberConsent"].ToBoolean(), document["AllowAccessToAllScopes"].ToBoolean(), document["Enabled"].ToBoolean());
                         _lstclients.Add(newScope);
                     }
                 }
             }
         }
 
-        static Client GetClient(string id, string clientId, string clientName, string flow, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
+        static Client GetClient(string id, string clientId, string clientName, string flow, string clientType, Array allowedScopes, string redirectUris, string postLogoutRedirectUris, bool includeJwtId, bool allowRememberConsent, bool allowAccessToAllScopes, bool enable)
         {
             List<string> scopes = new List<string>();
             foreach (var document in allowedScopes)
@@ -265,6 +266,7 @@ namespace Sj.Mg.Idsrv1.Config
                 Enabled = enable,
                 ClientId = clientId,
                 ClientName = clientName,
+                ClientType = clientType,
                 Flow = (flow == "AuthorizationCode" ? Flows.AuthorizationCode : (flow == "Implicit" ? Flows.Implicit : (flow == "Hybrid" ? Flows.Hybrid : (flow == "ClientCredentials" ? Flows.ClientCredentials : (flow == "ResourceOwner" ? Flows.ResourceOwner : (flow == "Custom" ? Flows.Custom : (flow == "AuthorizationCodeWithProofKey" ? Flows.AuthorizationCodeWithProofKey : Flows.HybridWithProofKey))))))),
                 AllowAccessToAllScopes = allowAccessToAllScopes,
                 AllowedScopes = scopes,

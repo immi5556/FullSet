@@ -73,6 +73,8 @@ namespace IdentityServer3.Core.Models
         /// </summary>
         public Flows Flow { get; set; }
 
+        public string ClientType { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether this client is allowed to request token using client credentials only.
         /// This is e.g. useful when you want a client to be able to use both a user-centric flow like implicit and additionally client credentials flow

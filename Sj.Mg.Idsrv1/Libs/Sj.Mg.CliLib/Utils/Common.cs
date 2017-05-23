@@ -38,6 +38,8 @@ namespace Sj.Mg.CliLib.Utils
         public const string ReApiPatient = ReApi + "Api/Patient/";
         public const string ReApiMedication = ReApi + "Api/Medication/";
 
+        public const string ReAhApiPatient = ReAethenaApi + "Api/Patient/";
+
         public const string ClientSecret = "myrandomclientsecret";
 
         public const string StsIntrospectionEndPoint = Sts + "/connect/introspect";

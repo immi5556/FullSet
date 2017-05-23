@@ -18,6 +18,7 @@ using Sj.Mg.Mongo.Data;
 using IdentityServer3.Core.Models;
 using MongoDB.Driver;
 using Sj.Mg.Mongo;
+using System.Diagnostics;
 
 namespace Sj.Mg.Client.Controllers
 {
@@ -691,30 +692,36 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult ReqData(Sj.Mg.CliLib.Model.Params.ReqParam para)
         {
             var basetkn = GetEmptyRptToken();
-            if (para.client == "")
+            if (para.client == "Athena" || para.client == "Athena- Resource Server Api (Authorization Code)")
             {
-
+                if (para.resource == "Demographic")
+                {
+                    var pats = Execute(CliLib.Utils.Common.ReAhApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                    return Json(pats, JsonRequestBehavior.AllowGet);
+                }
+            }else {
+                if (para.resource == "Demographic")
+                {
+                    var pats = Execute(CliLib.Utils.Common.ReApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                    return Json(pats, JsonRequestBehavior.AllowGet);
+                }
+                if (para.resource == "Diagnostics")
+                {
+                    var acts = Execute(CliLib.Utils.Common.ReApiAccount + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                    return Json(acts, JsonRequestBehavior.AllowGet);
+                }
+                if (para.resource == "Medication")
+                {
+                    var meds = Execute(CliLib.Utils.Common.ReApiMedication + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                    return Json(meds, JsonRequestBehavior.AllowGet);
+                }
+                if (para.resource == "Observation")
+                {
+                    var obs = Execute(CliLib.Utils.Common.ReApiObservation + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                    return Json(obs, JsonRequestBehavior.AllowGet);
+                }
             }
-            if (para.resource == "Demographic")
-            {
-                var pats = Execute(CliLib.Utils.Common.ReApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
-                return Json(pats, JsonRequestBehavior.AllowGet);
-            }
-            if (para.resource == "Diagnostics")
-            {
-                var acts = Execute(CliLib.Utils.Common.ReApiAccount + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
-                return Json(acts, JsonRequestBehavior.AllowGet);
-            }
-            if (para.resource == "Medication")
-            {
-                var meds = Execute(CliLib.Utils.Common.ReApiMedication + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
-                return Json(meds, JsonRequestBehavior.AllowGet);
-            }
-            if (para.resource == "Observation")
-            {
-                var obs = Execute(CliLib.Utils.Common.ReApiObservation + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
-                return Json(obs, JsonRequestBehavior.AllowGet);
-            }
+            
             return Json("No Access Provided", JsonRequestBehavior.AllowGet);
         }
 

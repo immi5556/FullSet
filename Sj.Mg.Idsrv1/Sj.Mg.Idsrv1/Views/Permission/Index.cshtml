@@ -168,6 +168,14 @@
                                 <input type="text" class="form-control clientName">
                             </div>
                             <div class="form-group">
+                                <label for="usr">Client Type:</label>
+                                <select class="form-control clientType">
+                                    <option value="Select">Select</option>
+                                    <option value="Providers">Providers</option>
+                                    <option value="SmartApps">Smart Apps</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="usr">Flows:</label>
                                 <select class="form-control flow">
                                     <option value="Select">Select</option>
@@ -254,7 +262,8 @@
         function clearClientFields() {
             $('.clientId').val(""),
             $('.clientName').val(""),
-            $('.flow').val("Select"),
+            $('.flow').val("Select"), 
+            $('.clientType').val("Select"),
             $('.redirectUris').val(""),
             $('.postLogoutRedirectUris').val(""),
             $('.includeJwtId').val("Select"),
@@ -414,6 +423,7 @@
                     clients[index].ClientId = $('.clientId').val(),
                     clients[index].ClientName = $('.clientName').val(),
                     clients[index].Flow = ($('.flow').val() == 1 ? "Implicit" : (clients[index].Flow == 2 ? "Hybrid" : (clients[index].Flow == 3 ? "ClientCredentials" : (clients[index].Flow == 4 ? "ResourceOwner" : (clients[index].Flow == 5 ? "Custom" : (clients[index].Flow == 6 ? "AuthorizationCodeWithProofKey" : (clients[index].Flow == 7 ? "HybridWithProofKey" : "AuthorizationCode"))))))),
+                    clients[index].ClientType = $('.clientType').val();
                     clients[index].RedirectUris = $('.redirectUris').val(),
                     clients[index].PostLogoutRedirectUris = $('.postLogoutRedirectUris').val(),
                     clients[index].IncludeJwtId = $('.includeJwtId').val() == "True" ? true : false,
@@ -438,6 +448,7 @@
             $("#addClientsModal").modal('show');
             $('.clientId').val(clients[index].ClientId),
             $('.clientName').val(clients[index].ClientName),
+            $('.clientType').val(clients[index].ClientType),
             $('.flow').val((clients[index].Flow == 1 ? "Implicit" : (clients[index].Flow == 2 ? "Hybrid" : (clients[index].Flow == 3 ? "ClientCredentials" : (clients[index].Flow == 4 ? "ResourceOwner" : (clients[index].Flow == 5 ? "Custom" : (clients[index].Flow == 6 ? "AuthorizationCodeWithProofKey" : (clients[index].Flow == 7 ? "HybridWithProofKey" : "AuthorizationCode")))))))),
             $('.redirectUris').val(clients[index].RedirectUris),
             $('.postLogoutRedirectUris').val(clients[index].PostLogoutRedirectUris),
@@ -463,6 +474,7 @@
                 'clientId': $('.clientId').val(),
                 'clientName': $('.clientName').val(),
                 'flow': $('.flow').val(),
+                'clientType': $('.clientType').val(),
                 'allowedScopes': allowedScopes,
                 'redirectUris': $('.redirectUris').val(),
                 'postLogoutRedirectUris': $('.postLogoutRedirectUris').val(),
@@ -488,6 +500,7 @@
                             'ClientId': $('.clientId').val(),
                             'ClientName': $('.clientName').val(),
                             'Flow': $('.flow').val(),
+                            'clientType': $('.clientType').val(),
                             'AllowedScopes': (allowedScopes.length == scopes.length ? [] : allowedScopes),
                             'RedirectUris': $('.redirectUris').val(),
                             'PostLogoutRedirectUris': $('.postLogoutRedirectUris').val(),

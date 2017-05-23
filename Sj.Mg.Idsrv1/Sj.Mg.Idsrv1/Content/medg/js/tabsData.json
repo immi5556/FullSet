@@ -2,102 +2,102 @@
   {
     "clientTypeName": "Providers",
     "Clients": [
-      {
-        "clientName": "Relief Express",
-        "UserScopes": [
-          {
-            "icon": "/content/medg/images/serIcon1.png",
-            "activeIcon": "/content/medg/images/serIcon1Active.png",
-            "scopeName": "Demographic",
-            "description": "Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information."
-          },
-          {
-            "icon": "/content/medg/images/serIcon2.png",
-            "activeIcon": "/content/medg/images/serIcon2Active.png",
-            "scopeName": "Diagnostics",
-            "description": "A diagnostic report is the set of information that is typically provided by a diagnostic service when investigations are complete. The information includes a mix of atomic results, text reports, images, and codes. The mix varies depending on the nature of the diagnostic procedure, and sometimes on the nature of the outcomes for a particular investigation."
-          },
-          {
-            "icon": "/content/medg/images/serIcon3.png",
-            "activeIcon": "/content/medg/images/serIcon3Active.png",
-            "scopeName": "Medication",
-            "description": "Medication can include the form of the drug and the ingredient (or ingredients), as well as how it is packaged. The medication will include the ingredient(s) and their strength(s) and the package can include the amount (for example, number of tablets, volume, etc.) that is contained in a particular container (for example, 100 capsules of Amoxicillin 500mg per bottle)"
-          },
-          {
-            "icon": "/content/medg/images/serIcon4.png",
-            "activeIcon": "/content/medg/images/serIcon4Active.png",
-            "scopeName": "Observation",
-            "description": "Observations are a central element in healthcare, used to support diagnosis, monitor progress, determine baselines and patterns and even capture demographic characteristics. Uses for the Observation resource include Vital Signs, Personal characteristics of the Patient, Devices measurements, Physical exam findings, etc."
-          }
-        ]
-      },
-      {
-        "clientName": "Neuro Care Partners",
-        "UserScopes": [
-          {
-            "icon": "/content/medg/images/serIcon1.png",
-            "activeIcon": "/content/medg/images/serIcon1Active.png",
-            "scopeName": "Demographic",
-            "description": "Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information."
-          },
-          {
-            "icon": "/content/medg/images/serIcon2.png",
-            "activeIcon": "/content/medg/images/serIcon2Active.png",
-            "scopeName": "Diagnostics",
-            "description": "A diagnostic report is the set of information that is typically provided by a diagnostic service when investigations are complete. The information includes a mix of atomic results, text reports, images, and codes. The mix varies depending on the nature of the diagnostic procedure, and sometimes on the nature of the outcomes for a particular investigation."
-          },
-          {
-            "icon": "/content/medg/images/serIcon3.png",
-            "activeIcon": "/content/medg/images/serIcon3Active.png",
-            "scopeName": "Medication",
-            "description": "Medication can include the form of the drug and the ingredient (or ingredients), as well as how it is packaged. The medication will include the ingredient(s) and their strength(s) and the package can include the amount (for example, number of tablets, volume, etc.) that is contained in a particular container (for example, 100 capsules of Amoxicillin 500mg per bottle)"
-          },
-          {
-            "icon": "/content/medg/images/serIcon4.png",
-            "activeIcon": "/content/medg/images/serIcon4Active.png",
-            "scopeName": "Observation",
-            "description": "Observations are a central element in healthcare, used to support diagnosis, monitor progress, determine baselines and patterns and even capture demographic characteristics. Uses for the Observation resource include Vital Signs, Personal characteristics of the Patient, Devices measurements, Physical exam findings, etc."
-          }
-        ]
-      }
+      //{
+      //  "clientName": "Relief Express",
+      //  "UserScopes": [
+      //    {
+      //      "icon": "/content/medg/images/serIcon1.png",
+      //      "activeIcon": "/content/medg/images/serIcon1Active.png",
+      //      "scopeName": "Demographic",
+      //      "description": "Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information."
+      //    },
+      //    {
+      //      "icon": "/content/medg/images/serIcon2.png",
+      //      "activeIcon": "/content/medg/images/serIcon2Active.png",
+      //      "scopeName": "Diagnostics",
+      //      "description": "A diagnostic report is the set of information that is typically provided by a diagnostic service when investigations are complete. The information includes a mix of atomic results, text reports, images, and codes. The mix varies depending on the nature of the diagnostic procedure, and sometimes on the nature of the outcomes for a particular investigation."
+      //    },
+      //    {
+      //      "icon": "/content/medg/images/serIcon3.png",
+      //      "activeIcon": "/content/medg/images/serIcon3Active.png",
+      //      "scopeName": "Medication",
+      //      "description": "Medication can include the form of the drug and the ingredient (or ingredients), as well as how it is packaged. The medication will include the ingredient(s) and their strength(s) and the package can include the amount (for example, number of tablets, volume, etc.) that is contained in a particular container (for example, 100 capsules of Amoxicillin 500mg per bottle)"
+      //    },
+      //    {
+      //      "icon": "/content/medg/images/serIcon4.png",
+      //      "activeIcon": "/content/medg/images/serIcon4Active.png",
+      //      "scopeName": "Observation",
+      //      "description": "Observations are a central element in healthcare, used to support diagnosis, monitor progress, determine baselines and patterns and even capture demographic characteristics. Uses for the Observation resource include Vital Signs, Personal characteristics of the Patient, Devices measurements, Physical exam findings, etc."
+      //    }
+      //  ]
+      //},
+      //{
+      //  "clientName": "Neuro Care Partners",
+      //  "UserScopes": [
+      //    {
+      //      "icon": "/content/medg/images/serIcon1.png",
+      //      "activeIcon": "/content/medg/images/serIcon1Active.png",
+      //      "scopeName": "Demographic",
+      //      "description": "Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information."
+      //    },
+      //    {
+      //      "icon": "/content/medg/images/serIcon2.png",
+      //      "activeIcon": "/content/medg/images/serIcon2Active.png",
+      //      "scopeName": "Diagnostics",
+      //      "description": "A diagnostic report is the set of information that is typically provided by a diagnostic service when investigations are complete. The information includes a mix of atomic results, text reports, images, and codes. The mix varies depending on the nature of the diagnostic procedure, and sometimes on the nature of the outcomes for a particular investigation."
+      //    },
+      //    {
+      //      "icon": "/content/medg/images/serIcon3.png",
+      //      "activeIcon": "/content/medg/images/serIcon3Active.png",
+      //      "scopeName": "Medication",
+      //      "description": "Medication can include the form of the drug and the ingredient (or ingredients), as well as how it is packaged. The medication will include the ingredient(s) and their strength(s) and the package can include the amount (for example, number of tablets, volume, etc.) that is contained in a particular container (for example, 100 capsules of Amoxicillin 500mg per bottle)"
+      //    },
+      //    {
+      //      "icon": "/content/medg/images/serIcon4.png",
+      //      "activeIcon": "/content/medg/images/serIcon4Active.png",
+      //      "scopeName": "Observation",
+      //      "description": "Observations are a central element in healthcare, used to support diagnosis, monitor progress, determine baselines and patterns and even capture demographic characteristics. Uses for the Observation resource include Vital Signs, Personal characteristics of the Patient, Devices measurements, Physical exam findings, etc."
+      //    }
+      //  ]
+      //}
     ]
   },
   {
     "clientTypeName": "Smart Apps",
     "Clients": [
-      {
-        "clientName": "FitNet",
-        "UserScopes": [
-          {
-            "icon": "/content/medg/images/serIcon13.png",
-            "activeIcon": "/content/medg/images/serIcon13Active.png",
-            "scopeName": "Fitness",
-            "description": ""
-          }
-        ]
-      },
-      {
-        "clientName": "Medtronic",
-        "UserScopes": [
-          {
-            "icon": "/content/medg/images/serIcon12.png",
-            "activeIcon": "/content/medg/images/serIcon12Active.png",
-            "scopeName": "Pacemaker",
-            "description": ""
-          }
-        ]
-      },
-      {
-        "clientName": "mySugr",
-        "UserScopes": [
-          {
-            "icon": "/content/medg/images/serIcon11.png",
-            "activeIcon": "/content/medg/images/serIcon11Active.png",
-            "scopeName": "Blood Sugar",
-            "description": ""
-          }
-        ]
-      }
+      //{
+      //  "clientName": "FitNet",
+      //  "UserScopes": [
+      //    {
+      //      "icon": "/content/medg/images/serIcon13.png",
+      //      "activeIcon": "/content/medg/images/serIcon13Active.png",
+      //      "scopeName": "Fitness",
+      //      "description": ""
+      //    }
+      //  ]
+      //},
+      //{
+      //  "clientName": "Medtronic",
+      //  "UserScopes": [
+      //    {
+      //      "icon": "/content/medg/images/serIcon12.png",
+      //      "activeIcon": "/content/medg/images/serIcon12Active.png",
+      //      "scopeName": "Pacemaker",
+      //      "description": ""
+      //    }
+      //  ]
+      //},
+      //{
+      //  "clientName": "mySugr",
+      //  "UserScopes": [
+      //    {
+      //      "icon": "/content/medg/images/serIcon11.png",
+      //      "activeIcon": "/content/medg/images/serIcon11Active.png",
+      //      "scopeName": "Blood Sugar",
+      //      "description": ""
+      //    }
+      //  ]
+      //}
     ]
   }
 ]

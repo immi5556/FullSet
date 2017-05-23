@@ -49,6 +49,17 @@ var permission = (function () {
         $("body").removeClass("loadingHome");
         $(".qustionPop").hide();
     });
+    $(document).on('click', function () {
+        if ($(".clsGrid").is(":visible")) {
+            $(".showClsTab").click();
+        }
+        if ($(".addSec .addTab").hasClass("active")) {
+            $(".addSec .addTab").click();
+        }
+        if ($(".addCatagory .addTab").hasClass("active")) {
+            $(".addCatagory .addTab").click();
+        }
+    });
     function setChallengeQuestion(data) {
         question = [], answer = [];
         (data || []).forEach(function (itm, idx) {
@@ -332,6 +343,7 @@ var permission = (function () {
         $('.tabModuleSelectData').height(Hh);
         $('.reportBlock').height(Hh - 40);
         $('.listGridUL').height(Hh - 15);
+        scrollFn()
         //var Wh = $(window).height() - 270;
         //if (Wh > 300) {
         //    $('.contentRight').height(Wh - 20);
@@ -360,6 +372,18 @@ var permission = (function () {
         //}
     };
 
+    function scrollFn() {
+        if ($('.listGridUL').hasScrollBar()) {
+            $('.addCatagory').css({
+                'right': -14 + 'px'
+            })
+        } else {
+            $('.addCatagory').css({
+                'right': 17 + 'px'
+            })
+        }
+    }
+    scrollFn()
     $('.providerLabel').on('click', function () {
         $('.providerList').slideToggle();
     });
@@ -823,6 +847,7 @@ var permission = (function () {
             });
         }
         libtns();
+        scrollFn();
     }
 
     function setProviderData() {
@@ -1090,7 +1115,15 @@ var permission = (function () {
                 $('.viewUserList li').removeClass('select');
                 $(this).addClass('select');
             });
+            
             popUpEvents();
+        }
+        if ($('.subUl.active li').length == 0) {
+            $(".addCatagory").hide();
+            $(".showClsTab").hide();
+        } else {
+            $(".addCatagory").show();
+            $(".showClsTab").show();
         }
         setUIFunc();
         setNoView();
@@ -1198,6 +1231,10 @@ var permission = (function () {
     $(document).on("ready", function () {
         //$(".listGridUL li:nth-child(1)").click();
     });
+    $(document).on("click", ".clspop", function () {
+        $(".poplightbx, .popupShadow").hide();
+    });
+    
     //$(".viewType").on("change", function () {
     //    if ($(this).val() == "provider") {
     //        setProviderData();
@@ -1210,6 +1247,8 @@ var permission = (function () {
 
     function libtns() {
         $(".btn-view").on("click", function () {
+            $(document).click();
+            
             viewBtn = $(this);
             $("body").addClass("loadingHome");
             if (challengeQuestion) {
@@ -1249,7 +1288,13 @@ var permission = (function () {
                     data: sdata
                 })
                 .done(function (data, textStatus, jqXHR) {
-                    populateData(data, sdata);
+                    if (JSON.parse(data).length) {
+                        $(".noPreviewData").hide();
+                        populateData(data, sdata);
+                    } else {
+                        $(".noPreviewData").show();
+                    }
+
                     $("body").removeClass("loadingHome");
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
@@ -1410,7 +1455,13 @@ var permission = (function () {
             data: sdata
         })
         .done(function (data, textStatus, jqXHR) {
-            setChallengeQuestion(JSON.parse(data));
+            if (JSON.parse(data).length) {
+                $(".noPreviewData").hide();
+                setChallengeQuestion(JSON.parse(data));
+            } else {
+                $(".noPreviewData").show();
+                $("body").removeClass("loadingHome");
+            }
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             $(".qustionPop").hide();

@@ -59,6 +59,7 @@
                     <div class="viewShareSection">
 					    <h2 class="sec-heading">Data Preview</h2>
 					    <div class="reportBlock">
+                            <div class="noPreviewData" style="display:none;">No Records Present.</div>
                             <div class="myLoadingbar">
 		                        <div class="cssload-spin-box"></div>
 	                        </div>
@@ -71,7 +72,7 @@
                                             <span class="generalDetails">
                                                 <!--Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information.-->
                                             </span>
-                            
+                                            
                                             <table style="display: none;" class="patientData" cellspacing="0" cellpadding="0">
                                                   <thead>
                                                       <tr>
@@ -413,7 +414,10 @@
     </div>
     <div class="pageShadow1"></div>
     <div class="popupShadow"></div>
-    
+    <div class="poplightbx animated zoomIn">
+        <span class="clspop">X</span>
+        <h2 class="clientAuth"></h2>
+    </div>
     <script id='modelJson' type='application/json'>
         
     </script>
