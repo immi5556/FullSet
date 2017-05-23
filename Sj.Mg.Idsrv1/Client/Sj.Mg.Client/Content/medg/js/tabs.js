@@ -192,7 +192,7 @@ $(document).on("click", ".subLi", function () {
                             openDropList(this);
                             selectedTab = $(this).text();
                             $(".addCatagory").hide();
-                            tabListDropDown(mytabData);
+                            tabListDropDown(mydatas);
                             if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
                                 if ($('.subUl.active li').length == 0) {
                                     //$(".addCatagory").hide();
@@ -232,12 +232,14 @@ $(document).on("click", ".subLi", function () {
                         for (var y = 0; y < mydatas.length; y++) {
                             if (thisParentVal == mydatas[y].clientTypeName) {
                                 for (var z = 0; z < mydatas[y].Clients.length; z++) {
-                                    var vals = mydatas[y].Clients[z].clientName;
+                                    if (mydatas[y].Clients[z] != null) {
+                                        var vals = mydatas[y].Clients[z].clientName;
 
-                                    if (thisVal == vals) {
-                                        num++;
-                                        tabGridData(mydatas[y].Clients[z].UserScopes);
+                                        if (thisVal == vals) {
+                                            num++;
+                                            tabGridData(mydatas[y].Clients[z].UserScopes);
 
+                                        }
                                     }
                                 }
                             }
@@ -320,18 +322,23 @@ $(document).on("click", ".subLi", function () {
                             var thisParentVal = $(this).closest('.listItem').find('a').text();
                             $('.subLi').removeClass('active');
                             $(this).addClass('active');
-                            for (var y = 0; y < mytabData.length; y++) {
-                                if (thisParentVal == mytabData[y].clientTypeName) {
-                                    for (var z = 0; z < mytabData[y].Clients.length; z++) {
-                                        var vals = mytabData[y].Clients[z].clientName;
+                            if (mytabData) {
+                                for (var y = 0; y < mytabData.length; y++) {
+                                    if (thisParentVal == mytabData[y].clientTypeName) {
+                                        
+                                        for (var z = 0; z < mytabData[y].Clients.length; z++) {
+                                            if (mytabData[y].Clients[z] != null) {
+                                                var vals = mytabData[y].Clients[z].clientName;
 
-                                        if (thisVal == vals) {
-                                            num++;
-                                            tabGridData(mytabData[y].Clients[z].UserScopes);
+                                                if (thisVal == vals) {
+                                                    num++;
+                                                    tabGridData(mytabData[y].Clients[z].UserScopes);
+                                                }
+                                            }
                                         }
                                     }
+                                    closeGrids(mytabData);
                                 }
-                                closeGrids(mytabData);
                             }
                         })
                         //$(tabField).val('');
