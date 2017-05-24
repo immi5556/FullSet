@@ -60,6 +60,39 @@ var permission = (function () {
             $(".addCatagory .addTab").click();
         }
     });
+    function setChallengeQuestionAthena(data) {
+        question = [], answer = [];
+        if (data[0].dob) {
+            question.push("What is your Date Of Birth?");
+            answer.push(data[0].dob);
+        }
+        if (data[0].mobilephone) {
+            question.push("What phone number have you used to register with " + selectedclient + "?");
+            answer.push(data[0].mobilephone);
+        }
+        if (data[0].state) {
+            question.push("What state did you mention when registering with " + selectedclient + "?");
+            answer.push(data[0].state);
+        }
+        if (data[0].city) {
+            question.push("What city did you mention when registering with " + selectedclient + "?");
+            answer.push(data[0].city);
+        }
+        if (question.length) {
+            selectedQuestion = Math.floor(Math.random() * ((question.length - 1) - 0)) + 0;
+            $(".qustionPop").show();
+            $(".qustionPop").click();
+            $("#challengeQuestion .noAccess").text("We want to verify that you are indeed " + $(".usrName").text());
+            $(".questionForm h3").text(question[selectedQuestion]);
+            $(".questionForm span").text("");
+        } else {
+            challengeQuestion = true;
+            $(".closeIcon").click();
+            viewBtn.click();
+            $(".qustionPop").hide();
+            $("body").removeClass("loadingHome");
+        }
+    }
     function setChallengeQuestion(data) {
         question = [], answer = [];
         (data || []).forEach(function (itm, idx) {
@@ -109,6 +142,45 @@ var permission = (function () {
             $(".qustionPop").hide();
             $("body").removeClass("loadingHome");
         }
+    }
+
+    var populateAthenaPats = function (data, user) {
+        if (user) {
+            $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
+        }
+        var addr = "";
+        if (data[0].address1) {
+            addr += data[0].address1+", ";
+        }
+        if (data[0].address2) {
+            addr += data[0].address2+", ";
+        } 
+        if (data[0].city) {
+            addr += data[0].city + ", ";
+        }
+        if (data[0].state) {
+            addr += data[0].state + ", ";
+        }
+        if (data[0].lastname) {
+            $(".patientData tbody").append("<tr><td>Last Name</td><td>" + data[0].lastname + "</td></tr>");
+        }
+        if (data[0].firstname) {
+            $(".patientData tbody").append("<tr><td>First Name</td><td>" + data[0].firstname + "</td></tr>");
+        }
+        if (addr.length) {
+            $(".patientData tbody").append("<tr><td>Address</td><td>" + (addr.substring(0, addr.length - 2)) + "</td></tr>");
+        }
+        if (data[0].mobilephone) {
+            $(".patientData tbody").append("<tr><td>TelePhone No:</td><td>" + data[0].mobilephone + "</td></tr>");
+        } else if (data[0].homephone) {
+            $(".patientData tbody").append("<tr><td>TelePhone No:</td><td>" + data[0].homephone + "</td></tr>");
+        }
+        if (data[0].dob) {
+            $(".patientData tbody").append("<tr><td>First Name</td><td>" + data[0].dob + "</td></tr>");
+        }
+        $('.slideUp').trigger("click");
+        $(".patientData").show();
+        $(".generalDetails").hide();
     }
 
     var populatePats = function (data, user) {
@@ -373,13 +445,17 @@ var permission = (function () {
     };
 
     function scrollFn() {
-        if ($('.listGridUL').hasScrollBar()) {
+
+        var iHeight = $(".listGridUL").height()+15;
+        var iScrollHeight = $(".listGridUL").prop("scrollHeight");
+
+        if (iScrollHeight > iHeight) {
             $('.addCatagory').css({
-                'right': -14 + 'px'
+                'right': 17 + 'px'
             })
         } else {
             $('.addCatagory').css({
-                'right': 17 + 'px'
+                'right': 0 + 'px'
             })
         }
     }
@@ -570,17 +646,23 @@ var permission = (function () {
     function populateData(data, scp) {
         $(".patientData tbody tr").remove();
         data = JSON.parse(data);
-        if (scp.resource == "Demographic") {
-            populatePats(data, scp.email);
-        }
-        if (scp.resource == "Diagnostics") {
-            populateDiags(data, scp.email);
-        }
-        if (scp.resource == "Medication") {
-            populateMeds(data, scp.email);
-        }
-        if (scp.resource == "Observation") {
-            populateObs(data, scp.email);
+        if (scp.client.indexOf("Athena") < 0) {
+            if (scp.resource == "Demographic") {
+                populatePats(data, scp.email);
+            }
+            if (scp.resource == "Diagnostics") {
+                populateDiags(data, scp.email);
+            }
+            if (scp.resource == "Medication") {
+                populateMeds(data, scp.email);
+            }
+            if (scp.resource == "Observation") {
+                populateObs(data, scp.email);
+            }
+        } else {
+            if (scp.resource == "Demographic") {
+                populateAthenaPats(data, scp.email);
+            }
         }
     }
 
@@ -1268,6 +1350,18 @@ var permission = (function () {
                 $(this).closest("li").find("img").attr("src", imgPath.substring(0, (imgPath.length - 4)) + "Active" + imgPath.substring((imgPath.length - 4), imgPath.length));
                 var resor = $(this).closest("li").find(".gridTitle").text();
                 var scope = ($(this).closest("li").find(".btn-share").is(":visible") ? "Share" : "View");
+                if (resor.toLowerCase().indexOf("patient") > -1 || resor.toLowerCase().indexOf("Demographic") > -1) {
+                    resor = "Demographic";
+                }
+                if (resor.toLowerCase().indexOf("Diagnostics") > -1) {
+                    resor = "Diagnostics";
+                }
+                if (resor.toLowerCase().indexOf("Medication") > -1) {
+                    resor = "Medication";
+                }
+                if (resor.toLowerCase().indexOf("Observation") > -1) {
+                    resor = "Observation";
+                }
                 if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
                     var sdata = {
                         client: selectedclient,
@@ -1289,7 +1383,10 @@ var permission = (function () {
                     data: sdata
                 })
                 .done(function (data, textStatus, jqXHR) {
-                    if (JSON.parse(data).length) {
+                    if (data && data == "No Access Provided") {
+                        $(".noPreviewData").show();
+                        $("body").removeClass("loadingHome");
+                    }else if (data && JSON.parse(data).length) {
                         $(".noPreviewData").hide();
                         populateData(data, sdata);
                     } else {
@@ -1456,13 +1553,19 @@ var permission = (function () {
             data: sdata
         })
         .done(function (data, textStatus, jqXHR) {
-            if (JSON.parse(data).length) {
+            if (data == "No Access Provided") {
+                $(".noPreviewData").show();
+            }else if (data && JSON.parse(data).length) {
                 $(".noPreviewData").hide();
-                setChallengeQuestion(JSON.parse(data));
+                if (selectedclient.indexOf("Athena") < 0) {
+                    setChallengeQuestion(JSON.parse(data));
+                } else {
+                    setChallengeQuestionAthena(JSON.parse(data));
+                }
             } else {
                 $(".noPreviewData").show();
-                $("body").removeClass("loadingHome");
             }
+            $("body").removeClass("loadingHome");
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             $(".qustionPop").hide();

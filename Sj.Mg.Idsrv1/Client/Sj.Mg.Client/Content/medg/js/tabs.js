@@ -586,13 +586,17 @@ $(document).on("click", ".subLi", function () {
                         listItems[0].click();
                 }
                 function scrollFn() {
-                    if ($('.listGridUL').hasScrollBar()) {
+
+                    var iHeight = $(".listGridUL").height()+15;
+                    var iScrollHeight = $(".listGridUL").prop("scrollHeight");
+
+                    if (iScrollHeight > iHeight) {
                         $('.addCatagory').css({
-                            'right': -14 + 'px'
+                            'right': 17 + 'px'
                         })
                     } else {
                         $('.addCatagory').css({
-                            'right': 17 + 'px'
+                            'right': 0 + 'px'
                         })
                     }
                 }
@@ -658,8 +662,3 @@ $(document).on("click", ".subLi", function () {
     }
 
 })(jQuery);
- (function ($) {
-     $.fn.hasScrollBar = function () {
-         return this.scrollHeight > this.height();
-     }
- })(jQuery);
