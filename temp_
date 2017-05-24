@@ -1,0 +1,29 @@
+curl -X POST -i -H 'Authorization: Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx' -H 'Content-Type: application/x-www-form-urlencoded' -d "clientId=228JJF" -d "grant_type=authorization_code" -d "redirect_uri=http%3A%2F%2Flocalhost%3A54728%2Fapi%2Fvalues" -d "code=a0c54000f0ef0f892a56d46604f95bfbb86c85da" https://api.fitbit.com/oauth2/token
+
+https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A54728%2Fapi%2Fvalues&code=09324ba2a14e51afff74f470e645d0b87a2ba148
+
+
+{
+  "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1UTczNzMiLCJhdWQiOiIyMjhKSkYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJzZXQgcmFjdCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDk1NjUwNDI1LCJpYXQiOjE0OTU2MjE2MjV9.1vPVIjNZc4np6_6pAioZz1WvV3HNFUAPzNCHZtP2xuo",
+  "expires_in": 28800,
+  "refresh_token": "ba30bd68d908ceebeac51e27f44476bc44b31d855119712bbdb80edb5aaefa7e",
+  "scope": "profile social heartrate nutrition sleep settings weight activity location",
+  "token_type": "Bearer",
+  "user_id": "5Q7373"
+}
+
+curl -i -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1UTczNzMiLCJhdWQiOiIyMjhKSkYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJzZXQgcmFjdCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDk1NjUwNDI1LCJpYXQiOjE0OTU2MjE2MjV9.1vPVIjNZc4np6_6pAioZz1WvV3HNFUAPzNCHZtP2xuo" https://api.fitbit.com/1/user/-/profile.json
+
+https://api.fitbit.com/1/user/-/profile.json
+
+
+curl -X POST -i -H "Authorization: Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx" -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=refresh_token" -d "refresh_token=4593b06f06b5832973ae7b927b7d8e6022a6951cd252a71d5b24b47126da53ff" https://api.fitbit.com/oauth2/token
+
+https://api.fitbit.com/oauth2/token?grant_type=refresh_token&refresh_token=4593b06f06b5832973ae7b927b7d8e6022a6951cd252a71d5b24b47126da53ff
+
+
+
+
+curl -X POST -i -H 'Authorization: Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx' -H 'Content-Type: application/x-www-form-urlencoded' -d "clientId=228JJF" -d "grant_type=authorization_code" -d "redirect_uri=http%3A%2F%2Flocalhost%3A54728%2Fapi%2Fvalues" -d "code=e49b541a836de24a77ffe5df42a2dab802fb1476" https://api.fitbit.com/oauth2/token
+
+curl -X POST -i -H "Authorization: Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx" -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=refresh_token" -d "refresh_token=35272aa12bb58bcec02e8fb06c25c75c4da2c654e21219d442e8713629278a17" https://api.fitbit.com/oauth2/token

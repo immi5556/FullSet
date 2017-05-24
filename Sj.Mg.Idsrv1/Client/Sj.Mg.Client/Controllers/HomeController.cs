@@ -172,7 +172,7 @@ namespace Sj.Mg.Client.Controllers
         public JsonResult GetUserData()
         {
             List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(User.Identity.Name);
-            
+
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
 
@@ -188,10 +188,10 @@ namespace Sj.Mg.Client.Controllers
         [Route("user/{id}")]
         public JsonResult SearchUser(string id)
         {
-            List< Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(id);
+            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(id);
             int index = gg.FindIndex(x => x.Subject == User.Identity.Name);
-            
-            if(index != -1)
+
+            if (index != -1)
                 gg.RemoveAt(index);
 
             return Json(gg, JsonRequestBehavior.AllowGet);
@@ -303,8 +303,8 @@ namespace Sj.Mg.Client.Controllers
                                 });
                                 if (itemFound)
                                 {
-                                //alreadyaccess = true;
-                                t.AllowedUsers[toclient][toresrc][oldScope].RemoveAt(index);
+                                    //alreadyaccess = true;
+                                    t.AllowedUsers[toclient][toresrc][oldScope].RemoveAt(index);
                                 }
                             }
                         }
@@ -369,7 +369,7 @@ namespace Sj.Mg.Client.Controllers
                                 bool itemFound = false;
                                 t.RequestedUsers[toclient][toresrc][toscope].ForEach(item =>
                                 {
-                                    if(item.user == un)
+                                    if (item.user == un)
                                     {
                                         itemFound = true;
                                     }
@@ -380,7 +380,7 @@ namespace Sj.Mg.Client.Controllers
                                 }
                                 else // user doesnt exist
                                 {
-                                    
+
                                     UserData userData = new UserData();
                                     userData.user = un;
                                     userData.relation = relation;
@@ -395,7 +395,7 @@ namespace Sj.Mg.Client.Controllers
                                 userData.relation = relation;
                                 t.RequestedUsers[toclient][toresrc][toscope].Add(userData);
                             }
-                        } 
+                        }
                         else // resrc doesnt exist
                         {
                             t.RequestedUsers[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
@@ -696,10 +696,20 @@ namespace Sj.Mg.Client.Controllers
             {
                 if (para.resource == "Demographic")
                 {
-                    var pats = Execute(CliLib.Utils.Common.ReAhApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                    var pats = Execute(CliLib.Utils.Common.ReFbApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
                     return Json(pats, JsonRequestBehavior.AllowGet);
                 }
-            }else {
+            }
+            else if (para.client == "FITBIT")
+            {
+                if (para.resource == "Demographic")
+                {
+                    var pats = Execute(CliLib.Utils.Common.ReFbApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                    return Json(pats, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
                 if (para.resource == "Demographic")
                 {
                     var pats = Execute(CliLib.Utils.Common.ReApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
@@ -721,7 +731,7 @@ namespace Sj.Mg.Client.Controllers
                     return Json(obs, JsonRequestBehavior.AllowGet);
                 }
             }
-            
+
             return Json("No Access Provided", JsonRequestBehavior.AllowGet);
         }
 
@@ -866,16 +876,16 @@ namespace Sj.Mg.Client.Controllers
                 dataModel.Id = email;
                 dataModel.Language = language;
                 using (HttpResponseMessage response = client.PostAsJsonAsync(CliLib.Utils.Common.ReApiObservation, dataModel).Result)
-                return Json("success");
+                    return Json("success");
             }
             catch (Exception exp)
             {
                 log.Error("RptTknEndpoint Error" + exp.ToString());
                 Console.WriteLine(exp.ToString());
                 return Json("failed");
-            }  
+            }
         }
-        
+
         public JsonResult updatediag(string description, string status, string email)
         {
             var token = (User as ClaimsPrincipal).FindFirst("access_token").Value;

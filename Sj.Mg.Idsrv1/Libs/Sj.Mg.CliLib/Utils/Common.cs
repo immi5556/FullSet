@@ -12,6 +12,7 @@ namespace Sj.Mg.CliLib.Utils
         /// <summary>
         /// Localhost
         /// </summary>
+        public const string ReFitbitsApi = "https://localhost:44333/";
         public const string ReAethenaApi = "https://localhost:44384/";
         public const string ReApi = "https://localhost:44306/";
         public const string ReApiStsCallback = "https://localhost:44306/home/stscallback";
@@ -39,6 +40,7 @@ namespace Sj.Mg.CliLib.Utils
         public const string ReApiMedication = ReApi + "Api/Medication/";
 
         public const string ReAhApiPatient = ReAethenaApi + "Api/Patient/";
+        public const string ReFbApiPatient = ReFitbitsApi + "Api/Patient/";
 
         public const string ClientSecret = "myrandomclientsecret";
 

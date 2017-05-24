@@ -357,3 +357,288 @@ INFO  2017-05-23 13:41:31,512 170708ms HomeController         Execute           
 INFO  2017-05-23 13:41:31,512 170708ms HomeController         Execute            - Data Recieved{"ticket":"5923eeb33c02ca462483039e"}
 INFO  2017-05-23 13:41:41,623 180819ms HomeController         Execute            - Data Recieved{"ticket":"5923eebd3c02ca46248303a0"}
 INFO  2017-05-23 13:41:42,061 181257ms HomeController         Execute            - Data Recieved{"ticket":"5923eebe3c02ca46248303a1"}
+INFO  2017-05-23 21:06:25,147 19899ms HomeController         Execute            - Data Recieved{"ticket":"592456f93c02ca4c6ca3dc6c"}
+INFO  2017-05-23 21:06:27,268 22020ms HomeController         Execute            - Data Recieved{"ticket":"592456fb3c02ca4c6ca3dc6d"}
+INFO  2017-05-23 21:06:27,344 22096ms HomeController         Execute            - Data Recieved{"ticket":"592456fb3c02ca4c6ca3dc6e"}
+INFO  2017-05-23 21:06:27,685 22437ms HomeController         Execute            - Data Recieved{"ticket":"592456fb3c02ca4c6ca3dc6f"}
+INFO  2017-05-23 21:07:36,408 91160ms HomeController         Execute            - Data Recieved{"ticket":"592457403c02ca4c6ca3dc70"}
+INFO  2017-05-23 21:07:36,436 91188ms HomeController         Execute            - Data Recieved{"ticket":"592457403c02ca4c6ca3dc71"}
+INFO  2017-05-23 21:07:36,436 91188ms HomeController         Execute            - Data Recieved{"ticket":"592457403c02ca4c6ca3dc72"}
+INFO  2017-05-23 21:08:49,123 163875ms HomeController         Execute            - Data Recieved{"ticket":"592457893c02ca4c6ca3dc73"}
+INFO  2017-05-23 21:08:49,125 163877ms HomeController         Execute            - Data Recieved{"ticket":"592457893c02ca4c6ca3dc74"}
+INFO  2017-05-23 21:08:49,157 163909ms HomeController         Execute            - Data Recieved{"ticket":"592457893c02ca4c6ca3dc75"}
+INFO  2017-05-23 21:08:49,161 163913ms HomeController         Execute            - Data Recieved{"ticket":"592457893c02ca4c6ca3dc76"}
+INFO  2017-05-23 22:18:02,765 436083ms HomeController         Execute            - Data Recieved{"ticket":"592467c23c02ca470458e3ac"}
+INFO  2017-05-23 22:18:02,765 436083ms HomeController         Execute            - Data Recieved{"ticket":"592467c23c02ca470458e3ab"}
+INFO  2017-05-23 22:18:24,258 457576ms HomeController         Execute            - Data Recieved{"ticket":"592467d83c02ca470458e3ad"}
+INFO  2017-05-23 22:18:29,152 462469ms HomeController         Execute            - Data Recieved{"ticket":"592467dd3c02ca470458e3ae"}
+INFO  2017-05-23 22:23:00,512 733830ms HomeController         Execute            - Data Recieved{"ticket":"592468ec3c02ca470458e3af"}
+INFO  2017-05-23 22:23:00,546 733864ms HomeController         Execute            - Data Recieved{"ticket":"592468ec3c02ca470458e3b0"}
+INFO  2017-05-23 22:23:00,546 733864ms HomeController         Execute            - Data Recieved{"ticket":"592468ec3c02ca470458e3b1"}
+INFO  2017-05-23 22:25:53,644 15651ms HomeController         Execute            - Data Recieved{"ticket":"592469993c02ca18d4f4fd28"}
+INFO  2017-05-23 22:25:57,973 19980ms HomeController         Execute            - Data Recieved{"ticket":"5924699d3c02ca18d4f4fd29"}
+INFO  2017-05-23 22:25:58,080 20087ms HomeController         Execute            - Data Recieved{"ticket":"5924699e3c02ca18d4f4fd2a"}
+INFO  2017-05-23 22:25:58,430 20436ms HomeController         Execute            - Data Recieved{"ticket":"5924699e3c02ca18d4f4fd2b"}
+INFO  2017-05-23 22:35:13,060 97882ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 22:35:13,067 97889ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 22:35:13,552 98373ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 22:42:39,274 544095ms HomeController         Execute            - Data Recieved{"ticket":"59246d873c02ca624440e561"}
+INFO  2017-05-23 22:42:39,274 544095ms HomeController         Execute            - Data Recieved{"ticket":"59246d873c02ca624440e560"}
+INFO  2017-05-23 22:42:39,275 544096ms HomeController         Execute            - Data Recieved{"ticket":"59246d873c02ca624440e562"}
+INFO  2017-05-23 22:43:53,212 618034ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 22:43:53,216 618038ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 22:43:53,220 618042ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 22:44:14,881 639703ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 22:44:16,041 640863ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 22:59:27,857 71260ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 23:04:07,940 351343ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 23:10:53,850 51710ms HomeController         Execute            - Data Recieved
+INFO  2017-05-23 23:18:43,276 13284ms HomeController         Execute            - Data Recieved{"ticket":"592475fb3c02ca65d4f44f28"}
+INFO  2017-05-23 23:18:48,860 18868ms HomeController         Execute            - Data Recieved{"ticket":"592476003c02ca65d4f44f29"}
+INFO  2017-05-23 23:18:52,174 22182ms HomeController         Execute            - Data Recieved{"ticket":"592476043c02ca65d4f44f2a"}
+INFO  2017-05-23 23:18:55,599 25607ms HomeController         Execute            - Data Recieved{"ticket":"592476073c02ca65d4f44f2b"}
+INFO  2017-05-23 23:23:47,472  6723ms HomeController         Execute            - Data Recieved{"ticket":"5924772b3c02ca3c848d68d4"}
+INFO  2017-05-23 23:23:54,831 14082ms HomeController         Execute            - Data Recieved{"ticket":"592477323c02ca3c848d68d5"}
+INFO  2017-05-23 23:23:58,318 17570ms HomeController         Execute            - Data Recieved{"ticket":"592477363c02ca3c848d68d6"}
+INFO  2017-05-23 23:24:02,511 21763ms HomeController         Execute            - Data Recieved{"ticket":"5924773a3c02ca3c848d68d7"}
+INFO  2017-05-23 23:25:50,337 12561ms HomeController         Execute            - Data Recieved{"ticket":"592477a53c02ca56fcd41cab"}
+INFO  2017-05-23 23:25:59,135 21359ms HomeController         Execute            - Data Recieved{"ticket":"592477ad3c02ca56fcd41cac"}
+INFO  2017-05-23 23:26:04,803 27028ms HomeController         Execute            - Data Recieved{"ticket":"592477b43c02ca56fcd41cad"}
+INFO  2017-05-23 23:26:06,241 28466ms HomeController         Execute            - Data Recieved{"ticket":"592477b53c02ca56fcd41cae"}
+INFO  2017-05-23 23:46:20,860 101284ms HomeController         Execute            - Data Recieved{"Message":"No HTTP resource was found that matches the request URI 'https://localhost:44384/Api/Patient/immanuel@within30^2Ecom'.","MessageDetail":"No action was found on the controller 'Patient' that matches the request."}
+INFO  2017-05-23 23:49:06,439 266862ms HomeController         Execute            - Data Recieved{"Message":"No HTTP resource was found that matches the request URI 'https://localhost:44384/Api/Patient/immanuel@within30^2Ecom'.","MessageDetail":"No action was found on the controller 'Patient' that matches the request."}
+INFO  2017-05-23 23:54:54,686 66293ms HomeController         Execute            - Data Recieved<!DOCTYPE html>
+<html>
+    <head>
+        <title>Could not load file or assembly 'System.Web.Http' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)</title>
+        <meta name="viewport" content="width=device-width" />
+        <style>
+         body {font-family:"Verdana";font-weight:normal;font-size: .7em;color:black;} 
+         p {font-family:"Verdana";font-weight:normal;color:black;margin-top: -5px}
+         b {font-family:"Verdana";font-weight:bold;color:black;margin-top: -5px}
+         H1 { font-family:"Verdana";font-weight:normal;font-size:18pt;color:red }
+         H2 { font-family:"Verdana";font-weight:normal;font-size:14pt;color:maroon }
+         pre {font-family:"Consolas","Lucida Console",Monospace;font-size:11pt;margin:0;padding:0.5em;line-height:14pt}
+         .marker {font-weight: bold; color: black;text-decoration: none;}
+         .version {color: gray;}
+         .error {margin-bottom: 10px;}
+         .expandable { text-decoration:underline; font-weight:bold; color:navy; cursor:hand; }
+         @media screen and (max-width: 639px) {
+          pre { width: 440px; overflow: auto; white-space: pre-wrap; word-wrap: break-word; }
+         }
+         @media screen and (max-width: 479px) {
+          pre { width: 280px; }
+         }
+        </style>
+    </head>
+
+    <body bgcolor="white">
+
+            <span><H1>Server Error in '/' Application.<hr width=100% size=1 color=silver></H1>
+
+            <h2> <i>Could not load file or assembly 'System.Web.Http' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)</i> </h2></span>
+
+            <font face="Arial, Helvetica, Geneva, SunSans-Regular, sans-serif ">
+
+            <b> Description: </b>An unhandled exception occurred during the execution of the current web request. Please review the stack trace for more information about the error and where it originated in the code.
+
+            <br><br>
+
+            <b> Exception Details: </b>System.IO.FileLoadException: Could not load file or assembly 'System.Web.Http' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)<br><br>
+
+            <b>Source Error:</b> <br><br>
+
+            <table width=100% bgcolor="#ffffcc">
+               <tr>
+                  <td>
+                      <code>
+
+An unhandled exception was generated during the execution of the current web request. Information regarding the origin and location of the exception can be identified using the exception stack trace below.</code>
+
+                  </td>
+               </tr>
+            </table>
+
+            <br>
+
+            <b>Assembly Load Trace:</b> The following information can be helpful to determine why the assembly 'System.Web.Http' could not be loaded.<br><br>
+
+            <table width=100% bgcolor="#ffffcc">
+               <tr>
+                  <td>
+                      <code><pre>
+
+WRN: Assembly binding logging is turned OFF.
+To enable assembly bind failure logging, set the registry value [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) to 1.
+Note: There is some performance penalty associated with assembly bind failure logging.
+To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fusion!EnableLog].
+</pre></code>
+
+                  </td>
+               </tr>
+            </table>
+
+            <br>
+
+            <b>Stack Trace:</b> <br><br>
+
+            <table width=100% bgcolor="#ffffcc">
+               <tr>
+                  <td>
+                      <code><pre>
+
+[FileLoadException: Could not load file or assembly &#39;System.Web.Http&#39; or one of its dependencies. The located assembly&#39;s manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)]
+
+[FileLoadException: Could not load file or assembly &#39;System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&#39; or one of its dependencies. The located assembly&#39;s manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)]
+   System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark&amp; stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks) +0
+   System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark&amp; stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks) +36
+   System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark&amp; stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks) +152
+   System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, IntPtr pPrivHostBinder, Boolean forIntrospection) +77
+   System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection) +21
+   System.Reflection.Assembly.Load(String assemblyString) +28
+   System.Web.Configuration.CompilationSection.LoadAssemblyHelper(String assemblyName, Boolean starDirective) +38
+
+[ConfigurationErrorsException: Could not load file or assembly &#39;System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&#39; or one of its dependencies. The located assembly&#39;s manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)]
+   System.Web.Configuration.CompilationSection.LoadAssemblyHelper(String assemblyName, Boolean starDirective) +738
+   System.Web.Configuration.CompilationSection.LoadAllAssembliesFromAppDomainBinDirectory() +217
+   System.Web.Configuration.CompilationSection.LoadAssembly(AssemblyInfo ai) +130
+   System.Web.Compilation.BuildManager.GetReferencedAssemblies(CompilationSection compConfig) +170
+   System.Web.Compilation.BuildManager.GetPreStartInitMethodsFromReferencedAssemblies() +92
+   System.Web.Compilation.BuildManager.CallPreStartInitMethods(String preStartInitListPath, Boolean&amp; isRefAssemblyLoaded) +290
+   System.Web.Compilation.BuildManager.ExecutePreAppStart() +157
+   System.Web.Hosting.HostingEnvironment.Initialize(ApplicationManager appManager, IApplicationHost appHost, IConfigMapPathFactory configMapPathFactory, HostingEnvironmentParameters hostingParameters, PolicyLevel policyLevel, Exception appDomainCreationException) +549
+
+[HttpException (0x80004005): Could not load file or assembly &#39;System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&#39; or one of its dependencies. The located assembly&#39;s manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)]
+   System.Web.HttpRuntime.FirstRequestInit(HttpContext context) +10044576
+   System.Web.HttpRuntime.EnsureFirstRequestInit(HttpContext context) +95
+   System.Web.HttpRuntime.ProcessRequestNotificationPrivate(IIS7WorkerRequest wr, HttpContext context) +254
+</pre></code>
+
+                  </td>
+               </tr>
+            </table>
+
+            <br>
+
+            <hr width=100% size=1 color=silver>
+
+            <b>Version Information:</b>&nbsp;Microsoft .NET Framework Version:4.0.30319; ASP.NET Version:4.7.2053.0
+
+            </font>
+
+    </body>
+</html>
+<!-- 
+[FileLoadException]: Could not load file or assembly &#39;System.Web.Http&#39; or one of its dependencies. The located assembly&#39;s manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
+[FileLoadException]: Could not load file or assembly &#39;System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&#39; or one of its dependencies. The located assembly&#39;s manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
+   at System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   at System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   at System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   at System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean forIntrospection)
+   at System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at System.Web.Configuration.CompilationSection.LoadAssemblyHelper(String assemblyName, Boolean starDirective)
+[ConfigurationErrorsException]: Could not load file or assembly &#39;System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&#39; or one of its dependencies. The located assembly&#39;s manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
+   at System.Web.Configuration.CompilationSection.LoadAssemblyHelper(String assemblyName, Boolean starDirective)
+   at System.Web.Configuration.CompilationSection.LoadAllAssembliesFromAppDomainBinDirectory()
+   at System.Web.Configuration.CompilationSection.LoadAssembly(AssemblyInfo ai)
+   at System.Web.Compilation.BuildManager.GetReferencedAssemblies(CompilationSection compConfig)
+   at System.Web.Compilation.BuildManager.GetPreStartInitMethodsFromReferencedAssemblies()
+   at System.Web.Compilation.BuildManager.CallPreStartInitMethods(String preStartInitListPath, Boolean& isRefAssemblyLoaded)
+   at System.Web.Compilation.BuildManager.ExecutePreAppStart()
+   at System.Web.Hosting.HostingEnvironment.Initialize(ApplicationManager appManager, IApplicationHost appHost, IConfigMapPathFactory configMapPathFactory, HostingEnvironmentParameters hostingParameters, PolicyLevel policyLevel, Exception appDomainCreationException)
+[HttpException]: Could not load file or assembly &#39;System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&#39; or one of its dependencies. The located assembly&#39;s manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
+   at System.Web.HttpRuntime.FirstRequestInit(HttpContext context)
+   at System.Web.HttpRuntime.EnsureFirstRequestInit(HttpContext context)
+   at System.Web.HttpRuntime.ProcessRequestNotificationPrivate(IIS7WorkerRequest wr, HttpContext context)
+-->
+INFO  2017-05-24 00:01:46,680 111048ms HomeController         Execute            - Data Recieved{"ticket":"592480123c02ca49703e7f1b"}
+INFO  2017-05-24 00:04:04,761 249128ms HomeController         Execute            - Data Recieved{"ticket":"592480943c02ca49703e7f1c"}
+INFO  2017-05-24 15:46:28,296 236443ms HomeController         Execute            - Data Recieved{"ticket":"59255d743c02ca58b010fb8e"}
+INFO  2017-05-24 15:49:08,405 396552ms HomeController         Execute            - Data Recieved{"ticket":"59255e1b3c02ca58b010fb8f"}
+INFO  2017-05-25 00:15:01,005 42169ms HomeController         Execute            - Data Recieved{"ticket":"5925d4ab3c02ca45986e5deb"}
+INFO  2017-05-25 00:15:54,183 95347ms HomeController         Execute            - Data Recieved{"ticket":"5925d4e03c02ca45986e5dec"}
+INFO  2017-05-25 00:45:51,376 29425ms HomeController         Execute            - Data Recieved{"ticket":"5925dbe33c02ca1dc080bd36"}
+INFO  2017-05-25 00:46:01,858 39907ms HomeController         Execute            - Data Recieved{"ticket":"5925dbef3c02ca1dc080bd37"}
+INFO  2017-05-25 00:46:12,732 50780ms HomeController         Execute            - Data Recieved{"ticket":"5925dbf73c02ca1dc080bd38"}
+INFO  2017-05-25 00:47:11,013 17052ms HomeController         Execute            - Data Recieved{"ticket":"5925dc363c02ca2a8c382e04"}
+INFO  2017-05-25 00:47:18,889 24927ms HomeController         Execute            - Data Recieved{"ticket":"5925dc3e3c02ca2a8c382e05"}
+INFO  2017-05-25 00:47:20,054 26093ms HomeController         Execute            - Data Recieved{"ticket":"5925dc3f3c02ca2a8c382e06"}
+INFO  2017-05-25 00:47:21,529 27567ms HomeController         Execute            - Data Recieved{"ticket":"5925dc403c02ca2a8c382e07"}
+INFO  2017-05-25 00:48:31,684  5741ms HomeController         Execute            - Data Recieved{"ticket":"5925dc873c02ca1e94d2033c"}
+INFO  2017-05-25 00:48:38,375 12432ms HomeController         Execute            - Data Recieved{"ticket":"5925dc8d3c02ca1e94d2033d"}
+INFO  2017-05-25 00:48:42,627 16684ms HomeController         Execute            - Data Recieved{"ticket":"5925dc913c02ca1e94d2033e"}
+INFO  2017-05-25 00:48:46,752 20809ms HomeController         Execute            - Data Recieved{"ticket":"5925dc963c02ca1e94d2033f"}
+INFO  2017-05-25 00:49:32,307 66364ms HomeController         Execute            - Data Recieved<!DOCTYPE html>
+<html>
+    <head>
+        <title>The resource cannot be found.</title>
+        <meta name="viewport" content="width=device-width" />
+        <style>
+         body {font-family:"Verdana";font-weight:normal;font-size: .7em;color:black;} 
+         p {font-family:"Verdana";font-weight:normal;color:black;margin-top: -5px}
+         b {font-family:"Verdana";font-weight:bold;color:black;margin-top: -5px}
+         H1 { font-family:"Verdana";font-weight:normal;font-size:18pt;color:red }
+         H2 { font-family:"Verdana";font-weight:normal;font-size:14pt;color:maroon }
+         pre {font-family:"Consolas","Lucida Console",Monospace;font-size:11pt;margin:0;padding:0.5em;line-height:14pt}
+         .marker {font-weight: bold; color: black;text-decoration: none;}
+         .version {color: gray;}
+         .error {margin-bottom: 10px;}
+         .expandable { text-decoration:underline; font-weight:bold; color:navy; cursor:hand; }
+         @media screen and (max-width: 639px) {
+          pre { width: 440px; overflow: auto; white-space: pre-wrap; word-wrap: break-word; }
+         }
+         @media screen and (max-width: 479px) {
+          pre { width: 280px; }
+         }
+        </style>
+    </head>
+
+    <body bgcolor="white">
+
+            <span><H1>Server Error in '/' Application.<hr width=100% size=1 color=silver></H1>
+
+            <h2> <i>The resource cannot be found.</i> </h2></span>
+
+            <font face="Arial, Helvetica, Geneva, SunSans-Regular, sans-serif ">
+
+            <b> Description: </b>HTTP 404. The resource you are looking for (or one of its dependencies) could have been removed, had its name changed, or is temporarily unavailable. &nbsp;Please review the following URL and make sure that it is spelled correctly.
+            <br><br>
+
+            <b> Requested URL: </b>/immanuel@within30^2Ecom<br><br>
+
+            <hr width=100% size=1 color=silver>
+
+            <b>Version Information:</b>&nbsp;Microsoft .NET Framework Version:4.0.30319; ASP.NET Version:4.7.2053.0
+
+            </font>
+
+    </body>
+</html>
+<!-- 
+[HttpException]: The controller for path &#39;/immanuel@within30^2Ecom&#39; was not found or does not implement IController.
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+-->
+INFO  2017-05-25 00:50:58,834 22334ms HomeController         Execute            - Data Recieved{"ticket":"5925dd193c02ca6de89ae7e8"}
+INFO  2017-05-25 00:51:05,648 29148ms HomeController         Execute            - Data Recieved{"ticket":"5925dd203c02ca6de89ae7e9"}
+INFO  2017-05-25 00:51:09,736 33237ms HomeController         Execute            - Data Recieved{"ticket":"5925dd253c02ca6de89ae7ea"}
+INFO  2017-05-25 00:51:14,130 37631ms HomeController         Execute            - Data Recieved{"ticket":"5925dd293c02ca6de89ae7eb"}
+INFO  2017-05-25 00:54:35,598  6822ms HomeController         Execute            - Data Recieved{"ticket":"5925ddf23c02ca4a9c41086e"}
+INFO  2017-05-25 00:54:42,632 13855ms HomeController         Execute            - Data Recieved{"ticket":"5925ddf93c02ca4a9c41086f"}
+INFO  2017-05-25 00:54:47,357 18580ms HomeController         Execute            - Data Recieved{"ticket":"5925ddfd3c02ca4a9c410870"}
+INFO  2017-05-25 00:54:52,159 23382ms HomeController         Execute            - Data Recieved{"ticket":"5925de033c02ca4a9c410871"}
+INFO  2017-05-25 00:55:18,965 50188ms HomeController         Execute            - Data Recieved{"Message":"No HTTP resource was found that matches the request URI 'https://localhost:44333/Api/Patient/immanuel@within30^2Ecom'.","MessageDetail":"No type was found that matches the controller named 'Patient'."}
+INFO  2017-05-25 01:00:20,994 45882ms HomeController         Execute            - Data Recieved{"Message":"An error has occurred.","ExceptionMessage":"Could not load file or assembly 'Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)","ExceptionType":"System.IO.FileLoadException","StackTrace":"   at Sj.Mg.CliLib.Security.UmaAuthz.HandleUnauthorizedRequest(HttpActionContext actionContext)\r\n   at System.Web.Http.AuthorizeAttribute.OnAuthorization(HttpActionContext actionContext)\r\n   at System.Web.Http.Filters.AuthorizationFilterAttribute.OnAuthorizationAsync(HttpActionContext actionContext, CancellationToken cancellationToken)\r\n--- End of stack trace from previous location where exception was thrown ---\r\n   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)\r\n   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)\r\n   at System.Web.Http.Filters.AuthorizationFilterAttribute.<ExecuteAuthorizationFilterAsyncCore>d__2.MoveNext()\r\n--- End of stack trace from previous location where exception was thrown ---\r\n   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)\r\n   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)\r\n   at System.Web.Http.Dispatcher.HttpControllerDispatcher.<SendAsync>d__1.MoveNext()"}
+INFO  2017-05-25 01:10:20,306 27410ms HomeController         Execute            - Data Recieved{"ticket":"5925e1a33c02ca38e84a31ae"}
+INFO  2017-05-25 01:10:28,233 35337ms HomeController         Execute            - Data Recieved{"ticket":"5925e1ab3c02ca38e84a31af"}
+INFO  2017-05-25 01:10:31,971 39075ms HomeController         Execute            - Data Recieved{"ticket":"5925e1af3c02ca38e84a31b0"}
+INFO  2017-05-25 01:10:36,411 43516ms HomeController         Execute            - Data Recieved{"ticket":"5925e1b33c02ca38e84a31b1"}
+INFO  2017-05-25 01:11:08,856 75960ms HomeController         Execute            - Data Recieved{"ticket":"5925e1cf3c02ca38e84a31b2"}
+INFO  2017-05-25 01:11:43,411 110515ms HomeController         Execute            - Data Recieved{"ticket":"5925e1f63c02ca38e84a31b3"}

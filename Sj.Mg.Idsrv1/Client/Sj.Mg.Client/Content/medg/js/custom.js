@@ -416,32 +416,6 @@ var permission = (function () {
         $('.reportBlock').height(Hh - 40);
         $('.listGridUL').height(Hh - 15);
         scrollFn()
-        //var Wh = $(window).height() - 270;
-        //if (Wh > 300) {
-        //    $('.contentRight').height(Wh - 20);
-        //    var Hh = Wh / 2;
-        //    $('.viewSectionList').height(Hh - 50);
-        //    $('.viewShareSectionList').height(Hh - 50);
-        //    $('.requestingSectionList').height(Wh - 95);
-        //    reqBlockHeight = $('.requestingSectionList').height();
-        //} else {
-        //    $('.contentRight').css({
-        //        "height": 310 + 'px'
-        //    });
-        //    $('.viewSection').css({
-        //        "height": 150 + 'px'
-        //    });
-        //    $('.viewShareSection').css({
-        //        "height": 150 + 'px'
-        //    });
-        //    $('.viewShareSectionList').css({
-        //        "height": 110 + 'px'
-        //    });
-        //    $('.requestingSectionList').css({
-        //        "height": 190 + 'px'
-        //    });
-        //    reqBlockHeight = $('.requestingSectionList').height();
-        //}
     };
 
     function scrollFn() {
@@ -949,26 +923,6 @@ var permission = (function () {
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
-                            //$li.data("scpdata", {
-                            //    client: selectedclient,
-                            //    resource: selectedresource,
-                            //    email: user["user"],
-                            //    scope: scopeKeys
-                            //});
-                            //$li.on("click", function () {
-                            //    var sdata = $(this).data("scpdata");
-                            //    $.ajax({
-                            //        url: "/home/ReqData",
-                            //        type: "POST",
-                            //        data: sdata
-                            //    })
-                            //    .done(function (data, textStatus, jqXHR) {
-                            //        populateData(data, sdata);
-                            //    })
-                            //    .fail(function (jqXHR, textStatus, errorThrown) {
-                            //        showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-                            //    });
-                            //});
                             $(".viewSectionList").append($li);
                         } else if (scopeKeys == "Share") {
                             var $li = $("<li>");
@@ -981,28 +935,6 @@ var permission = (function () {
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
-                            //$li.data("scpdata", {
-                            //    client: selectedclient,
-                            //    resource: selectedresource,
-                            //    email: user["user"],
-                            //    scope: scopeKeys
-                            //});
-                            //$li.on("click", function () {
-                            //    var sdata = $(this).data("scpdata");
-                            //    $.ajax({
-                            //        url: "/home/ReqData",
-                            //        type: "POST",
-                            //        data: sdata,
-                            //    })
-                            //    .done(function (data, textStatus, jqXHR) {
-                            //        //$("#data-disp").html("<pre>" + JSON.stringify(JSON.parse(data), null, "\t") + "</pre>");
-                            //        //$('.slideUp').trigger("click");
-                            //        populateData(data, sdata);
-                            //    })
-                            //    .fail(function (jqXHR, textStatus, errorThrown) {
-                            //        showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-                            //    });
-                            //});
                             $(".viewShareSectionList").append($li);
                         }
                     }
@@ -1035,26 +967,6 @@ var permission = (function () {
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
-                            //$li.data("scpdata", {
-                            //    client: selectedclient,
-                            //    resource: selectedresource,
-                            //    email: user["user"],
-                            //    scope: scopeKeys
-                            //});
-                            //$li.on("click", function () {
-                            //    var sdata = $(this).data("scpdata");
-                            //    $.ajax({
-                            //        url: "/home/ReqData",
-                            //        type: "POST",
-                            //        data: sdata
-                            //    })
-                            //    .done(function (data, textStatus, jqXHR) {
-                            //        populateData(data, sdata);
-                            //    })
-                            //    .fail(function (jqXHR, textStatus, errorThrown) {
-                            //        showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-                            //    });
-                            //});
                             $(".viewSectionList").append($li);
 
                         } else if (scopeKeys == "Share") {
@@ -1067,28 +979,6 @@ var permission = (function () {
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
-                            //$li.data("scpdata", {
-                            //    client: selectedclient,
-                            //    resource: selectedresource,
-                            //    email: user["user"],
-                            //    scope: scopeKeys
-                            //});
-                            //$li.on("click", function () {
-                            //    var sdata = $(this).data("scpdata");
-                            //    $.ajax({
-                            //        url: "/home/ReqData",
-                            //        type: "POST",
-                            //        data: sdata,
-                            //    })
-                            //    .done(function (data, textStatus, jqXHR) {
-                            //        //$("#data-disp").html("<pre>" + JSON.stringify(JSON.parse(data), null, "\t") + "</pre>");
-                            //        //$('.slideUp').trigger("click");
-                            //        populateData(data, sdata);
-                            //    })
-                            //    .fail(function (jqXHR, textStatus, errorThrown) {
-                            //        showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-                            //    });
-                            //});
                             $(".viewShareSectionList").append($li);
                         }
                     }
@@ -1131,26 +1021,6 @@ var permission = (function () {
                                         \   <div style="display:none;" class="accessLevel">View</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
-                            //$li.data("scpdata", {
-                            //    client: selectedclient,
-                            //    resource: selectedresource,
-                            //    email: user["user"],
-                            //    scope: scopeKeys
-                            //});
-                            //$li.on("click", function () {
-                            //    var sdata = $(this).data("scpdata");
-                            //    $.ajax({
-                            //        url: "/home/ReqData",
-                            //        type: "POST",
-                            //        data: sdata
-                            //    })
-                            //    .done(function (data, textStatus, jqXHR) {
-                            //        populateData(data, sdata);
-                            //    })
-                            //    .fail(function (jqXHR, textStatus, errorThrown) {
-                            //        showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-                            //    });
-                            //});
                             $(".viewSectionList").append($li);
 
                         } else if (scopeKeys == "Share") {
@@ -1166,28 +1036,6 @@ var permission = (function () {
                                         \   <div style="display:none;" class="accessLevel">Share</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
-                            //$li.data("scpdata", {
-                            //    client: selectedclient,
-                            //    resource: selectedresource,
-                            //    email: user["user"],
-                            //    scope: scopeKeys
-                            //});
-                            //$li.on("click", function () {
-                            //    var sdata = $(this).data("scpdata");
-                            //    $.ajax({
-                            //        url: "/home/ReqData",
-                            //        type: "POST",
-                            //        data: sdata,
-                            //    })
-                            //    .done(function (data, textStatus, jqXHR) {
-                            //        //$("#data-disp").html("<pre>" + JSON.stringify(JSON.parse(data), null, "\t") + "</pre>");
-                            //        //$('.slideUp').trigger("click");
-                            //        populateData(data, sdata);
-                            //    })
-                            //    .fail(function (jqXHR, textStatus, errorThrown) {
-                            //        showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-                            //    });
-                            //});
                             $(".viewShareSectionList").append($li);
                         }
                     });
@@ -1239,28 +1087,6 @@ var permission = (function () {
                     });
                 }
             }
-            //$(".clsUsr").on("click", function () {
-            //    showCnfrmtPopUp('<h4>Are you sure you want to Deny access?</h4>');
-            //    var $this = $(this);
-            //    $(".ok").on("click", function () {
-            //        $.ajax({
-            //            url: "/denyrequest/" + $this.parent().find("h5").html() + "/ReliefExpress/" + $this.parent().find(".resourcePro").html() + "/" + $this.parent().find(".scopeKey").html()
-            //        })
-            //        .done(function (data, textStatus, jqXHR) {
-            //            $('body').removeClass('registerMail1');
-            //            showPopUp('<h4>Your response was processed successfully.</h4>');
-            //            $this.parent().remove();
-            //            $(".notification").html(((Number($(".notification").html()) - 1 <= 0) ? 0 : Number($(".notification").html())));
-            //        })
-            //        .fail(function (jqXHR, textStatus, errorThrown) {
-            //            $('body').removeClass('registerMail1');
-            //            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-            //        });
-            //    });
-            //    $(".nocancel").on("click", function () {
-            //        $('body').removeClass('registerMail1');
-            //    })
-            //});
         }
         if (provider) {
             if ($('.labelText').text().toLowerCase() == "provider") {
