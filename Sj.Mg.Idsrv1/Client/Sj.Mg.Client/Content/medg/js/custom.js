@@ -1248,7 +1248,9 @@ var permission = (function () {
     function libtns() {
         $(".btn-view").off("click").on("click", function () {
             $(document).click();
-            
+            //selectedclient = $(this).find(".subLi.active").click();
+            $(this).closest("li").click();
+            $(".subLi.active").each(function () { $(this).click() });
             viewBtn = $(this);
             $("body").addClass("loadingHome");
             if (challengeQuestion) {
@@ -1259,7 +1261,6 @@ var permission = (function () {
                     var imgPath = $(this).closest("li").find("img").attr("src");
 
                     if (imgPath.substring((imgPath.length - 10), (imgPath.length - 4)) == "Active") {
-                        console.log(imgPath.substring(0, (imgPath.length - 10)) + imgPath.substring((imgPath.length - 10), (imgPath.length)));
                         $(this).closest("li").find("img").attr("src", imgPath.substring(0, (imgPath.length - 10)) + imgPath.substring((imgPath.length - 4), (imgPath.length)));
                     }
                 });
@@ -1465,6 +1466,7 @@ var permission = (function () {
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             $(".qustionPop").hide();
+            $("body").removeClass("loadingHome");
             showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
         });
     }
