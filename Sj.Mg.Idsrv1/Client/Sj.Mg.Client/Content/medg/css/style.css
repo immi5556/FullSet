@@ -2520,3 +2520,49 @@ header .container {
 .zoomIn {
   animation-name: zoomIn;
 }
+.viewShareSection {
+    position: relative;
+}
+.viewShareSection .fa-compress {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid #12214e;
+    color: #12214e;
+    cursor: pointer;
+}
+.viewShareSection .fa-expand{
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid #12214e;
+    color: #12214e;
+    cursor: pointer;
+}
+.expandBody .reportBlock {
+    position: fixed;
+    height: 100% !important;
+    width: 100% !important;
+    top: 0;
+    bottom: 0;
+    background: white;
+    z-index: 999999;
+    left: 0;
+    right: 0;
+}
+.expandBody  #data-disp {
+    padding: 0;
+}
+.expandBody .catagoryDetails {
+    margin: 40px;
+    border-right: 1px solid #ccc;
+}
+.expandBody .categ-hdr {
+    display: none;
+}

@@ -49,6 +49,14 @@ var permission = (function () {
         $("body").removeClass("loadingHome");
         $(".qustionPop").hide();
     });
+    $(document).on('click', ".viewShareSection .fa-expand", function () {
+        $("body").addClass("expandBody");
+        $(".viewShareSection .fa-compress").show();
+    });
+    $(document).on('click', ".viewShareSection .fa-compress", function () {
+        $("body").removeClass("expandBody");
+        $(".viewShareSection .fa-compress").hide();
+    });
     $(document).on('click', function () {
         if ($(".clsGrid").is(":visible")) {
             $(".showClsTab").click();
@@ -206,6 +214,7 @@ var permission = (function () {
         $('.slideUp').trigger("click");
         $(".patientData").show();
         $(".generalDetails").hide();
+        $(".viewShareSection .fa-expand").show();
     }
 
     var populateAthenaPats = function (data, user) {
@@ -245,6 +254,7 @@ var permission = (function () {
         $('.slideUp').trigger("click");
         $(".patientData").show();
         $(".generalDetails").hide();
+        $(".viewShareSection .fa-expand").show();
     }
 
     var populatePats = function (data, user) {
@@ -297,6 +307,7 @@ var permission = (function () {
             $('.slideUp').trigger("click");
             $(".patientData").show();
             $(".generalDetails").hide();
+            $(".viewShareSection .fa-expand").show();
         });
     }
 
@@ -329,6 +340,7 @@ var permission = (function () {
                         $('.slideUp').trigger("click");
                         $(".patientData").show();
                         $(".generalDetails").hide();
+                        $(".viewShareSection .fa-expand").show();
                         //$('.reportBlock').css("background", "#fff");
                     }
                 }
@@ -361,6 +373,7 @@ var permission = (function () {
                         count++;
                         $('.slideUp').trigger("click");
                         $(".patientData").show();
+                        $(".viewShareSection .fa-expand").show();
                         $(".generalDetails").hide();
                     }
                 }
@@ -393,6 +406,7 @@ var permission = (function () {
                         count++;
                         //$('.slideUp').trigger("click");
                         $(".patientData").show();
+                        $(".viewShareSection .fa-expand").show();
                         $(".generalDetails").hide();
                     }
                 }
@@ -551,6 +565,7 @@ var permission = (function () {
         //})
         $('.catagoryContent').hide();
         $(".patientData").hide();
+        $(".viewShareSection .fa-expand").hide();
         $(".generalDetails").show();
     });
 
@@ -789,6 +804,7 @@ var permission = (function () {
 
     function clearData() {
         $(".patientData").hide();
+        $(".viewShareSection .fa-expand").hide();
         if($(".searchBar .sec-heading").hasClass("active"))
             $(".searchBar .sec-heading").click();
         $(".viewSectionList li").remove();
@@ -1137,6 +1153,7 @@ var permission = (function () {
         $(".viewShareSectionList").html('');
         $(".allowedUsr1 tbody tr").remove('');
         $(".patientData").hide();
+        $(".viewShareSection .fa-expand").hide();
         if (data && data.RequestedUsers && data.RequestedUsers[selectedclient]) {
             for (var resourceKey in data.RequestedUsers[selectedclient]) {
                 for (var scopeKeys in data.RequestedUsers[selectedclient][resourceKey]) {
@@ -1224,7 +1241,6 @@ var permission = (function () {
     function libtns() {
         $(".btn-view").off("click").on("click", function () {
             $(document).click();
-            //selectedclient = $(this).find(".subLi.active").click();
             $(this).closest("li").click();
             $(".subLi.active").each(function () { $(this).click() });
             viewBtn = $(this);
