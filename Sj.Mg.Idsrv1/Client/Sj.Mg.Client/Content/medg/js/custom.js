@@ -60,6 +60,43 @@ var permission = (function () {
             $(".addCatagory .addTab").click();
         }
     });
+    function setChallengeQuestionFitBit(data) {
+        question = [], answer = [];
+        if (data.dateOfBirth) {
+            question.push("What is your Date Of Birth?");
+            answer.push(data.dateOfBirth);
+        } 
+        if (data.fullName) {
+            question.push("What is your fullName that you register with " + selectedclient + "?");
+            answer.push(data.fullName);
+        }
+        if (data.height) {
+            question.push("What is your height when you register with " + selectedclient + "?");
+            answer.push(data.height);
+        }
+        if (data.weight) {
+            question.push("What is your weight when you register with " + selectedclient + "?");
+            answer.push(data.weight);
+        }
+        if (data.age) {
+            question.push("What is your age according to " + selectedclient + "?");
+            answer.push(data.age);
+        }
+        if (question.length) {
+            selectedQuestion = Math.floor(Math.random() * ((question.length - 1) - 0)) + 0;
+            $(".qustionPop").show();
+            $(".qustionPop").click();
+            $("#challengeQuestion .noAccess").text("We want to verify that you are indeed " + $(".usrName").text());
+            $(".questionForm h3").text(question[selectedQuestion]);
+            $(".questionForm span").text("");
+        } else {
+            challengeQuestion = true;
+            $(".closeIcon").click();
+            viewBtn.click();
+            $(".qustionPop").hide();
+            $("body").removeClass("loadingHome");
+        }
+    }
     function setChallengeQuestionAthena(data) {
         question = [], answer = [];
         if (data[0].dob) {
@@ -144,6 +181,33 @@ var permission = (function () {
         }
     }
 
+    var populateFitBitPats = function (data, user) {
+        if (user) {
+            $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
+        }
+        if (data.lastName) {
+            $(".patientData tbody").append("<tr><td>Last Name</td><td>" + data.lastName + "</td></tr>");
+        }
+        if (data.firstName) {
+            $(".patientData tbody").append("<tr><td>First Name</td><td>" + data.firstName + "</td></tr>");
+        }
+        if (data.age) {
+            $(".patientData tbody").append("<tr><td>Age</td><td>" + data.age + "</td></tr>");
+        }
+        if (data.height) {
+            $(".patientData tbody").append("<tr><td>Height</td><td>" + data.height + "</td></tr>");
+        }
+        if (data.weight) {
+            $(".patientData tbody").append("<tr><td>Weight</td><td>" + data.weight + "</td></tr>");
+        }
+        if (data.dateOfBirth) {
+            $(".patientData tbody").append("<tr><td>Date Of Birth</td><td>" + data.dateOfBirth + "</td></tr>");
+        }
+        $('.slideUp').trigger("click");
+        $(".patientData").show();
+        $(".generalDetails").hide();
+    }
+
     var populateAthenaPats = function (data, user) {
         if (user) {
             $(".patientData tbody").append("<tr><td>User</td><td>" + user + "</td></tr>");
@@ -176,7 +240,7 @@ var permission = (function () {
             $(".patientData tbody").append("<tr><td>TelePhone No:</td><td>" + data[0].homephone + "</td></tr>");
         }
         if (data[0].dob) {
-            $(".patientData tbody").append("<tr><td>First Name</td><td>" + data[0].dob + "</td></tr>");
+            $(".patientData tbody").append("<tr><td>Date Of Birth</td><td>" + data[0].dob + "</td></tr>");
         }
         $('.slideUp').trigger("click");
         $(".patientData").show();
@@ -620,7 +684,11 @@ var permission = (function () {
     function populateData(data, scp) {
         $(".patientData tbody tr").remove();
         data = JSON.parse(data);
-        if (scp.client.indexOf("Athena") < 0) {
+        if (scp.client.toLowerCase().indexOf("fitbit") > -1) {
+            if (scp.resource == "Demographic") {
+                populateFitBitPats(data.user, scp.email);
+            }
+        }else if (scp.client.indexOf("Athena") < 0) {
             if (scp.resource == "Demographic") {
                 populatePats(data, scp.email);
             }
@@ -1188,6 +1256,9 @@ var permission = (function () {
                 if (resor.toLowerCase().indexOf("Observation") > -1) {
                     resor = "Observation";
                 }
+                if (selectedclient.toLowerCase().indexOf("fitbit") > -1) {
+                    resor = "Demographic";
+                }
                 if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
                     var sdata = {
                         client: selectedclient,
@@ -1209,7 +1280,13 @@ var permission = (function () {
                     data: sdata
                 })
                 .done(function (data, textStatus, jqXHR) {
-                    if (data && data == "No Access Provided") {
+                    if (selectedclient.toLowerCase().indexOf("fitbit") > -1) {
+                        if (data && data != "No Access Provided" && JSON.parse(data).user) {
+                            $(".noPreviewData").hide();
+                            populateData(data, sdata);
+                        } else
+                            $(".noPreviewData").show();
+                    } else if (data && data == "No Access Provided") {
                         $(".noPreviewData").show();
                         $("body").removeClass("loadingHome");
                     }else if (data && JSON.parse(data).length) {
@@ -1379,7 +1456,13 @@ var permission = (function () {
             data: sdata
         })
         .done(function (data, textStatus, jqXHR) {
-            if (data == "No Access Provided") {
+            if (selectedclient.toLowerCase().indexOf("fitbit") > -1) {
+                if (data && data != "No Access Provided" && JSON.parse(data).user) {
+                    $(".noPreviewData").hide();
+                    setChallengeQuestionFitBit(JSON.parse(data).user);
+                } else
+                    $(".noPreviewData").show();
+            }else if (data == "No Access Provided") {
                 $(".noPreviewData").show();
             }else if (data && JSON.parse(data).length) {
                 $(".noPreviewData").hide();
