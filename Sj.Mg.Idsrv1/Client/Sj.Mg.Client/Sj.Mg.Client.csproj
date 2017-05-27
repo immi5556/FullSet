@@ -385,6 +385,7 @@
     <Content Include="Views\Home\Secure.cshtml" />
     <None Include="Properties\PublishProfiles\wewe.pubxml" />
     <Content Include="Views\Home\UserData.cshtml" />
+    <Content Include="Views\Home\Callback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.csproj">

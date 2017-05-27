@@ -764,6 +764,22 @@ namespace Sj.Mg.Client.Controllers
             return Json(acct, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Callback()
+        {
+            var code = Request.QueryString["code"];
+            string url = "https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=https%3A%2F%2Flocalhost%3A44383%2FHome%2FCallback&code=" + code;
+            WebRequest request = WebRequest.Create(url);
+            request.Method = "POST";
+            request.Headers["Authorization"] = "Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx";
+            request.ContentType = "application/x-www-form-urlencoded";
+            WebResponse response = request.GetResponse();
+            Stream receive = response.GetResponseStream();
+            StreamReader reader = new StreamReader(receive, System.Text.Encoding.UTF8);
+            var tt = reader.ReadToEnd();
+            Newtonsoft.Json.Linq.JObject patient = Newtonsoft.Json.Linq.JObject.Parse(tt);
+            return View();
+        }
+
         string ExecuteProc(string url, string basetkn)
         {
             string result = "";

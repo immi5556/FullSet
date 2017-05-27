@@ -1,6 +1,14 @@
+
+https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJF&redirect_uri=http%3A%2F%2Flocalhost%3A54728%2Fapi%2Fvalues&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800
+
+
 curl -X POST -i -H 'Authorization: Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx' -H 'Content-Type: application/x-www-form-urlencoded' -d "clientId=228JJF" -d "grant_type=authorization_code" -d "redirect_uri=http%3A%2F%2Flocalhost%3A54728%2Fapi%2Fvalues" -d "code=a0c54000f0ef0f892a56d46604f95bfbb86c85da" https://api.fitbit.com/oauth2/token
 
 https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A54728%2Fapi%2Fvalues&code=09324ba2a14e51afff74f470e645d0b87a2ba148
+
+curl -X POST -i -H 'Authorization: Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx' -H 'Content-Type: application/x-www-form-urlencoded' -d "clientId=228JJF" -d "grant_type=authorization_code" -d "redirect_uri=https%3A%2F%2Flocalhost%3A44383%2FHome%2FCallback" -d "code=c75c8ecc829944372b61cbad7e2e1c463b0f159e" https://api.fitbit.com/oauth2/token
+
+https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=https%3A%2F%2Flocalhost%3A44383%2FHome%2FCallback&code=
 
 
 {
@@ -27,3 +35,5 @@ https://api.fitbit.com/oauth2/token?grant_type=refresh_token&refresh_token=4593b
 curl -X POST -i -H 'Authorization: Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx' -H 'Content-Type: application/x-www-form-urlencoded' -d "clientId=228JJF" -d "grant_type=authorization_code" -d "redirect_uri=http%3A%2F%2Flocalhost%3A54728%2Fapi%2Fvalues" -d "code=e49b541a836de24a77ffe5df42a2dab802fb1476" https://api.fitbit.com/oauth2/token
 
 curl -X POST -i -H "Authorization: Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx" -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=refresh_token" -d "refresh_token=35272aa12bb58bcec02e8fb06c25c75c4da2c654e21219d442e8713629278a17" https://api.fitbit.com/oauth2/token
+
+curl -X POST -i -H 'Authorization: Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx' -H 'Content-Type: application/x-www-form-urlencoded' -d "clientId=228JJF" -d "grant_type=authorization_code" -d "redirect_uri=http%3A%2F%2Flocalhost%3A54728%2Fapi%2Fvalues" -d "code=f027923e6f8b16e5611c146682b890ae5b7701d9" https://api.fitbit.com/oauth2/token
