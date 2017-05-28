@@ -740,7 +740,6 @@ namespace Sj.Mg.Client.Controllers
         public ActionResult GetUserClientsData(string email)
         {
             List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(email);
-
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
 
@@ -766,6 +765,9 @@ namespace Sj.Mg.Client.Controllers
 
         public ActionResult Callback()
         {
+            var prof = (User as ClaimsPrincipal);
+            var email = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
+            var dd = Sj.Mg.Mongo.MongoManage.SearchUserClients(email); 
             var code = Request.QueryString["code"];
             string url = "https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=https%3A%2F%2Flocalhost%3A44383%2FHome%2FCallback&code=" + code;
             WebRequest request = WebRequest.Create(url);
@@ -776,8 +778,19 @@ namespace Sj.Mg.Client.Controllers
             Stream receive = response.GetResponseStream();
             StreamReader reader = new StreamReader(receive, System.Text.Encoding.UTF8);
             var tt = reader.ReadToEnd();
-            Newtonsoft.Json.Linq.JObject patient = Newtonsoft.Json.Linq.JObject.Parse(tt);
-            return View();
+            Newtonsoft.Json.Linq.JObject token = Newtonsoft.Json.Linq.JObject.Parse(tt);
+            dd[0].UserClientsData.ForEach(t =>
+            {
+                t.Clients.ForEach(t1 =>
+                {
+                    if (t1.clientName == "FITBIT")
+                    {
+                        t1.AccessToken = token.ToString();
+                    }
+                });
+            });
+            Sj.Mg.Mongo.MongoManage.UpdateUserClients(dd[0]);
+            return RedirectToAction("Secure");
         }
 
         string ExecuteProc(string url, string basetkn)

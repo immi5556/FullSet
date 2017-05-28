@@ -12,12 +12,36 @@ namespace Sj.Fb.Resource.Server.Controllers
     public class PatientController : ApiController
     {
         [Mg.CliLib.Security.UmaAuthz("Patient/Patient.Read", "Patient/Patient.*")]
-        public Newtonsoft.Json.Linq.JObject Get()
+        [Route("api/Patient/{id}")]
+        public Newtonsoft.Json.Linq.JObject Get(string id)
         {
+            string email = (id ?? "").Replace("^2E", ".");
+            var dd = Sj.Mg.Mongo.MongoManage.SearchUserClients(email);
+            string acctkn = "";
+            dd[0].UserClientsData.ForEach(t =>
+            {
+                t.Clients.ForEach(t1 =>
+                {
+                    if (t1.clientName == "FITBIT")
+                    {
+                        acctkn = t1.AccessToken;
+                    }
+                });
+            });
+            if (string.IsNullOrEmpty(acctkn))
+            {
+                throw new UnauthorizedAccessException("Access not provided");
+            }
+            Newtonsoft.Json.Linq.JObject job = Newtonsoft.Json.Linq.JObject.Parse(acctkn);
+            var tkn = job.SelectToken("access_token", false).ToString();
+            if (job.SelectToken("access_token", false) == null)
+            {
+                throw new UnauthorizedAccessException("Unauth exception..");
+            }
             string url = "https://api.fitbit.com/1/user/-/profile.json";
             WebRequest request = WebRequest.Create(url);
             request.Method = "GET";
-            request.Headers["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1UTczNzMiLCJhdWQiOiIyMjhKSkYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJzZXQgcmFjdCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNDk1NjczMzM4LCJpYXQiOjE0OTU2NDQ1Mzh9.sT7wMh6BHsCspRLj7KfQXVyX0gLxH6rs8q4nPTGaqWw";
+            request.Headers["Authorization"] = "Bearer " + tkn;
             request.ContentType = "application/x-www-form-urlencoded";
             WebResponse response = request.GetResponse();
             Stream receive = response.GetResponseStream();

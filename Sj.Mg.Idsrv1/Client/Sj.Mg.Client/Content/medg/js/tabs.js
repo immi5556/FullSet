@@ -22,15 +22,15 @@ $(document).on("click", ".subLi", function () {
             carousel: '.carouselModule',
             clients: []
         },
-		set = $.extend({}, defaults, opt);
+            set = $.extend({}, defaults, opt);
 
         return this.each(function () {
             var $this = $(this),
-				tabMenu = $('<ul class="tabMenu"></ul>'),
-				subUl = $('<ul class="subUl"></ul>'),
-				temp = '',
-				mytabData,
-				tabMenuSection = $this.find(set.tabNav),
+                tabMenu = $('<ul class="tabMenu"></ul>'),
+                subUl = $('<ul class="subUl"></ul>'),
+                temp = '',
+                mytabData,
+                tabMenuSection = $this.find(set.tabNav),
                 listGridUL = $('<ul class="listGridUL"></ul>'),
                 clientsName = [],
                 carasoulData;
@@ -39,107 +39,107 @@ $(document).on("click", ".subLi", function () {
 
             $('.tabModuleSelectData').append(listGridUL);
             var tabData = [
-                              {
-                                  "clientTypeName": "Providers",
-                                  "Clients": [
-                                    {
-                                        "clientName": "Relief Express",
-                                        "UserScopes": [
-                                          {
-                                              "icon": "/content/medg/images/serIcon1.png",
-                                              "activeIcon": "/content/medg/images/serIcon1Active.png",
-                                              "scopeName": "Demographic",
-                                              "description": "Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information."
-                                          },
-                                          {
-                                              "icon": "/content/medg/images/serIcon2.png",
-                                              "activeIcon": "/content/medg/images/serIcon2Active.png",
-                                              "scopeName": "Diagnostics",
-                                              "description": "A diagnostic report is the set of information that is typically provided by a diagnostic service when investigations are complete. The information includes a mix of atomic results, text reports, images, and codes. The mix varies depending on the nature of the diagnostic procedure, and sometimes on the nature of the outcomes for a particular investigation."
-                                          },
-                                          {
-                                              "icon": "/content/medg/images/serIcon3.png",
-                                              "activeIcon": "/content/medg/images/serIcon3Active.png",
-                                              "scopeName": "Medication",
-                                              "description": "Medication can include the form of the drug and the ingredient (or ingredients), as well as how it is packaged. The medication will include the ingredient(s) and their strength(s) and the package can include the amount (for example, number of tablets, volume, etc.) that is contained in a particular container (for example, 100 capsules of Amoxicillin 500mg per bottle)"
-                                          },
-                                          {
-                                              "icon": "/content/medg/images/serIcon4.png",
-                                              "activeIcon": "/content/medg/images/serIcon4Active.png",
-                                              "scopeName": "Observation",
-                                              "description": "Observations are a central element in healthcare, used to support diagnosis, monitor progress, determine baselines and patterns and even capture demographic characteristics. Uses for the Observation resource include Vital Signs, Personal characteristics of the Patient, Devices measurements, Physical exam findings, etc."
-                                          }
-                                        ]
-                                    },
-                                    {
-                                        "clientName": "Neuro Care Partners",
-                                        "UserScopes": [
-                                          {
-                                              "icon": "/content/medg/images/serIcon1.png",
-                                              "activeIcon": "/content/medg/images/serIcon1Active.png",
-                                              "scopeName": "Demographic",
-                                              "description": "Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information."
-                                          },
-                                          {
-                                              "icon": "/content/medg/images/serIcon2.png",
-                                              "activeIcon": "/content/medg/images/serIcon2Active.png",
-                                              "scopeName": "Diagnostics",
-                                              "description": "A diagnostic report is the set of information that is typically provided by a diagnostic service when investigations are complete. The information includes a mix of atomic results, text reports, images, and codes. The mix varies depending on the nature of the diagnostic procedure, and sometimes on the nature of the outcomes for a particular investigation."
-                                          },
-                                          {
-                                              "icon": "/content/medg/images/serIcon3.png",
-                                              "activeIcon": "/content/medg/images/serIcon3Active.png",
-                                              "scopeName": "Medication",
-                                              "description": "Medication can include the form of the drug and the ingredient (or ingredients), as well as how it is packaged. The medication will include the ingredient(s) and their strength(s) and the package can include the amount (for example, number of tablets, volume, etc.) that is contained in a particular container (for example, 100 capsules of Amoxicillin 500mg per bottle)"
-                                          },
-                                          {
-                                              "icon": "/content/medg/images/serIcon4.png",
-                                              "activeIcon": "/content/medg/images/serIcon4Active.png",
-                                              "scopeName": "Observation",
-                                              "description": "Observations are a central element in healthcare, used to support diagnosis, monitor progress, determine baselines and patterns and even capture demographic characteristics. Uses for the Observation resource include Vital Signs, Personal characteristics of the Patient, Devices measurements, Physical exam findings, etc."
-                                          }
-                                        ]
-                                    }
-                                  ]
-                              },
-                              {
-                                  "clientTypeName": "Smart Apps",
-                                  "Clients": [
-                                    {
-                                        "clientName": "FitNet",
-                                        "UserScopes": [
-                                          {
-                                              "icon": "/content/medg/images/serIcon13.png",
-                                              "activeIcon": "/content/medg/images/serIcon13Active.png",
-                                              "scopeName": "Fitness",
-                                              "description": ""
-                                          }
-                                        ]
-                                    },
-                                    {
-                                        "clientName": "Medtronic",
-                                        "UserScopes": [
-                                          {
-                                              "icon": "/content/medg/images/serIcon12.png",
-                                              "activeIcon": "/content/medg/images/serIcon12Active.png",
-                                              "scopeName": "Pacemaker",
-                                              "description": ""
-                                          }
-                                        ]
-                                    },
-                                    {
-                                        "clientName": "mySugr",
-                                        "UserScopes": [
-                                          {
-                                              "icon": "/content/medg/images/serIcon11.png",
-                                              "activeIcon": "/content/medg/images/serIcon11Active.png",
-                                              "scopeName": "Blood Sugar",
-                                              "description": ""
-                                          }
-                                        ]
-                                    }
-                                  ]
-                              }
+                {
+                    "clientTypeName": "Providers",
+                    "Clients": [
+                        {
+                            "clientName": "Relief Express",
+                            "UserScopes": [
+                                {
+                                    "icon": "/content/medg/images/serIcon1.png",
+                                    "activeIcon": "/content/medg/images/serIcon1Active.png",
+                                    "scopeName": "Demographic",
+                                    "description": "Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information."
+                                },
+                                {
+                                    "icon": "/content/medg/images/serIcon2.png",
+                                    "activeIcon": "/content/medg/images/serIcon2Active.png",
+                                    "scopeName": "Diagnostics",
+                                    "description": "A diagnostic report is the set of information that is typically provided by a diagnostic service when investigations are complete. The information includes a mix of atomic results, text reports, images, and codes. The mix varies depending on the nature of the diagnostic procedure, and sometimes on the nature of the outcomes for a particular investigation."
+                                },
+                                {
+                                    "icon": "/content/medg/images/serIcon3.png",
+                                    "activeIcon": "/content/medg/images/serIcon3Active.png",
+                                    "scopeName": "Medication",
+                                    "description": "Medication can include the form of the drug and the ingredient (or ingredients), as well as how it is packaged. The medication will include the ingredient(s) and their strength(s) and the package can include the amount (for example, number of tablets, volume, etc.) that is contained in a particular container (for example, 100 capsules of Amoxicillin 500mg per bottle)"
+                                },
+                                {
+                                    "icon": "/content/medg/images/serIcon4.png",
+                                    "activeIcon": "/content/medg/images/serIcon4Active.png",
+                                    "scopeName": "Observation",
+                                    "description": "Observations are a central element in healthcare, used to support diagnosis, monitor progress, determine baselines and patterns and even capture demographic characteristics. Uses for the Observation resource include Vital Signs, Personal characteristics of the Patient, Devices measurements, Physical exam findings, etc."
+                                }
+                            ]
+                        },
+                        {
+                            "clientName": "Neuro Care Partners",
+                            "UserScopes": [
+                                {
+                                    "icon": "/content/medg/images/serIcon1.png",
+                                    "activeIcon": "/content/medg/images/serIcon1Active.png",
+                                    "scopeName": "Demographic",
+                                    "description": "Patient Demographics, also known as a face sheet, contains all the basic demographic information about an individual or patient including Patient name, Date of birth, Address, Phone number, Social security number (SSN) and Sex. Patient Demographics may also contains Guarantors or emergency contact information."
+                                },
+                                {
+                                    "icon": "/content/medg/images/serIcon2.png",
+                                    "activeIcon": "/content/medg/images/serIcon2Active.png",
+                                    "scopeName": "Diagnostics",
+                                    "description": "A diagnostic report is the set of information that is typically provided by a diagnostic service when investigations are complete. The information includes a mix of atomic results, text reports, images, and codes. The mix varies depending on the nature of the diagnostic procedure, and sometimes on the nature of the outcomes for a particular investigation."
+                                },
+                                {
+                                    "icon": "/content/medg/images/serIcon3.png",
+                                    "activeIcon": "/content/medg/images/serIcon3Active.png",
+                                    "scopeName": "Medication",
+                                    "description": "Medication can include the form of the drug and the ingredient (or ingredients), as well as how it is packaged. The medication will include the ingredient(s) and their strength(s) and the package can include the amount (for example, number of tablets, volume, etc.) that is contained in a particular container (for example, 100 capsules of Amoxicillin 500mg per bottle)"
+                                },
+                                {
+                                    "icon": "/content/medg/images/serIcon4.png",
+                                    "activeIcon": "/content/medg/images/serIcon4Active.png",
+                                    "scopeName": "Observation",
+                                    "description": "Observations are a central element in healthcare, used to support diagnosis, monitor progress, determine baselines and patterns and even capture demographic characteristics. Uses for the Observation resource include Vital Signs, Personal characteristics of the Patient, Devices measurements, Physical exam findings, etc."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "clientTypeName": "Smart Apps",
+                    "Clients": [
+                        {
+                            "clientName": "FitNet",
+                            "UserScopes": [
+                                {
+                                    "icon": "/content/medg/images/serIcon13.png",
+                                    "activeIcon": "/content/medg/images/serIcon13Active.png",
+                                    "scopeName": "Fitness",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        {
+                            "clientName": "Medtronic",
+                            "UserScopes": [
+                                {
+                                    "icon": "/content/medg/images/serIcon12.png",
+                                    "activeIcon": "/content/medg/images/serIcon12Active.png",
+                                    "scopeName": "Pacemaker",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        {
+                            "clientName": "mySugr",
+                            "UserScopes": [
+                                {
+                                    "icon": "/content/medg/images/serIcon11.png",
+                                    "activeIcon": "/content/medg/images/serIcon11Active.png",
+                                    "scopeName": "Blood Sugar",
+                                    "description": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
             ];
 
             set.clients.forEach(function (item, index) {
@@ -299,18 +299,19 @@ $(document).on("click", ".subLi", function () {
                                     if (item.Clients == null) {
                                         item.Clients = [];
                                     }
-                                    $(".poplightbx, .popupShadow").show();
+                                    //$(".poplightbx, .popupShadow").show();
                                     $(".clientAuth").html(obj.clientName + " Authentication");
-                                    var rurl = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJF&redirect_uri=https%3A%2F%2Flocalhost%3A44383%2FHome%2FCallback&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
-                                    //$("#ifrm").attr("src", rurl);
-                                    window.open(rurl, "_blank");
-                                    if (obj.clientName == "FITBIT") {
-
-                                    }
                                     item.Clients.push(obj);
                                     if (set.mydata.length && set.mydata[0].email) {
                                         set.mydata[0].UserClientsData = mytabData;
                                         updateDB(set.mydata);
+                                    }
+                                    if (obj.clientName == "FITBIT") {
+                                        var rurl = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJF&redirect_uri=https%3A%2F%2Flocalhost%3A44383%2FHome%2FCallback&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
+                                        //$("#ifrm").attr("src", rurl);
+                                        //window.open(rurl, "_blank");
+                                        window.location = rurl;
+                                        return;
                                     }
                                 }
                             });
@@ -332,7 +333,7 @@ $(document).on("click", ".subLi", function () {
                             if (mytabData) {
                                 for (var y = 0; y < mytabData.length; y++) {
                                     if (thisParentVal == mytabData[y].clientTypeName) {
-                                        
+
                                         for (var z = 0; z < mytabData[y].Clients.length; z++) {
                                             if (mytabData[y].Clients[z] != null) {
                                                 var vals = mytabData[y].Clients[z].clientName;
@@ -594,7 +595,7 @@ $(document).on("click", ".subLi", function () {
                 }
                 function scrollFn() {
 
-                    var iHeight = $(".listGridUL").height()+15;
+                    var iHeight = $(".listGridUL").height() + 15;
                     var iScrollHeight = $(".listGridUL").prop("scrollHeight");
 
                     if (iScrollHeight > iHeight) {
@@ -629,22 +630,6 @@ $(document).on("click", ".subLi", function () {
                     gridListDropDown(mytabData);
                 };
 
-
-
-                function updateDB(data) {
-                    $.ajax({
-                        url: "/home/UpdateUserClientsData",
-                        type: "POST",
-                        data: data[0]
-                    })
-                    .done(function (data, textStatus, jqXHR) {
-                        //console.log(data);
-                    })
-                    .fail(function (jqXHR, textStatus, errorThrown) {
-                        showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-                    });
-                }
-
                 function showPopUp(content) {
                     $(".popUpContent").html(content);
                     $('body').addClass('registerMail');
@@ -662,10 +647,23 @@ $(document).on("click", ".subLi", function () {
                     $('.reportBlock').height(Hh - 40);
                     $('.listGridUL').height(Hh - 15);
                 };
-             
+
             }
 
         });
     }
 
+    function updateDB(data) {
+        $.ajax({
+            url: "/home/UpdateUserClientsData",
+            type: "POST",
+            data: data[0]
+        })
+            .done(function (data, textStatus, jqXHR) {
+                //console.log(data);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+            });
+    }
 })(jQuery);
