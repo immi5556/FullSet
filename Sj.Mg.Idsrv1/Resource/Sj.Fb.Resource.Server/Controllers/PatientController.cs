@@ -20,13 +20,16 @@ namespace Sj.Fb.Resource.Server.Controllers
             string acctkn = "";
             dd[0].UserClientsData.ForEach(t =>
             {
-                t.Clients.ForEach(t1 =>
+                if (t.Clients != null && t.Clients.Count > 0 && t.Clients[0] != null)
                 {
-                    if (t1.clientName == "FITBIT")
+                    t.Clients.ForEach(t1 =>
                     {
-                        acctkn = t1.AccessToken;
-                    }
-                });
+                        if (t1.clientName == "FITBIT")
+                        {
+                            acctkn = t1.AccessToken;
+                        }
+                    });
+                }
             });
             if (string.IsNullOrEmpty(acctkn))
             {
