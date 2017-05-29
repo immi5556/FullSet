@@ -74,15 +74,15 @@ var permission = (function () {
             answer.push(data.dateOfBirth);
         } 
         if (data.fullName) {
-            question.push("What is your fullName that you register with " + selectedclient + "?");
+            question.push("What is your full name as registered with " + selectedclient + "?");
             answer.push(data.fullName);
         }
         if (data.height) {
-            question.push("What is your height when you register with " + selectedclient + "?");
+            question.push("What is your height according to " + selectedclient + "?");
             answer.push(data.height);
         }
         if (data.weight) {
-            question.push("What is your weight when you register with " + selectedclient + "?");
+            question.push("What is your weight according to " + selectedclient + "?");
             answer.push(data.weight);
         }
         if (data.age) {

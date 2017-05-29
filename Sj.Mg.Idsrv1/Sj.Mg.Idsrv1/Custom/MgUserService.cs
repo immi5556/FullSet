@@ -12,6 +12,7 @@ using Sj.Mg.Mongo;
 using Sj.Mg.Mongo.Data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -147,6 +148,7 @@ namespace Sj.Mg.Idsrv1.Custom
 
         public string addUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
         {
+
             var database = BaseMongo.GetDatabase();
             var collection = database.GetCollection<BsonDocument>("Users");
 
@@ -155,16 +157,32 @@ namespace Sj.Mg.Idsrv1.Custom
             var response = collection.Find(filter).ToList();
             if (response.Count == 0)
             {
-                var newUser = GetUser(firstName, lastName, password, email, phoneNumber, provider, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7);
-                MongoManage.Insert<CustomUser>(newUser, "Users");
-                Dictionary<string, object> filter1 = new Dictionary<string, object>();
-                filter1.Add("Subject", email);
-                var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter1, "Users");
-                CustomUser user = (tt == null || tt.Count == 0) ? null : tt[0];
-                if(user != null)
+                try
                 {
-                    UserClientsList data = GetUserClients(user.Id, email);
-                    MongoManage.Insert<UserClientsList>(data, "UsersClientsData");
+                    var newUser = GetUser(firstName, lastName, password, email, phoneNumber, provider, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7);
+                    MongoManage.Insert<CustomUser>(newUser, "Users");
+                    Dictionary<string, object> filter1 = new Dictionary<string, object>();
+                    filter1.Add("Subject", email);
+                    var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter1, "Users");
+                    CustomUser user = (tt == null || tt.Count == 0) ? null : tt[0];
+                    if (user != null)
+                    {
+                        UserClientsList data = GetUserClients(user.Id, email);
+                        MongoManage.Insert<UserClientsList>(data, "UsersClientsData");
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+
+                    string filePath = @"D:\_deploy\_mg_idrv\error.txt";
+
+                    using (StreamWriter writer = new StreamWriter(filePath, true))
+                    {
+                        writer.WriteLine("Message :" + ex.Message + "<br/>" + Environment.NewLine + "StackTrace :" + ex.StackTrace +
+                           "" + Environment.NewLine + "Date :" + DateTime.Now.ToString());
+                        writer.WriteLine(Environment.NewLine + "-----------------------------------------------------------------------------" + Environment.NewLine);
+                    }
                 }
                 return "success";
             }
@@ -239,7 +257,7 @@ namespace Sj.Mg.Idsrv1.Custom
 
         public UserClientsList GetUserClients(ObjectId id, string email)
         {
-            string data = System.IO.File.ReadAllText(@"E:\Vamsi\Medgrotto\FullSet\Sj.Mg.Idsrv1\Sj.Mg.Idsrv1\Content\medg\js\tabsData.json");
+            string data = System.IO.File.ReadAllText(@"~/Content/medg/js/tabsData.json");
             var obj= JsonConvert.DeserializeObject<List<UserClientsData>>(data);
             UserClientsList userClnts = new UserClientsList();
             userClnts.userId = id.ToString();
