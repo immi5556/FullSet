@@ -28,14 +28,13 @@ var permission = (function () {
     }
     $('.registerMail .pageShadow,.notNow').on('click', function () {
         $('body').removeClass('registerMail');
+        window.location.reload();
     });
     $(".questionForm input[type='button']").on("click", function () {
         if (answer[selectedQuestion] == $(".questionForm input[type='text']").val()) {
             challengeQuestion = true;
             $(".closeIcon").click();
             viewBtn.click();
-            $(".qustionPop").hide();
-            $("body").removeClass("loadingHome");
         } else {
             $("body").removeClass("loadingHome");
             $(".questionForm span").text("Wrong Answer.");
@@ -97,6 +96,11 @@ var permission = (function () {
             $("#challengeQuestion .noAccess").text("We want to verify that you are indeed " + $(".usrName").text());
             $(".questionForm h3").text(question[selectedQuestion]);
             $(".questionForm span").text("");
+            if (question[selectedQuestion] == "What is your Date Of Birth?") {
+                $(".questionForm input[type='text']").attr("placeholder","YYYY-MM-DD");
+            } else {
+                $(".questionForm input[type='text']").attr("placeholder", "");
+            }
         } else {
             challengeQuestion = true;
             $(".closeIcon").click();
@@ -1242,7 +1246,7 @@ var permission = (function () {
         $(".btn-view").off("click").on("click", function () {
             $(document).click();
             $(this).closest("li").click();
-            $(".subLi.active").each(function () { $(this).click() });
+            //$(".subLi.active").each(function () { $(this).click() });
             viewBtn = $(this);
             $("body").addClass("loadingHome");
             if (challengeQuestion) {
@@ -1271,9 +1275,6 @@ var permission = (function () {
                 }
                 if (resor.toLowerCase().indexOf("Observation") > -1) {
                     resor = "Observation";
-                }
-                if (selectedclient.toLowerCase().indexOf("fitbit") > -1) {
-                    resor = "Demographic";
                 }
                 if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
                     var sdata = {

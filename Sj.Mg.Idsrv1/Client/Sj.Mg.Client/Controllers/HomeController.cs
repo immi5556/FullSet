@@ -696,7 +696,7 @@ namespace Sj.Mg.Client.Controllers
             {
                 if (para.resource == "Demographic")
                 {
-                    var pats = Execute(CliLib.Utils.Common.ReFbApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                    var pats = Execute(CliLib.Utils.Common.ReAhApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
                     return Json(pats, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -781,13 +781,16 @@ namespace Sj.Mg.Client.Controllers
             Newtonsoft.Json.Linq.JObject token = Newtonsoft.Json.Linq.JObject.Parse(tt);
             dd[0].UserClientsData.ForEach(t =>
             {
-                t.Clients.ForEach(t1 =>
+                if ( t.Clients != null && t.Clients.Count > 0 && t.Clients[0] != null)
                 {
-                    if (t1.clientName == "FITBIT")
+                    t.Clients.ForEach(t1 =>
                     {
-                        t1.AccessToken = token.ToString();
-                    }
-                });
+                        if (t1.clientName == "FITBIT")
+                        {
+                            t1.AccessToken = token.ToString();
+                        }
+                    });
+                }
             });
             Sj.Mg.Mongo.MongoManage.UpdateUserClients(dd[0]);
             return RedirectToAction("Secure");
