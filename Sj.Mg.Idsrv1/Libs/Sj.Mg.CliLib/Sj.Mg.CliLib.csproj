@@ -162,6 +162,7 @@
     <Compile Include="Model\resource.cs" />
     <Compile Include="Model\Rpt.cs" />
     <Compile Include="Model\ticket.cs" />
+    <Compile Include="Model\UpdateUsersClientData.cs" />
     <Compile Include="Model\UserClientsData.cs" />
     <Compile Include="Model\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

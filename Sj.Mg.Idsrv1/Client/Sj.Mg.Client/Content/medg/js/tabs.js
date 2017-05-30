@@ -304,7 +304,7 @@ $(document).on("click", ".subLi", function () {
                                     item.Clients.push(obj);
                                     if (set.mydata.length && set.mydata[0].email) {
                                         set.mydata[0].UserClientsData = mytabData;
-                                        updateDB(set.mydata);
+                                        updateDB(set.mydata, false, false, "");
                                     }
                                     if (obj.clientName == "FITBIT") {
                                         var rurl = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJF&redirect_uri=https%3A%2F%2Flocalhost%3A44383%2FHome%2FCallback&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
@@ -456,7 +456,7 @@ $(document).on("click", ".subLi", function () {
                                             subItem.UserScopes.push(catr);
                                             if (set.mydata.length && set.mydata[0].email) {
                                                 set.mydata[0].UserClientsData = mytabData;
-                                                updateDB(set.mydata);
+                                                updateDB(set.mydata, false, false, "");
                                             }
                                             for (var y = 0; y < mytabData.length; y++) {
                                                 if (selectedTab == mytabData[y].clientTypeName) {
@@ -506,7 +506,7 @@ $(document).on("click", ".subLi", function () {
                                             mytabData[y].Clients.splice(z, 1);
                                             if (set.mydata.length && set.mydata[0].email) {
                                                 set.mydata[0].UserClientsData = mytabData;
-                                                updateDB(set.mydata);
+                                                updateDB(set.mydata, true, false, vals);
                                             }
                                             tabListDropDown(mytabData);
                                         }
@@ -537,7 +537,7 @@ $(document).on("click", ".subLi", function () {
                                                     mytabData[y].Clients[z].UserScopes.splice(i, 1);
                                                     if (set.mydata.length && set.mydata[0].email) {
                                                         set.mydata[0].UserClientsData = mytabData;
-                                                        updateDB(set.mydata);
+                                                        updateDB(set.mydata, false, true, mytabData[y].Clients[z].clientName+","+indVal);
                                                     }
                                                 }
                                             };
@@ -653,11 +653,16 @@ $(document).on("click", ".subLi", function () {
         });
     }
 
-    function updateDB(data) {
+    function updateDB(data, delClient, delScope, delItem) {
         $.ajax({
             url: "/home/UpdateUserClientsData",
             type: "POST",
-            data: data[0]
+            data: {
+                "userClientsList": data[0],
+                "delClient": delClient,
+                "delScope": delScope,
+                "delItem": delItem
+            }
         })
             .done(function (data, textStatus, jqXHR) {
                 //console.log(data);
@@ -665,5 +670,14 @@ $(document).on("click", ".subLi", function () {
             .fail(function (jqXHR, textStatus, errorThrown) {
                 showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
             });
+    }
+
+    function showPopUp(content) {
+        $(".popUpContent").html(content);
+        $('body').addClass('registerMail');
+        $('.popUp').on('click', function (e) {
+            e.stopPropagation();
+        });
+        return;
     }
 })(jQuery);

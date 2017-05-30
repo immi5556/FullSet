@@ -8,7 +8,7 @@ var permission = (function () {
     var myData, profileData, provider = false;
     var data, selectedUser, selectedUserRelation, activateClass = false, challengeQuestion = false;
     var question = [], answer = [], selectedQuestion = -1;
-    var viewBtn, clients, userClients = [];
+    var viewBtn, clients, userClients = [], userClientsArray = [];
 
     function showPopUp(content) {
         $(".popUpContent").html(content);
@@ -438,7 +438,7 @@ var permission = (function () {
             var $this = $(this);
             $(".requestDeny").on("click", function () {
                 $.ajax({
-                    url: "/denyrequest/" + $(".scopeUser").text() + "/ReliefExpress/" + $(".scopeResource").text() + "/" + ( $(".scopeAccess").text() == "View" ? "Read" : "Share" )
+                    url: "/denyrequest/" + $(".scopeUser").text() + "/"+selectedclient+"/" + $(".scopeResource").text() + "/" + ( $(".scopeAccess").text() == "View" ? "Read" : "Share" )
                 })
                 .done(function (data, textStatus, jqXHR) {
                     $(".closeIcon").click();
@@ -465,7 +465,7 @@ var permission = (function () {
 
     $(".requestAgreed").on("click", function () {
         $.ajax({
-            url: "/provide/" + reqUser + "/ReliefExpress/" + reqUserResource + "/" + reqUserScope + "/" + reqUserRelation,
+            url: "/provide/" + reqUser + "/"+selectedclient+"/" + reqUserResource + "/" + reqUserScope + "/" + reqUserRelation,
         })
         .done(function (data, textStatus, jqXHR) {
             showPopUp('<h4>Your Response was sent successfully.</h4>');
@@ -612,6 +612,30 @@ var permission = (function () {
         });
         //.always(function (jqXHROrData, textStatus, jqXHROrErrorThrown) { alert("complete"); });
     }
+    function clientChange() {
+        $("#selectedclient").on("change", function () {
+            $('#selrsrc').find('option').remove().end();
+            $('#selrsrc').append('<option value="select">select</option>');
+            if (userClients && userClients[0].UserClientsData) {
+                userClients[0].UserClientsData.forEach(function (item) {
+                    if (item && item.Clients) {
+                        item.Clients.forEach(function (clie) {
+                            if (clie && (clie.clientName.replace(" ", "") == $("#selectedclient").val() || clie.clientName.toLowerCase().replace(" ", "").indexOf($("#selectedclient").val().toLowerCase().replace(" ", "")) > -1)) {
+                                if (clie.UserScopes) {
+                                    clie.UserScopes.forEach(function (usrscp) {
+                                        $('#selrsrc').append($('<option>', {
+                                            value: usrscp.scopeName,
+                                            text: usrscp.scopeName
+                                        }));
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 
     $(document).on("click", ".pro-r", function () {
         toemail = $(this).data("emailto");
@@ -622,18 +646,27 @@ var permission = (function () {
         $("#searchEmail").val('');
         $(filterUl).append("<div class='provideRow'><label>User:</label> <span  id='selUsr'>" + toemail + "</span></div>");
         $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
-        $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>" + selectedclient + "</span></div>");
-        $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Demographic</option><option>Diagnostics</option><option>Medication</option><option>Observation</option></select></div>");
+        var clientBlock = "<div class='provideRow'><label>Client:</label><select id='selectedclient'><option value='select'>select</option>";
+        userClientsArray.forEach(function (item) {
+            if(item && item.toLowerCase().indexOf("athena") > -1)
+                clientBlock += "<option value='Athena'>Athena</option>";
+            else
+                clientBlock += "<option value='" + item.replace(" ", "") + "'>" + item + "</option>";
+        });
+        clientBlock += "</select></div>";
+        $(filterUl).append(clientBlock);
+        $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Select Client</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Valid Till:</label><select id='timePeriod'><option value='hour'>1 Hour</option><option value='Day'>1 Day</option><option value='NoLimit'>No Time Limit</option></select></div>");
         $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Share</button><button class='reqCancel'>Cancel</button></div>");
+        clientChange();        
     });
     $(document).on("click", ".reqCancel", function () {
         $("#srchrest").html("");
     });
     $(document).on("click", "#conf-prov", function () {
         $.ajax({
-            url: "/provide/" + $("#selUsr").text() + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val(),
+            url: "/provide/" + $("#selUsr").text() + "/" + $("#selectedclient").val() + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val(),
         })
         .done(function (data, textStatus, jqXHR) {
             $(".allowedUsr1 tbody").append('<tr><td>' + $("#selUsr").text() + '</td><td>' + $("#userRelation").val() + '</td><td>' + $("#selrsrc").val() + '</td><td><select class="accessType"><option value="Read" ' + ($("#selscpe").val() == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + ($("#selscpe").val() == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><img src="/Content/medg/images/revoke1.png" alt="revoke"></button></td></tr>');
@@ -658,17 +691,26 @@ var permission = (function () {
         $('.slideDown').trigger("click");
         var filterUl = $('<div class="providesAcc"></div>');
         $("#srchrest").append(filterUl);
-        $("#searchEmail").val(''); 
+        $("#searchEmail").val('');
         $(filterUl).append("<div class='provideRow'><label>User:</label> <span id='selUsr'>" + toemail + "</span></div>");
         $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
-        $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>Relief Express</span></div>");
-        $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Demographic</option><option>Diagnostics</option><option>Medication</option><option>Observation</option></select></div>");
+        var clientBlock = "<div class='provideRow'><label>Client:</label><select id='selectedclient'><option value='select'>select</option>";
+        userClientsArray.forEach(function (item) {
+            if (item && item.toLowerCase().indexOf("athena") > -1)
+                clientBlock += "<option value='Athena'>Athena</option>";
+            else
+                clientBlock += "<option value='" + item.replace(" ", "") + "'>" + item + "</option>";
+        });
+        clientBlock += "</select></div>";
+        $(filterUl).append(clientBlock);
+        $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Select Client</option></select></div>");
         $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
         $(filterUl).append("<div class='provideRow'><button id='conf-req'>Request</button><button class='reqCancel'>Cancel</button></div>");
+        clientChange();
     });
     $(document).on("click", "#conf-req", function () {
         $.ajax({
-            url: "/request/" + $("#selUsr").text() + "/" + selectedclient + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val(),
+            url: "/request/" + $("#selUsr").text() + "/" + $("#selectedclient").val() + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val(),
         })
         .done(function (data, textStatus, jqXHR) {
             showPopUp('<h4>Request Sent Successfully.</h4>');
@@ -1340,8 +1382,21 @@ var permission = (function () {
             $("#searchEmail").val('');
             $(filterUl).append("<div class='provideRow'><label>User:</label> <span  id='selUsr'>" + toemail + "</span></div>");
             $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
-            $(filterUl).append("<div class='provideRow'><label>Client:</label> <span>" + selectedclient + "</span></div>");
-            $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option>Demographic</option><option>Diagnostics</option><option>Medication</option><option>Observation</option></select></div>");
+            //$(filterUl).append("<div class='provideRow'><label>Client:</label> <span>" + selectedclient + "</span></div>");
+
+            var clientBlock = "<div class='provideRow'><label>Client:</label><select id='selectedclient'><option value='select'>select</option>";
+            userClientsArray.forEach(function (item) {
+                if (item && item.toLowerCase().indexOf("athena") > -1)
+                    clientBlock += "<option value='Athena'>Athena</option>";
+                else
+                    clientBlock += "<option value='" + item.replace(" ", "") + "'>" + item + "</option>";
+            });
+            clientBlock += "</select></div>";
+            $(filterUl).append(clientBlock);
+            $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'></select></div>");
+            clientChange();
+            $("#selectedclient").val(selectedclient);
+            $("#selectedclient").change();
             $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
 
             if ($(this).text() != "Request") {
@@ -1450,6 +1505,18 @@ var permission = (function () {
         })
         .done(function (data, textStatus, jqXHR) {
             userClients = data;
+            userClientsArray = [];
+            if (userClients && userClients[0].UserClientsData) {
+                userClients[0].UserClientsData.forEach(function (item) {
+                    if (item && item.Clients) {
+                        item.Clients.forEach(function (clie) {
+                            if (clie && clie.clientName) {
+                                userClientsArray.push(clie.clientName);
+                            }
+                        });
+                    }
+                });
+            }
             getClients();
         })
         .fail(function (jqXHR, textStatus, errorThrown) {

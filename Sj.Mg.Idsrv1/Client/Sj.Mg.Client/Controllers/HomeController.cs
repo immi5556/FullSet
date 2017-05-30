@@ -745,13 +745,375 @@ namespace Sj.Mg.Client.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult UpdateUserClientsData(UserClientsList data)
+        public ActionResult UpdateUserClientsData(UpdateUsersClientData clientData)
         {
+            var data = clientData.userClientsList;
             List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(data.email);
+            var scopes = new List<string>();
+            gg[0].UserClientsData.ForEach(clientType =>
+            {
+                clientType.Clients.ForEach(clients =>
+                {
+                    if(clients.clientName == clientData.delItem)
+                    {
+                        clients.UserScopes.ForEach(item =>
+                        {
+                            scopes.Add(item.scopeName);
+                        });
+                        
+                    }
+                });
+            });
             gg[0].UserClientsData = data.UserClientsData;
             Sj.Mg.Mongo.MongoManage.UpdateUserClients(gg[0]);
 
-            return Json("Success", JsonRequestBehavior.AllowGet);
+            if (clientData.delClient)
+            {
+                var tt = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(data.email);
+                var allowedUsers = new List<ReqParamObj>();
+                var sharedUsers = new List<ReqParamObj>();
+
+                tt.ForEach(t =>
+                {
+                    if (t.MyEmail == data.email)
+                    {
+                        if (t.RequestedUsers.ContainsKey(clientData.delItem))
+                        {
+                            t.RequestedUsers[clientData.delItem].Clear();
+                            Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                        }
+                        if (t.AllowedUsers.ContainsKey(clientData.delItem))
+                        {
+                            if (scopes.Count > 0)
+                            {
+                                scopes.ForEach(scopeName =>
+                                {
+                                    if (t.AllowedUsers[clientData.delItem].ContainsKey(scopeName))
+                                    {
+                                        if (t.AllowedUsers[clientData.delItem][scopeName].ContainsKey("Read"))
+                                        {
+                                            t.AllowedUsers[clientData.delItem][scopeName]["Read"].ForEach(userItem =>
+                                            {
+                                                ReqParamObj temp = new ReqParamObj();
+                                                temp.user = userItem.user;
+                                                temp.scope = scopeName;
+                                                temp.scopeType = "Read";
+                                                allowedUsers.Add(temp);
+                                            });
+                                        }
+                                        if (t.AllowedUsers[clientData.delItem][scopeName].ContainsKey("Share"))
+                                        {
+                                            t.AllowedUsers[clientData.delItem][scopeName]["Share"].ForEach(userItem =>
+                                            {
+                                                ReqParamObj temp = new ReqParamObj();
+                                                temp.user = userItem.user;
+                                                temp.scope = scopeName;
+                                                temp.scopeType = "Share";
+                                                allowedUsers.Add(temp);
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                            t.AllowedUsers[clientData.delItem].Clear();
+                            Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                            if (allowedUsers.Count > 0)
+                            {
+                                allowedUsers.ForEach(userData =>
+                                {
+                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user);
+                                    customeUser.ForEach(userItem =>
+                                    {
+                                        if (userData.scopeType == "Read")
+                                        {
+                                            if (userItem.MyDetailsSharedWith[clientData.delItem][userData.scope].ContainsKey("Read"))
+                                            {
+                                                int index = -1;
+                                                userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Read"].ForEach(scopeItem =>
+                                                {
+                                                    index++;
+                                                    if (scopeItem.user == data.email)
+                                                    {
+                                                        userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Read"].Remove(userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Read"][index]);
+                                                        Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(userItem);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (userItem.MyDetailsSharedWith[clientData.delItem][userData.scope].ContainsKey("Share"))
+                                            {
+                                                int index = -1;
+                                                userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Share"].ForEach(scopeItem =>
+                                                {
+                                                    index++;
+                                                    if (scopeItem.user == data.email)
+                                                    {
+                                                        userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Share"].Remove(userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Read"][index]);
+                                                        Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(userItem);
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                    });
+                                });
+                            }
+                        }
+                        if (t.MyDetailsSharedWith.ContainsKey(clientData.delItem))
+                        {
+                            if (scopes.Count > 0)
+                            {
+                                scopes.ForEach(scopeName =>
+                                {
+                                    if (t.MyDetailsSharedWith[clientData.delItem].ContainsKey(scopeName))
+                                    {
+                                        if (t.MyDetailsSharedWith[clientData.delItem][scopeName].ContainsKey("Read"))
+                                        {
+                                            t.MyDetailsSharedWith[clientData.delItem][scopeName]["Read"].ForEach(userItem =>
+                                            {
+                                                ReqParamObj temp = new ReqParamObj();
+                                                temp.user = userItem.user;
+                                                temp.scope = scopeName;
+                                                temp.scopeType = "Read";
+                                                sharedUsers.Add(temp);
+                                            });
+                                        }
+                                        if (t.MyDetailsSharedWith[clientData.delItem][scopeName].ContainsKey("Share"))
+                                        {
+                                            t.MyDetailsSharedWith[clientData.delItem][scopeName]["Share"].ForEach(userItem =>
+                                            {
+                                                ReqParamObj temp = new ReqParamObj();
+                                                temp.user = userItem.user;
+                                                temp.scope = scopeName;
+                                                temp.scopeType = "Share";
+                                                sharedUsers.Add(temp);
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                            t.MyDetailsSharedWith[clientData.delItem].Clear();
+                            Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                            if (sharedUsers.Count > 0)
+                            {
+                                sharedUsers.ForEach(userData =>
+                                {
+                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user);
+                                    customeUser.ForEach(userItem =>
+                                    {
+                                        if (userData.scopeType == "Read")
+                                        {
+                                            if (userItem.AllowedUsers[clientData.delItem][userData.scope].ContainsKey("Read"))
+                                            {
+                                                int index = -1;
+                                                userItem.AllowedUsers[clientData.delItem][userData.scope]["Read"].ForEach(scopeItem =>
+                                                {
+                                                    index++;
+                                                    if (scopeItem.user == data.email)
+                                                    {
+                                                        userItem.AllowedUsers[clientData.delItem][userData.scope]["Read"].Remove(userItem.AllowedUsers[clientData.delItem][userData.scope]["Read"][index]);
+                                                        Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(userItem);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (userItem.AllowedUsers[clientData.delItem][userData.scope].ContainsKey("Share"))
+                                            {
+                                                int index = -1;
+                                                userItem.AllowedUsers[clientData.delItem][userData.scope]["Share"].ForEach(scopeItem =>
+                                                {
+                                                    index++;
+                                                    if (scopeItem.user == data.email)
+                                                    {
+                                                        userItem.AllowedUsers[clientData.delItem][userData.scope]["Share"].Remove(userItem.AllowedUsers[clientData.delItem][userData.scope]["Read"][index]);
+                                                        Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(userItem);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+            else if (clientData.delScope)
+            {
+                var tt = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(data.email);
+                var allowedUsers = new List<ReqParamObj>();
+                var sharedUsers = new List<ReqParamObj>();
+                var scope = clientData.delItem.Split(',')[1];
+                clientData.delItem = clientData.delItem.Split(',')[0];
+
+                tt.ForEach(t =>
+                {
+                    if (t.MyEmail == data.email)
+                    {
+                        if (t.RequestedUsers.ContainsKey(clientData.delItem))
+                        {
+                            if (t.RequestedUsers[clientData.delItem].ContainsKey(scope))
+                            {
+                                t.RequestedUsers[clientData.delItem][scope].Clear();
+                                Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                            }
+                            
+                        }
+                        if (t.AllowedUsers.ContainsKey(clientData.delItem))
+                        {
+                            if (t.AllowedUsers[clientData.delItem].ContainsKey(scope))
+                            {
+                                if (t.AllowedUsers[clientData.delItem][scope].ContainsKey("Read"))
+                                {
+                                    t.AllowedUsers[clientData.delItem][scope]["Read"].ForEach(userItem =>
+                                    {
+                                        ReqParamObj temp = new ReqParamObj();
+                                        temp.user = userItem.user;
+                                        temp.scope = scope;
+                                        temp.scopeType = "Read";
+                                        allowedUsers.Add(temp);
+                                    });
+                                }
+                                if (t.AllowedUsers[clientData.delItem][scope].ContainsKey("Share"))
+                                {
+                                    t.AllowedUsers[clientData.delItem][scope]["Share"].ForEach(userItem =>
+                                    {
+                                        ReqParamObj temp = new ReqParamObj();
+                                        temp.user = userItem.user;
+                                        temp.scope = scope;
+                                        temp.scopeType = "Share";
+                                        allowedUsers.Add(temp);
+                                    });
+                                }
+                                t.AllowedUsers[clientData.delItem][scope].Clear();
+                                Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                            }
+                            if (allowedUsers.Count > 0)
+                            {
+                                allowedUsers.ForEach(userData =>
+                                {
+                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user);
+                                    customeUser.ForEach(userItem =>
+                                    {
+                                        if (userData.scopeType == "Read")
+                                        {
+                                            if (userItem.MyDetailsSharedWith[clientData.delItem][userData.scope].ContainsKey("Read"))
+                                            {
+                                                int index = -1;
+                                                userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Read"].ForEach(scopeItem =>
+                                                {
+                                                    index++;
+                                                    if (scopeItem.user == data.email)
+                                                    {
+                                                        userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Read"].Remove(userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Read"][index]);
+                                                        Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(userItem);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (userItem.MyDetailsSharedWith[clientData.delItem][userData.scope].ContainsKey("Share"))
+                                            {
+                                                int index = -1;
+                                                userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Share"].ForEach(scopeItem =>
+                                                {
+                                                    index++;
+                                                    if (scopeItem.user == data.email)
+                                                    {
+                                                        userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Share"].Remove(userItem.MyDetailsSharedWith[clientData.delItem][userData.scope]["Read"][index]);
+                                                        Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(userItem);
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                    });
+                                });
+                            }
+                        }
+                        if (t.MyDetailsSharedWith.ContainsKey(clientData.delItem))
+                        {
+                            if (t.MyDetailsSharedWith[clientData.delItem].ContainsKey(scope))
+                            {
+                                if (t.MyDetailsSharedWith[clientData.delItem][scope].ContainsKey("Read"))
+                                {
+                                    t.MyDetailsSharedWith[clientData.delItem][scope]["Read"].ForEach(userItem =>
+                                    {
+                                        ReqParamObj temp = new ReqParamObj();
+                                        temp.user = userItem.user;
+                                        temp.scope = scope;
+                                        temp.scopeType = "Read";
+                                        sharedUsers.Add(temp);
+                                    });
+                                }
+                                if (t.MyDetailsSharedWith[clientData.delItem][scope].ContainsKey("Share"))
+                                {
+                                    t.MyDetailsSharedWith[clientData.delItem][scope]["Share"].ForEach(userItem =>
+                                    {
+                                        ReqParamObj temp = new ReqParamObj();
+                                        temp.user = userItem.user;
+                                        temp.scope = scope;
+                                        temp.scopeType = "Share";
+                                        sharedUsers.Add(temp);
+                                    });
+                                }
+                                t.MyDetailsSharedWith[clientData.delItem][scope].Clear();
+                                Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                            }
+                            
+                            if (sharedUsers.Count > 0)
+                            {
+                                sharedUsers.ForEach(userData =>
+                                {
+                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user);
+                                    customeUser.ForEach(userItem =>
+                                    {
+                                        if (userData.scopeType == "Read")
+                                        {
+                                            if (userItem.AllowedUsers[clientData.delItem][userData.scope].ContainsKey("Read"))
+                                            {
+                                                int index = -1;
+                                                userItem.AllowedUsers[clientData.delItem][userData.scope]["Read"].ForEach(scopeItem =>
+                                                {
+                                                    index++;
+                                                    if (scopeItem.user == data.email)
+                                                    {
+                                                        userItem.AllowedUsers[clientData.delItem][userData.scope]["Read"].Remove(userItem.AllowedUsers[clientData.delItem][userData.scope]["Read"][index]);
+                                                        Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(userItem);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (userItem.AllowedUsers[clientData.delItem][userData.scope].ContainsKey("Share"))
+                                            {
+                                                int index = -1;
+                                                userItem.AllowedUsers[clientData.delItem][userData.scope]["Share"].ForEach(scopeItem =>
+                                                {
+                                                    index++;
+                                                    if (scopeItem.user == data.email)
+                                                    {
+                                                        userItem.AllowedUsers[clientData.delItem][userData.scope]["Share"].Remove(userItem.AllowedUsers[clientData.delItem][userData.scope]["Read"][index]);
+                                                        Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(userItem);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+
+                return Json("Success", JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
