@@ -4,7 +4,7 @@ var permission = (function () {
 		tabUL:".tabSectionMenu",
 		tabCont:".tabContSec"
 	});*/
-    var reqUser = "", reqUserScope = "", reqUserResource = "";
+    var reqUser = "", reqUserScope = "", reqUserResource = "", reqClient = "";
     var myData, profileData, provider = false;
     var data, selectedUser, selectedUserRelation, activateClass = false, challengeQuestion = false;
     var question = [], answer = [], selectedQuestion = -1;
@@ -428,17 +428,18 @@ var permission = (function () {
         });
 
         $(".requestingSectionList li").on("click", function () {
-            $(".scopesData").html("Click the checkbox to agree to give <span class='scopeAccess'>" + ($(this).find(".scopeKey").text() == "Read" ? "View" : $(this).find(".scopeKey").text()) + "</span> access for <span class='scopeResource'>" + $(this).find(".resourcePro").text() + "</span> resource to <span class='scopeUser'>" + $(this).find("h5").text() + "</span>");
+            $(".scopesData").html("Click the checkbox to agree to give <span class='scopeAccess'>" + ($(this).find(".scopeKey").text() == "Read" ? "View" : $(this).find(".scopeKey").text()) + "</span> access for <span class='clientName'>" + $(this).find(".clientPro").text() + "</span> <span class='scopeResource'>" + $(this).find(".resourcePro").text() + "</span> resource to <span class='scopeUser'>" + $(this).find("h5").text() + "</span>");
             reqUser = $(this).find("h5").text();
             reqUserRelation = $(this).find(".usrRel").text();
             reqUserScope = $(this).find(".scopeKey").text() == "View" ? "Read" : "Share";
             reqUserResource = $(this).find(".resourcePro").text();
+            reqClient = $(this).find(".clientPro").text();
             $(".scopeInput").attr("checked", false);
             $(".requestAgreed").attr("disabled", "disabled");
             var $this = $(this);
             $(".requestDeny").on("click", function () {
                 $.ajax({
-                    url: "/denyrequest/" + $(".scopeUser").text() + "/"+selectedclient+"/" + $(".scopeResource").text() + "/" + ( $(".scopeAccess").text() == "View" ? "Read" : "Share" )
+                    url: "/denyrequest/" + $(".scopeUser").text() + "/" + reqClient + "/" + $(".scopeResource").text() + "/" + ($(".scopeAccess").text() == "View" ? "Read" : "Share")
                 })
                 .done(function (data, textStatus, jqXHR) {
                     $(".closeIcon").click();
@@ -464,8 +465,9 @@ var permission = (function () {
     }
 
     $(".requestAgreed").on("click", function () {
+        alert(reqClient);
         $.ajax({
-            url: "/provide/" + reqUser + "/"+selectedclient+"/" + reqUserResource + "/" + reqUserScope + "/" + reqUserRelation,
+            url: "/provide/" + reqUser + "/" + reqClient + "/" + reqUserResource + "/" + reqUserScope + "/" + reqUserRelation,
         })
         .done(function (data, textStatus, jqXHR) {
             showPopUp('<h4>Your Response was sent successfully.</h4>');
@@ -1200,24 +1202,31 @@ var permission = (function () {
         $(".allowedUsr1 tbody tr").remove('');
         $(".patientData").hide();
         $(".viewShareSection .fa-expand").hide();
-        if (data && data.RequestedUsers && data.RequestedUsers[selectedclient]) {
-            for (var resourceKey in data.RequestedUsers[selectedclient]) {
-                for (var scopeKeys in data.RequestedUsers[selectedclient][resourceKey]) {
-                    (data.RequestedUsers[selectedclient][resourceKey][scopeKeys] || []).forEach(function (user) {
-                        $(".requestingSectionList").append('<li> \
+        console.log(data);
+        if (data && data.RequestedUsers) {
+            var clientsKeys = Object.keys(data.RequestedUsers);
+            clientsKeys.forEach(function (item) {
+                if (data && data.RequestedUsers && data.RequestedUsers[item]) {
+                    for (var resourceKey in data.RequestedUsers[item]) {
+                        for (var scopeKeys in data.RequestedUsers[item][resourceKey]) {
+                            (data.RequestedUsers[item][resourceKey][scopeKeys] || []).forEach(function (user) {
+                                $(".requestingSectionList").append('<li> \
                                                             \ <div class="listGrid"> \
                                                             \ <div class="click" data-id="#requests-id"> \
-                                                            \ <h4>' + selectedclient + '</h4> \
+                                                            \ <h4>' + item + '</h4> \
                                                             \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                                             \ <h5>' + user["user"] + '</h5> \
                                                             \ <p> This user has requested you to <em class="scopeKey" >' + (scopeKeys == "Read" ? "View" : "Share") + '</em> your <em class="resourceKey" >' + resourceKey + '</em> data.</p> \
                                                             \ <span class="usrRel" style="display:none;">'+ user["relation"] + '</span> \
                                                             \ <div style="display:none;" class="resourcePro">' + resourceKey + '</div> \
+                                                            \ <div style="display:none;" class="clientPro">' + item + '</div> \
                                                             \ </div> </div>\
                                                             \   </li>');
-                    });
+                            });
+                        }
+                    }
                 }
-            }
+            });
         }
         if (provider) {
             if ($('.labelText').text().toLowerCase() == "provider") {
