@@ -192,6 +192,7 @@ $(document).on("click", ".subLi", function () {
                             $('.subLi').removeClass('active');
                             openDropList(this);
                             selectedTab = $(this).text();
+                            selectedclient = "";
                             $(".addCatagory").hide();
                             tabListDropDown(mydatas);
                             if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
