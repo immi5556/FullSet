@@ -198,6 +198,19 @@ namespace Sj.Mg.Client.Controllers
         }
 
         [Authorize]
+        [Route("users")]
+        public JsonResult GetUsers(string id)
+        {
+            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.GetUsers();
+            int index = gg.FindIndex(x => x.Subject == User.Identity.Name);
+
+            if (index != -1)
+                gg.RemoveAt(index);
+
+            return Json(gg, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
         [Route("revokeaccess/{toemail}/{toclient}/{toresrc}/{toscope}")]
         public JsonResult RevokeAccess(string toemail, string toclient, string toresrc, string toscope)
         {
@@ -436,6 +449,188 @@ namespace Sj.Mg.Client.Controllers
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
         [Authorize]
+        [Route("provide/{toemail}/{user}/{toclient}/{toresrc}/{toscope}/{relation}")]
+        public JsonResult ProvAccess(string toemail, string user, string toclient, string toresrc, string toscope, string relation)
+        {
+            var token = (User as System.Security.Claims.ClaimsPrincipal);
+            foreach (var tt1 in token.Claims)
+            {
+                Console.WriteLine(tt1.Value);
+            }
+            var un = User.Identity.Name;
+            var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
+            bool alreadyaccess = false;
+            tt.ForEach(t =>
+            {
+                if (t.MyEmail == toemail)
+                {
+                    if (t.AllowedUsers.ContainsKey(toclient))
+                    {
+                        if (t.AllowedUsers[toclient].ContainsKey(toresrc))
+                        {
+                            if (t.AllowedUsers[toclient][toresrc].ContainsKey(toscope))
+                            {
+                                bool itemFound = false;
+                                t.AllowedUsers[toclient][toresrc][toscope].ForEach(item =>
+                                {
+                                    if (item.user == user)
+                                    {
+                                        itemFound = true;
+                                    }
+                                });
+                                if (itemFound)
+                                {
+                                    alreadyaccess = true;
+                                }
+                                else // user doesnt exist
+                                {
+                                    UserData userData = new UserData();
+                                    userData.user = user;
+                                    userData.sharedBy = un;
+                                    userData.relation = relation;
+                                    t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
+                                }
+                            }
+                            else // scope doesnt exist
+                            {
+                                t.AllowedUsers[toclient][toresrc].Add(toscope, new List<UserData>());
+                                UserData userData = new UserData();
+                                userData.user = user;
+                                userData.sharedBy = un;
+                                userData.relation = relation;
+                                t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
+                            }
+                        }
+                        else // resrc doesnt exist
+                        {
+                            t.AllowedUsers[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
+                            t.AllowedUsers[toclient][toresrc].Add(toscope, new List<UserData>());
+                            UserData userData = new UserData();
+                            userData.user = user;
+                            userData.sharedBy = un;
+                            userData.relation = relation;
+                            t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
+                        }
+                    }
+                    else // client doesnt exist
+                    {
+                        t.AllowedUsers.Add(toclient, new Dictionary<string, Dictionary<string, List<UserData>>>());
+                        t.AllowedUsers[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
+                        t.AllowedUsers[toclient][toresrc].Add(toscope, new List<UserData>());
+                        UserData userData = new UserData();
+                        userData.user = user;
+                        userData.sharedBy = un;
+                        userData.relation = relation;
+                        t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
+                    }
+                    Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                    alreadyaccess = true;
+                }
+            });
+            if (!alreadyaccess)
+            {
+                Sj.Mg.CliLib.Model.RequestPerm perm = new CliLib.Model.RequestPerm();
+                perm.MyEmail = toemail;
+                perm.AllowedUsers.Add(toclient, new Dictionary<string, Dictionary<string, List<UserData>>>());
+                perm.AllowedUsers[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
+                perm.AllowedUsers[toclient][toresrc].Add(toscope, new List<UserData>());
+                UserData userData = new UserData();
+                userData.user = user;
+                userData.sharedBy = un;
+                userData.relation = relation;
+                perm.AllowedUsers[toclient][toresrc][toscope].Add(userData);
+                Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
+            }
+            AddToMainUserSharedList(toemail, un, user, toclient, toresrc, toscope, relation);
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+        void AddToMainUserSharedList(string un, string toemail, string mainUser, string toclient, string toresrc, string toscope, string relation)
+        {
+            var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
+            bool alreadyaccess = false;
+            tt.ForEach(t =>
+            {
+                if (t.MyEmail == mainUser)
+                {
+                    if (t.MyDetailsSharedWith.ContainsKey(toclient))
+                    {
+                        if (t.MyDetailsSharedWith[toclient].ContainsKey(toresrc))
+                        {
+                            if (t.MyDetailsSharedWith[toclient][toresrc].ContainsKey(toscope))
+                            {
+                                bool itemFound = false;
+                                t.MyDetailsSharedWith[toclient][toresrc][toscope].ForEach(item =>
+                                {
+                                    if (item.user == un)
+                                    {
+                                        itemFound = true;
+                                    }
+                                });
+                                if (itemFound)
+                                {
+                                    alreadyaccess = true;
+                                }
+                                else // user doesnt exist
+                                {
+                                    UserData userData = new UserData();
+                                    userData.user = un;
+                                    userData.sharedBy = toemail;
+                                    userData.relation = relation;
+                                    t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
+                                }
+                            }
+                            else // scope doesnt exist
+                            {
+                                t.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<UserData>());
+                                UserData userData = new UserData();
+                                userData.user = un;
+                                userData.sharedBy = toemail;
+                                userData.relation = relation;
+                                t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
+                            }
+                        }
+                        else // resrc doesnt exist
+                        {
+                            t.MyDetailsSharedWith[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
+                            t.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<UserData>());
+                            UserData userData = new UserData();
+                            userData.user = un;
+                            userData.sharedBy = toemail;
+                            userData.relation = relation;
+                            t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
+                        }
+                    }
+                    else // client doesnt exist
+                    {
+                        t.MyDetailsSharedWith.Add(toclient, new Dictionary<string, Dictionary<string, List<UserData>>>());
+                        t.MyDetailsSharedWith[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
+                        t.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<UserData>());
+                        UserData userData = new UserData();
+                        userData.user = un;
+                        userData.sharedBy = toemail;
+                        userData.relation = relation;
+                        t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
+                    }
+                    Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
+                    alreadyaccess = true;
+                }
+            });
+            if (!alreadyaccess)
+            {
+                Sj.Mg.CliLib.Model.RequestPerm perm = new CliLib.Model.RequestPerm();
+                perm.MyEmail = toemail;
+                perm.MyDetailsSharedWith.Add(toclient, new Dictionary<string, Dictionary<string, List<UserData>>>());
+                perm.MyDetailsSharedWith[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
+                perm.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<UserData>());
+                UserData userData = new UserData();
+                userData.user = un;
+                userData.sharedBy = toemail;
+                userData.relation = relation;
+                perm.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
+                Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
+            }
+        }
+        [Authorize]
         [Route("provide/{toemail}/{toclient}/{toresrc}/{toscope}/{relation}")]
         public JsonResult ProvAccess(string toemail, string toclient, string toresrc, string toscope, string relation)
         {
@@ -526,7 +721,7 @@ namespace Sj.Mg.Client.Controllers
             AddToMySharedList(toemail, un, toclient, toresrc, toscope, relation);
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
-
+        
         void AddToMySharedList(string un, string toemail, string toclient, string toresrc, string toscope, string relation)
         {
             var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();

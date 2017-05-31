@@ -28,5 +28,6 @@ namespace Sj.Mg.CliLib.Model
     {
         public string user { get; set; }
         public string relation { get; set; }
+        public string sharedBy { get; set; }
     }
 }

@@ -52,6 +52,11 @@ namespace Sj.Mg.Mongo
             var db = Data.BaseMongo.GetDatabase();
             return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => _.Subject.ToLower().Contains((srch ?? "").ToLower())).ToList();
         }
+        public static List<Sj.Mg.CliLib.Model.CustomUser> GetUsers()
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => true).ToList();
+        }
         public static List<Sj.Mg.CliLib.Model.UserClientsList> SearchUserClients(string srch)
         {
             var db = Data.BaseMongo.GetDatabase();

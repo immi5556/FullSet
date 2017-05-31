@@ -8,7 +8,7 @@ var permission = (function () {
     var myData, profileData, provider = false;
     var data, selectedUser, selectedUserRelation, activateClass = false, challengeQuestion = false;
     var question = [], answer = [], selectedQuestion = -1;
-    var viewBtn, clients, userClients = [], userClientsArray = [];
+    var viewBtn, clients, userClients = [], userClientsArray = [], users = [];
 
     function showPopUp(content) {
         $(".popUpContent").html(content);
@@ -465,7 +465,6 @@ var permission = (function () {
     }
 
     $(".requestAgreed").on("click", function () {
-        alert(reqClient);
         $.ajax({
             url: "/provide/" + reqUser + "/" + reqClient + "/" + reqUserResource + "/" + reqUserScope + "/" + reqUserRelation,
         })
@@ -593,6 +592,19 @@ var permission = (function () {
     //});
     $('.slimScrollDiv').hide();
 
+    var getUsers = function () {
+        $.ajax({
+            url: "/users",
+        })
+        .done(function (data, textStatus, jqXHR) {
+            users = data;
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+        });
+        //.always(function (jqXHROrData, textStatus, jqXHROrErrorThrown) { alert("complete"); });
+    }
+    getUsers();
     var srchUser = function (srch) {
         if (!srch) {
             $("#srchrest").html('');
@@ -665,6 +677,27 @@ var permission = (function () {
     });
     $(document).on("click", ".reqCancel", function () {
         $("#srchrest").html("");
+    });
+    $(document).on("click", "#conf-share", function () {
+        $.ajax({
+            url: "/provide/" + $("#userName").val() + "/" + $("#mainUser").text() + "/" + $("#selectedclient").val() + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val(),
+        })
+        .done(function (data, textStatus, jqXHR) {
+            $(".allowedUsr1 tbody").append('<tr><td>' + $("#selUsr").text() + '</td><td>' + $("#userRelation").val() + '</td><td>' + $("#selrsrc").val() + '</td><td><select class="accessType"><option value="Read" ' + ($("#selscpe").val() == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + ($("#selscpe").val() == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><img src="/Content/medg/images/revoke1.png" alt="revoke"></button></td></tr>');
+            showPopUp('<h4>Shared Your Data Successfully.</h4>');
+            $("#srchrest").html('');
+            if ($(".allowedUsr1 tbody tr").length) {
+                $(".noAccess").hide();
+                $(".allowedUsr1").show();
+            } else {
+                $(".noAccess").show();
+                $(".allowedUsr1").hide();
+            }
+            popUpEvents();
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+        });
     });
     $(document).on("click", "#conf-prov", function () {
         $.ajax({
@@ -1051,7 +1084,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
@@ -1063,7 +1096,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
@@ -1095,7 +1128,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
@@ -1107,7 +1140,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
@@ -1146,7 +1179,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \ <div class="switchSec">Switch to View &amp; Share <i class="fa fa-exchange" aria-hidden="true"></i></div> \
                                         \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
@@ -1161,7 +1194,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + selectedclient + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \ <div class="switchSec">Switch to View Only <i class="fa fa-exchange" aria-hidden="true"></i></div> \
                                         \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
@@ -1371,6 +1404,82 @@ var permission = (function () {
                 });
             } else {
                 getDemographicData();
+            }
+            return false;
+        });
+
+        $(".btn-share").on("click", function () {
+            $(this).closest("li").click();
+            var resor = $(this).closest("li").find(".gridTitle").text();
+            var scope = ($(this).closest("li").find(".btn-share").is(":visible") ? "Share" : "View");
+
+            if (!$(".searchBar .sec-heading").hasClass("active"))
+                $(".searchBar .sec-heading").click();
+
+            var toemail = selectedUser;
+            $("#srchrest").html('');
+
+            if ($('.labelText').text().toLowerCase() == "provider" || $('.labelText').text().toLowerCase() == "proxy") {
+                var filterUl = $('<div class="providesAcc"></div>');
+                $("#srchrest").append(filterUl);
+                $("#searchEmail").val('');
+                $(filterUl).append("<div class='provideRow'><label>User:</label> <select id='userName'><option value='Select'>Select</option></select></div>");
+                
+                var mainUser = "";
+                $(".viewShareSectionList li").each(function () {
+                    if ($(this).hasClass("select")) {
+                        mainUser = $(this).find(".gridHeadings h5").text();
+                    }
+                });
+                (users || []).forEach(function (item) {
+                    if (item.Subject != mainUser) {
+                        $('#userName').append($('<option>', {
+                            value: item.Subject,
+                            text: item.Subject
+                        }));
+                    }
+                });
+                $(filterUl).append("<div class='provideRow'><label>Main User:</label> <span id='mainUser'>" + mainUser + "</span></div>");
+
+                $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
+
+                var clientBlock = "<div class='provideRow'><label>Client:</label><select id='selectedclient'><option value='" + selectedclient + "'>" + selectedclient + "</option></select></div>";
+                $(filterUl).append(clientBlock);
+                $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'><option value='" + resor + "'>" + resor + "</option></select></div>");
+                $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option></select></div>");
+
+                $(filterUl).append("<div class='provideRow'><label>Valid Till:</label><select id='timePeriod'><option value='hour'>1 Hour</option><option value='Day'>1 Day</option><option value='NoLimit'>No Time Limit</option></select></div>");
+                $(filterUl).append("<div class='provideRow'><button id='conf-share'>Share</button><button class='reqCancel'>Cancel</button></div>");
+            } else {
+                var filterUl = $('<div class="providesAcc"></div>');
+                $("#srchrest").append(filterUl);
+                $("#searchEmail").val('');
+                $(filterUl).append("<div class='provideRow'><label>User:</label> <span  id='selUsr'>" + toemail + "</span></div>");
+                $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
+
+                var clientBlock = "<div class='provideRow'><label>Client:</label><select id='selectedclient'><option value='select'>select</option>";
+                userClientsArray.forEach(function (item) {
+                    if (item && item.toLowerCase().indexOf("athena") > -1)
+                        clientBlock += "<option value='Athena'>Athena</option>";
+                    else
+                        clientBlock += "<option value='" + item.replace(" ", "") + "'>" + item + "</option>";
+                });
+                clientBlock += "</select></div>";
+                $(filterUl).append(clientBlock);
+                $(filterUl).append("<div class='provideRow'><label>Resource:</label><select id='selrsrc'></select></div>");
+                clientChange();
+                $("#selectedclient").val(selectedclient);
+                $("#selectedclient").change();
+                $(filterUl).append("<div class='provideRow'><label>Scope:</label><select id='selscpe'><option value='Read'>View</option><option value='Share'>Share</option></select></div>");
+
+                if ($(this).text() != "Request") {
+                    $(filterUl).append("<div class='provideRow'><label>Valid Till:</label><select id='timePeriod'><option value='hour'>1 Hour</option><option value='Day'>1 Day</option><option value='NoLimit'>No Time Limit</option></select></div>");
+                    $(filterUl).append("<div class='provideRow'><button id='conf-prov'>Share</button><button class='reqCancel'>Cancel</button></div>");
+                } else {
+                    $(filterUl).append("<div class='provideRow'><button id='conf-req'>Request</button><button class='reqCancel'>Cancel</button></div>");
+                }
+                $("#selrsrc").val(resor);
+                $("#selscpe").val(scope == "View" ? "Read" : "Share");
             }
             return false;
         });
