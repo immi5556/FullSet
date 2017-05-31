@@ -1202,7 +1202,6 @@ var permission = (function () {
         $(".allowedUsr1 tbody tr").remove('');
         $(".patientData").hide();
         $(".viewShareSection .fa-expand").hide();
-        console.log(data);
         if (data && data.RequestedUsers) {
             var clientsKeys = Object.keys(data.RequestedUsers);
             clientsKeys.forEach(function (item) {
