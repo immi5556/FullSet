@@ -26,6 +26,8 @@ namespace Sj.Mg.CliLib.Utils
         /// <summary>
         /// https
         /// </summary>
+        //public const string ReFitbitsApi = "https://oidc.medgrotto.com:9004/";
+        //public const string ReAethenaApi = "https://oidc.medgrotto.com:9005/";
         //public const string ReApi = "https://oidc.medgrotto.com:9002/";
         //public const string ReApiStsCallback = "https://oidc.medgrotto.com:9002/home/stscallback";
         //public const string ReClientMvc = "https://oidc.medgrotto.com:9001/";
