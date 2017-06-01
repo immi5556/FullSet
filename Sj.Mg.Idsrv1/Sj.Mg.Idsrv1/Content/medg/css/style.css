@@ -1157,6 +1157,14 @@ footer {
 	font-size: 16px;
 	line-height: 37px;
 }
+.regisCntnr .reg-row label {
+	float: right;
+    width:auto;
+    height: 37px;
+    margin-right:-72px;
+    cursor: pointer;
+    transition:all 0.3s linear;
+}
 .emailVal {
     display: inline-block;
 	width: 290px;
@@ -1564,7 +1572,7 @@ footer {
     top: 3px;
 }
 .questionBlock {
-    width: 310px;
+    width: 100%;
     margin: auto;
     font-size: 13px;
     border-radius: 4px;
@@ -1678,4 +1686,17 @@ footer {
 .errorMessage {
     color: #fcfffc;
     padding: 10px 0;
+}
+.regisCntnr {
+    width: 800px;
+}
+.regisCntnr .reg-row{
+    padding-top:20px;
+} 
+.regisCntnr .regForm .reg-row .form-control {
+    width:100%;
+    box-sizing:border-box;
+}
+.regisCntnr .regForm {
+    overflow:hidden;
 }

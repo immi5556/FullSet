@@ -1084,7 +1084,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("<b>SharedBy:</b> " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
@@ -1096,7 +1096,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("<b>SharedBy:</b> " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
@@ -1128,7 +1128,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("<b>SharedBy:</b> " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
@@ -1140,7 +1140,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("<b>SharedBy:</b> " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
                                         \   </div>');
@@ -1179,7 +1179,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("<b>SharedBy:</b> " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \ <div class="switchSec">Switch to View &amp; Share <i class="fa fa-exchange" aria-hidden="true"></i></div> \
                                         \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
@@ -1194,7 +1194,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
-                                        \ <strong>' + (user["sharedBy"] ? ("SharedBy: " + user["sharedBy"]) : "") + '</strong> </div> \
+                                        \ <strong>' + (user["sharedBy"] ? ("<b>SharedBy:</b> " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \ <div class="switchSec">Switch to View Only <i class="fa fa-exchange" aria-hidden="true"></i></div> \
                                         \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \

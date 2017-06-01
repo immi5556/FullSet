@@ -146,7 +146,7 @@ namespace Sj.Mg.Idsrv1.Custom
             return Task.FromResult(0);
         }
 
-        public string addUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
+        public string addUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string npi, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
         {
 
             var database = BaseMongo.GetDatabase();
@@ -159,7 +159,7 @@ namespace Sj.Mg.Idsrv1.Custom
             {
                 try
                 {
-                    var newUser = GetUser(firstName, lastName, password, email, phoneNumber, provider, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7);
+                    var newUser = GetUser(firstName, lastName, password, email, phoneNumber, provider, npi, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7);
                     MongoManage.Insert<CustomUser>(newUser, "Users");
                     Dictionary<string, object> filter1 = new Dictionary<string, object>();
                     filter1.Add("Subject", email);
@@ -192,7 +192,7 @@ namespace Sj.Mg.Idsrv1.Custom
             }
         }
 
-        public CustomUser GetUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
+        public CustomUser GetUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string npi, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
         {
              CustomUser ab = new CustomUser
             {
@@ -205,6 +205,7 @@ namespace Sj.Mg.Idsrv1.Custom
                 ProviderID = null,
                 IsRegistered = false,
                 IsProvider = provider,
+                NPI = npi,
                 Address = address,
                 Claims = new List<Claim>()
                 {
@@ -257,7 +258,7 @@ namespace Sj.Mg.Idsrv1.Custom
 
         public UserClientsList GetUserClients(ObjectId id, string email)
         {
-            string data = System.IO.File.ReadAllText(@"~/Content/medg/js/tabsData.json");
+            string data = System.IO.File.ReadAllText(@"E:\Vamsi\Medgrotto\FullSet\Sj.Mg.Idsrv1\Sj.Mg.Idsrv1\Content\medg\js\tabsData.json");
             var obj= JsonConvert.DeserializeObject<List<UserClientsData>>(data);
             UserClientsList userClnts = new UserClientsList();
             userClnts.userId = id.ToString();

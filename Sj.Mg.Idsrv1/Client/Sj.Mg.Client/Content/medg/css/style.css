@@ -285,8 +285,10 @@ header .right {
     font-size: 18px;
     background: #1e3665;
 }
-.gridHeadings {
-    padding-left: 25px;
+.viewUserList .listGrid strong b {
+    line-height: 12px;
+    display: block;
+    padding-top: 12px;
 }
 .gridHeadings h5 {
     overflow: hidden;
@@ -521,14 +523,13 @@ header .right {
     display: table-cell;
     border: none;
     outline: none;
-    line-height: 17px;
-    height: 20px;
+    line-height: 22px;
+    height: 22px;
     text-align: center;
     cursor: pointer;
     font-size: 14px;
     color: #fff;
     font-weight:700;
-    padding-top: 3px;
 }
 .shareBtns .btn-view {
     color: #12214e;
@@ -2150,7 +2151,7 @@ footer {
 }
 .viewUserList .listGrid h5 {
     color: #1e3665;
-    line-height: 12px;
+    line-height: 18px;
     padding-right: 14px;
 }
 .viewUserList .listGrid strong {
@@ -2171,6 +2172,7 @@ footer {
 }
 .switchSec {
     position: relative;
+    clear: both;
     line-height: 24px;
     color: #fff;
     font-size: 12px;
