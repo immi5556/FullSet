@@ -196,12 +196,16 @@ $(document).on("click", ".subLi", function () {
                             $(".addCatagory").hide();
                             tabListDropDown(mydatas);
                             if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
-                                if ($('.subUl.active li').length == 0) {
-                                    //$(".addCatagory").hide();
-                                    $(".showClsTab").hide();
-                                } else {
-                                    //$(".addCatagory").show();
+                                $(".addTab").show();
+                                if ($(".subUl li").length > 0) {
                                     $(".showClsTab").show();
+                                } else {
+                                    $(".showClsTab").hide();
+                                }
+                                if ($(".listGridUL li").length > 0) {
+                                    $(".addCatagory .addTab").show();
+                                } else {
+                                    $(".addCatagory .addTab").hide();
                                 }
                             }
                             scrollFn();
@@ -216,6 +220,9 @@ $(document).on("click", ".subLi", function () {
 
                 for (var x = 0; x < subDropItems.length; x++) {
                     $(subDropItems[x]).on('click', function () {
+                        if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
+                            $(".addCatagory .addTab").show();
+                        }
                         $(".addCatagory").show();
                         var num = 0;
                         var thisVal = $(this).find('strong').text();
@@ -306,6 +313,19 @@ $(document).on("click", ".subLi", function () {
                                     if (set.mydata.length && set.mydata[0].email) {
                                         set.mydata[0].UserClientsData = mytabData;
                                         updateDB(set.mydata, false, false, "");
+                                    }
+                                    if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
+                                        $(".addTab").show();
+                                        if ($(".subUl li").length > 0) {
+                                            $(".showClsTab").show();
+                                        } else {
+                                            $(".showClsTab").hide();
+                                        }
+                                        if ($(".listGridUL li").length > 0) {
+                                            $(".addCatagory .addTab").show();
+                                        } else {
+                                            $(".addCatagory .addTab").hide();
+                                        }
                                     }
                                     if (obj.clientName == "FITBIT") {
                                         var rurl = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJF&redirect_uri=https%3A%2F%2Foidc.medgrotto.com%3A9001%2FHome%2FCallback&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
@@ -459,6 +479,19 @@ $(document).on("click", ".subLi", function () {
                                                 set.mydata[0].UserClientsData = mytabData;
                                                 updateDB(set.mydata, false, false, "");
                                             }
+                                            if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
+                                                $(".addTab").show();
+                                                if ($(".subUl li").length > 0) {
+                                                    $(".showClsTab").show();
+                                                } else {
+                                                    $(".showClsTab").hide();
+                                                }
+                                                if ($(".listGridUL li").length > 0) {
+                                                    $(".addCatagory .addTab").show();
+                                                } else {
+                                                    $(".addCatagory .addTab").hide();
+                                                }
+                                            }
                                             for (var y = 0; y < mytabData.length; y++) {
                                                 if (selectedTab == mytabData[y].clientTypeName) {
                                                     for (var z = 0; z < mytabData[y].Clients.length; z++) {
@@ -509,6 +542,19 @@ $(document).on("click", ".subLi", function () {
                                                 set.mydata[0].UserClientsData = mytabData;
                                                 updateDB(set.mydata, true, false, vals);
                                             }
+                                            if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
+                                                $(".addTab").show();
+                                                if ($(".subUl li").length > 0) {
+                                                    $(".showClsTab").show();
+                                                } else {
+                                                    $(".showClsTab").hide();
+                                                }
+                                                if ($(".listGridUL li").length > 0) {
+                                                    $(".addCatagory .addTab").show();
+                                                } else {
+                                                    $(".addCatagory .addTab").hide();
+                                                }
+                                            }
                                             tabListDropDown(mytabData);
                                         }
                                     }
@@ -538,7 +584,20 @@ $(document).on("click", ".subLi", function () {
                                                     mytabData[y].Clients[z].UserScopes.splice(i, 1);
                                                     if (set.mydata.length && set.mydata[0].email) {
                                                         set.mydata[0].UserClientsData = mytabData;
-                                                        updateDB(set.mydata, false, true, mytabData[y].Clients[z].clientName+","+indVal);
+                                                        updateDB(set.mydata, false, true, mytabData[y].Clients[z].clientName + "," + indVal);
+                                                    }
+                                                    if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
+                                                        $(".addTab").show();
+                                                        if ($(".subUl li").length > 0) {
+                                                            $(".showClsTab").show();
+                                                        } else {
+                                                            $(".showClsTab").hide();
+                                                        }
+                                                        if ($(".listGridUL li").length > 0) {
+                                                            $(".addCatagory .addTab").show();
+                                                        } else {
+                                                            $(".addCatagory .addTab").hide();
+                                                        }
                                                     }
                                                 }
                                             };

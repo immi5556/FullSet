@@ -36,6 +36,17 @@ namespace Sj.Mg.Idsrv1.Custom
             //var user = Users.SingleOrDefault(x => x.Username == context.UserName && x.Password == context.Password);
             if (user != null)
             {
+                var database = BaseMongo.GetDatabase();
+                var collection = database.GetCollection<BsonDocument>("UsersClientsData");
+
+                var filter2 = Builders<BsonDocument>.Filter.Eq("email", context.UserName);
+
+                var response = collection.Find(filter2).ToList();
+                if (response.Count == 0)
+                {
+                    UserClientsList data = GetUserClients(user.Id, context.UserName);
+                    MongoManage.Insert<UserClientsList>(data, "UsersClientsData");
+                }
                 if (user.Questions != null)
                 {
                     context.AuthenticateResult = new AuthenticateResult("~/loginchallenge", user.Subject, user.Username);
@@ -102,6 +113,18 @@ namespace Sj.Mg.Idsrv1.Custom
                         user.CustomClaims.Add(new CustomClaim(t.Type, t.Value));
                     });
                     Sj.Mg.Mongo.MongoManage.Insert<CustomUser>(user, "Users");
+
+                    var database = BaseMongo.GetDatabase();
+                    var collection = database.GetCollection<BsonDocument>("UsersClientsData");
+
+                    var filter2 = Builders<BsonDocument>.Filter.Eq("email", email);
+
+                    var response = collection.Find(filter2).ToList();
+                    if (response.Count == 0)
+                    {
+                        UserClientsList data = GetUserClients(user.Id, email);
+                        MongoManage.Insert<UserClientsList>(data, "UsersClientsData");
+                    }
                     //Users.Add(user);
                 }
                 else
@@ -258,7 +281,9 @@ namespace Sj.Mg.Idsrv1.Custom
 
         public UserClientsList GetUserClients(ObjectId id, string email)
         {
-            string data = System.IO.File.ReadAllText(@"E:\Vamsi\Medgrotto\FullSet\Sj.Mg.Idsrv1\Sj.Mg.Idsrv1\Content\medg\js\tabsData.json");
+            //local: E:\Vamsi\Medgrotto\FullSet\Sj.Mg.Idsrv1\Sj.Mg.Idsrv1\Content\medg\js\tabsData.json
+            //server: D:\_deploy\_mg_idrv\Content\medg\js\tabsData.json
+            string data = System.IO.File.ReadAllText(@"D:\_deploy\_mg_idrv\Content\medg\js\tabsData.json");
             var obj= JsonConvert.DeserializeObject<List<UserClientsData>>(data);
             UserClientsList userClnts = new UserClientsList();
             userClnts.userId = id.ToString();
