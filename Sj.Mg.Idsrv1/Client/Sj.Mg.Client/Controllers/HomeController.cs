@@ -944,26 +944,36 @@ namespace Sj.Mg.Client.Controllers
         {
             var data = clientData.userClientsList;
             List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(data.email);
-            var scopes = new List<string>();
-            gg[0].UserClientsData.ForEach(clientType =>
-            {
-                clientType.Clients.ForEach(clients =>
-                {
-                    if(clients.clientName == clientData.delItem)
-                    {
-                        clients.UserScopes.ForEach(item =>
-                        {
-                            scopes.Add(item.scopeName);
-                        });
-                        
-                    }
-                });
-            });
+            
             gg[0].UserClientsData = data.UserClientsData;
-            Sj.Mg.Mongo.MongoManage.UpdateUserClients(gg[0]);
+            Sj.Mg.Mongo.MongoManage.UpdateUserClients(gg[0]);            
 
             if (clientData.delClient)
             {
+                var scopes = new List<string>();
+                if(gg != null && gg.Count > 0 && gg[0].UserClientsData.Count > 0)
+                {
+                    gg[0].UserClientsData.ForEach(clientType =>
+                    {
+                        if(clientType.Clients != null)
+                        {
+                            clientType.Clients.ForEach(clients =>
+                            {
+                                if (clients.clientName == clientData.delItem)
+                                {
+                                    if(clients.UserScopes != null)
+                                    {
+                                        clients.UserScopes.ForEach(item =>
+                                        {
+                                            scopes.Add(item.scopeName);
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+                
                 var tt = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(data.email);
                 var allowedUsers = new List<ReqParamObj>();
                 var sharedUsers = new List<ReqParamObj>();
@@ -1326,7 +1336,7 @@ namespace Sj.Mg.Client.Controllers
             var email = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
             var dd = Sj.Mg.Mongo.MongoManage.SearchUserClients(email); 
             var code = Request.QueryString["code"];
-            string url = "https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=https%3A%2F%2Flocalhost%3A44383%2FHome%2FCallback&code=" + code;
+            string url = "https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=https%3A%2F%2Foidc.medgrotto.com%3A9001%2FHome%2FCallback&code=" + code;
             WebRequest request = WebRequest.Create(url);
             request.Method = "POST";
             request.Headers["Authorization"] = "Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx";
