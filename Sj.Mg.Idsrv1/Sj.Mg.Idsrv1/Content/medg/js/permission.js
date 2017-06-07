@@ -20,4 +20,5 @@ var identityServer = function () {
 }();
 window.location.href = "https://localhost:44383/Home/Secure";
 //window.location.href = "https://oidc.medgrotto.com:9001/Home/Secure";
+//window.location.href = "https://aws1.medgrotto.com:9001/Home/Secure";
 identityServer.wrapForm();

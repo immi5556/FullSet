@@ -1336,10 +1336,14 @@ namespace Sj.Mg.Client.Controllers
             var email = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
             var dd = Sj.Mg.Mongo.MongoManage.SearchUserClients(email); 
             var code = Request.QueryString["code"];
-            string url = "https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=https%3A%2F%2Foidc.medgrotto.com%3A9001%2FHome%2FCallback&code=" + code;
+            //string url = "https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=https%3A%2F%2Foidc.medgrotto.com%3A9001%2FHome%2FCallback&code=" + code;
+            //AWS Url
+            string url = "https://api.fitbit.com/oauth2/token?clientId=228JJD&grant_type=authorization_code&redirect_uri=https%3A%2F%2Faws1.medgrotto.com%3A9001%2FHome%2FCallback&code=" + code;
             WebRequest request = WebRequest.Create(url);
             request.Method = "POST";
-            request.Headers["Authorization"] = "Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx";
+            //request.Headers["Authorization"] = "Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx";
+            //AWS app
+            request.Headers["Authorization"] = "Basic MjI4SkpEOjc0ZjY2MTg3MTkyZmJlNWUwYmRmM2NlZDVhZDBkNTQ4";
             request.ContentType = "application/x-www-form-urlencoded";
             WebResponse response = request.GetResponse();
             Stream receive = response.GetResponseStream();

@@ -281,9 +281,10 @@ namespace Sj.Mg.Idsrv1.Custom
 
         public UserClientsList GetUserClients(ObjectId id, string email)
         {
+            var fpath = HttpContext.Current.Server.MapPath("/App_Data/tabsData.json");
             //local: E:\Vamsi\Medgrotto\FullSet\Sj.Mg.Idsrv1\Sj.Mg.Idsrv1\Content\medg\js\tabsData.json
             //server: D:\_deploy\_mg_idrv\Content\medg\js\tabsData.json
-            string data = System.IO.File.ReadAllText(@"D:\_deploy\_mg_idrv\Content\medg\js\tabsData.json");
+            string data = System.IO.File.ReadAllText(fpath);
             var obj= JsonConvert.DeserializeObject<List<UserClientsData>>(data);
             UserClientsList userClnts = new UserClientsList();
             userClnts.userId = id.ToString();

@@ -21,7 +21,7 @@ namespace Sj.Mg.CliLib.Utils
         public const string IssuerUri = "https://oidc.medgrotto.com/identity";
         public const string StsOrigin = "https://localhost:44305";
         public static Uri fhirendpoint = new Uri("http://localhost:49922/fhir");
-        ////public static Uri fhirendpoint = new Uri("http://spark.furore.com/fhir");
+        //public static Uri fhirendpoint = new Uri("http://spark.furore.com/fhir");
 
         /// <summary>
         /// https
@@ -35,6 +35,19 @@ namespace Sj.Mg.CliLib.Utils
         //public const string IssuerUri = "https://oidc.medgrotto.com/identity";
         //public const string StsOrigin = "https://oidc.medgrotto.com:9011";
         //public static Uri fhirendpoint = new Uri("https://oidc.medgrotto.com:9003/fhir");
+
+        /// <summary>
+        /// https
+        /// </summary>
+        //public const string ReFitbitsApi = "https://aws1.medgrotto.com:9004/";
+        //public const string ReAethenaApi = "https://aw1.medgrotto.com:9005/";
+        //public const string ReApi = "https://aws1.medgrotto.com:9002/";
+        //public const string ReApiStsCallback = "https://aws1.medgrotto.com:9002/home/stscallback";
+        //public const string ReClientMvc = "https://aws1.medgrotto.com:9001/";
+        //public const string ReClientMvcStsCallback = "https://aws1.medgrotto.com:9001/home/stscallback";
+        //public const string IssuerUri = "https://aws1.medgrotto.com/identity";
+        //public const string StsOrigin = "https://aws1.medgrotto.com:9011";
+        //public static Uri fhirendpoint = new Uri("https://aws1.medgrotto.com:9003/fhir");
 
         public const string ReApiAccount = ReApi + "Api/Account/";
         public const string ReApiObservation = ReApi + "Api/Observation/";
