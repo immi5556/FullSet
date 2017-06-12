@@ -82,7 +82,7 @@ namespace Sj.Mg.Idsrv1.Custom
             }
             if (context.ExternalIdentity.Provider == "Twitter")
             {
-                email = context.ExternalIdentity.Claims.First(x => x.Type == Constants.ClaimTypes.Name).Value;
+                email = context.ExternalIdentity.Claims.First(x => x.Type == Constants.ClaimTypes.Email).Value;
             }
 
             Dictionary<string, object> filter = new Dictionary<string, object>();
@@ -152,7 +152,10 @@ namespace Sj.Mg.Idsrv1.Custom
         protected static Newtonsoft.Json.Linq.JObject GetAdditionalFacebookClaims(Claim accessToken)
         {
             var fb = new FacebookClient(accessToken.Value);
-            var tt = fb.Get("me", new { fields = new[] { "email", "first_name", "last_name" } });
+            //var tt = fb.Get("me", new { fields = new[] { "email", "first_name", "last_name" } });
+            fb.AppSecret = "e29cd683ecbf9df1d5adf6fe35d9cc50";
+            fb.AppId = "1909035272666825";
+            var tt = fb.Get("me?fields=id,name,email");
             return Newtonsoft.Json.Linq.JObject.FromObject(tt);
         }
         public override Task GetProfileDataAsync(ProfileDataRequestContext context)
