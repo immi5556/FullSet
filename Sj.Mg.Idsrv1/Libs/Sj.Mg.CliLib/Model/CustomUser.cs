@@ -14,12 +14,17 @@ namespace Sj.Mg.CliLib.Model
         [Newtonsoft.Json.JsonIgnore]
         [MongoDB.Bson.Serialization.Attributes.BsonElement("id")]
         public MongoDB.Bson.ObjectId Id { get; set; }
+        public string GivenName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Email { get; set; }
         public bool AcceptedEula { get; set; }
         public string Subject { get; set; }
         public string Provider { get; set; }
         public string ProviderID { get; set; }
+        public string UniqueUserId { get; set; }
         public string Address { get; set; }
         public bool IsRegistered { get; set; }
         public bool IsProvider { get; set; }

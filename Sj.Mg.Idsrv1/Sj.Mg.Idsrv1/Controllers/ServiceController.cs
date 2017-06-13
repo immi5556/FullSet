@@ -61,7 +61,6 @@ namespace Sj.Mg.Idsrv1.Controllers
         public ActionResult GetUserData(string user)
         {
             List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(user);
-
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
 

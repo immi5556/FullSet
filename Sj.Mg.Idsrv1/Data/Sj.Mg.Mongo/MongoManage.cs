@@ -68,12 +68,7 @@ namespace Sj.Mg.Mongo
             var toins = db.GetCollection<Sj.Mg.CliLib.Model.UserClientsList>("UsersClientsData");
             toins.FindOneAndReplace<Sj.Mg.CliLib.Model.UserClientsList>(f => f.email == data.email, data);
         }
-        public static void ReplaceUser(Sj.Mg.CliLib.Model.CustomUser data)
-        {
-            var db = Data.BaseMongo.GetDatabase();
-            var toins = db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users");
-            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.CustomUser>(f => f.Subject == data.Subject, data);
-        }
+
         public static List<Sj.Mg.CliLib.Model.RequestPerm> GetUserPerms()
         {
             var db = Data.BaseMongo.GetDatabase();
@@ -101,11 +96,11 @@ namespace Sj.Mg.Mongo
             toins.FindOneAndReplace<Client>(f => f.ClientId == data.ClientId, data);
         }
 
-        public static void ReplaceUserByUserName(Sj.Mg.CliLib.Model.CustomUser data)
+        public static void ReplaceUserByUserNameAndProvider(Sj.Mg.CliLib.Model.CustomUser data)
         {
             var db = Data.BaseMongo.GetDatabase();
             var toins = db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users");
-            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.CustomUser>(f => f.Username == data.Username, data);
+            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.CustomUser>(f => (f.Username == data.Username && f.Provider == data.Provider), data);
         }
     }
 }

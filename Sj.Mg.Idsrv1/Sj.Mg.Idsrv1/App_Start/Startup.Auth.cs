@@ -15,6 +15,8 @@ using Microsoft.Owin.Security.OpenIdConnect;
 using System.Threading.Tasks;
 using Owin.Security.Providers.Yahoo;
 using Microsoft.Owin.Security.MicrosoftAccount;
+using System.Net;
+using System.IO;
 
 namespace Sj.Mg.Idsrv1
 {
@@ -159,8 +161,9 @@ namespace Sj.Mg.Idsrv1
             {
                 AuthenticationType = "Yahoo",
                 SignInAsAuthenticationType = signInAsType,
-                ConsumerKey = "dj0yJmk9bEJLVHB3NllaNWcxJmQ9WVdrOVdXOXViMEZLTnpnbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0yNg--",
-                ConsumerSecret = "385fe1f34413fda6f37697148026481874c90c4d"
+                ConsumerKey = "dj0yJmk9OENSeENBQk45WnU4JmQ9WVdrOWJtTmthakJETm1jbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0wNA--",
+                ConsumerSecret = "b0bc2050a37d968f8549ed6ee72e9bf909f87ebd",
+                Provider = new YahooAuthenticationProvider()
             };
             app.UseYahooAuthentication(yahoo);
         }
@@ -189,4 +192,29 @@ namespace Sj.Mg.Idsrv1
     //        };
     //    }
     //}
+
+    public class YahooAuthenticationProvider : IYahooAuthenticationProvider
+    {
+        public Task Authenticated(YahooAuthenticatedContext context)
+        {
+            //var uid = context.UserId;
+            //string url = "https://social.yahooapis.com/v1/user/" + uid + "/profile/usercard";
+            //WebRequest request = WebRequest.Create(url);
+            //request.Method = "GET";
+            //request.Headers["Authorization"] = "Bearer " + context.AccessToken;
+            //request.ContentType = "application/x-www-form-urlencoded";
+            //WebResponse response = request.GetResponse();
+            //Stream receive = response.GetResponseStream();
+            //StreamReader reader = new StreamReader(receive, System.Text.Encoding.UTF8);
+            //var tt = reader.ReadToEnd();
+            //Console.WriteLine();
+            return Task.FromResult(0);
+        }
+
+        public Task ReturnEndpoint(YahooReturnEndpointContext context)
+        {
+            Console.WriteLine();
+            return Task.FromResult(0);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using IdentityServer3.Core;
 using IdentityServer3.Core.Extensions;
+using Microsoft.Owin.Security;
 using Sj.Mg.CliLib.Model;
 using System;
 using System.Collections.Generic;
@@ -54,23 +55,38 @@ namespace Sj.Mg.Idsrv1.Controllers
 
             if (ModelState.IsValid && count > 2)
             {
+                var externalIdentity = HttpContext.GetOwinContext().Authentication.GetExternalIdentityAsync(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie);
                 // update the "database" for our users with the registration data
                 var subject = partial_user.GetSubjectId();
                 string idp = "";
                 var tte = partial_user.Claims.ToList().Find(t => t.Type == "idp");
-                if (tte !=  null)
+                if (tte != null)
                 {
                     idp = tte.Value;
                 }
                 var dict = new Dictionary<string, object>();
-                dict.Add("Subject", subject);
+                //dict.Add("Subject", subject);
                 //if (!string.IsNullOrEmpty(idp))
-                    //dict.Add("Provider", idp);
+                dict.Add("Provider", idp);
+                dict.Add("ProviderID", subject);
+                //dict.Add("Subject", model.Email);
                 var db_user = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(dict, "Users").FirstOrDefault();// Custom.MgUserService.Users.Single(x => x.Subject == subject);
+                if (db_user == null)
+                    db_user = new CustomUser();
+
+                db_user.Username = model.Email;
+                db_user.Email = model.Email;
+                db_user.Subject = model.Email;
+                db_user.FirstName = model.First;
+                db_user.LastName = model.Last;
+                db_user.GivenName = model.Last + ", " + model.First;
                 db_user.Claims.Add(new Claim(Constants.ClaimTypes.GivenName, model.First));
                 db_user.Claims.Add(new Claim(Constants.ClaimTypes.FamilyName, model.Last));
+                db_user.Claims.Add(new Claim(Constants.ClaimTypes.Name, (model.Last + ", " + model.First)));
                 db_user.Password = model.Password;
-                db_user.Username = model.Email;
+                db_user.IsRegistered = true;
+                db_user.Provider = idp;
+                db_user.ProviderID = subject;
                 db_user.Questions = new List<Question>()
                 {
                     new Question() {
@@ -103,8 +119,9 @@ namespace Sj.Mg.Idsrv1.Controllers
                     },
                 };
                 // replace the name captured from the external identity provider
-                var nameClaim = db_user.Claims.Single(x => x.Type == Constants.ClaimTypes.Name);
-                db_user.Claims.Remove(nameClaim);
+                var nameClaim = db_user.Claims.Find(x => x.Type == Constants.ClaimTypes.Name);
+                if (nameClaim != null)
+                    db_user.Claims.Remove(nameClaim);
                 nameClaim = new Claim(Constants.ClaimTypes.Name, model.First + " " + model.Last);
                 db_user.Claims.Add(nameClaim);
 
@@ -125,14 +142,16 @@ namespace Sj.Mg.Idsrv1.Controllers
                 var partialClaims = partial_user.Claims.Where(x => x.Type != Constants.ClaimTypes.Name).ToList();
                 partialClaims.Add(nameClaim);
                 await ctx.Environment.UpdatePartialLoginClaimsAsync(partialClaims);
-                Sj.Mg.Mongo.MongoManage.ReplaceUser(db_user);
-                db_user.Subject = db_user.Username;
-                Sj.Mg.Mongo.MongoManage.ReplaceUserByUserName(db_user);
+                //Sj.Mg.Mongo.MongoManage.ReplaceUser(db_user);
+                //Sj.Mg.Mongo.MongoManage.ReplaceUserByUserName(db_user);
+                Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(db_user, "Users");
+
+                UserClientsList data = GetUserClients(db_user.Id, db_user.Email);
+                Sj.Mg.Mongo.MongoManage.Insert<UserClientsList>(data, "UsersClientsData");
                 // find the URL to continue with the process to the issue the token to the RP
                 var resumeUrl = await ctx.Environment.GetPartialLoginResumeUrlAsync();
                 return Redirect(resumeUrl);
             }
-
             return View();
         }
 
@@ -174,12 +193,20 @@ namespace Sj.Mg.Idsrv1.Controllers
                 var subject = partial_user.GetSubjectId();
                 Dictionary<string, object> filter = new Dictionary<string, object>();
                 filter.Add("Username", subject);
+                string idp = "";
+                var tte = partial_user.Claims.ToList().Find(t => t.Type == "idp");
+                if (tte != null)
+                {
+                    idp = (tte.Value ?? "") == "idsrv" ? "MgIdp" : tte.Value;
+                }
+                filter.Add("Provider", idp);
                 var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter, "Users");
                 var user = (tt == null || tt.Count == 0) ? null : tt[0];
                 //var user = Users.SingleOrDefault(x => x.Username == context.UserName && x.Password == context.Password);
                 if (user != null)
                 {
                     user.AcceptedEula = true;
+                    Sj.Mg.Mongo.MongoManage.ReplaceUserByUserNameAndProvider(user);
                 }
                 //var user = EulaAtLoginUserService.Users.Single(x => x.Subject == subject);
                 //user.AcceptedEula = true;
@@ -203,7 +230,6 @@ namespace Sj.Mg.Idsrv1.Controllers
             {
                 return View("Error");
             }
-            ViewBag.user = partial_user.Name;
             return View();
         }
 
@@ -217,13 +243,22 @@ namespace Sj.Mg.Idsrv1.Controllers
             {
                 return View("Error");
             }
-
+            string idp = "";
+            var tte = partial_user.Claims.ToList().Find(t => t.Type == "idp");
+            if (tte != null)
+            {
+                idp = (tte.Value ?? "") == "idsrv" ? "MgIdp" : tte.Value;
+            }
+            var subject = partial_user.GetSubjectId();
+            ViewBag.user = partial_user.Name;
             if (button == "Submit")
             {
                 // update the "database" for our users with the outcome
-                var subject = partial_user.GetSubjectId();
+                //var subject = partial_user.GetSubjectId();
                 Dictionary<string, object> filter = new Dictionary<string, object>();
                 filter.Add("Username", subject);
+                filter.Add("Provider", idp);
+                //filter.Add("Email", );
                 var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter, "Users");
                 var user = (tt == null || tt.Count == 0) ? null : tt[0];
                 //var user = Users.SingleOrDefault(x => x.Username == context.UserName && x.Password == context.Password);
@@ -246,6 +281,20 @@ namespace Sj.Mg.Idsrv1.Controllers
 
             ViewBag.Message = "Well, until you accept you can't continue.";
             return View();
-        }        
+        }
+
+        public UserClientsList GetUserClients(MongoDB.Bson.ObjectId id, string email)
+        {
+            var fpath = HttpContext.Server.MapPath("/App_Data/tabsData.json");
+            //local: E:\Vamsi\Medgrotto\FullSet\Sj.Mg.Idsrv1\Sj.Mg.Idsrv1\Content\medg\js\tabsData.json
+            //server: D:\_deploy\_mg_idrv\Content\medg\js\tabsData.json
+            string data = System.IO.File.ReadAllText(fpath);
+            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UserClientsData>>(data);
+            UserClientsList userClnts = new UserClientsList();
+            userClnts.userId = id.ToString();
+            userClnts.email = email;
+            userClnts.UserClientsData = obj;
+            return userClnts;
+        }
     }
 }
