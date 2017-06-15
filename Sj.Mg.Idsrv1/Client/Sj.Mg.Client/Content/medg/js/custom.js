@@ -1,14 +1,17 @@
 var permission = (function () {
-    var reqUser = "", reqUserScope = "", reqUserResource = "", reqClient = "";
-    var myData, profileData, provider = false;
-    var data, selectedUser, selectedUserRelation, activateClass = false, challengeQuestion = false;
+    var reqUser = "", reqUserScope = "", reqUserResource = "", reqClient = "", reqClientProvider = "";
+    var myData, profileData, provider = false, providerType = "";
+    var data, selectedUser, selectedUserRelation, selectedUserProv, activateClass = false, challengeQuestion = false;
     var question = [], answer = [], selectedQuestion = -1;
     var viewBtn, clients, userClients = [], userClientsArray = [], users = [];
 
     //DOM events Block
     $('.registerMail .pageShadow,.notNow').on('click', function () {
         $('body').removeClass('registerMail');
-        window.location.reload();
+        if ($(this).hasClass('reloadPage')) {
+            window.location.reload();
+            $(this).removeClass('reloadPage')
+        }
     });
     $(".questionForm input[type='button']").on("click", function () {
         if (answer[selectedQuestion] == $(".questionForm input[type='text']").val()) {
@@ -48,7 +51,7 @@ var permission = (function () {
         }
     });
     $(".requestAgreed").on("click", function () {
-        requestAPI("/provide/" + reqUser + "/" + reqClient + "/" + reqUserResource + "/" + reqUserScope + "/" + reqUserRelation, "GET", null, function (data) {
+        requestAPI("/provide/" + reqUser + "/" + reqClient + "/" + reqUserResource + "/" + reqUserScope + "/" + reqUserRelation + "/" + providerType + "/" + reqClientProvider, "GET", null, function (data) {
             showPopUp('<h4>Your Response was sent successfully.</h4>');
             $(".popupShadow").click();
             getData();
@@ -539,17 +542,18 @@ var permission = (function () {
             saveData: "#saveData"
         });
         $(".requestingSectionList li").on("click", function () {
-            $(".scopesData").html("Click the checkbox to agree to give <span class='scopeAccess'>" + ($(this).find(".scopeKey").text() == "Read" ? "View" : $(this).find(".scopeKey").text()) + "</span> access for <span class='clientName'>" + $(this).find(".clientPro").text() + "</span> <span class='scopeResource'>" + $(this).find(".resourcePro").text() + "</span> resource to <span class='scopeUser'>" + $(this).find("h5").text() + "</span>");
+            $(".scopesData").html("Click the checkbox to agree to give <span class='scopeAccess'>" + ($(this).find(".scopeKey").text() == "Read" ? "View" : $(this).find(".scopeKey").text()) + "</span> access for <span class='clientName'>" + $(this).find(".clientPro").text() + "</span> <span class='scopeResource'>" + $(this).find(".resourcePro").text() + "</span> resource to <span class='scopeUser'>" + $(this).find("h5").text() + "</span> ( <span class='scopeUserProv'>" + $(this).find(".prov").text() + "</span> )");
             reqUser = $(this).find("h5").text();
             reqUserRelation = $(this).find(".usrRel").text();
             reqUserScope = $(this).find(".scopeKey").text() == "View" ? "Read" : "Share";
             reqUserResource = $(this).find(".resourcePro").text();
             reqClient = $(this).find(".clientPro").text();
+            reqClientProvider = $(this).find(".prov").text();
             $(".scopeInput").attr("checked", false);
             $(".requestAgreed").attr("disabled", "disabled");
             var $this = $(this);
             $(".requestDeny").on("click", function () {
-                requestAPI("/denyrequest/" + $(".scopeUser").text() + "/" + reqClient + "/" + $(".scopeResource").text() + "/" + ($(".scopeAccess").text() == "View" ? "Read" : "Share"), "GET", null, function (data) {
+                requestAPI("/denyrequest/" + $(".scopeUser").text() + "/" + reqClient + "/" + $(".scopeResource").text() + "/" + ($(".scopeAccess").text() == "View" ? "Read" : "Share") + "/" + providerType + "/" + $(".scopeUserProv").text(), "GET", null, function (data) {
                     $(".closeIcon").click();
                     showPopUp('<h4>Your response was processed successfully.</h4>');
                     $this.remove();
@@ -593,11 +597,14 @@ var permission = (function () {
     }
     function setUIFunc() {
         selectedUser = "";
+        selectedUserProv = "";
+        selectedUserRelation = "";
         if ($(".viewSectionList li").length != 0) {
             $(".viewSectionList li").each(function (index, item) {
                 if (index == 0 && !$(".viewSectionList li:nth-child(1)").hasClass("listGrid")) {
                     $(".viewSectionList li:nth-child(1)").addClass("select");
                     selectedUser = $(".viewSectionList li:nth-child(1)").find("h5").text();
+                    selectedUserProv = $(".viewSectionList li:nth-child(1)").find(".prov").text();
                     selectedUserRelation = $(".viewSectionList li:nth-child(1)").find(".relationType").text();
                     if (!$(".viewBlock").hasClass("active"))
                         $(".viewBlock").click();
@@ -608,6 +615,7 @@ var permission = (function () {
                 if (index == 0 && !$(".viewShareSectionList li:nth-child(1)").hasClass("listGrid")) {
                     $(".viewShareSectionList li:nth-child(1)").addClass("select");
                     selectedUser = $(".viewShareSectionList li:nth-child(1)").find("h5").text();
+                    selectedUserProv = $(".viewShareSectionList li:nth-child(1)").find(".prov").text();
                     selectedUserRelation = $(".viewSectionList li:nth-child(1)").find(".relationType").text();
                     if (!$(".shareBlock").hasClass("active"))
                         $(".shareBlock").click();
@@ -627,6 +635,7 @@ var permission = (function () {
                                         itemFound = 0;
                                         resourceType = temp;
                                         selectedUser = user["user"];
+                                        selectedUserProv = user["provider"];
                                         selectedUserRelation = user["relation"];
                                     }
                                 });
@@ -640,6 +649,7 @@ var permission = (function () {
                                         itemFound = 0;
                                         resourceType = temp;
                                         selectedUser = user["user"];
+                                        selectedUserProv = user["provider"];
                                         selectedUserRelation = user["relation"];
                                     }
                                 });
@@ -652,6 +662,7 @@ var permission = (function () {
                                     itemFound = 0;
                                     resourceType = temp;
                                     selectedUser = user["user"];
+                                    selectedUserProv = user["provider"];
                                     selectedUserRelation = user["relation"];
                                 });
                             }
@@ -758,6 +769,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
+                                        \ <h6>Provider: <span class="prov">' + user["provider"] + '</span></h6> \
                                         \ <strong>' + (user["sharedBy"] ? ("<b>SharedBy:</b> " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \   <div style="display:none;" class="resourcePro">' + selectedresource + '</div> \
                                         \   <div style="display:none;" class="relationType">' + user["relation"] + '</div> \
@@ -793,6 +805,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user["user"] + '</h5> \
+                                        \ <h6>Provider: <span class="prov">' + user["provider"] + '</span></h6> \
                                         \ <strong>' + (user["sharedBy"] ? ("<b>SharedBy:</b> " + user["sharedBy"]) : "") + '</strong> </div> \
                                         \ <div class="switchSec">' + (type == "view" ? "Switch to View &amp; Share" : "Switch to View Only") + ' <i class="fa fa-exchange" aria-hidden="true"></i></div> \
                                         \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
@@ -851,6 +864,7 @@ var permission = (function () {
                                                             \ <h4>' + item + '</h4> \
                                                             \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                                             \ <h5>' + user["user"] + '</h5> \
+                                                            \ <h6>Provider: <span class="prov">' + user["provider"] + '</span></h6> \
                                                             \ <p> This user has requested you to <em class="scopeKey" >' + (scopeKeys == "Read" ? "View" : "Share") + '</em> your <em class="resourceKey" >' + resourceKey + '</em> data.</p> \
                                                             \ <span class="usrRel" style="display:none;">'+ user["relation"] + '</span> \
                                                             \ <div style="display:none;" class="resourcePro">' + resourceKey + '</div> \
@@ -913,12 +927,14 @@ var permission = (function () {
     }
     function setSharingBlock(type, $this) {
         toemail = $this.data("emailto");
+        usrProvider = $this.data("provider");
         $("#srchrest").html('');
         $('.slideDown').trigger("click");
         var filterUl = $('<div class="providesAcc"></div>');
         $("#srchrest").append(filterUl);
         $("#searchEmail").val('');
         $(filterUl).append("<div class='provideRow'><label>User:</label> <span  id='selUsr'>" + toemail + "</span></div>");
+        $(filterUl).append("<div class='provideRow'><label>Provider:</label> <span  id='usrProv'>" + usrProvider + "</span></div>");
         $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
         var clientBlock = "<div class='provideRow'><label>Client:</label><select id='selectedclient'><option value='select'>select</option>";
         userClientsArray.forEach(function (item) {
@@ -946,12 +962,14 @@ var permission = (function () {
         $("#srchrest").html("");
     });
     $(document).on("click", "#conf-share", function () {
-        requestAPI("/provide/" + $("#userName").val() + "/" + $("#mainUser").text() + "/" + $("#selectedclient").val() + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val(), "GET", null, function (data, textStatus, jqXHR) {
+        var usrName = $("#userName").val().split("-");
+        requestAPI("/provide/" + usrName[0] + "/" + $("#mainUser").text() + "/" + $("#selectedclient").val() + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val() + "/" + $("#usrProv").text() + "/" + usrName[1] + "/" + providerType, "GET", null, function (data, textStatus, jqXHR) {
             showPopUp('<h4>Shared ' + $("#mainUser").text() + ' Data Successfully.</h4>');
+            $("#srchrest").html('');
         });
     });
     $(document).on("click", "#conf-prov", function () {
-        requestAPI("/provide/" + $("#selUsr").text() + "/" + $("#selectedclient").val() + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val(), "GET", null, function (data, textStatus, jqXHR) {
+        requestAPI("/provide/" + $("#selUsr").text() + "/" + $("#selectedclient").val() + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val() + "/" + providerType + "/" + $("#usrProv").text(), "GET", null, function (data, textStatus, jqXHR) {
             $(".allowedUsr1 tbody").append('<tr><td>' + $("#selUsr").text() + '</td><td>' + $("#userRelation").val() + '</td><td>' + $("#selrsrc").val() + '</td><td><select class="accessType"><option value="Read" ' + ($("#selscpe").val() == "Read" ? "selected" : "") + '>View</option><option value="Share"  ' + ($("#selscpe").val() == "Share" ? "selected" : "") + '>Share</option></select></td><td><button class="revokeClose revokeAccess"><img src="/Content/medg/images/revoke1.png" alt="revoke"></button></td></tr>');
             showPopUp('<h4>Shared Your Data Successfully.</h4>');
             $("#srchrest").html('');
@@ -969,7 +987,7 @@ var permission = (function () {
         setSharingBlock("request", $(this));
     });
     $(document).on("click", "#conf-req", function () {
-        requestAPI("/request/" + $("#selUsr").text() + "/" + $("#selectedclient").val() + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val(), "GET", null, function (data) {
+        requestAPI("/request/" + $("#selUsr").text() + "/" + $("#selectedclient").val() + "/" + $("#selrsrc").val() + "/" + $("#selscpe").val() + "/" + $("#userRelation").val() + "/" + providerType + "/" + $("#usrProv").text(), "GET", null, function (data) {
             showPopUp('<h4>Request Sent Successfully.</h4>');
             $("#srchrest").html('');
         });
@@ -978,11 +996,12 @@ var permission = (function () {
         srchUser($(this).val());
     });    
     function popUpEvents() {
-        var previous, next, user, resourceType, relation, $this;
+        var previous, next, user, resourceType, relation, $this, userProvider;
         $(".switchSec").on("click", function () {
             $this = $(this);
             previous = $(this).parent().find(".accessLevel").text();
             user = $(this).parent().find("h5").text();
+            userProvider = $(this).parent().find(".prov").text();
             resourceType = $(this).parent().find(".resourcePro").text();
             relation = $(this).parent().find(".relationType").text();
             if (previous == "View") {
@@ -992,7 +1011,7 @@ var permission = (function () {
                 previous = "Share";
                 next = "Read";
             }
-            requestAPI("/updaterequest/" + user + "/" + selectedclient + "/" + resourceType + "/" + previous + "/" + next + "/" + relation, "GET", null, function (data) {
+            requestAPI("/updaterequest/" + user + "/" + selectedclient + "/" + resourceType + "/" + previous + "/" + next + "/" + relation + "/" + "/" + providerType  + "/" + userProvider, "GET", null, function (data) {
                 showPopUp('<h4>Access Level Changed Successfully.</h4>');
                 $this.closest("li").remove();
                 var $li = $("<li>");
@@ -1001,6 +1020,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user + '</h5> \
+                                        \ <h6>Provider: <span class="prov">' + userProvider + '</span></h6> \
                                         \ <strong>' + selectedclient + '</strong> </div> \
                                         \ <div class="switchSec">Switch to View Only<i class="fa fa-exchange" aria-hidden="true"></i></div> \
                                         \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
@@ -1014,6 +1034,7 @@ var permission = (function () {
                                         \ <div class="usrPic"><i class="fa fa-user" aria-hidden="true"></i></div> \
                                         \ <div class="gridHeadings"> \
                                         \ <h5>' + user + '</h5> \
+                                        \ <h6>Provider: <span class="prov">' + userProvider + '</span></h6> \
                                         \ <strong>' + selectedclient + '</strong> </div> \
                                         \ <div class="switchSec">Switch to View &amp; Share <i class="fa fa-exchange" aria-hidden="true"></i></div> \
                                         \ <div class="r_access">Revoke Access <i class="fa fa-undo" aria-hidden="true"></i></div> \
@@ -1035,7 +1056,7 @@ var permission = (function () {
             } else {
                 accessLvl = "Share";
             }
-            requestAPI("/revokeaccess/" + $(this).parent().find("h5").text() + "/" + selectedclient + "/" + $(this).parent().find(".resourcePro").text() + "/" + accessLvl, "GET", null, function (data) {
+            requestAPI("/revokeaccess/" + $(this).parent().find("h5").text() + "/" + selectedclient + "/" + $(this).parent().find(".resourcePro").text() + "/" + accessLvl + "/" + providerType + "/" + $(this).parent().find(".prov").text(), "GET", null, function (data) {
                 showPopUp('<h4>Access Revoked Successfully.</h4>');
                 $this.closest("li").remove();
                 setNoView();
@@ -1128,21 +1149,23 @@ var permission = (function () {
                 $("#searchEmail").val('');
                 $(filterUl).append("<div class='provideRow'><label>User:</label> <select id='userName'><option value='Select'>Select</option></select></div>");
                 var mainUser = "";
+                var mainUsrProv = "";
                 $(".viewShareSectionList li").each(function () {
                     if ($(this).hasClass("select")) {
                         mainUser = $(this).find(".gridHeadings h5").text();
+                        mainUsrProv = $(this).find(".gridHeadings .prov").text();
                     }
                 });
                 (users || []).forEach(function (item) {
                     if (item.Subject != mainUser) {
                         $('#userName').append($('<option>', {
-                            value: item.Subject,
-                            text: item.Subject
+                            value: item.Subject + "-" + (item.Provider ? item.Provider : "Medgrotto"),
+                            text: item.Subject + "-" + (item.Provider ? item.Provider : "Medgrotto")
                         }));
                     }
                 });
                 $(filterUl).append("<div class='provideRow'><label>Main User:</label> <span id='mainUser'>" + mainUser + "</span></div>");
-
+                $(filterUl).append("<div class='provideRow'><label>Main User Provider:</label> <span id='usrProv'>" + mainUsrProv + "</span></div>");
                 $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
 
                 var clientBlock = "<div class='provideRow'><label>Client:</label><select id='selectedclient'><option value='" + selectedclient + "'>" + selectedclient + "</option></select></div>";
@@ -1157,6 +1180,7 @@ var permission = (function () {
                 $("#srchrest").append(filterUl);
                 $("#searchEmail").val('');
                 $(filterUl).append("<div class='provideRow'><label>User:</label> <span  id='selUsr'>" + toemail + "</span></div>");
+                $(filterUl).append("<div class='provideRow'><label>Provider:</label> <span  id='usrProv'>" + selectedUserProv + "</span></div>");
                 $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
 
                 var clientBlock = "<div class='provideRow'><label>Client:</label><select id='selectedclient'><option value='select'>select</option>";
@@ -1200,6 +1224,7 @@ var permission = (function () {
             $("#srchrest").append(filterUl);
             $("#searchEmail").val('');
             $(filterUl).append("<div class='provideRow'><label>User:</label> <span  id='selUsr'>" + toemail + "</span></div>");
+            $(filterUl).append("<div class='provideRow'><label>Provider:</label> <span  id='usrProv'>" + selectedUserProv + "</span></div>");
             $(filterUl).append("<div class='provideRow'><label>Relation:</label><select id='userRelation'><option value='Parent'>Parent</option><option value='Child'>Child</option><option value='Doctor'>Doctor</option></select></div>");
             //$(filterUl).append("<div class='provideRow'><label>Client:</label> <span>" + selectedclient + "</span></div>");
 
@@ -1250,6 +1275,8 @@ var permission = (function () {
                     $(".providerList li:nth-child(1)").remove();
                     $('.labelText').text("Proxy");
                 }
+                if(data[0] && data[0].Provider)
+                    providerType = data[0].Provider;
                 getData();
             }
             getUserClients();
@@ -1270,7 +1297,8 @@ var permission = (function () {
     };
     function getUserClients() {
         var sdata = {
-            email: $(".usrEmail").text()
+            email: $(".usrEmail").text(),
+            provider: providerType
         };
         requestAPI("/home/GetUserClientsData", "POST", sdata, function (data) {
             userClients = data;
@@ -1333,7 +1361,7 @@ var permission = (function () {
             var filterUl = $('<ul/>');
             $("#srchrest").append(filterUl);
             (data || []).forEach(function (item) {
-                $(filterUl).append("<li><span>" + item.Subject + "</span> <div class='provideRow'><a data-emailto=" + item.Subject + " class='req-r' href='javascript:void(0);'>Request</a><a data-emailto=" + item.Subject + " class='pro-r' href='javascript:void(0);'>Share</a></div></li>")
+                $(filterUl).append("<li><span>" + item.Subject + "</span><br>Provider: <span class='provider'>" + (item.Provider ? item.Provider : "Medgrotto") + "</span> <div class='provideRow'><a data-emailto=" + item.Subject + " data-provider= " + (item.Provider ? item.Provider : "Medgrotto") + " class='req-r' href='javascript:void(0);'>Request</a><a data-emailto=" + item.Subject + " data-provider=" + (item.Provider ? item.Provider : "Medgrotto")  + " class='pro-r' href='javascript:void(0);'>Share</a></div></li>")
             });
         });
     }
@@ -1364,6 +1392,7 @@ var permission = (function () {
         $('body').removeClass('registerMail1');
         $("body").removeClass("loadingHome");
         showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
+        $(".notNow").addClass("reloadPage");
     }
     getUsers();
     getUserData();

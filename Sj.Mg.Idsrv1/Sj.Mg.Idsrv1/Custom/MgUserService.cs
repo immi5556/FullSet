@@ -198,7 +198,7 @@ namespace Sj.Mg.Idsrv1.Custom
                     CustomUser user = (tt == null || tt.Count == 0) ? null : tt[0];
                     if (user != null)
                     {
-                        UserClientsList data = GetUserClients(user.Id, email);
+                        UserClientsList data = GetUserClients(user.Id, email, newUser.Provider);
                         MongoManage.Insert<UserClientsList>(data, "UsersClientsData");
                     }
 
@@ -291,7 +291,7 @@ namespace Sj.Mg.Idsrv1.Custom
             return ab;
         }
 
-        public UserClientsList GetUserClients(MongoDB.Bson.ObjectId id, string email)
+        public UserClientsList GetUserClients(MongoDB.Bson.ObjectId id, string email, string provider)
         {
             var fpath = HttpContext.Current.Server.MapPath("/App_Data/tabsData.json");
             //local: E:\Vamsi\Medgrotto\FullSet\Sj.Mg.Idsrv1\Sj.Mg.Idsrv1\Content\medg\js\tabsData.json
@@ -301,6 +301,7 @@ namespace Sj.Mg.Idsrv1.Custom
             UserClientsList userClnts = new UserClientsList();
             userClnts.userId = id.ToString();
             userClnts.email = email;
+            userClnts.provider = provider;
             userClnts.UserClientsData = obj;
             return userClnts;
         }

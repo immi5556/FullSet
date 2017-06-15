@@ -15,6 +15,7 @@ namespace Sj.Mg.CliLib.Model
         public ObjectId Id { get; set; }
         public string userId { get; set; }
         public string email { get; set; }
+        public string provider { get; set; }
         public List<UserClientsData> UserClientsData { get; set; }
     }
     public class UserClientsData

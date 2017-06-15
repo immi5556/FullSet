@@ -18,6 +18,7 @@ namespace Sj.Mg.CliLib.Model
     {
         public string scope { get; set; }
         public string user { get; set; }
+        public string provider { get; set; }
         public string scopeType { get; set; }
     }
 }

@@ -212,6 +212,13 @@ header .right {
 	border-radius: 40px;
 	background: #12214e;
 }
+.userList li .prov {
+    display: inline;
+	height: 20px;
+	margin: auto;
+	line-height: 20px;
+    background: white;
+}
 .userList li span img {
 	vertical-align: middle;
 }

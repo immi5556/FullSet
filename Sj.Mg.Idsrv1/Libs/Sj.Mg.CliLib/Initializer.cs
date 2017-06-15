@@ -161,6 +161,9 @@ namespace Sj.Mg.CliLib
                         var emailClaim = n.AuthenticationTicket
                             .Identity.FindFirst(IdentityModel.JwtClaimTypes.Email);
 
+                        var idpClaim = n.AuthenticationTicket
+                            .Identity.FindFirst(IdentityModel.JwtClaimTypes.IdentityProvider);
+
                         //create a new claims, issuer + sub as unique identifier
                         //var nameClaim = new Claim(IdentityModel.JwtClaimTypes.Name,
                         //            Utils.Common.IssuerUri + subClaim.Value);
@@ -192,6 +195,10 @@ namespace Sj.Mg.CliLib
                             newClaimsIdentity.AddClaim(roleClaim);
                         }
 
+                        if (idpClaim != null)
+                        {
+                            newClaimsIdentity.AddClaim(idpClaim);
+                        }
                         newClaimsIdentity.AddClaim(new Claim("access_token", n.ProtocolMessage.AccessToken));
 
                         newClaimsIdentity.AddClaim(new Claim("id_token", n.ProtocolMessage.IdToken));

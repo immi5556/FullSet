@@ -134,6 +134,7 @@ namespace Sj.Mg.Client.Controllers
             var idtkn = prof.FindFirst("id_token") != null ? prof.FindFirst("id_token").Value : "";
             var gname = prof.FindFirst("given_name") != null ? prof.FindFirst("given_name").Value : "";
             var lname = prof.FindFirst("family_name") != null ? prof.FindFirst("family_name").Value : "";
+            var idp = prof.FindFirst("idp") != null ? prof.FindFirst("idp").Value : "";
             if (!string.IsNullOrEmpty(gname) || !string.IsNullOrEmpty(lname))
             {
                 ViewBag.FullName = lname + ", " + gname;
@@ -151,6 +152,7 @@ namespace Sj.Mg.Client.Controllers
             var idtkn = prof.FindFirst("id_token") != null ? prof.FindFirst("id_token").Value : "";
             var gname = prof.FindFirst("given_name") != null ? prof.FindFirst("given_name").Value : "";
             var lname = prof.FindFirst("family_name") != null ? prof.FindFirst("family_name").Value : "";
+            var idp = prof.FindFirst("idp") != null ? prof.FindFirst("idp").Value : "";
             if (!string.IsNullOrEmpty(gname) || !string.IsNullOrEmpty(lname))
             {
                 ViewBag.FullName = lname + ", " + gname;
@@ -163,7 +165,10 @@ namespace Sj.Mg.Client.Controllers
         [Route("permissionsData")]
         public JsonResult PermissionsData()
         {
-            List<Sj.Mg.CliLib.Model.RequestPerm> gg = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(User.Identity.Name);
+            var prof = (User as ClaimsPrincipal);
+            var idp = prof.FindFirst("idp") != null ? prof.FindFirst("idp").Value : "";
+            var name = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
+            List<Sj.Mg.CliLib.Model.RequestPerm> gg = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(name, idp);
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
 
@@ -171,7 +176,10 @@ namespace Sj.Mg.Client.Controllers
         [HttpPost]
         public JsonResult GetUserData()
         {
-            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(User.Identity.Name);
+            var prof = (User as ClaimsPrincipal);
+            var idp = prof.FindFirst("idp") != null ? prof.FindFirst("idp").Value : "";
+            var name = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
+            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(name, idp);
 
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
@@ -188,7 +196,7 @@ namespace Sj.Mg.Client.Controllers
         [Route("user/{id}")]
         public JsonResult SearchUser(string id)
         {
-            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(id);
+            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchByName(id);
             int index = gg.FindIndex(x => x.Subject == User.Identity.Name);
 
             if (index != -1)
@@ -211,8 +219,8 @@ namespace Sj.Mg.Client.Controllers
         }
 
         [Authorize]
-        [Route("revokeaccess/{toemail}/{toclient}/{toresrc}/{toscope}")]
-        public JsonResult RevokeAccess(string toemail, string toclient, string toresrc, string toscope)
+        [Route("revokeaccess/{toemail}/{toclient}/{toresrc}/{toscope}/{usrProvide}/{toUsrProvide}")]
+        public JsonResult RevokeAccess(string toemail, string toclient, string toresrc, string toscope, string usrProvide, string toUsrProvide)
         {
             var token = (User as System.Security.Claims.ClaimsPrincipal);
             foreach (var tt1 in token.Claims)
@@ -223,7 +231,7 @@ namespace Sj.Mg.Client.Controllers
             var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
             tt.ForEach(t =>
             {
-                if (t.MyEmail == toemail)
+                if (t.MyEmail == toemail && t.Provider == toUsrProvide)
                 {
                     if (t.AllowedUsers.ContainsKey(toclient))
                     {
@@ -236,7 +244,7 @@ namespace Sj.Mg.Client.Controllers
                                 t.AllowedUsers[toclient][toresrc][toscope].ForEach(item =>
                                 {
                                     index++;
-                                    if (item.user == un)
+                                    if (item.user == un && item.provider == usrProvide)
                                     {
                                         itemFound = true;
                                     }
@@ -251,7 +259,7 @@ namespace Sj.Mg.Client.Controllers
                     }
                     Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
                 }
-                if (t.MyEmail == un)
+                if (t.MyEmail == un && t.Provider == usrProvide)
                 {
                     if (t.MyDetailsSharedWith.ContainsKey(toclient))
                     {
@@ -264,7 +272,7 @@ namespace Sj.Mg.Client.Controllers
                                 t.MyDetailsSharedWith[toclient][toresrc][toscope].ForEach(item =>
                                 {
                                     index++;
-                                    if (item.user == toemail)
+                                    if (item.user == toemail && item.provider == toUsrProvide)
                                     {
                                         itemFound = true;
                                     }
@@ -284,8 +292,8 @@ namespace Sj.Mg.Client.Controllers
         }
 
         [Authorize]
-        [Route("updaterequest/{toemail}/{toclient}/{toresrc}/{oldScope}/{toscope}/{relation}")]
-        public JsonResult UpdateReqAccess(string toemail, string toclient, string toresrc, string oldScope, string toscope, string relation)
+        [Route("updaterequest/{toemail}/{toclient}/{toresrc}/{oldScope}/{toscope}/{relation}/{usrProvide}/{toUsrProvide}")]
+        public JsonResult UpdateReqAccess(string toemail, string toclient, string toresrc, string oldScope, string toscope, string relation, string usrProvide, string toUsrProvide)
         {
             var token = (User as System.Security.Claims.ClaimsPrincipal);
             foreach (var tt1 in token.Claims)
@@ -296,7 +304,7 @@ namespace Sj.Mg.Client.Controllers
             var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
             tt.ForEach(t =>
             {
-                if (t.MyEmail == toemail)
+                if (t.MyEmail == toemail && t.Provider == toUsrProvide)
                 {
                     if (t.AllowedUsers.ContainsKey(toclient))
                     {
@@ -309,7 +317,7 @@ namespace Sj.Mg.Client.Controllers
                                 t.AllowedUsers[toclient][toresrc][oldScope].ForEach(item =>
                                 {
                                     index++;
-                                    if (item.user == un)
+                                    if (item.user == un && item.provider == usrProvide)
                                     {
                                         itemFound = true;
                                     }
@@ -324,7 +332,7 @@ namespace Sj.Mg.Client.Controllers
                     }
                     Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
                 }
-                if (t.MyEmail == un)
+                if (t.MyEmail == un && t.Provider == usrProvide)
                 {
                     if (t.MyDetailsSharedWith.ContainsKey(toclient))
                     {
@@ -337,7 +345,7 @@ namespace Sj.Mg.Client.Controllers
                                 t.MyDetailsSharedWith[toclient][toresrc][oldScope].ForEach(item =>
                                 {
                                     index++;
-                                    if (item.user == toemail)
+                                    if (item.user == toemail && item.provider == toUsrProvide)
                                     {
                                         itemFound = true;
                                     }
@@ -353,13 +361,13 @@ namespace Sj.Mg.Client.Controllers
                     Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
                 }
             });
-            ProvAccess(toemail, toclient, toresrc, toscope, relation);
+            ProvAccess(toemail, toclient, toresrc, toscope, relation, usrProvide, toUsrProvide);
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
-        [Route("request/{toemail}/{toclient}/{toresrc}/{toscope}/{relation}")]
-        public JsonResult ReqAccess(string toemail, string toclient, string toresrc, string toscope, string relation)
+        [Route("request/{toemail}/{toclient}/{toresrc}/{toscope}/{relation}/{usrProvide}/{toUsrProvide}")]
+        public JsonResult ReqAccess(string toemail, string toclient, string toresrc, string toscope, string relation, string usrProvide, string toUsrProvide)
         {
             var token = (User as System.Security.Claims.ClaimsPrincipal);
             foreach (var tt1 in token.Claims)
@@ -371,7 +379,7 @@ namespace Sj.Mg.Client.Controllers
             bool alreadyaccess = false;
             tt.ForEach(t =>
             {
-                if (t.MyEmail == toemail)
+                if (t.MyEmail == toemail && t.Provider == toUsrProvide)
                 {
                     if (t.RequestedUsers.ContainsKey(toclient))
                     {
@@ -397,6 +405,7 @@ namespace Sj.Mg.Client.Controllers
                                     UserData userData = new UserData();
                                     userData.user = un;
                                     userData.relation = relation;
+                                    userData.provider = usrProvide;
                                     t.RequestedUsers[toclient][toresrc][toscope].Add(userData);
                                 }
                             }
@@ -406,6 +415,7 @@ namespace Sj.Mg.Client.Controllers
                                 UserData userData = new UserData();
                                 userData.user = un;
                                 userData.relation = relation;
+                                userData.provider = usrProvide;
                                 t.RequestedUsers[toclient][toresrc][toscope].Add(userData);
                             }
                         }
@@ -416,6 +426,7 @@ namespace Sj.Mg.Client.Controllers
                             UserData userData = new UserData();
                             userData.user = un;
                             userData.relation = relation;
+                            userData.provider = usrProvide;
                             t.RequestedUsers[toclient][toresrc][toscope].Add(userData);
                         }
                     }
@@ -427,6 +438,7 @@ namespace Sj.Mg.Client.Controllers
                         UserData userData = new UserData();
                         userData.user = un;
                         userData.relation = relation;
+                        userData.provider = usrProvide;
                         t.RequestedUsers[toclient][toresrc][toscope].Add(userData);
                     }
                     Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
@@ -437,20 +449,22 @@ namespace Sj.Mg.Client.Controllers
             {
                 Sj.Mg.CliLib.Model.RequestPerm perm = new CliLib.Model.RequestPerm();
                 perm.MyEmail = toemail;
+                perm.Provider = toUsrProvide;
                 perm.RequestedUsers.Add(toclient, new Dictionary<string, Dictionary<string, List<UserData>>>());
                 perm.RequestedUsers[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
                 perm.RequestedUsers[toclient][toresrc].Add(toscope, new List<UserData>());
                 UserData userData = new UserData();
                 userData.user = un;
                 userData.relation = relation;
+                userData.provider = usrProvide;
                 perm.RequestedUsers[toclient][toresrc][toscope].Add(userData);
                 Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
             }
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
         [Authorize]
-        [Route("provide/{toemail}/{user}/{toclient}/{toresrc}/{toscope}/{relation}")]
-        public JsonResult ProvAccess(string toemail, string user, string toclient, string toresrc, string toscope, string relation)
+        [Route("provide/{toemail}/{user}/{toclient}/{toresrc}/{toscope}/{relation}/{usrProvide}/{toUsrProvide}/{provider}")]
+        public JsonResult ProvAccess(string toemail, string user, string toclient, string toresrc, string toscope, string relation, string usrProvide, string toUsrProvide, string provider)
         {
             var token = (User as System.Security.Claims.ClaimsPrincipal);
             foreach (var tt1 in token.Claims)
@@ -462,7 +476,7 @@ namespace Sj.Mg.Client.Controllers
             bool alreadyaccess = false;
             tt.ForEach(t =>
             {
-                if (t.MyEmail == toemail)
+                if (t.MyEmail == toemail && t.Provider == toUsrProvide)
                 {
                     if (t.AllowedUsers.ContainsKey(toclient))
                     {
@@ -473,7 +487,7 @@ namespace Sj.Mg.Client.Controllers
                                 bool itemFound = false;
                                 t.AllowedUsers[toclient][toresrc][toscope].ForEach(item =>
                                 {
-                                    if (item.user == user)
+                                    if (item.user == user && item.provider == usrProvide)
                                     {
                                         itemFound = true;
                                     }
@@ -486,7 +500,9 @@ namespace Sj.Mg.Client.Controllers
                                 {
                                     UserData userData = new UserData();
                                     userData.user = user;
+                                    userData.provider = usrProvide;
                                     userData.sharedBy = un;
+                                    userData.sharedByProvider = provider;
                                     userData.relation = relation;
                                     t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
                                 }
@@ -496,7 +512,9 @@ namespace Sj.Mg.Client.Controllers
                                 t.AllowedUsers[toclient][toresrc].Add(toscope, new List<UserData>());
                                 UserData userData = new UserData();
                                 userData.user = user;
+                                userData.provider = usrProvide;
                                 userData.sharedBy = un;
+                                userData.sharedByProvider = provider;
                                 userData.relation = relation;
                                 t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
                             }
@@ -507,7 +525,9 @@ namespace Sj.Mg.Client.Controllers
                             t.AllowedUsers[toclient][toresrc].Add(toscope, new List<UserData>());
                             UserData userData = new UserData();
                             userData.user = user;
+                            userData.provider = usrProvide;
                             userData.sharedBy = un;
+                            userData.sharedByProvider = provider;
                             userData.relation = relation;
                             t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
                         }
@@ -519,7 +539,9 @@ namespace Sj.Mg.Client.Controllers
                         t.AllowedUsers[toclient][toresrc].Add(toscope, new List<UserData>());
                         UserData userData = new UserData();
                         userData.user = user;
+                        userData.provider = usrProvide;
                         userData.sharedBy = un;
+                        userData.sharedByProvider = provider;
                         userData.relation = relation;
                         t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
                     }
@@ -531,26 +553,29 @@ namespace Sj.Mg.Client.Controllers
             {
                 Sj.Mg.CliLib.Model.RequestPerm perm = new CliLib.Model.RequestPerm();
                 perm.MyEmail = toemail;
+                perm.Provider = toUsrProvide;
                 perm.AllowedUsers.Add(toclient, new Dictionary<string, Dictionary<string, List<UserData>>>());
                 perm.AllowedUsers[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
                 perm.AllowedUsers[toclient][toresrc].Add(toscope, new List<UserData>());
                 UserData userData = new UserData();
                 userData.user = user;
+                userData.provider = usrProvide;
                 userData.sharedBy = un;
+                userData.sharedByProvider = provider;
                 userData.relation = relation;
                 perm.AllowedUsers[toclient][toresrc][toscope].Add(userData);
                 Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
             }
-            AddToMainUserSharedList(toemail, un, user, toclient, toresrc, toscope, relation);
+            AddToMainUserSharedList(toemail, un, user, toclient, toresrc, toscope, relation, usrProvide, toUsrProvide, provider);
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
-        void AddToMainUserSharedList(string un, string toemail, string mainUser, string toclient, string toresrc, string toscope, string relation)
+        void AddToMainUserSharedList(string un, string toemail, string mainUser, string toclient, string toresrc, string toscope, string relation, string usrProvide, string toUsrProvide, string provider)
         {
             var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
             bool alreadyaccess = false;
             tt.ForEach(t =>
             {
-                if (t.MyEmail == mainUser)
+                if (t.MyEmail == mainUser && t.Provider == usrProvide)
                 {
                     if (t.MyDetailsSharedWith.ContainsKey(toclient))
                     {
@@ -561,7 +586,7 @@ namespace Sj.Mg.Client.Controllers
                                 bool itemFound = false;
                                 t.MyDetailsSharedWith[toclient][toresrc][toscope].ForEach(item =>
                                 {
-                                    if (item.user == un)
+                                    if (item.user == un && item.provider == toUsrProvide)
                                     {
                                         itemFound = true;
                                     }
@@ -574,7 +599,9 @@ namespace Sj.Mg.Client.Controllers
                                 {
                                     UserData userData = new UserData();
                                     userData.user = un;
+                                    userData.provider = toUsrProvide;
                                     userData.sharedBy = toemail;
+                                    userData.sharedByProvider = provider;
                                     userData.relation = relation;
                                     t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
                                 }
@@ -584,7 +611,9 @@ namespace Sj.Mg.Client.Controllers
                                 t.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<UserData>());
                                 UserData userData = new UserData();
                                 userData.user = un;
+                                userData.provider = toUsrProvide;
                                 userData.sharedBy = toemail;
+                                userData.sharedByProvider = provider;
                                 userData.relation = relation;
                                 t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
                             }
@@ -595,7 +624,9 @@ namespace Sj.Mg.Client.Controllers
                             t.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<UserData>());
                             UserData userData = new UserData();
                             userData.user = un;
+                            userData.provider = toUsrProvide;
                             userData.sharedBy = toemail;
+                            userData.sharedByProvider = provider;
                             userData.relation = relation;
                             t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
                         }
@@ -607,7 +638,9 @@ namespace Sj.Mg.Client.Controllers
                         t.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<UserData>());
                         UserData userData = new UserData();
                         userData.user = un;
+                        userData.provider = toUsrProvide;
                         userData.sharedBy = toemail;
+                        userData.sharedByProvider = provider;
                         userData.relation = relation;
                         t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
                     }
@@ -619,20 +652,23 @@ namespace Sj.Mg.Client.Controllers
             {
                 Sj.Mg.CliLib.Model.RequestPerm perm = new CliLib.Model.RequestPerm();
                 perm.MyEmail = toemail;
+                perm.Provider = usrProvide;
                 perm.MyDetailsSharedWith.Add(toclient, new Dictionary<string, Dictionary<string, List<UserData>>>());
                 perm.MyDetailsSharedWith[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
                 perm.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<UserData>());
                 UserData userData = new UserData();
                 userData.user = un;
+                userData.provider = toUsrProvide;
                 userData.sharedBy = toemail;
+                userData.sharedByProvider = provider;
                 userData.relation = relation;
                 perm.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
                 Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
             }
         }
         [Authorize]
-        [Route("provide/{toemail}/{toclient}/{toresrc}/{toscope}/{relation}")]
-        public JsonResult ProvAccess(string toemail, string toclient, string toresrc, string toscope, string relation)
+        [Route("provide/{toemail}/{toclient}/{toresrc}/{toscope}/{relation}/{usrProvide}/{toUsrProvide}")]
+        public JsonResult ProvAccess(string toemail, string toclient, string toresrc, string toscope, string relation, string usrProvide, string toUsrProvide)
         {
             var token = (User as System.Security.Claims.ClaimsPrincipal);
             foreach (var tt1 in token.Claims)
@@ -644,7 +680,7 @@ namespace Sj.Mg.Client.Controllers
             bool alreadyaccess = false;
             tt.ForEach(t =>
             {
-                if (t.MyEmail == toemail)
+                if (t.MyEmail == toemail && t.Provider == toUsrProvide)
                 {
                     if (t.AllowedUsers.ContainsKey(toclient))
                     {
@@ -669,6 +705,7 @@ namespace Sj.Mg.Client.Controllers
                                     UserData userData = new UserData();
                                     userData.user = un;
                                     userData.relation = relation;
+                                    userData.provider = usrProvide;
                                     t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
                                 }
                             }
@@ -678,6 +715,7 @@ namespace Sj.Mg.Client.Controllers
                                 UserData userData = new UserData();
                                 userData.user = un;
                                 userData.relation = relation;
+                                userData.provider = usrProvide;
                                 t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
                             }
                         }
@@ -688,6 +726,7 @@ namespace Sj.Mg.Client.Controllers
                             UserData userData = new UserData();
                             userData.user = un;
                             userData.relation = relation;
+                            userData.provider = usrProvide;
                             t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
                         }
                     }
@@ -699,6 +738,7 @@ namespace Sj.Mg.Client.Controllers
                         UserData userData = new UserData();
                         userData.user = un;
                         userData.relation = relation;
+                        userData.provider = usrProvide;
                         t.AllowedUsers[toclient][toresrc][toscope].Add(userData);
                     }
                     Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
@@ -709,26 +749,28 @@ namespace Sj.Mg.Client.Controllers
             {
                 Sj.Mg.CliLib.Model.RequestPerm perm = new CliLib.Model.RequestPerm();
                 perm.MyEmail = toemail;
+                perm.Provider = toUsrProvide;
                 perm.AllowedUsers.Add(toclient, new Dictionary<string, Dictionary<string, List<UserData>>>());
                 perm.AllowedUsers[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
                 perm.AllowedUsers[toclient][toresrc].Add(toscope, new List<UserData>());
                 UserData userData = new UserData();
                 userData.user = un;
                 userData.relation = relation;
+                userData.provider = usrProvide;
                 perm.AllowedUsers[toclient][toresrc][toscope].Add(userData);
                 Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
             }
-            AddToMySharedList(toemail, un, toclient, toresrc, toscope, relation);
+            AddToMySharedList(toemail, un, toclient, toresrc, toscope, relation, usrProvide, toUsrProvide);
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
         
-        void AddToMySharedList(string un, string toemail, string toclient, string toresrc, string toscope, string relation)
+        void AddToMySharedList(string un, string toemail, string toclient, string toresrc, string toscope, string relation, string usrProvide, string toUsrProvide)
         {
             var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
             bool alreadyaccess = false;
             tt.ForEach(t =>
             {
-                if (t.MyEmail == toemail)
+                if (t.MyEmail == toemail && t.Provider == usrProvide)
                 {
                     if (t.MyDetailsSharedWith.ContainsKey(toclient))
                     {
@@ -753,6 +795,7 @@ namespace Sj.Mg.Client.Controllers
                                     UserData userData = new UserData();
                                     userData.user = un;
                                     userData.relation = relation;
+                                    userData.provider = toUsrProvide;
                                     t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
                                 }
                             }
@@ -762,6 +805,7 @@ namespace Sj.Mg.Client.Controllers
                                 UserData userData = new UserData();
                                 userData.user = un;
                                 userData.relation = relation;
+                                userData.provider = toUsrProvide;
                                 t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
                             }
                         }
@@ -772,6 +816,7 @@ namespace Sj.Mg.Client.Controllers
                             UserData userData = new UserData();
                             userData.user = un;
                             userData.relation = relation;
+                            userData.provider = toUsrProvide;
                             t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
                         }
                     }
@@ -783,6 +828,7 @@ namespace Sj.Mg.Client.Controllers
                         UserData userData = new UserData();
                         userData.user = un;
                         userData.relation = relation;
+                        userData.provider = toUsrProvide;
                         t.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
                     }
                     Sj.Mg.Mongo.MongoManage.ReplaceReqPerm(t);
@@ -793,24 +839,26 @@ namespace Sj.Mg.Client.Controllers
             {
                 Sj.Mg.CliLib.Model.RequestPerm perm = new CliLib.Model.RequestPerm();
                 perm.MyEmail = toemail;
+                perm.Provider = usrProvide;
                 perm.MyDetailsSharedWith.Add(toclient, new Dictionary<string, Dictionary<string, List<UserData>>>());
                 perm.MyDetailsSharedWith[toclient].Add(toresrc, new Dictionary<string, List<UserData>>());
                 perm.MyDetailsSharedWith[toclient][toresrc].Add(toscope, new List<UserData>());
                 UserData userData = new UserData();
                 userData.user = un;
                 userData.relation = relation;
+                userData.provider = toUsrProvide;
                 perm.MyDetailsSharedWith[toclient][toresrc][toscope].Add(userData);
                 Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.RequestPerm>(perm, "ReqPerms");
             }
-            removeRequest(un, toemail, toclient, toresrc, toscope);
+            removeRequest(un, toemail, toclient, toresrc, toscope, usrProvide, toUsrProvide);
         }
 
-        public void removeRequest(string un, string toemail, string toclient, string toresrc, string toscope)
+        public void removeRequest(string un, string toemail, string toclient, string toresrc, string toscope, string usrProvide, string toUsrProvide)
         {
             var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
             tt.ForEach(t =>
             {
-                if (t.MyEmail == toemail)
+                if (t.MyEmail == toemail && t.Provider == usrProvide)
                 {
                     if (t.RequestedUsers.ContainsKey(toclient))
                     {
@@ -823,7 +871,7 @@ namespace Sj.Mg.Client.Controllers
                                 t.RequestedUsers[toclient][toresrc][toscope].ForEach(item =>
                                 {
                                     index++;
-                                    if (item.user == un)
+                                    if (item.user == un && item.provider == toUsrProvide)
                                     {
                                         itemFound = true;
                                     }
@@ -843,14 +891,14 @@ namespace Sj.Mg.Client.Controllers
         }
 
         [Authorize]
-        [Route("denyrequest/{toemail}/{toclient}/{toresrc}/{toscope}")]
-        public JsonResult DenyRequest(string toemail, string toclient, string toresrc, string toscope)
+        [Route("denyrequest/{toemail}/{toclient}/{toresrc}/{toscope}/{usrProvide}/{toUsrProvide}")]
+        public JsonResult DenyRequest(string toemail, string toclient, string toresrc, string toscope, string usrProvide, string toUsrProvide)
         {
             var un = User.Identity.Name;
             var tt = Sj.Mg.Mongo.MongoManage.GetUserPerms();
             tt.ForEach(t =>
             {
-                if (t.MyEmail == un)
+                if (t.MyEmail == un && t.Provider == usrProvide)
                 {
                     if (t.RequestedUsers.ContainsKey(toclient))
                     {
@@ -863,7 +911,7 @@ namespace Sj.Mg.Client.Controllers
                                 t.RequestedUsers[toclient][toresrc][toscope].ForEach(item =>
                                 {
                                     index++;
-                                    if (item.user == toemail)
+                                    if (item.user == toemail && item.provider == toUsrProvide)
                                     {
                                         itemFound = true;
                                     }
@@ -932,9 +980,9 @@ namespace Sj.Mg.Client.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult GetUserClientsData(string email)
+        public ActionResult GetUserClientsData(string email, string provider)
         {
-            List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(email);
+            List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(email, provider);
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
 
@@ -943,7 +991,7 @@ namespace Sj.Mg.Client.Controllers
         public ActionResult UpdateUserClientsData(UpdateUsersClientData clientData)
         {
             var data = clientData.userClientsList;
-            List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(data.email);
+            List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(data.email ,data.provider);
             
             gg[0].UserClientsData = data.UserClientsData;
             Sj.Mg.Mongo.MongoManage.UpdateUserClients(gg[0]);            
@@ -974,7 +1022,7 @@ namespace Sj.Mg.Client.Controllers
                     });
                 }
                 
-                var tt = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(data.email);
+                var tt = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(data.email, data.provider);
                 var allowedUsers = new List<ReqParamObj>();
                 var sharedUsers = new List<ReqParamObj>();
 
@@ -1026,7 +1074,7 @@ namespace Sj.Mg.Client.Controllers
                             {
                                 allowedUsers.ForEach(userData =>
                                 {
-                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user);
+                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user, userData.provider);
                                     customeUser.ForEach(userItem =>
                                     {
                                         if (userData.scopeType == "Read")
@@ -1105,7 +1153,7 @@ namespace Sj.Mg.Client.Controllers
                             {
                                 sharedUsers.ForEach(userData =>
                                 {
-                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user);
+                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user, userData.provider);
                                     customeUser.ForEach(userItem =>
                                     {
                                         if (userData.scopeType == "Read")
@@ -1149,7 +1197,7 @@ namespace Sj.Mg.Client.Controllers
             }
             else if (clientData.delScope)
             {
-                var tt = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(data.email);
+                var tt = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(data.email, data.provider);
                 var allowedUsers = new List<ReqParamObj>();
                 var sharedUsers = new List<ReqParamObj>();
                 var scope = clientData.delItem.Split(',')[1];
@@ -1201,7 +1249,7 @@ namespace Sj.Mg.Client.Controllers
                             {
                                 allowedUsers.ForEach(userData =>
                                 {
-                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user);
+                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user, userData.provider);
                                     customeUser.ForEach(userItem =>
                                     {
                                         if (userData.scopeType == "Read")
@@ -1275,7 +1323,7 @@ namespace Sj.Mg.Client.Controllers
                             {
                                 sharedUsers.ForEach(userData =>
                                 {
-                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user);
+                                    var customeUser = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(userData.user, userData.provider);
                                     customeUser.ForEach(userItem =>
                                     {
                                         if (userData.scopeType == "Read")
@@ -1334,7 +1382,8 @@ namespace Sj.Mg.Client.Controllers
         {
             var prof = (User as ClaimsPrincipal);
             var email = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
-            var dd = Sj.Mg.Mongo.MongoManage.SearchUserClients(email); 
+            var idp = prof.FindFirst("idp") != null ? prof.FindFirst("idp").Value : "";
+            var dd = Sj.Mg.Mongo.MongoManage.SearchUserClients(email, idp); 
             var code = Request.QueryString["code"];
             //string url = "https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=https%3A%2F%2Foidc.medgrotto.com%3A9001%2FHome%2FCallback&code=" + code;
             //AWS Url

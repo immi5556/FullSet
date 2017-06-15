@@ -19,6 +19,7 @@ namespace Sj.Mg.CliLib.Model
         [MongoDB.Bson.Serialization.Attributes.BsonElement("id")]
         public MongoDB.Bson.ObjectId Id { get; set; }
         public string MyEmail { get; set;  }
+        public string Provider { get; set; }
         public Dictionary<string, Dictionary<string, Dictionary<string, List<UserData>>>> AllowedUsers { get; set; }
         public Dictionary<string, Dictionary<string, Dictionary<string, List<UserData>>>> RequestedUsers { get; set; }
         public Dictionary<string, Dictionary<string, Dictionary<string, List<UserData>>>> MyDetailsSharedWith { get; set; }
@@ -27,7 +28,9 @@ namespace Sj.Mg.CliLib.Model
     public class UserData
     {
         public string user { get; set; }
+        public string provider { get; set; }
         public string relation { get; set; }
         public string sharedBy { get; set; }
+        public string sharedByProvider { get; set; }
     }
 }

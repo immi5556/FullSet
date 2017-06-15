@@ -146,7 +146,7 @@ namespace Sj.Mg.Idsrv1.Controllers
                 //Sj.Mg.Mongo.MongoManage.ReplaceUserByUserName(db_user);
                 Sj.Mg.Mongo.MongoManage.Insert<Sj.Mg.CliLib.Model.CustomUser>(db_user, "Users");
 
-                UserClientsList data = GetUserClients(db_user.Id, db_user.Email);
+                UserClientsList data = GetUserClients(db_user.Id, db_user.Email, idp);
                 Sj.Mg.Mongo.MongoManage.Insert<UserClientsList>(data, "UsersClientsData");
                 // find the URL to continue with the process to the issue the token to the RP
                 var resumeUrl = await ctx.Environment.GetPartialLoginResumeUrlAsync();
@@ -230,6 +230,19 @@ namespace Sj.Mg.Idsrv1.Controllers
             {
                 return View("Error");
             }
+            string idp = "";
+            var tte = partial_user.Claims.ToList().Find(t => t.Type == "idp");
+            if (tte != null)
+            {
+                idp = (tte.Value ?? "") == "idsrv" ? "MgIdp" : tte.Value;
+            }
+            var subject = partial_user.GetSubjectId();
+            Dictionary<string, object> filter = new Dictionary<string, object>();
+            filter.Add("Username", subject);
+            filter.Add("Provider", idp);
+            var tt = Sj.Mg.Mongo.MongoManage.Select<Sj.Mg.CliLib.Model.CustomUser>(filter, "Users");
+            var user = (tt == null || tt.Count == 0) ? null : tt[0];
+            ViewBag.user = Newtonsoft.Json.JsonConvert.SerializeObject(user);
             return View();
         }
 
@@ -283,7 +296,7 @@ namespace Sj.Mg.Idsrv1.Controllers
             return View();
         }
 
-        public UserClientsList GetUserClients(MongoDB.Bson.ObjectId id, string email)
+        public UserClientsList GetUserClients(MongoDB.Bson.ObjectId id, string email, string provider)
         {
             var fpath = HttpContext.Server.MapPath("/App_Data/tabsData.json");
             //local: E:\Vamsi\Medgrotto\FullSet\Sj.Mg.Idsrv1\Sj.Mg.Idsrv1\Content\medg\js\tabsData.json
@@ -293,6 +306,7 @@ namespace Sj.Mg.Idsrv1.Controllers
             UserClientsList userClnts = new UserClientsList();
             userClnts.userId = id.ToString();
             userClnts.email = email;
+            userClnts.provider = provider;
             userClnts.UserClientsData = obj;
             return userClnts;
         }

@@ -60,7 +60,7 @@ namespace Sj.Mg.Idsrv1.Controllers
         [HttpPost]
         public ActionResult GetUserData(string user)
         {
-            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(user);
+            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchByName(user);
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
 

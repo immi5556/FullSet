@@ -46,21 +46,26 @@ namespace Sj.Mg.Mongo
             var db = Data.BaseMongo.GetDatabase();
             return db.GetCollection<IdentityServer3.Core.Models.Client>(tbl).Find(ClientId => true).ToList();
         }
-
-        public static List<Sj.Mg.CliLib.Model.CustomUser> SearchUser(string srch)
+        
+        public static List<Sj.Mg.CliLib.Model.CustomUser> SearchByName(string srch)
         {
             var db = Data.BaseMongo.GetDatabase();
             return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => _.Subject.ToLower().Contains((srch ?? "").ToLower())).ToList();
+        }
+        public static List<Sj.Mg.CliLib.Model.CustomUser> SearchUser(string srch, string provider)
+        {
+            var db = Data.BaseMongo.GetDatabase();
+            return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => (_.Subject.ToLower().Contains((srch ?? "").ToLower()) && _.Provider.ToLower().Contains((provider ?? "").ToLower()))).ToList();
         }
         public static List<Sj.Mg.CliLib.Model.CustomUser> GetUsers()
         {
             var db = Data.BaseMongo.GetDatabase();
             return db.GetCollection<Sj.Mg.CliLib.Model.CustomUser>("Users").Find(_ => true).ToList();
         }
-        public static List<Sj.Mg.CliLib.Model.UserClientsList> SearchUserClients(string srch)
+        public static List<Sj.Mg.CliLib.Model.UserClientsList> SearchUserClients(string srch, string provider)
         {
             var db = Data.BaseMongo.GetDatabase();
-            return db.GetCollection<Sj.Mg.CliLib.Model.UserClientsList>("UsersClientsData").Find(_ => _.email.ToLower().Contains((srch ?? "").ToLower())).ToList();
+            return db.GetCollection<Sj.Mg.CliLib.Model.UserClientsList>("UsersClientsData").Find(_ => (_.email.ToLower().Contains((srch ?? "").ToLower()) && _.provider.ToLower().Contains((provider ?? "").ToLower()))).ToList();
         }
         public static void UpdateUserClients(Sj.Mg.CliLib.Model.UserClientsList data)
         {
@@ -75,18 +80,18 @@ namespace Sj.Mg.Mongo
             return db.GetCollection<Sj.Mg.CliLib.Model.RequestPerm>("ReqPerms").Find(_ => true).ToList();
         }
 
-        public static List<Sj.Mg.CliLib.Model.RequestPerm> GetReqUserPerms(string userId)
+        public static List<Sj.Mg.CliLib.Model.RequestPerm> GetReqUserPerms(string userId, string provider)
         {
             var db = Data.BaseMongo.GetDatabase();
             var toins = db.GetCollection<Sj.Mg.CliLib.Model.RequestPerm>("ReqPerms");
-            return toins.Find<Sj.Mg.CliLib.Model.RequestPerm>(f => f.MyEmail == userId).ToList();
+            return toins.Find<Sj.Mg.CliLib.Model.RequestPerm>(f => (f.MyEmail == userId && f.Provider == provider)).ToList();
         }
 
         public static void ReplaceReqPerm(Sj.Mg.CliLib.Model.RequestPerm data)
         {
             var db = Data.BaseMongo.GetDatabase();
             var toins = db.GetCollection<Sj.Mg.CliLib.Model.RequestPerm>("ReqPerms");
-            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.RequestPerm>(f => f.MyEmail == data.MyEmail, data);
+            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.RequestPerm>(f => (f.MyEmail == data.MyEmail && f.Provider == data.Provider), data);
         }
 
         public static void ReplaceClient(Client data)

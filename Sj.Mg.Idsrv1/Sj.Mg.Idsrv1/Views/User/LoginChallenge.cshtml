@@ -31,8 +31,8 @@
     </div>
     <div class="popupShadow" style="display:block"></div>
 
-    <script id='modelJson' type='application/json'>
-        {model}
+    <script id='modelJson' type='text/javascript'>
+        var uinf = '@Html.Raw(ViewBag.user)';
     </script>
     <script type="text/javascript" src="/Content/medg/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="/content/libs/encoder/encoder.min.js"></script>
@@ -73,20 +73,8 @@
         });
 
         function getUserData() {
-            $.ajax({
-                url: "/Service/GetUserData",
-                type: "post",
-                data: {"user": $("#user").text()}
-            })
-            .done(function (data, textStatus, jqXHR) {
-                if (data.length) {
-                    userData = data[0];
-                    displayRandomQuestion();
-                }
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                //showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');
-            });
+            userData = JSON.parse(uinf);
+            displayRandomQuestion();
         }
         getUserData();
     </script>
