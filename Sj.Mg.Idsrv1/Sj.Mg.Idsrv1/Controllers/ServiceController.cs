@@ -65,10 +65,10 @@ namespace Sj.Mg.Idsrv1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string npi, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
+        public ActionResult Registration(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string npi, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7, string city, string state, string country)
         {
             MgUserService temp = new MgUserService();
-            string result = temp.addUser(firstName, lastName, password, email, phoneNumber, provider, npi, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7);
+            string result = temp.addUser(firstName, lastName, password, email, phoneNumber, provider, npi, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7, city, state, country);
             return Json(result);
         }
 

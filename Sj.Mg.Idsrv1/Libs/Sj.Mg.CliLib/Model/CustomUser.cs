@@ -29,6 +29,9 @@ namespace Sj.Mg.CliLib.Model
         public bool IsRegistered { get; set; }
         public bool IsProvider { get; set; }
         public string NPI { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
         List<CustomClaim> _custClaim = new List<CustomClaim>();
         [Newtonsoft.Json.JsonIgnore]
         public List<CustomClaim> CustomClaims

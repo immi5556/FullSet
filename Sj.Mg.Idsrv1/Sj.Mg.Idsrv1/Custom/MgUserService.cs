@@ -175,7 +175,7 @@ namespace Sj.Mg.Idsrv1.Custom
             return Task.FromResult(0);
         }
 
-        public string addUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string npi, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
+        public string addUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string npi, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7, string city, string state, string country)
         {
 
             var database = BaseMongo.GetDatabase();
@@ -188,7 +188,7 @@ namespace Sj.Mg.Idsrv1.Custom
             {
                 try
                 {
-                    var newUser = GetUser(firstName, lastName, password, email, phoneNumber, provider, npi, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7);
+                    var newUser = GetUser(firstName, lastName, password, email, phoneNumber, provider, npi, address, ans1, ans2, ans3, ans4, ans5, ans6, ans7, city, state, country);
                     MongoManage.Insert<CustomUser>(newUser, "Users");
                     Dictionary<string, object> filter1 = new Dictionary<string, object>();
                     filter1.Add("Subject", newUser.Subject);
@@ -223,7 +223,7 @@ namespace Sj.Mg.Idsrv1.Custom
             }
         }
 
-        public CustomUser GetUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string npi, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7)
+        public CustomUser GetUser(string firstName, string lastName, string password, string email, string phoneNumber, bool provider, string npi, string address, string ans1, string ans2, string ans3, string ans4, string ans5, string ans6, string ans7, string city, string state, string country)
         {
             CustomUser ab = new CustomUser
             {
@@ -242,6 +242,9 @@ namespace Sj.Mg.Idsrv1.Custom
                 IsProvider = provider,
                 NPI = npi,
                 Address = address,
+                City = city,
+                State = state,
+                Country = country,
                 Claims = new List<Claim>()
                 {
                     new Claim(Constants.ClaimTypes.Name, firstName+" "+lastName),
