@@ -9,13 +9,23 @@
     <link href="../../Content/medg/css/font-awesome.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&amp;subset=latin-ext,vietnamese" rel="stylesheet">
 </head>
-<body>
+<body class="regBody">
     <div class="loginMain">
-        <div class="container loginScreen">
-            <a href="#" class="loginLogo"><img src="~/Content/medg/images/login-logo.png" /></a>
-            <div class="registerSec">
-                <h2 style="text-align:center;">Welcome to MedGrotto</h2>
-                <form method="post">
+        <div class="loginScreen1">
+            <div class="container">
+                <a href="http://www.medgrotto.com" class="loginLogo" style="width: 90px;"><img src="~/Content/medg/images/login-logo.png" /></a>
+            </div>
+        </div>
+        <div class="registerSec">
+            <div class="regHead">
+                <div class="container">
+                    <h2><a class="btnHome" href="/"><i class="fa fa-home" aria-hidden="true" style="padding-right: 5px;"></i></a>Welcome to MedGrotto!</h2>
+                </div>
+            </div>
+        </div>
+         <div class="container regisCntnr">
+                <h2 style="text-align:center;">&nbsp;</h2>
+                <!--<form method="post">
                     <div class="reg-row">
                         <label for="First">First Name</label>
                         <input type="text" name="First" class="form-control" />
@@ -68,7 +78,103 @@
                     <div class="reg-row">
                         <button class="registerBtn">Register</button>
                     </div>
+                </form>-->
+                <form class="regForm newregForm">
+                    <div class="regSec1" style="display:block">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="reg-row">
+                                    <input type="text" placeholder="First Name" name="firstName" class="form-control firstName">
+                                    <span class="reg-error" id="firstName">Fill in Fisrt Name</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                 <div class="reg-row">
+                                    <input type="text" placeholder="Last Name" name="lastName" class="form-control lastName">
+                                    <span class="reg-error" id="lastName">Fill in Last Name</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                             <div class="col-lg-6">
+                                 <div class="reg-row">
+                                    <input type="email" placeholder="Email" name="Email" class="form-control emailVal">
+                                    <span class="reg-error" id="email">Fill in EmailId</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="reg-row">
+                                    <input type="text" placeholder="Phone No." name="Mobile" class="form-control phoneNumber">
+                                    <span class="reg-error" id="phone">Fill in Phone No.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                             <div class="col-lg-6">
+                                <div class="reg-row">
+                                    <input type="text" placeholder="City" name="City" class="form-control city">
+                                    <span class="reg-error" id="city">Fill in City</span>
+                                </div>
+                                <div class="reg-row">
+                                    <input type="text" placeholder="State" name="firstName" class="form-control state">
+                                    <span class="reg-error" id="state">Fill in State</span>
+                                </div>
+                            </div>
+                             <div class="col-lg-6">
+                                <div class="reg-row">
+                                    <textarea placeholder="Address" name="address" class="form-control address"></textarea>
+                                    <span class="reg-error" id="address">Fill in Address</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="reg-row">
+                                    <input type="text" placeholder="Country" name="Country" class="form-control country">
+                                    <span class="reg-error" id="country">Fill in Country</span>
+                                </div>
+                            </div>
+                         </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="reg-row" style="border-bottom: none;">
+                                    <label style="display:initial;"><input type="checkbox" name="role" class="form-control role" value="" style="width:initial;"> Are you a doctor?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="reg-row" style="display: none;">
+                                    <input type="text" placeholder="NPI" name="NPI" class="form-control npi">
+                                    <span class="reg-error" id="npi">Fill in NPI</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="reg-btnsRow">
+                                <button class="btn btn-primary btn-next" onclick="return next()">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="regSec2" style="display:none">
+                        <div class="col-lg-12">
+                            <div class="reg-row selectQuesSec">
+                                <label>Select your Questions (atleats 3)</label>
+                                <select class="questionList">
+                                </select>
+                            </div>
+                            <div class="questionSection">
+                                <ul></ul>
+                            </div>
+                            <p class="question-error" id="question">Answer atleats 3 Questions</p>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="reg-btnsRow">
+                                <button class="btn btn-secondary btn-prev" onclick="return prev()">Previous</button>
+                                <button class="btn btn-danger btn-sub" onclick="return CreateUser()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
+        </div>
                 @*@using (Html.BeginForm())
                     {
                         <div class="reg-row">
@@ -87,8 +193,6 @@
                             <button class="registerBtn">Register</button>
                         </div>
                     }*@
-            </div>
-        </div>
         <div class="loginPush"></div>
     </div>
     <div class="loginFooter">All rights reserved &copy; 2017 Terms and conditions</div>
@@ -99,6 +203,216 @@
         $('.questionBlock ul').slimScroll({
             "height": "230px"
         });
+        var questions = ["What was the make and model of your first car?",
+                        "In what city or town does your nearest sibling live?",
+                        "What was your favorite subject in school?",
+	                    "What was the name of the area you lived in as a child?",
+	                    "What is your favorite fantasy character?",
+	                    "What was your first phone number?",
+	                    "What was your favorite vacation spot as a child?"];
+        var originalOrder = questions.slice();
+
+        function setQuestions() {
+            $('.questionList').find("option").remove();
+            $('.questionList').append($('<option>', {
+                value: "Select Question",
+                text: "Select Question"
+            }));
+            questions.forEach(function (item) {
+                $('.questionList').append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('.questionList').select("Select Question");
+        }
+
+        $(".role").on("change", function () {
+            if ($(this).is(":checked")) {
+                $(".npi").closest(".reg-row").show();
+                $(".npi").val("");
+                $('.regisCntnr .regSec1 .reg-row label').css({
+                    "float": "left", "margin": "0"
+                });
+            } else {
+                $(".npi").closest(".reg-row").hide();
+                $('.regisCntnr .regSec1 .reg-row label').css({
+                    "float": "right", "margin": "0 -72px 0 0"
+                });
+            }
+        });
+        $(".questionList").on("change", function () {
+            if ($(this).val() != "Select Question") {
+                $(".questionSection ul").append("<li>\
+                                        \<span>" + $(this).val() + "</span>\
+                                        \<input type='text' />\
+                                        \<strong class='clsQue'>X</strong>\
+                                        </li>");
+                closeEvent();
+            }
+            var index = questions.indexOf($(this).val());
+            questions.splice(index, 1);
+            setQuestions();
+        });
+        function closeEvent() {
+            $(".clsQue").on("click", function () {
+                var index = questions.indexOf($(this).closest("li").find("span").text());
+                if (index == -1)
+                    questions.push($(this).closest("li").find("span").text());
+                $(this).closest("li").remove();
+                setQuestions();
+            });
+        }
+
+        function next() {
+            $(".regSec2").show();
+            $(".regSec1").hide();
+            return false;
+        };
+        function prev() {
+            $(".regSec2").hide();
+            $(".regSec1").show();
+            $(".question-error").hide();
+            $(".question-error").text("Answer Atleast 3 Questions");
+            return false;
+        };
+        var checkEmailBox = function (id) {
+            if (!$(id).val()) {
+                return false;
+            } else {
+                var req = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (!req.test($(id).val())) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+        function CreateUser() {
+            var count = 0;
+            var answers = ["", "", "", "", "", "", ""];
+
+            if (!$('.firstName').val()) {
+                $("#firstName").show();
+                $(".btn-prev").click();
+                return false;
+            } else {
+                $("#firstName").hide();
+            }
+            if (!$('.lastName').val()) {
+                $("#lastName").show();
+                $(".btn-prev").click();
+                return false;
+            } else {
+                $("#lastName").hide();
+            }
+            if (checkEmailBox(".emailVal")) {
+                $("#email").hide();
+            } else {
+                $("#email").show();
+                $(".btn-prev").click();
+                return false;
+            }
+            if (!$('.phoneNumber').val() || isNaN($('.phoneNumber').val()) || $('.phoneNumber').val().length != 10) {
+                $("#phone").show();
+                $(".btn-prev").click();
+                return false;
+            } else {
+                $("#phone").hide();
+            }
+            if (!$('.city').val()) {
+                $("#city").show();
+                $(".btn-prev").click();
+                return false;
+            } else {
+                $("#city").hide();
+            }
+            if (!$('.state').val()) {
+                $("#state").show();
+                $(".btn-prev").click();
+                return false;
+            } else {
+                $("#state").hide();
+            }
+            if (!$('.address').val()) {
+                $("#address").show();
+                $(".btn-prev").click();
+                return false;
+            } else {
+                $("#address").hide();
+            }
+            if (!$('.country').val()) {
+                $("#country").show();
+                $(".btn-prev").click();
+                return false;
+            } else {
+                $("#country").hide();
+            }
+            if ($('.role').is(":checked") && $('.npi').val().length == 0) {
+                $("#npi").show();
+                $(".btn-prev").click();
+                return false;
+            } else {
+                $("#npi").hide();
+            }
+            if ($(".questionSection ul").find("li").length > 0) {
+                $(".questionSection ul li").each(function () {
+                    if ($(this).find("input[type='text']").val().length > 0) {
+                        count++;
+                    }
+                    answers[originalOrder.indexOf($(this).find("span").text())] = $(this).find("input[type='text']").val();
+                });
+            } else {
+                $(".question-error").show();
+                return false;
+            }
+            if (count < 3) {
+                $(".question-error").show();
+                return false;
+            } else {
+                $(".question-error").hide();
+            }
+
+            var formData = {
+                'first': $('.firstName').val(),
+                'last': $('.lastName').val(),
+                'email': $('.emailVal').val(),
+                'phoneNumber': $('.phoneNumber').val(),
+                'provider': $('.role').is(":checked"),
+                'npi': $('.npi').val(),
+                'address': $('.address').val(),
+                'ans1': answers[0],
+                'ans2': answers[1],
+                'ans3': answers[2],
+                'ans4': answers[3],
+                'ans5': answers[4],
+                'ans6': answers[5],
+                'ans7': answers[6],
+                'city': $('.city').val(),
+                'state': $('.state').val(),
+                'country': $('.country').val()
+            };
+
+            $.ajax({
+                url: "/core/externalregistration",
+                type: "post",
+                data: formData,
+                success: function (responseData) {
+                    if (responseData == "exists") {
+                        $(".question-error").show();
+                        $(".question-error").html("Email already exists.");
+                        $(".question-error").css("color", "red");
+                    } else {
+                        document.open();
+                        document.write(responseData);
+                        document.close();
+                    }
+                }
+            });
+
+            return false;
+        };
+        setQuestions();
     </script>
 </body>
 </html>

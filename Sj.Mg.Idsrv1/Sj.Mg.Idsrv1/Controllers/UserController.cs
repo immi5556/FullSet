@@ -87,6 +87,10 @@ namespace Sj.Mg.Idsrv1.Controllers
                 db_user.IsRegistered = true;
                 db_user.Provider = idp;
                 db_user.ProviderID = subject;
+                db_user.Address = model.Address;
+                db_user.City = model.City;
+                db_user.State = model.State;
+                db_user.Country = model.Country;
                 db_user.Questions = new List<Question>()
                 {
                     new Question() {

@@ -747,6 +747,9 @@ footer {
 	width: 163px;
     float: left;
 }
+.loginLogo img {
+    display:block;
+}
 .loginSection {
 	clear: both;
 	padding:40px 0 0 0; 
@@ -960,38 +963,40 @@ footer {
     clear:both;
     color:#1e3665;
     font-size:18px;
+    padding:0 0 10px;
 }
 #externaprovider {
-    width:120px;
+    width:195px;
     margin:auto;
 }
 .socialMedia li {
 	list-style: none;
     display:inline-block;
-	padding: 50px 5px 0;
+	padding:5px 4px;
+    margin:0;
 }
 .socialMedia li a {
     background-image: url(/Content/medg/images/socialicons.png);
     /*background-size: 25px 25px;*/
-    height: 45px;
+    height: 41px;
     background-repeat: no-repeat;
-    width: 47px;
+    width: 41px;
     display: block;
 }
 .socialMedia li a.gmail {
-    background-position: -100px -50px;
+    background-position: -99px -47px;
 }
 .socialMedia li a.twitter {
-    background-position: 0 -50px;
+    background-position: 0 -48px;
 }
 .socialMedia li a.microsoft {
-    background-position: -47px -48px;
+    background-position: -49px -48px;
 }
 .socialMedia li a.yahoo {
-    background-position: -99px 1px;
+    background-position: -99px -3px;
 }
 .socialMedia li a.facebook {
-    background-position: 0 0;
+    background-position: 0 -2px;
 }
 .loginFooter,.loginPush {
 	height: 40px;
@@ -1141,6 +1146,8 @@ footer {
 }
 .regHead h2 {
     font-size: 18px;
+    position:relative;
+    height:32px;
 }
 .regHead .container {
     position: relative;
@@ -1278,6 +1285,7 @@ footer {
 	border-radius: 4px;
 	border: none;
 	margin: 0 10px;
+    padding:0;
 	border-bottom: 4px solid transparent;
 }
 .btnYes {
@@ -1567,10 +1575,10 @@ footer {
     color: #fff;
     cursor: pointer;
     font-size: 20px;
-    line-height: 32px;
+    line-height: normal;
     position: absolute;
-    left: 0;
-    top: 3px;
+    left: 4px;
+    top: 5px;
 }
 .questionBlock {
     width: 100%;
@@ -1827,6 +1835,7 @@ footer {
     text-align:right;
     line-height: 11px;
     color: #ce2129;
+    z-index: 9;
 }
 .question-error {
     display:none;
@@ -1839,4 +1848,7 @@ footer {
 .regBody .loginMain {
     background: url(../images/regstration-bg.jpg) no-repeat left top;
     background-size: cover;
+}
+.regisCntnr .reg-row {
+
 }

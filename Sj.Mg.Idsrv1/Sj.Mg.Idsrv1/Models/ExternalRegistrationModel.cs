@@ -14,7 +14,14 @@ namespace Sj.Mg.Idsrv1.Models
         public string Last { get; set; }
         [Required]
         public string Email { get; set; }
-        
+        [Required]
+        public string City { get; set; }
+        [Required]
+        public string State { get; set; }
+        [Required]
+        public string Country { get; set; }
+        [Required]
+        public string Address { get; set; }
         public string Password { get; set; }
 
         public string Ans1 { get; set; }

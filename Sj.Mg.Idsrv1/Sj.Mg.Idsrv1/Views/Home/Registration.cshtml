@@ -15,7 +15,7 @@
     <div class="loginMain">
         <div class="loginScreen1">
             <div class="container">
-                <a href="#" class="loginLogo" style="width: 90px;"><img src="~/Content/medg/images/login-logo.png" /></a>
+                <a href="http://www.medgrotto.com" class="loginLogo" style="width: 90px;"><img src="~/Content/medg/images/login-logo.png" /></a>
             </div>
         </div>
         <div class="registerSec">
@@ -27,79 +27,6 @@
             <div class="container regisCntnr">
                 <h2>Create your Medgrotto account now</h2>
                 <form class="regForm newregForm">
-                    <!--<div class="col-lg-6">
-                    <div class="reg-row">
-                        <input type="text" placeholder="First Name" name="firstName" class="form-control firstName">
-                    </div>
-                    <div class="reg-row">
-                        <input type="text" placeholder="Last Name" name="lastName" class="form-control lastName">
-                    </div>
-                    <div class="reg-row">
-                        <input type="email" placeholder="Email" name="email" class="form-control emailVal">
-                    </div>
-                    <div class="reg-row">
-                        <input type="text" placeholder="Phone Number" name="phoneNumber" class="form-control phoneNumber">
-                    </div>
-                    <div class="reg-row">
-                        <input type="password" placeholder="Password" name="password" class="form-control password">
-                    </div>
-                    <div class="reg-row">
-                        <textarea placeholder="Address" name="address" class="form-control address"></textarea>
-                    </div>
-                </div>
-                    <div class="col-lg-6">
-                    <div class="questionBlock">
-                        <h3>Answer at least 3 questions</h3>
-                        <ul>
-                            <li>
-                                <p>1) What was the make and model of your first car?</p>
-                                <div><input type="text" class="ans1"></div>
-                            </li>
-                            <li>
-                                <p>2) In what city or town does your nearest sibling live?</p>
-                                <div><input type="text" class="ans2"></div>
-                            </li>
-                            <li>
-                                <p>3) What was your favorite subject in school?</p>
-                                <div><input type="text" class="ans3"></div>
-                            </li>
-                            <li>
-                                <p>4) What was the name of the area you lived in as a child?</p>
-                                <div><input type="text" class="ans4"></div>
-                            </li>
-                            <li>
-                                <p>5) What is your favorite fantasy character?</p>
-                                <div><input type="text" class="ans5"></div>
-                            </li>
-                            <li>
-                                <p>6) What was your first phone number?</p>
-                                <div><input type="text" class="ans6"></div>
-                            </li>
-                            <li>
-                                <p>7) What was your favorite vacation spot as a child?</p>
-                                <div><input type="text" class="ans7"></div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="reg-row">
-                                    <label style="color:white;display:initial;"><input type="checkbox" name="role" class="form-control role" value="" style="width:initial;"> Are you a doctor?</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="reg-row">
-                                    <input type="text" placeholder="NPI" name="NPI" class="form-control npi" style="display: none;">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="reg-row">
-                            <button class="registerBtn" onclick="return CreateUser()">Register</button>
-                            <div class="errorMessage"></div>
-                        </div>
-                    </div>-->
                     <div class="regSec1" style="display:block">
                         <div class="col-lg-12">
                             <div class="col-lg-6">
@@ -352,7 +279,6 @@
 		function CreateUser() {
 		    var count = 0;
 		    var answers = ["", "", "", "", "", "", ""];
-		    $(".question-error").hide();
 
 		    if (!$('.firstName').val()) {
 		        $("#firstName").show();
@@ -468,7 +394,6 @@
 		        type: "post",
 		        data: formData,
 		        success: function (responseData) {
-		            alert(responseData);
 		            if (responseData == "exists") {
 		                $(".question-error").show();
 		                $(".question-error").html("Email already exists.");
@@ -495,9 +420,6 @@
 		    return false;
 		};
 		$(".loginMain").closest("body").addClass("login");
-		$('.questionBlock ul').slimScroll({
-		    "height": "324px"
-		});
 		$(".role").on("change", function () {
 		    if ($(this).is(":checked")) {
 		        $(".npi").closest(".reg-row").show();
@@ -543,6 +465,8 @@
 		function prev() {
 		    $(".regSec2").hide();
 		    $(".regSec1").show();
+		    $(".question-error").hide();
+		    $(".question-error").text("Answer Atleast 3 Questions");
 		    return false;
 		};
 		var checkEmailBox = function (id) {
