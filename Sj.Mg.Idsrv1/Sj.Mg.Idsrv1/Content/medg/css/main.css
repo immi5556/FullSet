@@ -1,5 +1,6 @@
 ﻿@charset "UTF-8";
 @import url(font-awesome.min.css);
+@import url(fonts.css);
 @import url("https://fonts.googleapis.com/css?family=Scope+One|Trocchi");
 
 /*
@@ -21,6 +22,10 @@
 
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 		display: block;
+	}
+	img{
+		max-width: 100%;
+		height: auto;
 	}
 
 	body {
@@ -1617,7 +1622,7 @@
 	}
 
 	body, input, select, textarea {
-		font-family: 'Cabin', sans-serif;
+		font-family: 'open_sansregular';
 		font-size: 13pt;
 		font-weight: 300;
 		line-height: 1.65;
@@ -1626,7 +1631,7 @@
 		@media screen and (max-width: 1680px) {
 
 			body, input, select, textarea {
-				font-size: 11pt;
+				font-size: 12pt;
 			}
 
 		}
@@ -1634,7 +1639,7 @@
 		@media screen and (max-width: 1280px) {
 
 			body, input, select, textarea {
-				font-size: 11pt;
+				font-size: 12pt;
 			}
 
 		}
@@ -1680,13 +1685,13 @@
 	}
 
 	p {
-		margin: 0 0 2em 0;
+		margin: 0 0 1em 0;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		font-weight: 700;
+		font-weight: 500;
 		line-height: 1.5;
-		margin: 0 0 1em 0;
+		margin: 0 0 0.7em 0;
 	}
 
 		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -1819,6 +1824,9 @@
 
 	.align-center {
 		text-align: center;
+	}
+	.align-center h2 {
+		font-weight: 500;
 	}
 
 	.align-right {
@@ -2119,8 +2127,8 @@
 				}
 
 					.flex.flex-2 .col.col1 .image, .flex.flex-2 .col.col2 .image {
-						max-width: 60%;
-						margin: 0 auto 2em auto;
+						max-width: 50%;
+						margin: 0 auto 0 auto;
 					}
 
 			}
@@ -2515,11 +2523,11 @@
 			width: 100%;
 		}
 
-			.image.fit img {
+			/*.image.fit img {
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
-			}
+			}*/
 
 		.image.round {
 			border-radius: 100%;
@@ -2895,7 +2903,7 @@
 /* Wrapper */
 
 	.wrapper {
-		padding: 6em 0 4em 0;
+		padding: 3em 0 1em 0;
 		position: relative;
 	}
 
@@ -3344,6 +3352,7 @@
 
 			.wrapper.style2 .image {
 				box-shadow: 0px 0px 0px 7px #ffffff, 0px 0px 0px 8px rgba(255, 255, 255, 0.25);
+				background: #fff;
 			}
 
 		@media screen and (max-width: 1280px) {
@@ -3445,13 +3454,15 @@
 			margin: 0;
 			padding: 0;
 			position: absolute;
-			width: 105px;
-			top: 16px;
+            width:100px;
+			top: 12px;
 		}
 
 			#header > .logo a {
 				font-size: 1.25em;
 				color: #ce2129;
+				height: auto;
+				padding: 0;
 			}
 			#header > .logo img {
 				width:100%;
@@ -3538,25 +3549,25 @@
 			animation: reveal-header 0.5s ease;
 		}
 
-		.smartApp {
+		/*.smartApp {
 			width: 88% !important;
 			height: 100%;
-		}
+		}*/
 		
-		.bottomImage1 {
+		/*.bottomImage1 {
 			width: 94% !important;
 			height: 72%;
-		}
+		}*/
 		
-		.bottomImage2 {
+		/*.bottomImage2 {
 			width: 94% !important;
 			height: 72%;
-		}
+		}*/
 		
-		.bottomImage3 {
+		/*.bottomImage3 {
 			width: 94% !important;
 			height: 72%;
-		}
+		}*/
 		
 		$header.alt {
 			background: rgba(237, 237, 237, 0.9);
@@ -3782,14 +3793,15 @@
 		}
 
 		#banner h1 {
-			font-size: 4em;
+			font-size: 3em;
 			margin-bottom: .25em;
 			color: #FFF;
 		}
 
 		#banner p {
 			color: rgba(255, 255, 255, 0.85);
-			font-size: 1.75em;
+			/*font-size: 1.5em;*/
+			font-family: 'open_sansregular';
 		}
 
 	@-moz-keyframes more {
@@ -3915,7 +3927,10 @@
 /* Footer */
 
 	#footer {
-		padding: 6em 2em 4em 2em;
+		padding: 2em 2em 0;
+	}
+	#footer ul {
+		margin-bottom: 1em;
 	}
 
 		#footer > .inner {
