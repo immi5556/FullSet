@@ -932,24 +932,102 @@ namespace Sj.Mg.Client.Controllers
 
         [Authorize]
         [HttpPost]
+        public ActionResult GetAthenaPatientId( string provider, string patientId)
+        {
+            var response = checkForPatientId(User.Identity.Name, provider, patientId);
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public string checkForPatientId(string email, string provider, string patientId)
+        {
+            List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(email, provider);
+            string response = "";
+            if (gg != null && gg.Count > 0 && gg[0].UserClientsData.Count > 0)
+            {
+                gg[0].UserClientsData.ForEach(clientType =>
+                {
+                    if (clientType!= null && clientType.Clients != null)
+                    {
+                        clientType.Clients.ForEach(clients =>
+                        {
+                            if (clients != null && clients.clientName == "Athena")
+                            {
+                                if (clients.PatientId != null)
+                                {
+                                    response = "patientId exists";
+                                }
+                                else
+                                {
+                                    if(patientId != null && patientId != "")
+                                    {
+                                        clients.PatientId = patientId;
+                                        Sj.Mg.Mongo.MongoManage.UpdateUserClients(gg[0]);
+                                        response = "inserted";
+                                    }
+                                    else
+                                    {
+                                        response = "patientId not exists";
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else
+                    {
+                        response = "no client";
+                    }
+                });
+            }
+            else
+            {
+                response = "no client";
+            }
+            return response;
+        }
+
+        [Authorize]
+        [HttpPost]
         public JsonResult ReqData(Sj.Mg.CliLib.Model.Params.ReqParam para)
         {
-            var basetkn = GetEmptyRptToken();
+            var basetkn = GetEmptyRptToken();            
             if (para.client == "Athena" || para.client == "Athena- Resource Server Api (Authorization Code)")
             {
-                if (para.resource == "Demographic")
-                {
-                    var pats = Execute(CliLib.Utils.Common.ReAhApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
-                    return Json(pats, JsonRequestBehavior.AllowGet);
-                }
+                    string patiendId = null;
+                    List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(para.email, para.provider);
+                    if (gg != null && gg.Count > 0 && gg[0].UserClientsData.Count > 0)
+                    {
+                        gg[0].UserClientsData.ForEach(clientType =>
+                        {
+                            if (clientType != null && clientType.Clients != null)
+                            {
+                                clientType.Clients.ForEach(clients =>
+                                {
+                                    if (clients != null && clients.clientName == "Athena")
+                                    {
+                                        if (clients.PatientId != null)
+                                        {
+                                            patiendId = clients.PatientId;
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    if (patiendId != null || patiendId != "")
+                    {
+                        //var pats = Execute(CliLib.Utils.Common.ReAhApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                        var pats = Execute(CliLib.Utils.Common.ReAhApiPatient + patiendId, basetkn);
+                        return Json(pats, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(patiendId, JsonRequestBehavior.AllowGet);
+                    }
             }
             else if (para.client == "FITBIT")
             {
-                if (para.resource == "Demographic")
-                {
-                    var pats = Execute(CliLib.Utils.Common.ReFbApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
-                    return Json(pats, JsonRequestBehavior.AllowGet);
-                }
+                var pats = Execute(CliLib.Utils.Common.ReFbApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                return Json(pats, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -992,10 +1070,10 @@ namespace Sj.Mg.Client.Controllers
         {
             var data = clientData.userClientsList;
             List<Sj.Mg.CliLib.Model.UserClientsList> gg = Sj.Mg.Mongo.MongoManage.SearchUserClients(data.email ,data.provider);
-            
+            var temp1 = gg[0].UserClientsData;
             gg[0].UserClientsData = data.UserClientsData;
-            Sj.Mg.Mongo.MongoManage.UpdateUserClients(gg[0]);            
-
+            Sj.Mg.Mongo.MongoManage.UpdateUserClients(gg[0]);
+            gg[0].UserClientsData = temp1;
             if (clientData.delClient)
             {
                 var scopes = new List<string>();
@@ -1007,7 +1085,7 @@ namespace Sj.Mg.Client.Controllers
                         {
                             clientType.Clients.ForEach(clients =>
                             {
-                                if (clients.clientName == clientData.delItem)
+                                if (clients != null && (clients.clientName == clientData.delItem))
                                 {
                                     if(clients.UserScopes != null)
                                     {

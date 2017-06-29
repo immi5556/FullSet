@@ -11,13 +11,13 @@ namespace Sj.Ah.Resource.Server.Controllers
     {
         [Mg.CliLib.Security.UmaAuthz("Patient/Patient.Read", "Patient/Patient.*")]
         [HttpGet]
-        public Newtonsoft.Json.Linq.JArray Get()
+        public Newtonsoft.Json.Linq.JArray Get(string patid)
         {
             var tt = athena.Setup.Init();
             athena.PractieInfo.SetPractice(tt);
             athena.DepartmentInfo.SetDepartment(tt);
             //PatientInfo.CreatePatient(tt);
-            tt.patientid = "29493";
+            tt.patientid = patid;
             return athena.PatientInfo.GetPatient(tt);
         }
     }

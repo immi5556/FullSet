@@ -26,6 +26,7 @@ namespace Sj.Mg.CliLib.Model
 
     public class Client
     {
+        public string PatientId { get; set; }
         public string AccessToken { get; set; }
         public string clientName { get; set; }
         public List<UserScopes> UserScopes { get; set; }

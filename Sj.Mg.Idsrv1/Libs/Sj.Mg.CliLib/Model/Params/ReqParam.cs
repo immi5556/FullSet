@@ -12,5 +12,6 @@ namespace Sj.Mg.CliLib.Model.Params
         public string resource { get; set; }
         public string email { get; set; }
         public string scope { get; set; }
+        public string provider { get; set; }
     }
 }

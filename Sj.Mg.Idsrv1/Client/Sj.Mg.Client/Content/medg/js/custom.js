@@ -1,7 +1,7 @@
 var permission = (function () {
     var reqUser = "", reqUserScope = "", reqUserResource = "", reqClient = "", reqClientProvider = "";
     var myData, profileData, provider = false, providerType = "";
-    var data, selectedUser, selectedUserRelation, selectedUserProv, activateClass = false, challengeQuestion = false;
+    var data, selectedUser, selectedUserRelation, selectedUserProv, activateClass = false, challengeQuestion = false, athenaPatientId = false;
     var question = [], answer = [], selectedQuestion = -1;
     var viewBtn, clients, userClients = [], userClientsArray = [], users = [];
 
@@ -14,14 +14,18 @@ var permission = (function () {
         }
     });
     $(".questionForm input[type='button']").on("click", function () {
-        if (answer[selectedQuestion] == $(".questionForm input[type='text']").val()) {
-            challengeQuestion = true;
-            $(".closeIcon").click();
-            viewBtn.click();
+        if (athenaPatientId) {
+            getAthenaPatientId();
         } else {
-            $("body").removeClass("loadingHome");
-            $(".questionForm span").text("Wrong Answer.");
-            $(".qustionPop").hide();
+            if (answer[selectedQuestion] == $(".questionForm input[type='text']").val()) {
+                challengeQuestion = true;
+                $(".closeIcon").click();
+                viewBtn.click();
+            } else {
+                $("body").removeClass("loadingHome");
+                $(".questionForm span").text("Wrong Answer.");
+                $(".qustionPop").hide();
+            }
         }
     });
     $(".popupShadow").on('click', function () {
@@ -73,6 +77,7 @@ var permission = (function () {
         clearData();
         $(".addTab").hide();
         $(".showClsTab").hide();
+        $(".showClsTab").removeClass("active");
         if ($('.labelText').text().toLowerCase() == "provider") {
             setProxyData("Doctor");
             $('.labelText').text("Provider");
@@ -157,6 +162,7 @@ var permission = (function () {
                 $(".showClsTab").show();
             } else {
                 $(".showClsTab").hide();
+                $(".showClsTab").removeClass("active");
             }
             if ($(".listGridUL li").length > 0) {
                 $(".addCatagory .addTab").show();
@@ -202,9 +208,17 @@ var permission = (function () {
             $("#challengeQuestion .noAccess").text("We want to verify that you are indeed " + $(".usrName").text());
             $(".questionForm h3").text(question[selectedQuestion]);
             $(".questionForm span").text("");
+            $(".questionForm input[type='text']").val("");
             if (selectedclient == "FITBIT") {
                 if (question[selectedQuestion] == "What is your Date Of Birth?") {
                     $(".questionForm input[type='text']").attr("placeholder", "YYYY-MM-DD");
+                } else {
+                    $(".questionForm input[type='text']").attr("placeholder", "");
+                }
+            }
+            if (selectedclient == "Athena") {
+                if (question[selectedQuestion] == "What is your Date Of Birth?") {
+                    $(".questionForm input[type='text']").attr("placeholder", "MM/DD/YYYY");
                 } else {
                     $(".questionForm input[type='text']").attr("placeholder", "");
                 }
@@ -321,9 +335,9 @@ var permission = (function () {
                 populateObs(data, scp.email);
             }
         } else {
-            if (scp.resource == "Demographic") {
+            //if (scp.resource == "Demographic") {
                 populateAthenaPats(data, scp.email);
-            }
+            //}
         }
     }
     function showTable() {
@@ -779,6 +793,7 @@ var permission = (function () {
     function setProxyData(type) {
         $(".viewSectionList").html('');
         $(".viewShareSectionList").html('');
+        $(".subLi.active").each(function () { selectedclient = $(this).find("strong").text(); });
         if (data && data.AllowedUsers && data.AllowedUsers[selectedclient] && data.AllowedUsers[selectedclient][selectedresource]) {
             for (var scopeKeys in data.AllowedUsers[selectedclient][selectedresource]) {
                 (data.AllowedUsers[selectedclient][selectedresource][scopeKeys] || []).forEach(function (user) {
@@ -1067,7 +1082,7 @@ var permission = (function () {
         $(".btn-view").off("click").on("click", function () {
             $(document).click();
             $(this).closest("li").click();
-            //$(".subLi.active").each(function () { $(this).click() });
+            $(".subLi.active").each(function () { selectedclient = $(this).find("strong").text(); });
             viewBtn = $(this);
             $("body").addClass("loadingHome");
             if (challengeQuestion) {
@@ -1084,6 +1099,7 @@ var permission = (function () {
                 $(this).closest("li").find("img").attr("src", imgPath.substring(0, (imgPath.length - 4)) + "Active" + imgPath.substring((imgPath.length - 4), imgPath.length));
                 var resor = $(this).closest("li").find(".gridTitle").text();
                 var scope = ($(this).closest("li").find(".btn-share").is(":visible") ? "Share" : "View");
+                var provd = $(this).closest("li").find(".prov").text();
                 if (resor.toLowerCase().indexOf("patient") > -1 || resor.toLowerCase().indexOf("Demographic") > -1) {
                     resor = "Demographic";
                 }
@@ -1101,14 +1117,16 @@ var permission = (function () {
                         client: selectedclient,
                         resource: resor,
                         email: $(".usrEmail").text(),
-                        scope: "Share"
+                        scope: "Share",
+                        provider: providerType
                     };
                 } else {
                     var sdata = {
                         client: selectedclient,
                         resource: resor,
                         email: selectedUser,
-                        scope: scope
+                        scope: scope,
+                        provider: provd
                     };
                 }
                 requestAPI("/home/ReqData", "POST", sdata, function (data, textStatus, jqXHR) {
@@ -1254,6 +1272,30 @@ var permission = (function () {
         });
     }
 
+    function getAthenaPatientId(){
+        var sdata = {
+            provider: providerType,
+            patientId: $(".questionForm input[type='text']").val()
+        };
+
+        requestAPI("/home/GetAthenaPatientId", "POST", sdata, function (data) {
+            if (data == "patientId not exists" || data == "no client") {
+                $(".qustionPop").show();
+                $(".qustionPop").click();
+                $("#challengeQuestion .noAccess").text("We want to know your PatientId in ATHENA resource server.");
+                $(".questionForm h3").text("What is your PatientId in ATHENA resource server?");
+                $(".questionForm span").text("");
+                $(".questionForm input[type='text']").attr("placeholder", "");
+                athenaPatientId = true;
+            } else if (data == "inserted") {
+                athenaPatientId = false;
+                $(".questionForm span").text("Saved Successfully.");
+            } else{
+                athenaPatientId = false;
+            }
+        });
+    }
+
     //Initial API Requests
     function getData() {
         requestAPI("/permissionsData", "GET", null, function (data) {
@@ -1277,7 +1319,6 @@ var permission = (function () {
                 }
                 if(data[0] && data[0].Provider)
                     providerType = data[0].Provider;
-                getData();
             }
             getUserClients();
         });
@@ -1293,6 +1334,7 @@ var permission = (function () {
                 carousel: '.carouselModule',
                 clients: clients
             });
+            getData();
         });
     };
     function getUserClients() {
@@ -1322,7 +1364,8 @@ var permission = (function () {
             client: selectedclient,
             resource: "Demographic",
             email: $(".usrEmail").text(),
-            scope: "Share"
+            scope: "Share",
+            provider: providerType
         };
         requestAPI("/home/ReqData", "POST", sdata, function (data) {
             if (selectedclient.toLowerCase().indexOf("fitbit") > -1) {
@@ -1402,6 +1445,7 @@ var permission = (function () {
         loadperm: loadPermission,
         clearData: clearData,
         requestAPI: requestAPI,
-        errorMsg: errorMsg
+        errorMsg: errorMsg,
+        getAthenaPatientId: getAthenaPatientId
     }
 })();

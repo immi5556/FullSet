@@ -13,7 +13,11 @@ namespace Sj.Ah.Resource.Server
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi1",
+                routeTemplate: "api/{controller}/{patid}",
+                defaults: new { patid = RouteParameter.Optional }
+            );
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

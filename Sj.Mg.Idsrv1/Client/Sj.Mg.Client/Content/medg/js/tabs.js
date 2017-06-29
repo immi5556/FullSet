@@ -201,6 +201,8 @@ $(document).on("click", ".subLi", function () {
                                     $(".showClsTab").show();
                                 } else {
                                     $(".showClsTab").hide();
+                                    if ($(".showClsTab").hasClass('active'))
+                                        $(".showClsTab").click();
                                 }
                                 if ($(".listGridUL li").length > 0) {
                                     $(".addCatagory .addTab").show();
@@ -312,7 +314,6 @@ $(document).on("click", ".subLi", function () {
                                     item.Clients.push(obj);
                                     if (set.mydata.length && set.mydata[0].email) {
                                         set.mydata[0].UserClientsData = mytabData;
-                                        updateDB(set.mydata, false, false, "");
                                     }
                                     if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
                                         $(".addTab").show();
@@ -320,6 +321,8 @@ $(document).on("click", ".subLi", function () {
                                             $(".showClsTab").show();
                                         } else {
                                             $(".showClsTab").hide();
+                                            if ($(".showClsTab").hasClass('active'))
+                                                $(".showClsTab").click();
                                         }
                                         if ($(".listGridUL li").length > 0) {
                                             $(".addCatagory .addTab").show();
@@ -328,6 +331,7 @@ $(document).on("click", ".subLi", function () {
                                         }
                                     }
                                     if (obj.clientName == "FITBIT") {
+                                        updateDB(set.mydata, false, false, "", "FITBIT");
                                         //office machine
                                         //var rurl = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJF&redirect_uri=https%3A%2F%2Foidc.medgrotto.com%3A9001%2FHome%2FCallback&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
                                         //AWS
@@ -336,6 +340,10 @@ $(document).on("click", ".subLi", function () {
                                         //window.open(rurl, "_blank");
                                         window.location = rurl;
                                         return;
+                                    } else if (obj.clientName == "Athena") {
+                                        updateDB(set.mydata, false, false, "", "Athena");
+                                    } else {
+                                        updateDB(set.mydata, false, false, "", "");
                                     }
                                 }
                             });
@@ -480,7 +488,7 @@ $(document).on("click", ".subLi", function () {
                                             subItem.UserScopes.push(catr);
                                             if (set.mydata.length && set.mydata[0].email) {
                                                 set.mydata[0].UserClientsData = mytabData;
-                                                updateDB(set.mydata, false, false, "");
+                                                updateDB(set.mydata, false, false, "", "");
                                             }
                                             if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
                                                 $(".addTab").show();
@@ -488,6 +496,8 @@ $(document).on("click", ".subLi", function () {
                                                     $(".showClsTab").show();
                                                 } else {
                                                     $(".showClsTab").hide();
+                                                    if ($(".showClsTab").hasClass('active'))
+                                                        $(".showClsTab").click();
                                                 }
                                                 if ($(".listGridUL li").length > 0) {
                                                     $(".addCatagory .addTab").show();
@@ -543,7 +553,7 @@ $(document).on("click", ".subLi", function () {
                                             mytabData[y].Clients.splice(z, 1);
                                             if (set.mydata.length && set.mydata[0].email) {
                                                 set.mydata[0].UserClientsData = mytabData;
-                                                updateDB(set.mydata, true, false, vals);
+                                                updateDB(set.mydata, true, false, vals, "");
                                             }
                                             if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
                                                 $(".addTab").show();
@@ -551,6 +561,8 @@ $(document).on("click", ".subLi", function () {
                                                     $(".showClsTab").show();
                                                 } else {
                                                     $(".showClsTab").hide();
+                                                    if ($(".showClsTab").hasClass('active'))
+                                                        $(".showClsTab").click();
                                                 }
                                                 if ($(".listGridUL li").length > 0) {
                                                     $(".addCatagory .addTab").show();
@@ -587,7 +599,7 @@ $(document).on("click", ".subLi", function () {
                                                     mytabData[y].Clients[z].UserScopes.splice(i, 1);
                                                     if (set.mydata.length && set.mydata[0].email) {
                                                         set.mydata[0].UserClientsData = mytabData;
-                                                        updateDB(set.mydata, false, true, mytabData[y].Clients[z].clientName + "," + indVal);
+                                                        updateDB(set.mydata, false, true, mytabData[y].Clients[z].clientName + "," + indVal, "");
                                                     }
                                                     if ($('.providerLabel').text().toLowerCase() == "viewing as my view" || $('.providerLabel').text().toLowerCase() == "my view") {
                                                         $(".addTab").show();
@@ -595,6 +607,8 @@ $(document).on("click", ".subLi", function () {
                                                             $(".showClsTab").show();
                                                         } else {
                                                             $(".showClsTab").hide();
+                                                            if ($(".showClsTab").hasClass('active'))
+                                                                $(".showClsTab").click();
                                                         }
                                                         if ($(".listGridUL li").length > 0) {
                                                             $(".addCatagory .addTab").show();
@@ -716,7 +730,7 @@ $(document).on("click", ".subLi", function () {
         });
     }
 
-    function updateDB(data, delClient, delScope, delItem) {
+    function updateDB(data, delClient, delScope, delItem, clientName) {
         $.ajax({
             url: "/home/UpdateUserClientsData",
             type: "POST",
@@ -729,6 +743,9 @@ $(document).on("click", ".subLi", function () {
         })
             .done(function (data, textStatus, jqXHR) {
                 //console.log(data);
+                if (!delClient && clientName == "Athena") {
+                    permission.getAthenaPatientId();
+                }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 showPopUp('<h4>Something went wrong. Please try again or refresh the page.</h4>');

@@ -71,7 +71,7 @@ namespace Sj.Mg.Mongo
         {
             var db = Data.BaseMongo.GetDatabase();
             var toins = db.GetCollection<Sj.Mg.CliLib.Model.UserClientsList>("UsersClientsData");
-            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.UserClientsList>(f => f.email == data.email, data);
+            toins.FindOneAndReplace<Sj.Mg.CliLib.Model.UserClientsList>(f => (f.email == data.email && f.provider == data.provider), data);
         }
 
         public static List<Sj.Mg.CliLib.Model.RequestPerm> GetUserPerms()
