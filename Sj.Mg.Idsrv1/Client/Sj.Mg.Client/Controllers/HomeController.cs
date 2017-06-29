@@ -1026,7 +1026,7 @@ namespace Sj.Mg.Client.Controllers
             }
             else if (para.client == "FITBIT")
             {
-                var pats = Execute(CliLib.Utils.Common.ReFbApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E"), basetkn);
+                var pats = Execute(CliLib.Utils.Common.ReFbApiPatient + HttpUtility.UrlEncode(para.email).Replace(".", "^2E") + "/" + para.provider, basetkn);
                 return Json(pats, JsonRequestBehavior.AllowGet);
             }
             else

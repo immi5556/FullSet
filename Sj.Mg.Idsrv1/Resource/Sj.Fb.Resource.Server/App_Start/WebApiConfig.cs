@@ -16,7 +16,7 @@ namespace Sj.Fb.Resource.Server
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/{controller}/{id}/{idp}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

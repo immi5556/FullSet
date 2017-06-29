@@ -12,11 +12,11 @@ namespace Sj.Fb.Resource.Server.Controllers
     public class PatientController : ApiController
     {
         [Mg.CliLib.Security.UmaAuthz("Patient/Patient.Read", "Patient/Patient.*")]
-        [Route("api/Patient/{id}")]
-        public Newtonsoft.Json.Linq.JObject Get(string id)
+        [Route("api/Patient/{id}/{idp}")]
+        public Newtonsoft.Json.Linq.JObject Get(string id, string idp)
         {
             string email = (id ?? "").Replace("^2E", ".");
-            var dd = Sj.Mg.Mongo.MongoManage.SearchUserClients(email);
+            var dd = Sj.Mg.Mongo.MongoManage.SearchUserClients(email, idp);
             string acctkn = "";
             dd[0].UserClientsData.ForEach(t =>
             {
