@@ -137,7 +137,7 @@ namespace Sj.Mg.Idsrv1.Controllers
                 //});
                 db_user.CustomClaims.Add(new CliLib.Model.CustomClaim(Constants.ClaimTypes.GivenName, model.First));
                 db_user.CustomClaims.Add(new CliLib.Model.CustomClaim(Constants.ClaimTypes.FamilyName, model.Last));
-                db_user.CustomClaims.Add(new CliLib.Model.CustomClaim(Constants.ClaimTypes.Name, subject));
+                db_user.CustomClaims.Add(new CliLib.Model.CustomClaim(Constants.ClaimTypes.Name, model.Email));
                 // this replaces the name issued in the partial signin cookie
                 // the reason for doing is so when we redriect back to IdSvr it will
                 // use the updated name for display purposes. this is only needed if

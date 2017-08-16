@@ -19,6 +19,8 @@ using IdentityServer3.Core.Models;
 using MongoDB.Driver;
 using Sj.Mg.Mongo;
 using System.Diagnostics;
+using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace Sj.Mg.Client.Controllers
 {
@@ -135,12 +137,33 @@ namespace Sj.Mg.Client.Controllers
             var gname = prof.FindFirst("given_name") != null ? prof.FindFirst("given_name").Value : "";
             var lname = prof.FindFirst("family_name") != null ? prof.FindFirst("family_name").Value : "";
             var idp = prof.FindFirst("idp") != null ? prof.FindFirst("idp").Value : "";
-            if (!string.IsNullOrEmpty(gname) || !string.IsNullOrEmpty(lname))
+            if (idp == "idsrv")
+                idp = "MgIdp";
+            if (name != "")
             {
-                ViewBag.FullName = lname + ", " + gname;
-                ViewBag.Email = name;
+                string pattern = @"^[a-z][a-z|0-9|]*([_][a-z|0-9]+)*([.][a-z|0-9]+([_][a-z|0-9]+)*)?@[a-z][a-z|0-9|]*\.([a-z][a-z|0-9]*(\.[a-z][a-z|0-9]*)?)$";
+                Match match = Regex.Match(name.Trim(), pattern, RegexOptions.IgnoreCase);
+
+                if (!match.Success)
+                {
+                    List<Sj.Mg.CliLib.Model.CustomUser> data = Sj.Mg.Mongo.MongoManage.SearchUserByProviderId(name);
+                    if(data.Count > 0)
+                    {
+                        ViewBag.FullName = data[0].GivenName;
+                        ViewBag.Email = data[0].Email;
+                    }
+                }else
+                {
+                    if (!string.IsNullOrEmpty(gname) || !string.IsNullOrEmpty(lname))
+                    {
+                        ViewBag.FullName = lname + ", " + gname;
+                        ViewBag.Email = name;
+                    }
+                }
             }
+            
             return View();
+
         }
 
         [Authorize]
@@ -168,6 +191,8 @@ namespace Sj.Mg.Client.Controllers
             var prof = (User as ClaimsPrincipal);
             var idp = prof.FindFirst("idp") != null ? prof.FindFirst("idp").Value : "";
             var name = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
+            if (idp == "idsrv")
+                idp = "MgIdp";
             List<Sj.Mg.CliLib.Model.RequestPerm> gg = Sj.Mg.Mongo.MongoManage.GetReqUserPerms(name, idp);
             return Json(gg, JsonRequestBehavior.AllowGet);
         }
@@ -179,9 +204,26 @@ namespace Sj.Mg.Client.Controllers
             var prof = (User as ClaimsPrincipal);
             var idp = prof.FindFirst("idp") != null ? prof.FindFirst("idp").Value : "";
             var name = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
-            List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(name, idp);
+            if (idp == "idsrv")
+                idp = "MgIdp";
+            if (name != "")
+            {
+                string pattern = @"^[a-z][a-z|0-9|]*([_][a-z|0-9]+)*([.][a-z|0-9]+([_][a-z|0-9]+)*)?@[a-z][a-z|0-9|]*\.([a-z][a-z|0-9]*(\.[a-z][a-z|0-9]*)?)$";
+                Match match = Regex.Match(name.Trim(), pattern, RegexOptions.IgnoreCase);
 
-            return Json(gg, JsonRequestBehavior.AllowGet);
+                if (!match.Success)
+                {
+                    List<Sj.Mg.CliLib.Model.CustomUser> data = Sj.Mg.Mongo.MongoManage.SearchUserByProviderId(name);
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }else
+                {
+                    List<Sj.Mg.CliLib.Model.CustomUser> gg = Sj.Mg.Mongo.MongoManage.SearchUser(name, idp);
+                    return Json(gg, JsonRequestBehavior.AllowGet);
+                }
+            }else
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
         }
 
         [Authorize]
@@ -1461,36 +1503,56 @@ namespace Sj.Mg.Client.Controllers
             var prof = (User as ClaimsPrincipal);
             var email = prof.FindFirst("Name") != null ? prof.FindFirst("Name").Value : "";
             var idp = prof.FindFirst("idp") != null ? prof.FindFirst("idp").Value : "";
+            if (idp == "idsrv")
+                idp = "MgIdp";
+            if (email != "")
+            {
+                string pattern = @"^[a-z][a-z|0-9|]*([_][a-z|0-9]+)*([.][a-z|0-9]+([_][a-z|0-9]+)*)?@[a-z][a-z|0-9|]*\.([a-z][a-z|0-9]*(\.[a-z][a-z|0-9]*)?)$";
+                Match match = Regex.Match(email.Trim(), pattern, RegexOptions.IgnoreCase);
+
+                if (!match.Success)
+                {
+                    List<Sj.Mg.CliLib.Model.CustomUser> data = Sj.Mg.Mongo.MongoManage.SearchUserByProviderId(email);
+                    if (data.Count > 0)
+                    {
+                        email = data[0].Email;
+                    }
+                }
+            }
             var dd = Sj.Mg.Mongo.MongoManage.SearchUserClients(email, idp); 
             var code = Request.QueryString["code"];
-            //string url = "https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=https%3A%2F%2Foidc.medgrotto.com%3A9001%2FHome%2FCallback&code=" + code;
+            string url = "https://api.fitbit.com/oauth2/token?clientId=228JJF&grant_type=authorization_code&redirect_uri=https%3A%2F%2Foidc.medgrotto.com%3A9001%2FHome%2FCallback&code=" + code;
             //AWS Url
-            string url = "https://api.fitbit.com/oauth2/token?clientId=228JJD&grant_type=authorization_code&redirect_uri=https%3A%2F%2Faws1.medgrotto.com%3A9001%2FHome%2FCallback&code=" + code;
+            //string url = "https://api.fitbit.com/oauth2/token?clientId=228JJD&grant_type=authorization_code&redirect_uri=https%3A%2F%2Faws1.medgrotto.com%3A9001%2FHome%2FCallback&code=" + code;
             WebRequest request = WebRequest.Create(url);
             request.Method = "POST";
-            //request.Headers["Authorization"] = "Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx";
+            request.Headers["Authorization"] = "Basic MjI4SkpGOjNjMjY4YTllYzFiYTMzNDJkNTEyNzIyMDkzMDc5NGYx";
             //AWS app
-            request.Headers["Authorization"] = "Basic MjI4SkpEOjc0ZjY2MTg3MTkyZmJlNWUwYmRmM2NlZDVhZDBkNTQ4";
+            //request.Headers["Authorization"] = "Basic MjI4SkpEOjc0ZjY2MTg3MTkyZmJlNWUwYmRmM2NlZDVhZDBkNTQ4";
             request.ContentType = "application/x-www-form-urlencoded";
             WebResponse response = request.GetResponse();
             Stream receive = response.GetResponseStream();
             StreamReader reader = new StreamReader(receive, System.Text.Encoding.UTF8);
             var tt = reader.ReadToEnd();
             Newtonsoft.Json.Linq.JObject token = Newtonsoft.Json.Linq.JObject.Parse(tt);
-            dd[0].UserClientsData.ForEach(t =>
+            if(dd.Count > 0)
             {
-                if ( t.Clients != null && t.Clients.Count > 0 && t.Clients[0] != null)
+                dd[0].UserClientsData.ForEach(t =>
                 {
-                    t.Clients.ForEach(t1 =>
+                    if (t.Clients != null && t.Clients.Count > 0 && t.Clients[0] != null)
                     {
-                        if (t1.clientName == "FITBIT")
+                        t.Clients.ForEach(t1 =>
                         {
-                            t1.AccessToken = token.ToString();
-                        }
-                    });
-                }
-            });
-            Sj.Mg.Mongo.MongoManage.UpdateUserClients(dd[0]);
+                            if (t1.clientName == "FITBIT")
+                            {
+                                t1.AccessToken = token.ToString();
+                            }
+                        });
+                    }
+                });
+                Sj.Mg.Mongo.MongoManage.UpdateUserClients(dd[0]);
+            }
+            
             return RedirectToAction("Secure");
         }
 

@@ -332,10 +332,12 @@ $(document).on("click", ".subLi", function () {
                                     }
                                     if (obj.clientName == "FITBIT") {
                                         updateDB(set.mydata, false, false, "", "FITBIT");
+                                        //localhost
+                                        //var rurl = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJF&redirect_uri=https%3A%2F%2Flocalhost%3A44383%2FHome%2FCallback&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
                                         //office machine
-                                        //var rurl = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJF&redirect_uri=https%3A%2F%2Foidc.medgrotto.com%3A9001%2FHome%2FCallback&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
+                                        var rurl = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJF&redirect_uri=https%3A%2F%2Foidc.medgrotto.com%3A9001%2FHome%2FCallback&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
                                         //AWS
-                                        var rurl = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJD&redirect_uri=https%3A%2F%2Faws1.medgrotto.com%3A9001%2FHome%2FCallback&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
+                                        //var rurl = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=228JJD&redirect_uri=https%3A%2F%2Faws1.medgrotto.com%3A9001%2FHome%2FCallback&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
                                         //$("#ifrm").attr("src", rurl);
                                         //window.open(rurl, "_blank");
                                         window.location = rurl;

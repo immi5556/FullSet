@@ -345,6 +345,7 @@ var permission = (function () {
         $(".patientData").show();
         $(".generalDetails").hide();
         $(".viewShareSection .fa-expand").show();
+        $(".noPreviewData").hide();
     }
     var populateFitBitPats = function (data, user) {
         if (user) {
@@ -591,6 +592,7 @@ var permission = (function () {
             $(".searchBar .sec-heading").click();
         $(".viewSectionList li").remove();
         $(".viewShareSectionList li").remove();
+        setNoView();
     }
     function noRecord(idNme, classNme) {
         var $li = $("<li class='noListTile' id='"+idNme+"'>");
@@ -809,6 +811,8 @@ var permission = (function () {
             $('.viewUserList li').on('click', function () {
                 $('.viewUserList li').removeClass('select');
                 $(this).addClass('select');
+                selectedUser = $(this).find(".gridHeadings h5").text();
+                selectedUserProv = $(this).find(".prov").text();
             });
         }
         setUIFunc();
@@ -847,6 +851,8 @@ var permission = (function () {
             $('.viewUserList li').on('click', function () {
                 $('.viewUserList li').removeClass('select');
                 $(this).addClass('select');
+                selectedUser = $(this).find(".gridHeadings h5").text();
+                selectedUserProv = $(this).find(".prov").text();
             });
 
             popUpEvents();
@@ -1085,6 +1091,7 @@ var permission = (function () {
             $(".subLi.active").each(function () { selectedclient = $(this).find("strong").text(); });
             viewBtn = $(this);
             $("body").addClass("loadingHome");
+            $(".patientData").hide();
             if (challengeQuestion) {
                 $(".popupShadow").hide();
                 $(".listGridUL li").removeClass("active");
@@ -1126,7 +1133,7 @@ var permission = (function () {
                         resource: resor,
                         email: selectedUser,
                         scope: scope,
-                        provider: provd
+                        provider: selectedUserProv
                     };
                 }
                 requestAPI("/home/ReqData", "POST", sdata, function (data, textStatus, jqXHR) {
